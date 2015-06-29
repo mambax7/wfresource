@@ -1,19 +1,20 @@
 <?php
-defined( 'XOOPS_ROOT_PATH' ) or die( 'You do not have permission to access this file!' );
+defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
 
 /**
  *
- * @version $Id: formimagever.php 8181 2011-11-07 01:14:53Z beckmi $
+ * @version   $Id: formimagever.php 8181 2011-11-07 01:14:53Z beckmi $
  * @copyright 2006
  */
-class XoopsFormImagever extends XoopsFormElement {
+class XoopsFormImagever extends XoopsFormElement
+{
     /**
      * initial background image
      *
      * @var string
      * @access private
      */
-    var $_background = 0;
+    public $_background = 0;
 
     /**
      * initial content
@@ -21,24 +22,24 @@ class XoopsFormImagever extends XoopsFormElement {
      * @var string
      * @access private
      */
-    var $_value;
+    public $_value;
 
     /**
      * Constuctor
      *
      * @param string $caption caption
-     * @param string $name name
-     * @param string $value initial content
-     * @param int $bgimage number of rows
+     * @param string $name    name
+     * @param string $value   initial content
+     * @param int    $bgimage number of rows
      */
-    function XoopsFormImagever( $caption, $name, $size, $maxlength, $value = "", $bgimage = "" )
+    public function XoopsFormImagever($caption, $name, $size, $maxlength, $value = "", $bgimage = "")
     {
-        $this -> setCaption( $caption );
-        $this -> setName( $name );
-        $this -> setValue( $value );
-        $this -> setBackGround( $bgimage );
-        $this -> _size = intval( $size );
-        $this -> _maxlength = intval( $maxlength );
+        $this->setCaption($caption);
+        $this->setName($name);
+        $this->setValue($value);
+        $this->setBackGround($bgimage);
+        $this->_size      = (int)($size);
+        $this->_maxlength = (int)($maxlength);
     }
 
     /**
@@ -46,9 +47,9 @@ class XoopsFormImagever extends XoopsFormElement {
      *
      * @return int
      */
-    function getSize()
+    public function getSize()
     {
-        return $this -> _size;
+        return $this->_size;
     }
 
     /**
@@ -56,9 +57,9 @@ class XoopsFormImagever extends XoopsFormElement {
      *
      * @return int
      */
-    function getMaxlength()
+    public function getMaxlength()
     {
-        return $this -> _maxlength;
+        return $this->_maxlength;
     }
 
     /**
@@ -66,9 +67,9 @@ class XoopsFormImagever extends XoopsFormElement {
      *
      * @return string
      */
-    function getValue()
+    public function getValue()
     {
-        return $this -> _value;
+        return $this->_value;
     }
 
     /**
@@ -76,9 +77,9 @@ class XoopsFormImagever extends XoopsFormElement {
      *
      * @param  $value string
      */
-    function setValue( $value )
+    public function setValue($value)
     {
-        $this -> _value = $value;
+        $this->_value = $value;
     }
 
     /**
@@ -86,9 +87,9 @@ class XoopsFormImagever extends XoopsFormElement {
      *
      * @return string
      */
-    function getBackGround()
+    public function getBackGround()
     {
-        return $this -> _background;
+        return $this->_background;
     }
 
     /**
@@ -96,69 +97,71 @@ class XoopsFormImagever extends XoopsFormElement {
      *
      * @param  $value string
      */
-    function setBackGround( $value )
+    public function setBackGround($value)
     {
-        $this -> _background = $value;
+        $this->_background = $value;
     }
 
-    function getRand()
+    public function getRand()
     {
         $alphanum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        switch ( 2 ) {
+        switch (2) {
             case 2:
-                $this -> _rand = substr( str_shuffle( $alphanum ), 0, 5 );
+                $this->_rand = substr(str_shuffle($alphanum), 0, 5);
                 break;
             case 3:
-                $this -> _rand = substr( str_shuffle( $alphanum ), 0, 5 );
+                $this->_rand = substr(str_shuffle($alphanum), 0, 5);
                 break;
             case 1:
             default:
-                $this -> _rand = rand( 10000, 99999 );
+                $this->_rand = rand(10000, 99999);
                 break;
         } // switch
-        return $this -> _rand;
+
+        return $this->_rand;
     }
 
-    function render()
+    public function render()
     {
         // return "<div><input type='text' name='" . $this -> getName() . "' id='" . $this -> getName() . "' size='" . $this -> getSize() . "' maxlength='" . $this -> getMaxlength() . "' value='" . $this -> getValue() . "'" . $this -> getExtra() . " />";
-        $ret = "<div><input type='text' name='" . $this -> getName() . "' id='" . $this -> getName() . "' size='" . $this -> getSize() . "' maxlength='" . $this -> getMaxlength() . "' value='" . $this -> getValue() . "'" . $this -> getExtra() . " />";
+        $ret = "<div><input type='text' name='" . $this->getName() . "' id='" . $this->getName() . "' size='" . $this->getSize() . "' maxlength='" . $this->getMaxlength() . "' value='" . $this->getValue() . "'" . $this->getExtra() . " />";
         $ret .= "<br />";
-        $ret .= "<div style='padding: 8px;'><img src='" . $this -> getImage() . ".jpg' /></div>";
-        $ret .= "<input type='hidden' name='image_random_value' id='image_random_value' value='" . $this -> getRand() . "' /></div>";
+        $ret .= "<div style='padding: 8px;'><img src='" . $this->getImage() . ".jpg' /></div>";
+        $ret .= "<input type='hidden' name='image_random_value' id='image_random_value' value='" . $this->getRand() . "' /></div>";
+
         return $ret;
     }
 
-    function getImage()
+    public function getImage()
     {
-        $this -> _image = ( !$this -> getBackGround() ) ? imagecreate( 60, 30 ) : imagecreatefromjpeg( "images/" . $this -> getBackGround() );
-        $this -> _image = imagecreate( 60, 30 );
+        $this->_image = (!$this->getBackGround()) ? imagecreate(60, 30) : imagecreatefromjpeg("images/" . $this->getBackGround());
+        $this->_image = imagecreate(60, 30);
         /*
-		* use white as the background image
-		*/
-        $bgColor = imagecolorallocate ( $this -> _image, 255, 255, 255 );
+        * use white as the background image
+        */
+        $bgColor = imagecolorallocate($this->_image, 255, 255, 255);
         /*
-		*  the text color is black
-		*/
-        $textColor = imagecolorallocate ( $this -> _image, 0, 0, 0 );
+        *  the text color is black
+        */
+        $textColor = imagecolorallocate($this->_image, 0, 0, 0);
         /*
-		*  write the random number
-		*/
-        imagestring ( $this -> _image, 5, 5, 8, $this -> getRand(), $textColor );
+        *  write the random number
+        */
+        imagestring($this->_image, 5, 5, 8, $this->getRand(), $textColor);
         // $thumb = ImageCreateTrueColor( 60, 30 );
         // imagecopyresized( $thumb, $this -> _image, 0, 0, 0, 0, 60, 30, 60, 30 );
         /*
-		*  send several headers to make sure the image is not cached
-		*  taken directly from the PHP Manual
-		*  Date in the past
-		*/
-        if ( !headers_sent() ) {
-            header( "Expires: Mon, 26 Jul 1997 05:00:00 GMT" );
-            header( "Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . " GMT" );
-            header( "Cache-Control: no-store, no-cache, must-revalidate" );
-            header( "Cache-Control: post-check=0, pre-check=0", false );
-            header( "Pragma: no-cache" );
-            header( 'Content-type: image/jpeg' );
+        *  send several headers to make sure the image is not cached
+        *  taken directly from the PHP Manual
+        *  Date in the past
+        */
+        if (!headers_sent()) {
+            header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+            header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+            header("Cache-Control: no-store, no-cache, must-revalidate");
+            header("Cache-Control: post-check=0, pre-check=0", false);
+            header("Pragma: no-cache");
+            header('Content-type: image/jpeg');
         }
         // imagejpeg( $this -> _image );
         // ob_start(); // start a new output buffer
@@ -167,8 +170,8 @@ class XoopsFormImagever extends XoopsFormElement {
         // $ImageData = ob_get_contents();
         // $ImageDataLength = ob_get_length();
         // ob_end_clean(); // stop this output buffer
-        imagejpeg( $this -> _image );
-        imagedestroy( $this -> _image );
+        imagejpeg($this->_image);
+        imagedestroy($this->_image);
         //unset( $rand );
 
         //$tmpfname = tempnam ( "/tmp", "FOO" );
@@ -180,5 +183,3 @@ class XoopsFormImagever extends XoopsFormElement {
         //return $tmpfname;
     }
 }
-
-?>

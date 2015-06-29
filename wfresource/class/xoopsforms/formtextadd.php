@@ -28,33 +28,34 @@
 // URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
 // Project: The XOOPS Project                                                //
 // ------------------------------------------------------------------------- //
-if ( !defined( 'XOOPS_ROOT_PATH' ) ) {
-    die( "XOOPS root path not defined" );
+if (!defined('XOOPS_ROOT_PATH')) {
+    die("XOOPS root path not defined");
 }
 /**
  *
- * @package kernel
+ * @package    kernel
  * @subpackage form
- * @author Kazumi Ono <onokazu@xoops.org>
- * @copyright copyright (c) 2000-2003 XOOPS.org
+ * @author     Kazumi Ono <onokazu@xoops.org>
+ * @copyright  copyright (c) 2000-2003 XOOPS.org
  */
 
 /**
  * A simple text field
  *
- * @package kernel
+ * @package    kernel
  * @subpackage form
- * @author Kazumi Ono <onokazu@xoops.org>
- * @copyright copyright (c) 2000-2003 XOOPS.org
+ * @author     Kazumi Ono <onokazu@xoops.org>
+ * @copyright  copyright (c) 2000-2003 XOOPS.org
  */
-class XoopsFormTextAdd extends XoopsFormElement {
+class XoopsFormTextAdd extends XoopsFormElement
+{
     /**
      * Size
      *
      * @var int
      * @access private
      */
-    var $_size;
+    public $_size;
 
     /**
      * Maximum length of the text
@@ -62,7 +63,7 @@ class XoopsFormTextAdd extends XoopsFormElement {
      * @var int
      * @access private
      */
-    var $_maxlength;
+    public $_maxlength;
 
     /**
      * Initial text
@@ -70,7 +71,7 @@ class XoopsFormTextAdd extends XoopsFormElement {
      * @var string
      * @access private
      */
-    var $_value;
+    public $_value;
 
     /**
      * Initial Number of boxes to display
@@ -78,24 +79,26 @@ class XoopsFormTextAdd extends XoopsFormElement {
      * @var intval
      * @access private
      */
-    var $_number;
+    public $_number;
 
     /**
      * Constructor
      *
-     * @param string $caption Caption
-     * @param string $name "name" attribute
-     * @param int $size Size
-     * @param int $maxlength Maximum length of text
-     * @param string $value Initial text
+     * @param string $caption   Caption
+     * @param string $name      "name" attribute
+     * @param int    $size      Size
+     * @param int    $maxlength Maximum length of text
+     * @param string $value     Initial text
+     * @param int    $number
      */
-    function XoopsFormTextAdd( $caption, $name, $size, $maxlength, $value = '', $number = 5 ) {
-        $this->setCaption( $caption );
-        $this->setName( $name );
-        $this->_size = intval( $size );
-        $this->_maxlength = intval( $maxlength );
-        $this->setValue( $value );
-        $this->setNumber( $number );
+    public function __construct($caption, $name, $size, $maxlength, $value = '', $number = 5)
+    {
+        $this->setCaption($caption);
+        $this->setName($name);
+        $this->_size      = (int)($size);
+        $this->_maxlength = (int)($maxlength);
+        $this->setValue($value);
+        $this->setNumber($number);
     }
 
     /**
@@ -103,7 +106,8 @@ class XoopsFormTextAdd extends XoopsFormElement {
      *
      * @return int
      */
-    function getSize() {
+    public function getSize()
+    {
         return $this->_size;
     }
 
@@ -112,18 +116,20 @@ class XoopsFormTextAdd extends XoopsFormElement {
      *
      * @return int
      */
-    function getMaxlength() {
+    public function getMaxlength()
+    {
         return $this->_maxlength;
     }
 
     /**
      * Get initial content
      *
-     * @param bool $encode To sanitizer the text? Default value should be "true"; however we have to set "false" for backward compat
+     * @param  bool $encode To sanitizer the text? Default value should be "true"; however we have to set "false" for backward compat
      * @return string
      */
-    function getValue( $encode = false ) {
-        return $encode ? htmlspecialchars( $this->_value, ENT_QUOTES ) : $this->_value;
+    public function getValue($encode = false)
+    {
+        return $encode ? htmlspecialchars($this->_value, ENT_QUOTES) : $this->_value;
     }
 
     /**
@@ -131,7 +137,8 @@ class XoopsFormTextAdd extends XoopsFormElement {
      *
      * @param  $value string
      */
-    function setValue( $value ) {
+    public function setValue($value)
+    {
         $this->_value = $value;
     }
 
@@ -140,7 +147,8 @@ class XoopsFormTextAdd extends XoopsFormElement {
      *
      * @param  $value string
      */
-    function setNumber( $value ) {
+    public function setNumber($value)
+    {
         $this->_number = $value;
     }
 
@@ -149,8 +157,7 @@ class XoopsFormTextAdd extends XoopsFormElement {
      *
      * @return string HTML
      */
-    function render() {
+    public function render()
+    {
     }
 }
-
-?>

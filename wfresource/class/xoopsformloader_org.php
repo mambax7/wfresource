@@ -1,7 +1,7 @@
 <?php
 // $Id: xoopsformloader_org.php 8181 2011-11-07 01:14:53Z beckmi $
-if ( !defined( 'XOOPS_ROOT_PATH' ) ) {
-	exit();
+if (!defined('XOOPS_ROOT_PATH')) {
+    exit();
 }
 // include_once XOOPS_ROOT_PATH . "/class/xoopsform/formelement.php";
 include_once XOOPS_ROOT_PATH . '/class/xoopsform/form.php';
@@ -33,5 +33,3 @@ include_once XOOPS_ROOT_PATH . '/class/xoopsform/formdatetime.php';
 include_once XOOPS_ROOT_PATH . '/class/xoopsform/formhiddentoken.php';
 // include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 include_once XOOPS_ROOT_PATH . '/class/xoopsform/formcolorpicker.php';
-
-?>

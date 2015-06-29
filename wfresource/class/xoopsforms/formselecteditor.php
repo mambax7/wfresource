@@ -31,41 +31,40 @@
 /**
  * base class
  */
-//include_once dirname(__FILE__)."/formelementtray.php";
-include_once XOOPS_ROOT_PATH.'/class/xoopseditor/xoopseditor.php';
+//include_once __DIR__."/formelementtray.php";
+include_once XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php';
 
 /**
  * A select box with available editors
  *
- * @package     kernel
- * @subpackage  form
+ * @package       kernel
+ * @subpackage    form
  *
- * @author	    phppp (D.J.)
- * @copyright	copyright (c) 2000-2003 XOOPS.org
+ * @author        phppp (D.J.)
+ * @copyright     copyright (c) 2000-2003 XOOPS.org
  */
 class XoopsFormSelectEditor extends XoopsFormElementTray
 {
-	/**
-	 * Constructor
-	 *
-	 * @param	object	$form	the form calling the editor selection
-	 * @param	string	$name	editor name
-	 * @param	string	$value	Pre-selected text value
-     * @param	bool	$noHtml  dohtml disabled
-	 */
-	function XoopsFormSelectEditor(&$form, $name="editor", $value=null, $noHtml=false)
-	{
-		$this->XoopsFormElementTray(_SELECT);
+    /**
+     * Constructor
+     *
+     * @param object $form   the form calling the editor selection
+     * @param string $name   editor name
+     * @param string $value  Pre-selected text value
+     * @param bool   $noHtml dohtml disabled
+     */
+    public function __construct(&$form, $name = "editor", $value = null, $noHtml = false)
+    {
+        $this->XoopsFormElementTray(_SELECT);
 
-		$editor_handler =& new XoopsEditorHandler();
-		$option_select = new XoopsFormSelect("", $name, $value);
-		$extra = 'onchange="if(this.options[this.selectedIndex].value.length > 0 ){
-			window.document.forms.'.$form->getName().'.submit();
-			}"';
-		$option_select->setExtra($extra);
-		$option_select->addOptionArray($editor_handler->getList($noHtml));
+        $editor_handler = new XoopsEditorHandler();
+        $option_select  = new XoopsFormSelect("", $name, $value);
+        $extra          = 'onchange="if (this.options[this.selectedIndex].value.length > 0) {
+            window.document.forms.' . $form->getName() . '.submit();
+            }"';
+        $option_select->setExtra($extra);
+        $option_select->addOptionArray($editor_handler->getList($noHtml));
 
-		$this->addElement($option_select);
-	}
+        $this->addElement($option_select);
+    }
 }
-?>

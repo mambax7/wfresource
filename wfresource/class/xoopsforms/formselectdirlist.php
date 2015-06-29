@@ -14,10 +14,10 @@
 
 /**
  *
- * @package kernel
+ * @package    kernel
  * @subpackage form
- * @author Kazumi Ono
- * @copyright copyright (c) 2007 Xoops Project - http.www.xoops.com
+ * @author     Kazumi Ono
+ * @copyright  copyright (c) 2007 Xoops Project - http.www.xoops.com
  */
 
 /**
@@ -28,49 +28,51 @@ include_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 /**
  * A select field with a choice of available users
  *
- * @package kernel
+ * @package    kernel
  * @subpackage form
- * @author Kazumi Ono
- * @copyright copyright (c) 2007 Xoops Project - http.www.xoops.com
+ * @author     Kazumi Ono
+ * @copyright  copyright (c) 2007 Xoops Project - http.www.xoops.com
  */
-class XoopsFormSelectDirList extends XoopsFormSelect {
+class XoopsFormSelectDirList extends XoopsFormSelect
+{
     /**
      * Constructor
      *
      * @param string $caption
      * @param string $name
-     * @param bool $include_anon Include user "anonymous"?
-     * @param mixed $value Pre-selected value (or array of them).
-     * @param int $size Number or rows. "1" makes a drop-down-list.
-     * @param bool $multiple Allow multiple selections?
+     * @param bool   $include_anon Include user "anonymous"?
+     * @param mixed  $value        Pre-selected value (or array of them).
+     * @param int    $size         Number or rows. "1" makes a drop-down-list.
+     * @param bool   $multiple     Allow multiple selections?
      */
-    function XoopsFormSelectDirList( $caption, $name, $value = null, $size = 1, $multiple = false, $dirname = null, $prefix = '', $type = array() ) {
-        $this->XoopsFormSelect( $caption, $name, $value, $size, $multiple );
-        $filelist = $this->getFileListAsArray( $dirname, $prefix, $type );
-        $this->addOption( '-1', '---------------------' );
-		$this->addOptionArray( $filelist );
+    public function __construct($caption, $name, $value = null, $size = 1, $multiple = false, $dirname = null, $prefix = '', $type = array())
+    {
+        parent::__construct($caption, $name, $value, $size, $multiple);
+        $filelist = $this->getFileListAsArray($dirname, $prefix, $type);
+        $this->addOption('-1', '---------------------');
+        $this->addOptionArray($filelist);
     }
 
-    function getFileListAsArray( $dirname, $prefix = "", $type = array() ) {
+    public function getFileListAsArray($dirname, $prefix = "", $type = array())
+    {
         $string = "";
-        foreach( $type as $types ) {
+        foreach ($type as $types) {
             $string = "\.$types|";
         }
 
         $filelist = array();
-        if ( $handle = opendir( $dirname ) ) {
-            while ( false !== ( $file = readdir( $handle ) ) ) {
-                if ( !preg_match( "/^[\.]{1,2}$/", $file ) && preg_match( "/($string)$/i", $file ) ) {
-                    $file = $prefix . $file;
+        if ($handle = opendir($dirname)) {
+            while (false !== ($file = readdir($handle))) {
+                if (!preg_match("/^[\.]{1,2}$/", $file) && preg_match("/($string)$/i", $file)) {
+                    $file            = $prefix . $file;
                     $filelist[$file] = $file;
                 }
             }
-            closedir( $handle );
-            asort( $filelist );
-            reset( $filelist );
+            closedir($handle);
+            asort($filelist);
+            reset($filelist);
         }
+
         return $filelist;
     }
 }
-
-?>

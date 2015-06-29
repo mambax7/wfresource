@@ -13,10 +13,10 @@
 // -------------------------------------------------------------------------//
 /**
  *
- * @package kernel
+ * @package    kernel
  * @subpackage form
- * @author Kazumi Ono
- * @copyright copyright (c) 2007 Xoops Project - http.www.xoops.com
+ * @author     Kazumi Ono
+ * @copyright  copyright (c) 2007 Xoops Project - http.www.xoops.com
  */
 
 /**
@@ -27,30 +27,30 @@ include_once XOOPS_ROOT_PATH . "/class/xoopsform/formselect.php";
 /**
  * A select field with countries
  *
- * @package kernel
+ * @package    kernel
  * @subpackage form
- * @author Kazumi Ono
- * @copyright copyright (c) 2007 Xoops Project - http.www.xoops.com
+ * @author     Kazumi Ono
+ * @copyright  copyright (c) 2007 Xoops Project - http.www.xoops.com
  */
-class XoopsFormSelectType extends XoopsFormSelect {
+class XoopsFormSelectType extends XoopsFormSelect
+{
     /**
      * Constructor
      *
      * @param string $caption Caption
-     * @param string $name "name" attribute
-     * @param mixed $value Pre-selected value (or array of them).
-     *                                Legal are all 2-letter country codes (in capitals).
-     * @param int $size Number or rows. "1" makes a drop-down-list
+     * @param string $name    "name" attribute
+     * @param mixed  $value   Pre-selected value (or array of them).
+     *                        Legal are all 2-letter country codes (in capitals).
+     * @param int    $size    Number or rows. "1" makes a drop-down-list
      * @param string $handler Handler to use to get the list
-     * @param string $module Dirname of module - defaults to current module
+     * @param string $module  Dirname of module - defaults to current module
      */
-    function XoopsFormSelectType( $caption, $name, $value = 'news', $size = 1 ) {
-        $_menus = array( 'news' => 'News', 'review' => 'Review', 'article' => 'Article', 'preview' => 'Preview', 'blog' => 'Blog', 'static' => 'Static', 'faq' => 'FAQ', 'link' => 'Links', 'other' => 'Other' );
+    public function __construct($caption, $name, $value = 'news', $size = 1)
+    {
+        $_menus = array('news' => 'News', 'review' => 'Review', 'article' => 'Article', 'preview' => 'Preview', 'blog' => 'Blog', 'static' => 'Static', 'faq' => 'FAQ', 'link' => 'Links', 'other' => 'Other');
         // $_menus = array( 'news' => 'News', 'article' => 'Article', 'blog' => 'Blog', 'faq' => 'FAQ', 'other' => 'Other');
         $multiple = 0;
-        $this->XoopsFormSelect( $caption, $name, $value, $size, $multiple );
-        $this->addOptionArray( $_menus );
+        parent::__construct($caption, $name, $value, $size, $multiple);
+        $this->addOptionArray($_menus);
     }
 }
-
-?>

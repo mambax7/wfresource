@@ -31,33 +31,35 @@
 /**
  * A tree structures with {@link XoopsObject}s as nodes
  *
- * @package kernel
- * @subpackage core
- * @author Kazumi Ono <onokazu@xoops.org>
+ * @package       kernel
+ * @subpackage    core
+ * @author        Kazumi Ono <onokazu@xoops.org>
  * @copyright (c) 2000-2003 The Xoops Project - www.xoops.org
  */
 include_once XOOPS_ROOT_PATH . '/class/tree.php';
-class wfpObjectTree extends XoopsObjectTree {
+
+class wfpObjectTree extends XoopsObjectTree
+{
     /**
      * Make a select box with options from the tree
      *
-     * @param string $name Name of the select box
-     * @param string $fieldName Name of the member variable from the
-     *     node objects that should be used as the title for the options.
-     * @param string $prefix String to indent deeper levels
-     * @param string $selected Value to display as selected
-     * @param bool $addEmptyOption Set TRUE to add an empty option with value "0" at the top of the hierarchy
-     * @param integer $key ID of the object to display as the root of select options
-     * @return string HTML select box
+     * @param  string  $name           Name of the select box
+     * @param  string  $fieldName      Name of the member variable from the
+     *                                 node objects that should be used as the title for the options.
+     * @param  string  $prefix         String to indent deeper levels
+     * @param  string  $selected       Value to display as selected
+     * @param  bool    $addEmptyOption Set TRUE to add an empty option with value "0" at the top of the hierarchy
+     * @param  integer $key            ID of the object to display as the root of select options
+     * @return string  HTML select box
      */
-    function makeSelBox( $name, $fieldName, $prefix = '-', $selected = '', $addEmptyOption = false, $key = 0, $extra = '' ) {
+    public function makeSelBox($name, $fieldName, $prefix = '-', $selected = '', $addEmptyOption = false, $key = 0, $extra = '')
+    {
         $ret = '<select name="' . $name . '" id="' . $name . '" ' . $extra . '>';
-        if ( false != $addEmptyOption ) {
+        if (false != $addEmptyOption) {
             $ret .= '<option value="0"></option>';
         }
-        $this->_makeSelBoxOptions( $fieldName, $selected, $key, $ret, $prefix );
+        $this->_makeSelBoxOptions($fieldName, $selected, $key, $ret, $prefix);
+
         return $ret . '</select>';
     }
 }
-
-?>

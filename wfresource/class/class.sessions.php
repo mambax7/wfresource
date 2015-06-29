@@ -11,62 +11,71 @@
 // URL: http:www.xoops.com 												//
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-defined( 'XOOPS_ROOT_PATH' ) or die( 'You do not have permission to access this file!' );
+defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
 
-class wfp_Sessions {
-	var $s_name;
-	var $s_vars = array();
-	/**
-	 * wpf_Help::wpf_Help()
-	 *
-	 * @param string $aboutTitle
-	 */
-	function wfp_Sessions() {
-	}
+class wfp_Sessions
+{
+    public $s_name;
+    public $s_vars = array();
 
-	function &getInstance() {
-		static $instance;
-		if ( !isset( $instance ) ) {
-			$instance = new wfp_Sessions();
-		}
-		return $instance;
-	}
+    /**
+     * wpf_Help::wpf_Help()
+     *
+     * @param string $aboutTitle
+     */
+    public function wfp_Sessions()
+    {
+    }
 
-	function setSessionName( $value = 'wfs_default' ) {
-		$this->s_name = htmlspecialchars( $value );
-	}
+    public function &getInstance()
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new wfp_Sessions();
+        }
 
-	function setSessionVars( $value = array() ) {
-		foreach( $value as $k => $v ) {
-			$this->s_vars[$k] = $v;
-		}
-		if ( !isset( $_SESSION['wfsection'][$this->s_name] ) ) {
-			foreach( $this->s_vars as $k => $v ) {
-				$_SESSION['wfsection'][$this->s_name][$k] = $v;
-			}
-		}
-	}
+        return $instance;
+    }
 
-	function delSessions( $value = null ) {
-		if ( is_null( $value ) ) {
-			unset( $_SESSION['wfsection'] );
-		} else {
-			unset( $_SESSION['wfsection'][$value] );
-		}
-	}
+    public function setSessionName($value = 'wfs_default')
+    {
+        $this->s_name = htmlspecialchars($value);
+    }
 
-	function getSession() {
-		return $_SESSION['wfsection'][$name][$this->varible];
-	}
+    public function setSessionVars($value = array())
+    {
+        foreach ($value as $k => $v) {
+            $this->s_vars[$k] = $v;
+        }
+        if (!isset($_SESSION['wfsection'][$this->s_name])) {
+            foreach ($this->s_vars as $k => $v) {
+                $_SESSION['wfsection'][$this->s_name][$k] = $v;
+            }
+        }
+    }
 
-	function doSession() {
-		foreach( array_keys( $this->s_vars ) as $k ) {
-			$type = ( is_numeric( @$_REQUEST[$k] ) ) ? 'int': 'textbox';
-			$ret[$k] = wfp_Request::doRequest( $_REQUEST, $k, $_SESSION['wfsection'][$this->s_name][$k], $type );
-			$_SESSION['wfsection'][$this->s_name][$k] = htmlspecialchars( $ret[$k], ENT_QUOTES );
-		}
-		return $ret;
-	}
+    public function delSessions($value = null)
+    {
+        if (is_null($value)) {
+            unset($_SESSION['wfsection']);
+        } else {
+            unset($_SESSION['wfsection'][$value]);
+        }
+    }
+
+    public function getSession()
+    {
+        return $_SESSION['wfsection'][$name][$this->varible];
+    }
+
+    public function doSession()
+    {
+        foreach (array_keys($this->s_vars) as $k) {
+            $type                                     = (is_numeric(@$_REQUEST[$k])) ? 'int' : 'textbox';
+            $ret[$k]                                  = wfp_Request::doRequest($_REQUEST, $k, $_SESSION['wfsection'][$this->s_name][$k], $type);
+            $_SESSION['wfsection'][$this->s_name][$k] = htmlspecialchars($ret[$k], ENT_QUOTES);
+        }
+
+        return $ret;
+    }
 }
-
-?>

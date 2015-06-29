@@ -11,45 +11,44 @@
 // URL: http:www.xoops.com 												//
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-defined( 'XOOPS_ROOT_PATH' ) or die( 'You do not have permission to access this file!' );
+defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
 /**
  *
- * @package kernel
+ * @package    kernel
  * @subpackage form
- * @author Kazumi Ono
- * @copyright copyright (c) 2007 Xoops Project - http.www.xoops.com
+ * @author     Kazumi Ono
+ * @copyright  copyright (c) 2007 Xoops Project - http.www.xoops.com
  */
 
 /**
  * A text field with calendar popup
  *
- * @package kernel
+ * @package    kernel
  * @subpackage form
- * @author Kazumi Ono
- * @copyright copyright (c) 2007 Xoops Project - http.www.xoops.com
+ * @author     Kazumi Ono
+ * @copyright  copyright (c) 2007 Xoops Project - http.www.xoops.com
  */
-
-class XoopsFormTextDateSelect extends XoopsFormCalendar {
-	/**
-	 * XoopsFormTextDateSelect::XoopsFormTextDateSelect()
-	 *
-	 * @param mixed $caption
-	 * @param mixed $name
-	 * @param integer $size
-	 * @param string $value
-	 * @param mixed $showtime
-	 */
-	function XoopsFormTextDateSelect( $caption, $name, $size = 30, $value = '', $showtime = true ) {
-		$calendar_options['showsTime'] = $showtime;
-		$field_attributes['size'] = $size;
-		$value = ( $value == 0 ) ? ( $showtime == true ) ? time() : '' : $value;
-		if ( $value != '' || $value > 0 ) {
-			$field_attributes['value'] = ( is_numeric( $value ) ) ? strftime( '%m/%d/%Y %H:%M', $value ) : $value;
-		} else {
-			$field_attributes['value'] = '';
-		}
-		$this->XoopsFormCalendar( $caption, $name, $value, $calendar_options, $field_attributes );
-	}
+class XoopsFormTextDateSelect extends XoopsFormCalendar
+{
+    /**
+     * XoopsFormTextDateSelect::XoopsFormTextDateSelect()
+     *
+     * @param mixed   $caption
+     * @param mixed   $name
+     * @param integer $size
+     * @param string  $value
+     * @param mixed   $showtime
+     */
+    public function XoopsFormTextDateSelect($caption, $name, $size = 30, $value = '', $showtime = true)
+    {
+        $calendar_options['showsTime'] = $showtime;
+        $field_attributes['size']      = $size;
+        $value                         = ($value == 0) ? ($showtime == true) ? time() : '' : $value;
+        if ($value != '' || $value > 0) {
+            $field_attributes['value'] = (is_numeric($value)) ? strftime('%m/%d/%Y %H:%M', $value) : $value;
+        } else {
+            $field_attributes['value'] = '';
+        }
+        $this->XoopsFormCalendar($caption, $name, $value, $calendar_options, $field_attributes);
+    }
 }
-
-?>

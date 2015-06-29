@@ -28,7 +28,7 @@
 // URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
 // Project: The XOOPS Project                                                //
 // ------------------------------------------------------------------------- //
-defined( 'XOOPS_ROOT_PATH' ) or die( 'You do not have permission to access this file!' );
+defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
 
 /**
  * XOOPS group permission handler class.
@@ -37,43 +37,46 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'You do not have permission to access this 
  * of XOOPS group permission class objects.
  * This class is an abstract class to be implemented by child group permission classes.
  *
- * @see XoopsGroupPerm
- * @author Kazumi Ono <onokazu@xoops.org>
+ * @see       XoopsGroupPerm
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000-2003 XOOPS.org
  */
-class wfp_GroupPermHandler extends XoopsGroupPermHandler {
+class wfp_GroupPermHandler extends XoopsGroupPermHandler
+{
     /**
      * Store a {@link XoopsGroupPerm}
      *
      * @param object $ &$perm  {@link XoopsGroupPerm} object
      * @return bool TRUE on success
      */
-    function insert( &$perm ) {
-        if ( strtolower( get_class( $perm ) ) != 'xoopsgroupperm' ) {
+    public function insert(&$perm)
+    {
+        if (strtolower(get_class($perm)) != 'xoopsgroupperm') {
             return false;
         }
-        if ( !$perm->isDirty() ) {
+        if (!$perm->isDirty()) {
             return true;
         }
-        if ( !$perm->cleanVars() ) {
+        if (!$perm->cleanVars()) {
             return false;
         }
-        foreach ( $perm->cleanVars as $k => $v ) {
+        foreach ($perm->cleanVars as $k => $v) {
             ${$k} = $v;
         }
-        if ( $perm->isNew() ) {
-            $gperm_id = $this->db->genId( 'group_permission_gperm_id_seq' );
-            $sql = sprintf( "INSERT INTO %s (gperm_id, gperm_groupid, gperm_itemid, gperm_modid, gperm_name) VALUES (%u, %u, %u, %u, %s)", $this->db->prefix( 'group_permission' ), $gperm_id, $gperm_groupid, $gperm_itemid, $gperm_modid, $this->db->quoteString( $gperm_name ) );
+        if ($perm->isNew()) {
+            $gperm_id = $this->db->genId('group_permission_gperm_id_seq');
+            $sql      = sprintf("INSERT INTO %s (gperm_id, gperm_groupid, gperm_itemid, gperm_modid, gperm_name) VALUES (%u, %u, %u, %u, %s)", $this->db->prefix('group_permission'), $gperm_id, $gperm_groupid, $gperm_itemid, $gperm_modid, $this->db->quoteString($gperm_name));
         } else {
-            $sql = sprintf( "UPDATE %s SET gperm_groupid = %u, gperm_itemid = %u, gperm_modid = %u WHERE gperm_id = %u", $this->db->prefix( 'group_permission' ), $gperm_groupid, $gperm_itemid, $gperm_modid, $gperm_id );
+            $sql = sprintf("UPDATE %s SET gperm_groupid = %u, gperm_itemid = %u, gperm_modid = %u WHERE gperm_id = %u", $this->db->prefix('group_permission'), $gperm_groupid, $gperm_itemid, $gperm_modid, $gperm_id);
         }
-        if ( !$result = $this->db->queryF( $sql ) ) {
+        if (!$result = $this->db->queryF($sql)) {
             return false;
         }
-        if ( empty( $gperm_id ) ) {
+        if (empty($gperm_id)) {
             $gperm_id = $this->db->getInsertId();
         }
-        $perm->assignVar( 'gperm_id', $gperm_id );
+        $perm->assignVar('gperm_id', $gperm_id);
+
         return true;
     }
 
@@ -83,33 +86,35 @@ class wfp_GroupPermHandler extends XoopsGroupPermHandler {
      * @param object $ &$perm
      * @return bool TRUE on success
      */
-    function delete( &$perm ) {
-        if ( strtolower( get_class( $perm ) ) != 'xoopsgroupperm' ) {
+    public function delete(&$perm)
+    {
+        if (strtolower(get_class($perm)) != 'xoopsgroupperm') {
             return false;
         }
-        $sql = sprintf( "DELETE FROM %s WHERE gperm_id = %u", $this->db->prefix( 'group_permission' ), $perm->getVar( 'gperm_id' ) );
-        if ( !$result = $this->db->queryF( $sql ) ) {
+        $sql = sprintf("DELETE FROM %s WHERE gperm_id = %u", $this->db->prefix('group_permission'), $perm->getVar('gperm_id'));
+        if (!$result = $this->db->queryF($sql)) {
             return false;
         }
+
         return true;
     }
 
     /**
      * Delete all permissions by a certain criteria
      *
-     * @param object $criteria {@link CriteriaElement}
-     * @return bool TRUE on success
+     * @param  object $criteria {@link CriteriaElement}
+     * @return bool   TRUE on success
      */
-    function deleteAll( $criteria = null ) {
-        $sql = sprintf( "DELETE FROM %s", $this->db->prefix( 'group_permission' ) );
-        if ( isset( $criteria ) && is_subclass_of( $criteria, 'criteriaelement' ) ) {
+    public function deleteAll($criteria = null)
+    {
+        $sql = sprintf("DELETE FROM %s", $this->db->prefix('group_permission'));
+        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
             $sql .= ' ' . $criteria->renderWhere();
         }
-        if ( !$result = $this->db->queryF( $sql ) ) {
+        if (!$result = $this->db->queryF($sql)) {
             return false;
         }
+
         return true;
     }
 }
-
-?>

@@ -9,18 +9,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license http://www.fsf.org/copyleft/gpl.html GNU public license
- * @package kernel
+ * @copyright  The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @package    kernel
  * @subpackage form
- * @since 2.0.0
- * @author Kazumi Ono <onokazu@xoops.org>
- * @author Taiwen Jiang <phppp@users.sourceforge.net>
- * @version $Id: formcaptcha.php 8181 2011-11-07 01:14:53Z beckmi $
+ * @since      2.0.0
+ * @author     Kazumi Ono <onokazu@xoops.org>
+ * @author     Taiwen Jiang <phppp@users.sourceforge.net>
+ * @version    $Id: formcaptcha.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 
-if ( !defined( 'XOOPS_ROOT_PATH' ) ) {
-	die( "XOOPS root path not defined" );
+if (!defined('XOOPS_ROOT_PATH')) {
+    die("XOOPS root path not defined");
 }
 
 /**
@@ -39,41 +39,48 @@ if ( !defined( 'XOOPS_ROOT_PATH' ) ) {
  *       }
  * </code>
  */
+class XoopsFormCaptcha extends XoopsFormElement
+{
+    public $captchaHandler;
 
-class XoopsFormCaptcha extends XoopsFormElement {
-	var $captchaHandler;
+    /**
+     *
+     * @param string  $caption    Caption of the form element, default value is defined in captcha/language/
+     * @param string  $name       Name for the input box
+     * @param boolean $skipmember Skip CAPTCHA check for members
+     * @param array   $configs
+     */
+    public function __construct($caption = '', $name = 'xoopscaptcha', $skipmember = true, $configs = array())
+    {
+        xoops_load("captcha");
 
-	/**
-	 *
-	 * @param string $caption Caption of the form element, default value is defined in captcha/language/
-	 * @param string $name Name for the input box
-	 * @param boolean $skipmember Skip CAPTCHA check for members
-	 */
-	function XoopsFormCaptcha( $caption = '', $name = 'xoopscaptcha', $skipmember = true, $configs = array() ) {
-		xoops_load( "captcha" );
+        $this->captchaHandler  = &XoopsCaptcha::getInstance();
+        $configs['name']       = $name;
+        $configs['skipmember'] = $skipmember;
+        $this->captchaHandler->setConfigs($configs);
+        if (!$this->captchaHandler->isActive()) {
+            $this->setHidden();
+        } else {
+            $caption = !empty($caption) ? $caption : $this->captchaHandler->getCaption();
+            $this->setCaption($caption);
+            $this->setName($name);
+        }
+    }
 
-		$this->captchaHandler = &XoopsCaptcha::getInstance();
-		$configs['name'] = $name;
-		$configs['skipmember'] = $skipmember;
-		$this->captchaHandler->setConfigs( $configs );
-		if ( !$this->captchaHandler->isActive() ) {
-			$this->setHidden();
-		} else {
-			$caption = !empty( $caption ) ? $caption : $this->captchaHandler->getCaption();
-			$this->setCaption( $caption );
-			$this->setName( $name );
-		}
-	}
+    /**
+     * @param $name
+     * @param $val
+     * @return mixed
+     */
+    public function setConfig($name, $val)
+    {
+        return $this->captchaHandler->setConfig($name, $val);
+    }
 
-	function setConfig( $name, $val ) {
-		return $this->captchaHandler->setConfig( $name, $val );
-	}
-
-	function render() {
-		// if (!$this->isHidden()) {
-		return $this->captchaHandler->render();
-		// }
-	}
+    public function render()
+    {
+        // if (!$this->isHidden()) {
+        return $this->captchaHandler->render();
+        // }
+    }
 }
-
-?>

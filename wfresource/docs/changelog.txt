@@ -1,3 +1,10 @@
+  =>version 1.06 NOT RELEASED
+	- updates for XOOPS2.5.7.1 (mamba)
+
+  =>version 1.05
+    - Fixed: Some bugs and typos.
+    - Changed: Changed many of the Xoosla Form class in favor of the newer XoopsForm classes.
+
   =>version 1.04
   	- Fixed language issues within this module.
   	- Fixed: Fixed issues with 'editor class'. Should now know that if the class does exist or not properly.

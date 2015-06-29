@@ -31,47 +31,46 @@
 /**
  *
  *
- * @package     kernel
- * @subpackage  form
+ * @package       kernel
+ * @subpackage    form
  *
- * @author	    Kazumi Ono	<onokazu@xoops.org>
- * @copyright	copyright (c) 2000-2003 XOOPS.org
+ * @author        Kazumi Ono    <onokazu@xoops.org>
+ * @copyright     copyright (c) 2000-2003 XOOPS.org
  */
 
 /**
  * XoopsEditor hanlder
  *
- * @author	D.J.
- * @copyright	copyright (c) 2000-2005 XOOPS.org
+ * @author       D.J.
+ * @copyright    copyright (c) 2000-2005 XOOPS.org
  *
- * @package     kernel
- * @subpackage  form
+ * @package      kernel
+ * @subpackage   form
  */
 class XoopsFormEditor extends XoopsFormTextArea
 {
-	var $editor;
+    public $editor;
 
-	/**
-	 * Constructor
-	 *
-     * @param	string  $caption    Caption
-     * @param	string  $name       "name" attribute
-     * @param	string  $value      Initial text
-     * @param	array 	$configs     configures
-     * @param	bool  	$noHtml       use non-WYSIWYG eitor onfailure
-     * @param	string  $OnFailure editor to be used if current one failed
-	 */
-	function XoopsFormEditor($caption, $name, $editor_configs = null, $noHtml=false, $OnFailure = '')
-	{
-		require_once XOOPS_ROOT_PATH.'/class/xoopseditor/xoopseditor.php';
-		$this->XoopsFormTextArea($caption, $editor_configs['name']);
-		$editor_handler =& new XoopsEditorHandler();
-		$this->editor =& $editor_handler->get($name, $editor_configs, $noHtml, $OnFailure);
-	}
+    /**
+     * Constructor
+     *
+     * @param string $caption   Caption
+     * @param string $name      "name" attribute
+     * @param string $value     Initial text
+     * @param array  $configs   configures
+     * @param bool   $noHtml    use non-WYSIWYG eitor onfailure
+     * @param string $OnFailure editor to be used if current one failed
+     */
+    public function __construct($caption, $name, $editor_configs = null, $noHtml = false, $OnFailure = '')
+    {
+        require_once XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php';
+        $this->XoopsFormTextArea($caption, $editor_configs['name']);
+        $editor_handler = new XoopsEditorHandler();
+        $this->editor   =& $editor_handler->get($name, $editor_configs, $noHtml, $OnFailure);
+    }
 
-	function render()
-	{
-		return $this->editor->render();
-	}
+    public function render()
+    {
+        return $this->editor->render();
+    }
 }
-?>
