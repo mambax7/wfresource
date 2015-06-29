@@ -1,0 +1,44 @@
+  =>version 1.04
+  	- Fixed language issues within this module.
+  	- Fixed: Fixed issues with 'editor class'. Should now know that if the class does exist or not properly.
+  	- Changed: The method that the Xoopsform classes are included. WF-Resource will include these functions to overcome
+  		conflicts with newer classes that the WF-Modules require without having to touch the core files.  
+ 		- Added: New Class: Tab class. Class to add tabs to any page etc if required
+ 		- Added: New Class: Mimetype class. added a generic mimetype class. This class will be used for future modules.
+ 		- Added: New Class: Sessions class. Adds custom sessions to be used with future modules.
+ 		- Added: New Class: Votes class. This class is to add a voting system to modules. 
+ 		- Added: New Class: Tree class. This class extends the xoops tree class (tree.php) to all for an 'onchange' functionality in the pulldown menu. 
+ 		- Added: Added the following Xoopsform classes to the package:
+ 				formselectcategory
+ 				formselectdirlist
+ 				formselecteditor
+ 				formselectimage
+ 				formselectrdirlist
+ 				formselectsection
+ 		- Added: A modified version of 'xoopsformelement' class. 
+ 		- Added: Added XoopsThemeTabForm Class. This modified XoopsThemeForm will allow for tabbed forms. To be used in future WF-Project Modules.
+ 		 		 
+  =>version 1.03
+  - Added: Added full support Xoopseditor framework. The actual package has missing files and I have added them to the 
+  	wfresource library.  
+	- Added: Version number to library. To help with version support in future versions.
+	- Added: Added a check to see if the XoopsEditor by Dj actually exists on the server, if it fails it will use the XoopsFormDhtmlTextArea
+		editor by default.
+	- Fixed some other minor bugs.
+	
+	=> version 1.02
+	- Changed: Corrected a small typo in the about us. Wrong language define was used for the demo url.
+	- Changed: Changed the about us to reflect items in the 'about us' class to show urls and email addresses as links
+		and not plain text.
+	- Added: New Help Class. This new class allows an easy method of quickly adding txt/html as a help area within a 
+		WF-Project Module.	
+	
+	=> version 1.01
+	===============
+	- Removed: Removed obsolete Changelog. Was showing WF-Channel rather than WF-Resource
+	- Removed: Removed psd image in images folder
+	- Added: Added calender from Xoops v2.18. This should allow better compatability with Xoops 2.18 and Xoops 2.25 now.
+	 
+	=> version 1.00
+	===============
+	-- No changes
