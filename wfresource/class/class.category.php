@@ -205,7 +205,7 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
           <input type="button" name="button" onclick=\'location="admin.category.php?op=permissions"\' value="' . _MD_WFP_PERMISSIONS . '">
          </div></form>';
         $ret .= '<div>
-            <span style="float: right">' . _MD_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection(wfp_ListArray(), $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
+            <span style="float: right">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection(wfp_ListArray(), $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
             </div>';
         $ret .= '</div><br clear="all" />';
         echo $ret;

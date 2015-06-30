@@ -90,18 +90,18 @@ define('_AM_WFP_DBITEMSDELETED', 'Selected item deleted and database updated');
 /**
  * WF-Resource Legend Defines
  */
-define('_WFP_VIEW', 'View Item');
-define('_WFP_EDIT', 'Edit Item');
-define('_WFP_DUPLICATE', 'Duplicate Item');
-define('_WFP_APPROVE', 'Approve Item');
-define('_WFP_DELETE', 'Delete Item');
-define('_WFP_INFO', 'Item Information');
-define('_WFP_VIEW_LEG', 'View selected item in user mode');
-define('_WFP_EDIT_LEG', 'Edit Item: Selecting this will allow you to edit the selected item.');
-define('_WFP_DELETE_LEG', 'Delete Item: Remove the selected item, this option is not reversible');
-define('_WFP_DUPLICATE_LEG', 'Duplicate Item: You can create a carbon copy of the selected item.');
-define('_WFP_APPROVE_LEG', 'Approve Item: This item has not been approved and requires moderation.');
-define('_WFP_INFO_LEG', 'Item Information: Display information regating the selected item.');
+define('_AM_WFP_VIEW', 'View Item');
+define('_AM_WFP_EDIT', 'Edit Item');
+define('_AM_WFP_DUPLICATE', 'Duplicate Item');
+define('_AM_WFP_APPROVE', 'Approve Item');
+define('_AM_WFP_DELETE', 'Delete Item');
+define('_AM_WFP_INFO', 'Item Information');
+define('_AM_WFP_VIEW_LEG', 'View selected item in user mode');
+define('_AM_WFP_EDIT_LEG', 'Edit Item: Selecting this will allow you to edit the selected item.');
+define('_AM_WFP_DELETE_LEG', 'Delete Item: Remove the selected item, this option is not reversible');
+define('_AM_WFP_DUPLICATE_LEG', 'Duplicate Item: You can create a carbon copy of the selected item.');
+define('_AM_WFP_APPROVE_LEG', 'Approve Item: This item has not been approved and requires moderation.');
+define('_AM_WFP_INFO_LEG', 'Item Information: Display information regarding the selected item.');
 
 /**
  * Uploads

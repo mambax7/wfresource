@@ -203,7 +203,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
         $ret      = '<div style="padding-bottom: 16px;">';
         // $ret .= '<form><div style="text-align: left; margin-bottom: 12px;"><input type="button" name="button" onclick=\'location="admin.votes.php?op=edit"\' value="' . _MD_WFP_CREATENEW . '"></div></form>';
         $ret .= '<div>
-            <span style="float: right">' . _MD_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
+            <span style="float: right">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
             </div>';
         $ret .= '</div><br clear="all" />';
         echo $ret;

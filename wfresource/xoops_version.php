@@ -18,7 +18,7 @@ $modversion['name']        = _MD_WF_RESOURCE;
 $modversion['version']     = 1.06;
 $modversion['description'] = _MD_WF_RESOURCE_DSC;
 $modversion['author']      = 'Catzwolf';
-$modversion['credits']     = 'Mark Boyden';
+$modversion['credits']     = 'Mark Boyden, Mamba';
 $modversion['releasedate'] = 'NOT RELEASED';
 $modversion['status']      = '1.06 Beta';
 
@@ -26,9 +26,9 @@ $modversion['help']     = '';
 $modversion['license']  = 'GPL see LICENSE';
 $modversion['official'] = 0;
 $modversion['dirname']  = 'wfresource';
-$modversion['image']    = 'images/wfresource_logo.png';
+$modversion['image']    = 'images/module_logo.png';
 // Admin things
 $modversion['hasAdmin'] = 0;
 
-$modversion['templates'][1]['file']        = 'wfp_addto.html';
+$modversion['templates'][1]['file']        = 'wfp_addto.tpl';
 $modversion['templates'][1]['description'] = 'Displays an AddTo bar';

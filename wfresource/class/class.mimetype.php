@@ -236,7 +236,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
         $xoopsDB = &XoopsDatabaseFactory::getDatabaseConnection();
         $ret     = array();
         $ext     = pathinfo($image, PATHINFO_EXTENSION);
-        $sql     = "SELECT mime_images FROM " . $xoopsDB->prefix('wfp_mimetypes') . " WHERE mime_ext LIKE '" . strtolower($ext) . "'";
+        $sql     = 'SELECT mime_images FROM ' . $xoopsDB->prefix('wfp_mimetypes') . " WHERE mime_ext LIKE '" . strtolower($ext) . "'";
         $result  = $xoopsDB->query($sql);
         list($mime_images) = $xoopsDB->fetchrow($result);
         if (!$mime_images) {
@@ -285,19 +285,19 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
          * bad bad bad!! Need to change this
          */
         global $list_array, $nav;
-        $safe_array = array('3' => _MD_SHOWSAFEALL_BOX, '0' => _MD_SHOWSAFENOT_BOX, '1' => _MD_SHOWSAFEIS_BOX);
+        $safe_array = array('3' => _AM_SHOWSAFEALL_BOX, '0' => _AM_SHOWSAFENOT_BOX, '1' => _AM_SHOWSAFEIS_BOX);
 
         $ret = '<div style="padding-bottom: 8px;">';
         $ret .= '<form><div style="text-align: left; margin-bottom: 12px;">
-         <input type="button" name="button" onclick=\'location="admin.mimetype.php?op=edit"\' value="' . _MD_WFP_CREATENEW . '">
-         <input type="button" name="button" onclick=\'location="admin.mimetype.php?op=permissions"\' value="' . _MD_WFP_PERMISSIONS . '">
+         <input type="button" name="button" onclick=\'location="admin.mimetype.php?op=edit"\' value="' . _AM_WFP_CREATENEW . '">
+         <input type="button" name="button" onclick=\'location="admin.mimetype.php?op=permissions"\' value="' . _AM_WFP_PERMISSIONS . '">
         </div></form>';
         $onchange = "onchange=\"location='admin.mimetype.php?%s='+this.options[this.selectedIndex].value\"";
         $ret .= "<div>
             <span style='float: left'>" . wfp_getSelection(self::mimeCategory(), $nav['mime_category'], 'mime_category', 1, false, false, false, sprintf($onchange, 'mime_category'), 0, false) . "</span>
             <span style='float: left'>&nbsp;" . wfp_getSelection($safe_array, $nav['mime_safe'], 'mime_safe', 1, false, false, false, sprintf($onchange, 'mime_safe'), 0, false) . "</span>
             <span style='float: left'>&nbsp;" . wfp_getSelection($this->getAlphabet(), $nav['alphabet'], 'alphabet', 1, 1, false, false, sprintf($onchange, 'alphabet'), 0, false) . "</span>
-            <span style='float: right'>" . _MD_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . "</span>
+            <span style='float: right'>" . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . "</span>
         </div><br clear='all' /><br />";
         echo $ret;
     }

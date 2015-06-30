@@ -30,7 +30,7 @@ class wfp_Tlist
 {
     public $_headers;
     public $_data          = array();
-    public $_pre_fix       = '_MD_';
+    public $_pre_fix       = '_AM_';
     public $_output        = false;
     public $_footer        = false;
     public $_hidden;
@@ -189,7 +189,7 @@ class wfp_Tlist
      */
     public function noselection()
     {
-        $ret = '<tr><td colspan="' . $this->_headers_count . '" class="emptylist">' . _MD_WFP_NORECORDS . '</td></tr>';
+        $ret = '<tr><td colspan="' . $this->_headers_count . '" class="emptylist">' . _AM_WFP_NORECORDS . '</td></tr>';
         if ($this->_output) {
             echo $ret;
         } else {
@@ -277,9 +277,9 @@ class wfp_Tlist
     {
         if (empty($array)) {
             $array = array(
-                'updateall'    => _MD_WFC_UPDATESELECTED,
-                'deleteall'    => _MD_WFC_DELETESELECTED,
-                'duplicateall' => _MD_WFC_DUPLICATESELECTED);
+                'updateall'    => _AM_WFC_UPDATESELECTED,
+                'deleteall'    => _AM_WFC_DELETESELECTED,
+                'duplicateall' => _AM_WFC_DUPLICATESELECTED);
         }
         $ret = '<select size="1" name="op" id="op">';
         if (!empty($array)) {
@@ -311,13 +311,13 @@ class wfp_Tlist
                 $ret .= wfp_getConstants($this->_pre_fix . $value['name']);
                 $ret .= '<input name="' . $value['name'] . 'x_checkall" id="' . $value['name'] . 'x_checkall" onclick="xoopsCheckAll( \'' . $this->_formName . '\', \'' . $value["name"] . 'x_checkall\');" type="checkbox" value="Check All" />';
             } elseif ($value['islink'] == true) {
-                $ret .= '<a href="index.php?';
+                $ret .= '<a href="main.php?';
                 if ($this->_path) {
                     $ret .= $this->_path . '&amp;';
                 }
                 $ret .= 'sort=' . $value['name'] . '&amp;order=ASC">' . wfp_showImage('down', 'down', 'middle') . '</a>';
                 $ret .= wfp_getConstants($this->_pre_fix . $value['name']);
-                $ret .= '<a href="index.php?';
+                $ret .= '<a href="main.php?';
                 if ($this->_path) {
                     $ret .= $this->_path . '&amp;';
                 }

@@ -220,10 +220,10 @@ function wfp_ShowPagenav($tot_num = 0, $num_dis = 10, $start = 0, $from = 'start
         $from_result = 1;
         $start       = 0;
     }
-    $records = ($tot_num > 0) ? sprintf(_MD_WFP_RECORDSFOUND, $from_result, $to_result, $tot_num) : _MD_WFP_NORECORDS;
+    $records = ($tot_num > 0) ? sprintf(_AM_WFP_RECORDSFOUND, $from_result, $to_result, $tot_num) : _AM_WFP_NORECORDS;
 
     $navigation = '';
-    $page       = ($tot_num > $num_dis) ? _MD_WFP_PAGE : '';
+    $page       = ($tot_num > $num_dis) ? _AM_WFP_PAGE : '';
     if ((int)($tot_num) > (int)$num_dis) {
         include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
         $pagenav  = new XoopsPageNav((int)($tot_num), (int)($num_dis), (int)($start), $from, $nav_path);
@@ -323,7 +323,7 @@ function wfp_showImage($name = '', $title = '', $align = 'middle', $ext = 'png',
  */
 function wfp_getConstants($_title, $prefix = '', $suffix = '')
 {
-    $prefix = ($prefix != "" || $_title != 'action') ? trim($prefix) : "";
+    $prefix = ($prefix != '' || $_title != 'action') ? trim($prefix) : '';
     $suffix = trim($suffix);
 
     return constant(strtoupper("$prefix$_title$suffix"));
@@ -365,7 +365,7 @@ function wfp_getIcons($_icon_array = array(), $key, $value = null, $extra = null
             if ($extra != null) {
                 $url .= $extra;
             }
-            $ret .= "<a href='" . $url . " '>" . wfp_showImage("wfp_$_icon", wfp_getConstants('_wfp_' . $_icon), null, 'png') . "</a>";
+            $ret .= "<a href='" . $url . " '>" . wfp_showImage("wfp_$_icon", wfp_getConstants('_wfp_' . $_icon, '_AM'), null, 'png') . "</a>";
         }
     }
 
@@ -434,7 +434,7 @@ function wfp_ShowLegend($led_array)
      */
     if (is_array($led_array)) {
         foreach ($led_array as $key) {
-            $legend .= '<div style="padding: 3;">' . wfp_showImage('wfp_' . $key) . ' ' . wfp_getConstants('_wfp_' . $key . '_LEG') . '</div>';
+            $legend .= '<div style="padding: 3;">' . wfp_showImage('wfp_' . $key) . ' ' . wfp_getConstants('_wfp_' . $key . '_LEG', '_AM') . '</div>';
         }
     } else {
         return '';
@@ -454,7 +454,7 @@ function xoosla_cp_footer()
 //        </a>
 //    </div>';
 //    global $xoopsModule;
-    $pathIcon32      = XOOPS_URL . '/' . $GLOBALS['xoopsModule']->getInfo('icons32');
+    $pathIcon32      = XOOPS_URL . '/' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
     echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "    <a href='http://www.xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . "  " . _AM_MODULEADMIN_ADMIN_FOOTER . "\n" . "</div>";
     xoops_cp_footer();
 }
@@ -797,7 +797,7 @@ function wfp_displayArray()
  */
 function wfp_ListPages()
 {
-    return array('0' => _MD_WFC_SELALL, '1' => _MD_WFC_SELPUBLIHSED, '2' => _MD_WFC_SELUNPUBLISHED, '3' => _MD_WFC_SELEXPIRED, '4' => _MD_WFC_SELOFFLINE);
+    return array('0' => _AM_WFC_SELALL, '1' => _AM_WFC_SELPUBLISHED, '2' => _AM_WFC_SELUNPUBLISHED, '3' => _AM_WFC_SELEXPIRED, '4' => _AM_WFC_SELOFFLINE);
 }
 
 /**

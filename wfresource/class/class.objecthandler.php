@@ -614,12 +614,12 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         $ret .= '<div style="float: left">' . $this->showHtmlCalendar(false, $nav['date']);
         $ret .= '<input type="text" name="search" id="search" size="20" maxlength="255" value="' . wfp_stripslashes($nav['search']) . '"/>&nbsp;';
         $ret .= wfp_getSelection(wfp_ListAndOr(), $nav['andor'], 'andor', 1, 0, false, false, '', 0, false) . '&nbsp;';
-        $ret .= '<input align="left" type="submit" class="formbutton" value="' . _MD_WFP_SEARCH . '" name="selsubmit" /></div>';
+        $ret .= '<input align="left" type="submit" class="formbutton" value="' . _AM_WFP_SEARCH . '" name="selsubmit" /></div>';
         $ret .= '<div style="float: right">';
         if ($display) {
-            $ret .= _MD_WFC_DISPLAYPUBLISHED . wfp_getSelection(wfp_ListPages(), $nav['active'], 'active', 1, 0, false, false, sprintf($onchange, 'active'), 0, false) . '&nbsp;';
+            $ret .= _AM_WFC_DISPLAYPUBLISHED . wfp_getSelection(wfp_ListPages(), $nav['active'], 'active', 1, 0, false, false, sprintf($onchange, 'active'), 0, false) . '&nbsp;';
         }
-        $ret .= _MD_WFC_DISPLAYAMOUNT_BOX . wfp_getSelection(wfp_ListArray(), $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false);
+        $ret .= _AM_WFC_DISPLAYAMOUNT_BOX . wfp_getSelection(wfp_ListArray(), $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false);
         $ret .= '</div>';
         $ret .= '</div><br clear="all" />';
         $ret .= '</form>';

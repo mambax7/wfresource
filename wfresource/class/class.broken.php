@@ -274,7 +274,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
         $ret .= '<form><div style="text-align: left; margin-bottom: 12px;"><input type="button" name="button" onclick=\'location="admin.broken.php?op=edit"\' value="' . _MD_WFP_CREATENEW . '"></div></form>';
         $ret .= '<div>
             <span style="float: left">' . wfp_getSelection($broken_authors, $nav['broken_uid'], 'broken_uid', 1, 1, false, false, sprintf($onchange, 'broken_uid'), 0, false) . '</span>
-            <span style="float: right">' . _MD_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
+            <span style="float: right">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
             </div>';
         $ret .= '</div><br clear="all" />';
         echo $ret;

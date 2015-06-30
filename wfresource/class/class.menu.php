@@ -268,7 +268,7 @@ class wfp_MenuHandler
                          'menu_icons'     => $this->getNavMenuIcons(),
                          'menu_module'    => $GLOBALS['xoopsModule']->getVar('name')));
 
-//mb        $tpl->display(XOOPS_ROOT_PATH . '/modules/wfresource/templates/wfp_adminmenu.html');
+//mb        $tpl->display(XOOPS_ROOT_PATH . '/modules/wfresource/templates/wfp_adminmenu.tpl');
 
         return true;
     }
