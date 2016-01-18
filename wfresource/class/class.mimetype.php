@@ -28,7 +28,7 @@ class wfp_Mimetype extends wfp_Object
      */
     public function __construct()
     {
-        $this->xoopsObject();
+        parent::__construct();
         $this->initVar('mime_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('mime_ext', XOBJ_DTYPE_TXTBOX, null, true, 10);
         $this->initVar('mime_name', XOBJ_DTYPE_TXTBOX, null, true, 60);

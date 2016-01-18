@@ -28,9 +28,9 @@ class wfp_Votes extends wfp_Object
     /**
      * wfp_Votes::wfp_Votes()
      */
-    public function wfp_Votes()
+    public function __construct()
     {
-        $this->XoopsObject();
+        parent::__construct();
         $this->initVar('vote_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('vote_mid', XOBJ_DTYPE_INT, 0, false);
         $this->initVar('vote_aid', XOBJ_DTYPE_INT, 0, false);

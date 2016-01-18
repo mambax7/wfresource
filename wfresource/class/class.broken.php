@@ -33,7 +33,7 @@ class wfp_Broken extends wfp_Object
      */
     public function __construct()
     {
-        $this->XoopsObject();
+        parent::__construct();
         $this->initVar('broken_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('broken_fid', XOBJ_DTYPE_INT, null, false);
         $this->initVar('broken_mid', XOBJ_DTYPE_INT, null, false);

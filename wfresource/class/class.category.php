@@ -31,7 +31,7 @@ class wfp_Category extends wfp_Object
      */
     public function __construct()
     {
-        $this->xoopsObject();
+        parent::__construct();
         $this->initVar('category_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('category_pid', XOBJ_DTYPE_INT, null, false);
         $this->initVar('category_mid', XOBJ_DTYPE_INT, null, false);

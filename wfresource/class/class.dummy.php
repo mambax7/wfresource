@@ -27,9 +27,9 @@ wfp_getObjectHandler();
  */
 class wfp_Dummy extends wfp_Object
 {
-    public function wfp_Dummy()
+    public function __construct()
     {
-        $this->XoopsObject();
+        parent::__construct();
     }
 }
 
