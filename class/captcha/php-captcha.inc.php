@@ -98,26 +98,26 @@ class PhpCaptcha
     public function __construct($aFonts, // array of TrueType fonts to use - specify full path
                                 $iWidth = CAPTCHA_WIDTH, // width of image
                                 $iHeight = CAPTCHA_HEIGHT // height of image
-    )
+)
     {
         // get parameters
         $this->aFonts = $aFonts;
-        $this->SetNumChars(CAPTCHA_NUM_CHARS);
-        $this->SetNumLines(CAPTCHA_NUM_LINES);
-        $this->DisplayShadow(CAPTCHA_CHAR_SHADOW);
-        $this->SetOwnerText(CAPTCHA_OWNER_TEXT);
-        $this->SetCharSet(CAPTCHA_CHAR_SET);
-        $this->CaseInsensitive(CAPTCHA_CASE_INSENSITIVE);
-        $this->SetBackgroundImages(CAPTCHA_BACKGROUND_IMAGES);
-        $this->SetMinFontSize(CAPTCHA_MIN_FONT_SIZE);
-        $this->SetMaxFontSize(CAPTCHA_MAX_FONT_SIZE);
-        $this->UseColour(CAPTCHA_USE_COLOUR);
-        $this->SetFileType(CAPTCHA_FILE_TYPE);
-        $this->SetWidth($iWidth);
-        $this->SetHeight($iHeight);
+        $this->setNumChars(CAPTCHA_NUM_CHARS);
+        $this->setNumLines(CAPTCHA_NUM_LINES);
+        $this->displayShadow(CAPTCHA_CHAR_SHADOW);
+        $this->setOwnerText(CAPTCHA_OWNER_TEXT);
+        $this->setCharSet(CAPTCHA_CHAR_SET);
+        $this->caseInsensitive(CAPTCHA_CASE_INSENSITIVE);
+        $this->setBackgroundImages(CAPTCHA_BACKGROUND_IMAGES);
+        $this->setMinFontSize(CAPTCHA_MIN_FONT_SIZE);
+        $this->setMaxFontSize(CAPTCHA_MAX_FONT_SIZE);
+        $this->useColour(CAPTCHA_USE_COLOUR);
+        $this->setFileType(CAPTCHA_FILE_TYPE);
+        $this->setWidth($iWidth);
+        $this->setHeight($iHeight);
     }
 
-    public function CalculateSpacing()
+    public function calculateSpacing()
     {
         $this->iSpacing = (int)($this->iWidth / $this->iNumChars);
     }
@@ -125,19 +125,19 @@ class PhpCaptcha
     /**
      * @param $iWidth
      */
-    public function SetWidth($iWidth)
+    public function setWidth($iWidth)
     {
         $this->iWidth = $iWidth;
         if ($this->iWidth > 500) {
             $this->iWidth = 500;
         } // to prevent perfomance impact
-        $this->CalculateSpacing();
+        $this->calculateSpacing();
     }
 
     /**
      * @param $iHeight
      */
-    public function SetHeight($iHeight)
+    public function setHeight($iHeight)
     {
         $this->iHeight = $iHeight;
         if ($this->iHeight > 200) {
@@ -148,16 +148,16 @@ class PhpCaptcha
     /**
      * @param $iNumChars
      */
-    public function SetNumChars($iNumChars)
+    public function setNumChars($iNumChars)
     {
         $this->iNumChars = $iNumChars;
-        $this->CalculateSpacing();
+        $this->calculateSpacing();
     }
 
     /**
      * @param $iNumLines
      */
-    public function SetNumLines($iNumLines)
+    public function setNumLines($iNumLines)
     {
         $this->iNumLines = $iNumLines;
     }
@@ -165,7 +165,7 @@ class PhpCaptcha
     /**
      * @param $bCharShadow
      */
-    public function DisplayShadow($bCharShadow)
+    public function displayShadow($bCharShadow)
     {
         $this->bCharShadow = $bCharShadow;
     }
@@ -173,7 +173,7 @@ class PhpCaptcha
     /**
      * @param $sOwnerText
      */
-    public function SetOwnerText($sOwnerText)
+    public function setOwnerText($sOwnerText)
     {
         $this->sOwnerText = $sOwnerText;
     }
@@ -181,13 +181,13 @@ class PhpCaptcha
     /**
      * @param $vCharSet
      */
-    public function SetCharSet($vCharSet)
+    public function setCharSet($vCharSet)
     {
         // check for input type
         if (is_array($vCharSet)) {
             $this->aCharSet = $vCharSet;
         } else {
-            if ($vCharSet != '') {
+            if ($vCharSet !== '') {
                 // split items on commas
                 $aCharSet = explode(',', $vCharSet);
                 // initialise array
@@ -195,11 +195,11 @@ class PhpCaptcha
                 // loop through items
                 foreach ($aCharSet as $sCurrentItem) {
                     // a range should have 3 characters, otherwise is normal character
-                    if (strlen($sCurrentItem) == 3) {
+                    if (strlen($sCurrentItem) === 3) {
                         // split on range character
                         $aRange = explode('-', $sCurrentItem);
                         // check for valid range
-                        if (count($aRange) == 2 && $aRange[0] < $aRange[1]) {
+                        if ($aRange[0] < $aRange[1] && count($aRange) === 2) {
                             // create array of characters from range
                             $aRange = range($aRange[0], $aRange[1]);
                             // add to charset array
@@ -216,7 +216,7 @@ class PhpCaptcha
     /**
      * @param $bCaseInsensitive
      */
-    public function CaseInsensitive($bCaseInsensitive)
+    public function caseInsensitive($bCaseInsensitive)
     {
         $this->bCaseInsensitive = $bCaseInsensitive;
     }
@@ -224,7 +224,7 @@ class PhpCaptcha
     /**
      * @param $vBackgroundImages
      */
-    public function SetBackgroundImages($vBackgroundImages)
+    public function setBackgroundImages($vBackgroundImages)
     {
         $this->vBackgroundImages = $vBackgroundImages;
     }
@@ -232,7 +232,7 @@ class PhpCaptcha
     /**
      * @param $iMinFontSize
      */
-    public function SetMinFontSize($iMinFontSize)
+    public function setMinFontSize($iMinFontSize)
     {
         $this->iMinFontSize = $iMinFontSize;
     }
@@ -240,7 +240,7 @@ class PhpCaptcha
     /**
      * @param $iMaxFontSize
      */
-    public function SetMaxFontSize($iMaxFontSize)
+    public function setMaxFontSize($iMaxFontSize)
     {
         $this->iMaxFontSize = $iMaxFontSize;
     }
@@ -248,7 +248,7 @@ class PhpCaptcha
     /**
      * @param $bUseColour
      */
-    public function UseColour($bUseColour)
+    public function useColour($bUseColour)
     {
         $this->bUseColour = $bUseColour;
     }
@@ -256,17 +256,16 @@ class PhpCaptcha
     /**
      * @param $sFileType
      */
-    public function SetFileType($sFileType)
+    public function setFileType($sFileType)
     {
         // check for valid file type
+        $this->sFileType = 'jpeg';
         if (in_array($sFileType, array('gif', 'png', 'jpeg'))) {
             $this->sFileType = $sFileType;
-        } else {
-            $this->sFileType = 'jpeg';
         }
     }
 
-    public function DrawLines()
+    public function drawLines()
     {
         for ($i = 0; $i < $this->iNumLines; ++$i) {
             // allocate colour
@@ -281,7 +280,7 @@ class PhpCaptcha
         }
     }
 
-    public function DrawOwnerText()
+    public function drawOwnerText()
     {
         // allocate owner text colour
         $iBlack = imagecolorallocate($this->oImage, 0, 0, 0);
@@ -297,7 +296,7 @@ class PhpCaptcha
         $this->iHeight = $this->iHeight - $iOwnerTextHeight - 5;
     }
 
-    public function GenerateCode()
+    public function generateCode()
     {
         // reset code
         $this->sCode = '';
@@ -308,7 +307,7 @@ class PhpCaptcha
                 $this->sCode .= $this->aCharSet[array_rand($this->aCharSet)];
             } else {
                 // select random character and add to code string
-                $this->sCode .= chr(rand(65, 90));
+                $this->sCode .= chr(mt_rand(65, 90));
             }
         }
         // save code in session variable
@@ -319,10 +318,11 @@ class PhpCaptcha
         }
     }
 
-    public function DrawCharacters()
+    public function drawCharacters()
     {
         // loop through and write out selected number of characters
-        for ($i = 0; $i < strlen($this->sCode); ++$i) {
+        $arrayCount = strlen($this->sCode);
+        for ($i = 0; $i < $arrayCount; ++$i) {
             // select random font
             $sCurrentFont = $this->aFonts[array_rand($this->aFonts)];
             // select random colour
@@ -370,37 +370,37 @@ class PhpCaptcha
     /**
      * @param $sFilename
      */
-    public function WriteFile($sFilename)
+    public function writeFile($sFilename)
     {
-        if ($sFilename == '') {
+        if ($sFilename === '') {
             // tell browser that data is jpeg
             header("Content-type: image/$this->sFileType");
         }
 
         switch ($this->sFileType) {
             case 'gif':
-                $sFilename != '' ? imagegif($this->oImage, $sFilename) : imagegif($this->oImage);
+                $sFilename !== '' ? imagegif($this->oImage, $sFilename) : imagegif($this->oImage);
                 break;
             case 'png':
-                $sFilename != '' ? imagepng($this->oImage, $sFilename) : imagepng($this->oImage);
+                $sFilename !== '' ? imagepng($this->oImage, $sFilename) : imagepng($this->oImage);
                 break;
             default:
-                $sFilename != '' ? imagejpeg($this->oImage, $sFilename) : imagejpeg($this->oImage);
+                $sFilename !== '' ? imagejpeg($this->oImage, $sFilename) : imagejpeg($this->oImage);
         }
     }
 
     /**
-     * @param string $sFilename
+     * @param  string $sFilename
      * @return bool
      */
-    public function Create($sFilename = '')
+    public function create($sFilename = '')
     {
         // check for required gd functions
-        if (!function_exists('imagecreate') || !function_exists("image$this->sFileType") || ($this->vBackgroundImages != '' && !function_exists('imagecreatetruecolor'))) {
+        if (!function_exists('imagecreate') || !function_exists("image$this->sFileType") || ($this->vBackgroundImages !== '' && !function_exists('imagecreatetruecolor'))) {
             return false;
         }
         // get background image if specified and copy to CAPTCHA
-        if (is_array($this->vBackgroundImages) || $this->vBackgroundImages != '') {
+        if (is_array($this->vBackgroundImages) || $this->vBackgroundImages !== '') {
             // create new image
             $this->oImage = imagecreatetruecolor($this->iWidth, $this->iHeight);
             // create background image
@@ -421,18 +421,18 @@ class PhpCaptcha
         // allocate white background colour
         imagecolorallocate($this->oImage, 255, 255, 255);
         // check for owner text
-        if ($this->sOwnerText != '') {
-            $this->DrawOwnerText();
+        if ($this->sOwnerText !== '') {
+            $this->drawOwnerText();
         }
         // check for background image before drawing lines
-        if (!is_array($this->vBackgroundImages) && $this->vBackgroundImages == '') {
-            $this->DrawLines();
+        if (!is_array($this->vBackgroundImages) && $this->vBackgroundImages === '') {
+            $this->drawLines();
         }
 
-        $this->GenerateCode();
-        $this->DrawCharacters();
+        $this->generateCode();
+        $this->drawCharacters();
         // write out image to file or browser
-        $this->WriteFile($sFilename);
+        $this->writeFile($sFilename);
         // free memory used in creating image
         imagedestroy($this->oImage);
 
@@ -440,17 +440,17 @@ class PhpCaptcha
     }
     // call this method statically
     /**
-     * @param           $sUserCode
-     * @param bool|true $bCaseInsensitive
+     * @param            $sUserCode
+     * @param  bool|true $bCaseInsensitive
      * @return bool
      */
-    public function Validate($sUserCode, $bCaseInsensitive = true)
+    public function validate($sUserCode, $bCaseInsensitive = true)
     {
         if ($bCaseInsensitive) {
             $sUserCode = strtoupper($sUserCode);
         }
 
-        if (!empty($_SESSION[CAPTCHA_SESSION_ID]) && $sUserCode == $_SESSION[CAPTCHA_SESSION_ID]) {
+        if (!empty($_SESSION[CAPTCHA_SESSION_ID]) && $sUserCode === $_SESSION[CAPTCHA_SESSION_ID]) {
             // clear to prevent re-use
             unset($_SESSION[CAPTCHA_SESSION_ID]);
 
@@ -477,10 +477,10 @@ class AudioPhpCaptcha
      */
     public function __construct($sFlitePath = CAPTCHA_FLITE_PATH, // path to flite binary
                                 $sAudioPath = CAPTCHA_AUDIO_PATH // the location to temporarily store the generated audio CAPTCHA
-    )
+)
     {
-        $this->SetFlitePath($sFlitePath);
-        $this->SetAudioPath($sAudioPath);
+        $this->setFlitePath($sFlitePath);
+        $this->setAudioPath($sAudioPath);
         // retrieve code if already set by previous instance of visual PhpCaptcha
         if (isset($_SESSION[CAPTCHA_SESSION_ID])) {
             $this->sCode = $_SESSION[CAPTCHA_SESSION_ID];
@@ -490,7 +490,7 @@ class AudioPhpCaptcha
     /**
      * @param $sFlitePath
      */
-    public function SetFlitePath($sFlitePath)
+    public function setFlitePath($sFlitePath)
     {
         $this->sFlitePath = $sFlitePath;
     }
@@ -498,7 +498,7 @@ class AudioPhpCaptcha
     /**
      * @param $sAudioPath
      */
-    public function SetAudioPath($sAudioPath)
+    public function setAudioPath($sAudioPath)
     {
         $this->sAudioPath = $sAudioPath;
     }
@@ -507,7 +507,7 @@ class AudioPhpCaptcha
      * @param $sText
      * @return string
      */
-    public function Mask($sText)
+    public function mask($sText)
     {
         $iLength = strlen($sText);
         // loop through characters in code and format
@@ -516,7 +516,7 @@ class AudioPhpCaptcha
             // comma separate all but first and last characters
             if ($i > 0 && $i < $iLength - 1) {
                 $sFormattedText .= ', ';
-            } elseif ($i == $iLength - 1) { // precede last character with "and"
+            } elseif ($i === $iLength - 1) { // precede last character with "and"
                 $sFormattedText .= ' and ';
             }
             $sFormattedText .= $sText[$i];
@@ -527,16 +527,17 @@ class AudioPhpCaptcha
             "%2\$s, are the %1\$s letters",
             "Here are the %1\$s characters: %2\$s",
             "%1\$s characters are: %2\$s",
-            "%1\$s letters: %2\$s");
+            "%1\$s letters: %2\$s"
+        );
 
         $iPhrase = array_rand($aPhrases);
 
         return sprintf($aPhrases[$iPhrase], $iLength, $sFormattedText);
     }
 
-    public function Create()
+    public function create()
     {
-        $sText = $this->Mask($this->sCode);
+        $sText = $this->mask($this->sCode);
         $sFile = md5($this->sCode . time());
         // create file with flite
         shell_exec("$this->sFlitePath -t \"$sText\" -o $this->sAudioPath$sFile.wav");
@@ -546,7 +547,9 @@ class AudioPhpCaptcha
         // output to browser
         echo file_get_contents("$this->sAudioPath$sFile.wav");
         // delete temporary file
-        @unlink("$this->sAudioPath$sFile.wav");
+        if (false !== stream_resolve_include_path("$this->sAudioPath$sFile.wav")) {
+            unlink("$this->sAudioPath$sFile.wav");
+        }
     }
 }
 
@@ -564,8 +567,8 @@ class PhpCaptchaColour extends PhpCaptcha
     public function __construct($aFonts, $iWidth = CAPTCHA_WIDTH, $iHeight = CAPTCHA_HEIGHT)
     {
         // call parent constructor
-        parent::PhpCaptcha($aFonts, $iWidth, $iHeight);
+        parent::__construct($aFonts, $iWidth, $iHeight);
         // set options
-        $this->UseColour(true);
+        $this->useColour(true);
     }
 }

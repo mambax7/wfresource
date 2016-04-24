@@ -16,12 +16,9 @@
  * @since      2.0.0
  * @author     Kazumi Ono <onokazu@xoops.org>
  * @author     Taiwen Jiang <phppp@users.sourceforge.net>
- * @version    $Id: formcaptcha.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    die("XOOPS root path not defined");
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 /**
  * Usage of XoopsFormCaptcha
@@ -52,9 +49,10 @@ class XoopsFormCaptcha extends XoopsFormElement
      */
     public function __construct($caption = '', $name = 'xoopscaptcha', $skipmember = true, $configs = array())
     {
-        xoops_load("captcha");
+        parent::__construct();
+        xoops_load('captcha');
 
-        $this->captchaHandler  = &XoopsCaptcha::getInstance();
+        $this->captchaHandler  = XoopsCaptcha::getInstance();
         $configs['name']       = $name;
         $configs['skipmember'] = $skipmember;
         $this->captchaHandler->setConfigs($configs);

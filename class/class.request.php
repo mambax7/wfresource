@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: class.request.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -20,35 +19,35 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: class.request.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_Filter
 {
     protected static $instance;
     protected static $handlers;
-    private static   $name;
+    private static $name;
 
     /**
      * xo_Xoosla::getIntance()
      *
      * @return
      */
-    public static function &getInstance()
+    public static function getInstance()
     {
-        if (self::$instance == null) {
-            $class          = __CLASS__;
-            self::$instance = new $class();
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new static($db);
         }
 
-        return self::$instance;
+        return $instance;
     }
 
     /**
      * wfp_Filter::getFilter()
      *
-     * @param mixed $name
-     * @return
+     * @param  mixed $name
+     * @param  null  $module
+     * @return bool
      */
     public static function getFilter($name, $module = null)
     {
@@ -87,10 +86,9 @@ class wfp_Filter
 
     /**
      * wfp_Filter::getCore()
-     *
-     * @return
+     * @return bool
      */
-    public function getCore()
+    public static function getCore()
     {
         if (file_exists($file = __DIR__ . DS . 'filters' . DS . strtolower(self::$name) . '.php')) {
             include_once strtolower($file);
@@ -103,11 +101,12 @@ class wfp_Filter
     /**
      * wfp_Filter::getModule()
      *
-     * @return
+     * @param  null $module
+     * @return bool
      */
     public function getModule($module = null)
     {
-        $module = (!is_null($module)) ? $module : $GLOBALS['xoopsModule'];
+        $module = (null !== $module) ? $module : $GLOBALS['xoopsModule'];
         if (file_exists($file = XOOPS_ROOT_PATH . '/modules' . $module . '/filters/' . strtolower(self::$name) . '.php')) {
             include_once $file;
         } else {
@@ -121,7 +120,6 @@ class wfp_Filter
     /**
      * wfp_Filter::getUser()
      *
-     * @return
      */
     public function getUser()
     {
@@ -130,11 +128,13 @@ class wfp_Filter
     /**
      * wfp_Filter::filterValidate()
      *
-     * @return
+     * @param       $value
+     * @param  int  $filterid
+     * @return bool
      */
     public function filterValidate($value, $filterid = 0)
     {
-        return (filter_var($value, (int)$filterid)) ? true : false;
+        return filter_var($value, (int)$filterid) ? true : false;
     }
 }
 
@@ -144,7 +144,6 @@ class wfp_Filter
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: class.request.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_Request
@@ -163,11 +162,13 @@ class wfp_Request
     /**
      * wfp_Filter::doRequest()
      *
-     * @param mixed $type
-     * @param mixed $key
-     * @param mixed $default
-     * @param array $filters
-     * @return
+     * @param                  $method
+     * @param  mixed           $key
+     * @param  mixed           $default
+     * @param  mixed           $type
+     * @param  array           $options
+     * @param  string          $module
+     * @return bool|mixed|null
      */
     public static function doRequest($method, $key, $default = null, $type = null, $options = array(), $module = '')
     {
@@ -187,14 +188,18 @@ class wfp_Request
     /**
      * wfp_Request::doValidate()
      *
-     * @return
+     * @param         $value
+     * @param         $type
+     * @param  string $module
+     * @param  null   $flags
+     * @return bool
      */
     public static function doValidate($value, $type, $module = '', $flags = null)
     {
         if (ctype_alpha($type)) {
             $filter = wfp_Filter::getFilter('Validate_' . ucfirst($type), $module);
             if (!empty($filter) && is_object($filter)) {
-                if ($ret = $filter->doRender($value, $flags)) {
+                if (false !== ($ret = $filter->doRender($value, $flags))) {
                     return ($ret === false) ? $default : $ret;
                 }
             }
@@ -207,7 +212,9 @@ class wfp_Request
     /**
      * wfp_Request::inArray()
      *
-     * @return
+     * @param $method
+     * @param $key
+     * @return bool
      */
     public static function inArray($method, $key)
     {

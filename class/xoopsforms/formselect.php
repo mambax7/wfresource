@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: formselect.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -74,8 +73,8 @@ class XoopsFormSelect extends XoopsFormElement
         $this->setCaption($caption);
         $this->setName($name);
         $this->_multiple = $multiple;
-        $this->_size     = (int)($size);
-        if (isset($value)) {
+        $this->_size     = (int)$size;
+        if (null !== $values) {
             $this->setValue($value);
         }
     }
@@ -103,7 +102,7 @@ class XoopsFormSelect extends XoopsFormElement
     /**
      * Get an array of pre-selected values
      *
-     * @param  bool $encode To sanitizer the text?
+     * @param  bool  $encode To sanitizer the text?
      * @return array
      */
     public function getValue($encode = false)
@@ -130,7 +129,7 @@ class XoopsFormSelect extends XoopsFormElement
             foreach ($value as $v) {
                 $this->_value[] = $v;
             }
-        } elseif (isset($value)) {
+        } elseif (null !== $values) {
             $this->_value[] = $value;
         }
     }
@@ -141,9 +140,9 @@ class XoopsFormSelect extends XoopsFormElement
      * @param string $value "value" attribute
      * @param string $name  "name" attribute
      */
-    public function addOption($value, $name = "")
+    public function addOption($value, $name = '')
     {
-        if ($name != "") {
+        if ($name !== '') {
             $this->_options[$value] = $name;
         } else {
             $this->_options[$value] = $value;
@@ -169,8 +168,8 @@ class XoopsFormSelect extends XoopsFormElement
      *
      * Note: both name and value should be sanitized. However for backward compatibility, only value is sanitized for now.
      *
-     * @param  int $encode To sanitizer the text? potential values: 0 - skip; 1 - only for value; 2 - for both value and name
-     * @return array Associative array of value->name pairs
+     * @param  bool|int $encode To sanitizer the text? potential values: 0 - skip; 1 - only for value; 2 - for both value and name
+     * @return array    Associative array of value->name pairs
      */
     public function getOptions($encode = false)
     {
@@ -196,7 +195,7 @@ class XoopsFormSelect extends XoopsFormElement
         $ele_value   = $this->getValue();
         $ele_options = $this->getOptions();
         $ret         = "<select size='" . $this->getSize() . "'" . $this->getExtra();
-        if ($this->isMultiple() != false) {
+        if ($this->isMultiple() !== false) {
             $ret .= " name='{$ele_name}[]' id='{$ele_name}' multiple='multiple'>\n";
         } else {
             $ret .= " name='{$ele_name}' id='{$ele_name}'>\n";
@@ -208,7 +207,7 @@ class XoopsFormSelect extends XoopsFormElement
             }
             $ret .= ">{$name}</option>\n";
         }
-        $ret .= "</select>";
+        $ret .= '</select>';
 
         return $ret;
     }
@@ -221,7 +220,7 @@ class XoopsFormSelect extends XoopsFormElement
     public function renderValidationJS()
     {
         // render custom validation code if any
-        if (!empty($this->customValidationCode)) {
+        if (0 !== count($this->customValidationCode)) {
             return implode("\n", $this->customValidationCode);
             // generate validation code if required
         } elseif ($this->isRequired()) {
@@ -230,7 +229,7 @@ class XoopsFormSelect extends XoopsFormElement
             $eltmsg     = empty($eltcaption) ? sprintf(_FORM_ENTER, $eltname) : sprintf(_FORM_ENTER, $eltcaption);
             $eltmsg     = str_replace('"', '\"', stripslashes($eltmsg));
 
-            return "\nvar hasSelected = false; var selectBox = myform.{$eltname};" . "for (i = 0; i < selectBox.options.length; i++) { if (selectBox.options[i].selected == true) { hasSelected = true; break; } }" . "if (!hasSelected) { window.alert(\"{$eltmsg}\"); selectBox.focus(); return false; }";
+            return "\nvar hasSelected = false; var selectBox = myform.{$eltname};" . 'for (i = 0; i < selectBox.options.length; i++) { if (selectBox.options[i].selected == true) { hasSelected = true; break; } }' . "if (!hasSelected) { window.alert(\"{$eltmsg}\"); selectBox.focus(); return false; }";
         }
 
         return '';

@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: formtabs.php 10055 2012-08-11 12:46:10Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -22,7 +21,6 @@ define('newLine', "\n");
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: formtabs.php 10055 2012-08-11 12:46:10Z beckmi $
  * @access    public
  */
 class XoopsFormTab
@@ -33,7 +31,7 @@ class XoopsFormTab
      * Constructor
      * Includes files needed for displaying tabs and sets cookie options
      *
-     * @param int $ useCookies, if set to 1 cookie will hold last used tab between page refreshes
+     * @param int $useCookies  useCookies, if set to 1 cookie will hold last used tab between page refreshes
      */
     public function __construct($useCookies = 0)
     {
@@ -51,8 +49,8 @@ class XoopsFormTab
     /**
      * xo_FormTab::startPane()
      *
-     * @param mixed $id
-     * @return
+     * @param  mixed  $id
+     * @return string
      */
     public function startPane($id)
     {
@@ -64,8 +62,7 @@ class XoopsFormTab
 
     /**
      * xo_FormTab::endPane()
-     *
-     * @return
+     * @return string
      */
     public function endPane()
     {
@@ -77,16 +74,18 @@ class XoopsFormTab
     /**
      * Creates a tab with title text and starts that tabs page
      *
-     * @param tabText $ - This is what is displayed on the tab
-     * @param paneid  $ - This is the parent pane to build this tab on
+     * @return string
+     * @param $tabText  - This is what is displayed on the tab
+     * @param $paneId  - This is the parent pane to build this tab on
+     * @return string
      */
-    public function startTab($tabText, $paneid)
+    public function startTab($tabText, $paneId)
     {
         $tabText = preg_replace('/[^A-Za-z0-9\s\s+]/', '_', $tabText);
-        $paneid  = preg_replace('/[^A-Za-z0-9\s\s+]/', '_', $paneid);
-        $ret     = '<div class="tab-page" id="' . $paneid . '">
+        $paneid  = preg_replace('/[^A-Za-z0-9\s\s+]/', '_', $paneId);
+        $ret     = '<div class="tab-page" id="' . $paneId . '">
             <h2 class="tab">' . $tabText . '</h2>
-            <script type="text/javascript">tabPane1.addTabPage( document.getElementById( "' . $paneid . '" ) );</script>
+            <script type="text/javascript">tabPane1.addTabPage( document.getElementById( "' . $paneId . '" ) );</script>
           <table width="100%" cellspacing="1">';
 
         return $ret;

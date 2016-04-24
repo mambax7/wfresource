@@ -1,14 +1,14 @@
 <?php
 // $Id: class.votes.php 8181 2011-11-07 01:14:53Z beckmi $
 // ------------------------------------------------------------------------ //
-// Xoops - PHP Content Management System                      			//
-// Copyright (c) 2007 Xoops                           				//
+// Xoops - PHP Content Management System                                //
+// Copyright (c) 2007 Xoops                                         //
 // //
-// Authors: 																//
-// John Neill ( AKA Catzwolf )                                     			//
-// Raimondas Rimkevicius ( AKA Mekdrop )									//
+// Authors:                                                                 //
+// John Neill ( AKA Catzwolf )                                              //
+// Raimondas Rimkevicius ( AKA Mekdrop )                                    //
 // //
-// URL: http:www.xoops.com 												//
+// URL: http:www.xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
 defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
@@ -20,7 +20,6 @@ wfp_getObjectHandler();
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: class.votes.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_Votes extends wfp_Object
@@ -44,8 +43,7 @@ class wfp_Votes extends wfp_Object
 
     /**
      * wfp_Votes::getUser()
-     *
-     * @return
+     * @return mixed|string
      */
     public function getUser()
     {
@@ -63,7 +61,6 @@ class wfp_Votes extends wfp_Object
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: class.votes.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_VotesHandler extends wfp_ObjectHandler
@@ -80,21 +77,21 @@ class wfp_VotesHandler extends wfp_ObjectHandler
 
     /**
      * Constructor
+     * @param $db
      */
-    public function __construct(&$db)
+    public function __construct($db)
     {
         parent::__construct($db, 'wfp_votes', 'wfp_Votes', 'vote_id', 'vote_mid');
     }
 
     /**
      * wfp_VotesHandler::getObj()
-     *
-     * @return
+     * @return bool
      */
     public function &getObj()
     {
         $obj = false;
-        if (func_num_args() == 2) {
+        if (func_num_args() === 2) {
             $args     = func_get_args();
             $criteria = new CriteriaCompo();
             if ($GLOBALS['xoopsModule']->getVar('mid')) {
@@ -107,7 +104,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
                 $criteria->setStart($args[0]['start']);
                 $criteria->setLimit($args[0]['limit']);
             }
-            $obj['list'] = &$this->getObjects($criteria, $args[1]);
+            $obj['list'] = $this->getObjects($criteria, $args[1]);
         }
 
         return $obj;
@@ -118,25 +115,22 @@ class wfp_VotesHandler extends wfp_ObjectHandler
      *
      * @param mixed $rating
      * @param mixed $aid
-     * @return
      */
     public function xo_AddVoteData(&$rating, &$aid)
     {
         global $xoopsUser;
 
         $this->anonwaitdays = 1;
+        $this->vote_mid     = 0;
         if (isset($GLOBALS['xoopsModule']) && $GLOBALS['xoopsModule']->getVar('mid') > 0) {
             $this->vote_mid = $GLOBALS['xoopsModule']->getVar('mid');
-        } else {
-            $this->vote_mid = 0;
         }
-        if (isset($_REQUEST['page_type']) && $_REQUEST['page_type'] == 'content') {
+        $this->vote_aid = 0;
+        if (isset($_REQUEST['page_type']) && $_REQUEST['page_type'] === 'content') {
             $this->vote_aid = (int)$_REQUEST['id'];
-        } else {
-            $this->vote_aid = 0;
         }
         $this->vote_ipaddress = getip();
-        $this->vote_aid       = $ratinguser = (is_object($xoopsUser)) ? $xoopsUser->getVar('uid') : 0;
+        $this->vote_aid       = $ratinguser = is_object($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
         $this->vote_rating    = (int)$rating;
     }
 
@@ -150,14 +144,13 @@ class wfp_VotesHandler extends wfp_ObjectHandler
 
     /**
      * wfp_VotesHandler::xo_getRatingUser()
-     *
-     * @return
+     * @return array
      */
     public function xo_getRatingUser()
     {
         $yesterday = (time() - (86400 * $this->anonwaitdays));
 
-        $sql    = "SELECT COUNT(*) " . "\n WHERE vote_aid=" . $this->vote_aid . "\n AND ( vote_uid=" . $this->vote_uid . " OR ( vote_uid=0 AND vote_ipaddress='" . $this->vote_ipaddress . "')" . "\n AND vote_date >" . (int)$yesterday;
+        $sql    = 'SELECT COUNT(*) ' . "\n WHERE vote_aid=" . $this->vote_aid . "\n AND ( vote_uid=" . $this->vote_uid . " OR ( vote_uid=0 AND vote_ipaddress='" . $this->vote_ipaddress . "')" . "\n AND vote_date >" . (int)$yesterday;
         $result = $_this->db->query($sql);
         $ret    = array();
         if ($result) {
@@ -174,14 +167,14 @@ class wfp_VotesHandler extends wfp_ObjectHandler
      */
     public function &getModule()
     {
-        global $module_handler;
+        global $moduleHandler;
         static $_cachedModule_list;
         if (!empty($_cachedModule_list)) {
             $_module = &$_cachedModule_list;
 
             return $_module;
         } else {
-            $module_list        = &$module_handler->getList();
+            $module_list        = &$moduleHandler->getList();
             $_cachedModule_list = &$module_list;
 
             return $module_list;
@@ -191,7 +184,8 @@ class wfp_VotesHandler extends wfp_ObjectHandler
     /**
      * wfc_PageHandler::headingHtml()
      *
-     * @return
+     * @param $value
+     * @param $total_count
      */
     public function headingHtml($value, $total_count)
     {
@@ -203,7 +197,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
         $ret      = '<div style="padding-bottom: 16px;">';
         // $ret .= '<form><div style="text-align: left; margin-bottom: 12px;"><input type="button" name="button" onclick=\'location="admin.votes.php?op=edit"\' value="' . _MD_WFP_CREATENEW . '"></div></form>';
         $ret .= '<div>
-            <span style="float: right">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
+            <span style="float: right;">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
             </div>';
         $ret .= '</div><br clear="all" />';
         echo $ret;

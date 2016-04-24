@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: themetabform.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -25,7 +24,6 @@ include_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/form.php';
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: themetabform.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class XoopsThemeTabForm extends wfp_Form
@@ -44,7 +42,7 @@ class XoopsThemeTabForm extends wfp_Form
      */
     public function insertBreak($extra = '', $class = '')
     {
-        $class = ($class != '') ? " class='" . htmlspecialchars($class, ENT_QUOTES) . "'" : '';
+        $class = ($class !== '') ? " class='" . htmlspecialchars($class, ENT_QUOTES) . "'" : '';
         // Fix for $extra tag not showing
         if ($extra) {
             $extra = "<tr><td colspan='2' $class>$extra</td></tr>";
@@ -59,11 +57,10 @@ class XoopsThemeTabForm extends wfp_Form
      * XoopsThemeTabForm::insertSplit()
      *
      * @param string $extra
-     * @return
      */
     public function insertSplit($extra = '')
     {
-        $extra = ($extra) ? $extra : '&nbsp;';
+        $extra = $extra ?: '&nbsp;';
         $ret   = "<tr>\n<td colspan=\"2\" class=\"foot\">&nbsp;</td>\n</tr></table>\n<br />\n<br />\n
         <table width=\"100%\" class=\"outer\" cellspacing=\"1\">
          <tr>\n<th colspan=\"2\">$extra</th>\n</tr>\n";
@@ -80,7 +77,7 @@ class XoopsThemeTabForm extends wfp_Form
         $ele_name = $this->getName();
         $ret      = '';
         //$ret = '<div>' . $this->getTitle() . '</div>';
-        $ret .= "<form name='" . $ele_name . "' id='" . $ele_name . "' action='" . $this->getAction() . "' method='" . $this->getMethod() . "' onsubmit='return xoopsFormValidate_" . $ele_name . "();'" . $this->getExtra() . ">";
+        $ret .= "<form name='" . $ele_name . "' id='" . $ele_name . "' action='" . $this->getAction() . "' method='" . $this->getMethod() . "' onsubmit='return xoopsFormValidate_" . $ele_name . "();'" . $this->getExtra() . '>';
         $ret .= '<div style="text-align: right; padding-right: 20px;">
             <input type="button" class="formbutton"  name="cancels1"  id="cancel1" value="' . _CANCEL . '" onClick="history.go(-1);return true;" />
             <input type="reset" class="formbutton"  name="resets1"  id="reset1" value="' . _RESET . '"  />
@@ -95,19 +92,19 @@ class XoopsThemeTabForm extends wfp_Form
             } elseif (!$ele->isHidden()) {
                 if (!$ele->getNocolspan()) {
                     $ret .= "<tr valign='top' align='left'><td class='head' width='35%'>";
-                    if (($caption = $ele->getCaption()) != '') {
-                        $ret .= "<div class='xoops-form-element-caption" . ($ele->isRequired() ? "-required" : "") . "'>" . "<span class='caption-text'>{$caption}</span>" . "<span class='caption-marker'>*</span>" . "</div>";
+                    if (($caption = $ele->getCaption()) !== '') {
+                        $ret .= "<div class='xoops-form-element-caption" . ($ele->isRequired() ? '-required' : '') . "'>" . "<span class='caption-text'>{$caption}</span>" . "<span class='caption-marker'>*</span>" . '</div>';
                     }
-                    if (($desc = $ele->getDescription()) != '') {
+                    if (($desc = $ele->getDescription()) !== '') {
                         $ret .= "<div class='xoops-form-element-help'>{$desc}</div>";
                     }
                     $ret .= "</td><td class='$class'>" . $ele->render() . "</td></tr>\n";
                 } else {
                     $ret .= "<tr valign='top' align='left'><td class='head' colspan='2'>";
-                    if (($caption = $ele->getCaption()) != '') {
-                        $ret .= "<div class='xoops-form-element-caption" . ($ele->isRequired() ? "-required" : "") . "'>" . "<span class='caption-text'>{$caption}</span>" . "<span class='caption-marker'>*</span>" . "</div>";
+                    if (($caption = $ele->getCaption()) !== '') {
+                        $ret .= "<div class='xoops-form-element-caption" . ($ele->isRequired() ? '-required' : '') . "'>" . "<span class='caption-text'>{$caption}</span>" . "<span class='caption-marker'>*</span>" . '</div>';
                     }
-                    $ret .= "</td></tr><tr valign='top' align='left'><td class='$class' colspan='2'>" . $ele->render() . "</td></tr>";
+                    $ret .= "</td></tr><tr valign='top' align='left'><td class='$class' colspan='2'>" . $ele->render() . '</td></tr>';
                 }
             } else {
                 $hidden .= $ele->render();
@@ -125,7 +122,6 @@ class XoopsThemeTabForm extends wfp_Form
      *
      * @param mixed $tabText
      * @param mixed $paneid
-     * @return
      */
     public function startTab($tabText, $paneid)
     {
@@ -135,7 +131,6 @@ class XoopsThemeTabForm extends wfp_Form
     /**
      * XoopsThemeTabForm::endTab()
      *
-     * @return
      */
     public function endTab()
     {

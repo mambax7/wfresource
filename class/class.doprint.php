@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: class.doprint.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -20,7 +19,6 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: class.doprint.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_Doprint
@@ -31,9 +29,7 @@ class wfp_Doprint
     public $fontsize    = '12';
 
     /**
-     * wfc_doPrint::wfc_doPrint()
-     *
-     * @param array $opt
+     * wfc_doPrint::__construct()
      */
     public function __construct()
     {
@@ -42,11 +38,12 @@ class wfp_Doprint
     /**
      * wfp_doPrint::setOptions()
      *
-     * @return
+     * @param  array $opt
+     * @return bool
      */
     public function setOptions($opt = array())
     {
-        if (!is_array($opt) || empty($opt)) {
+        if (!is_array($opt) || 0 === count($opt)) {
             return false;
         }
         $this->options = $opt;
@@ -55,7 +52,6 @@ class wfp_Doprint
     /**
      * wfc_doPrint::renderPrint()
      *
-     * @return
      */
     public function doRender()
     {
@@ -65,12 +61,12 @@ class wfp_Doprint
         $ret .= "\n";
         $ret .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . _LANGCODE . '" lang="' . _LANGCODE . '">';
         $ret .= "<head>\n";
-        $ret .= "<title>" . _MD_WFP_PRINTER . " - " . $this->options['title'] . " - " . $this->options['sitename'] . "</title>\n";
+        $ret .= '<title>' . _MD_WFP_PRINTER . ' - ' . $this->options['title'] . ' - ' . $this->options['sitename'] . "</title>\n";
         $ret .= "<meta http-equiv='Content-Type' content='text/html; charset=" . _CHARSET . "' />\n";
         $ret .= "<meta name='author' content='" . $this->options['sitename'] . "' />\n";
-        $ret .= "<meta name='keywords' content='" . @$this->options['keywords'] . "' />\n";
+        $ret .= "<meta name='keywords' content='" . (isset($this->options['keywords']) ? $this->options['keywords'] : '') . "' />\n";
         $ret .= "<meta name='copyright' content='Copyright (c) 2006 by " . $this->options['sitename'] . "' />\n";
-        $ret .= "<meta name='description' content='" . @$this->options['meta'] . "' />\n";
+        $ret .= "<meta name='description' content='" . (isset($this->options['meta']) ? $this->options['meta'] : '') . "' />\n";
         $ret .= "<meta name='generator' content='Xoops' />\n";
         $ret .= "<style type=\"text/css\">
             body { margin: 10px; font-family: {$this->font}; font-size: {$this->fontsize}px; }
@@ -100,21 +96,21 @@ class wfp_Doprint
                          <td colspan=\"3\" align=\"left\">
                            <hr />
                            <h2>" . $this->options['title'] . "</h2>\n
-                           <div>" . _CONTENT_AUTHOR . " " . @$this->options['author'] . "</div>
-                           <div>" . _CONTENT_PUBLISHED . " " . @$this->options['pdate'] . "</div>";
+                           <div>" . _CONTENT_AUTHOR . ' ' . (isset($this->options['author']) ? $this->options['author'] : '') . '</div>
+                           <div>' . _CONTENT_PUBLISHED . ' ' . (isset($this->options['pdate']) ? $this->options['pdate'] : '') . '</div>';
         if (isset($this->options['pdate'])) {
-            $ret .= "<div>" . _CONTENT_UPDATED . " " . @$this->options['udate'] . "</div>";
+            $ret .= '<div>' . _CONTENT_UPDATED . ' ' . @$this->options['udate'] . '</div>';
         }
 
         if (isset($this->options['itemurl'])) {
-            $ret .= "<br /><br />" . _CONTENT_URL_TOITEM . " " . $this->options['itemurl'] . "<br /><br />";
+            $ret .= '<br /><br />' . _CONTENT_URL_TOITEM . ' ' . $this->options['itemurl'] . '<br /><br />';
         }
 
         $ret .= "<br /><div><strong>{$this->options['subtitle']}</strong></div><br />
                         </td>\n
                        </tr>\n
                        <tr colspan=\"3\" valign='top' style='font:12px;'>
-                           <td colspan=\"3\">" . $this->options['content'] . "<br /><br />";
+                           <td colspan=\"3\">" . $this->options['content'] . '<br /><br />';
         $ret .= "<hr /></td>
                        </tr>
                       </table>
@@ -125,58 +121,91 @@ class wfp_Doprint
         echo $ret;
     }
 
+    /**
+     * @param string $value
+     */
     public function setTitle($value = '')
     {
         $this->options['title'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setSubTitle($value = '')
     {
         $this->options['subtitle'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setCreater($value = '')
     {
         $this->options['creator'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setSlogan($value = '')
     {
         $this->options['slogan'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setAuthor($value = '')
     {
         $this->options['author'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setContent($value = '')
     {
         $this->options['content'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setPDate($value = '')
     {
         $this->options['pdate'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setUDate($value = '')
     {
         $this->options['udate'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setUrul($value = '')
     {
         $this->options['itemurl'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setFont($value = '')
     {
-        $this->font = strval(trim($value));
+        $this->font = (string)trim($value);
     }
 
+    /**
+     * @param string $value
+     */
     public function setFontSize($value = '')
     {
-        $this->fontsize = (int)($value);
+        $this->fontsize = (int)$value;
     }
 }

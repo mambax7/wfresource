@@ -5,26 +5,28 @@
  * @package
  * @author    John
  * @copyright Copyright (c) 2007
- * @version   $Id: class.object.php 10055 2012-08-11 12:46:10Z beckmi $
  * @access    public
  */
 
 define('XOBJ_DTYPE_BOOL', 12);
 
+/**
+ * Class wfp_Object
+ */
 class wfp_Object extends XoopsObject
 {
     /**
      * wfp_Object::wfp_Object()
      */
-    public function wfp_Object()
+    public function __construct()
     {
     }
 
     /**
      * wfp_Object::formEdit()
      *
-     * @param mixed $value
-     * @return
+     * @param  mixed $value
+     * @return bool
      */
     public function formEdit($value = null)
     {
@@ -32,7 +34,7 @@ class wfp_Object extends XoopsObject
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
         $module_prefix = substr(get_class($this), 0, 4);
-        if ($module_prefix == 'wfp_') {
+        if ($module_prefix === 'wfp_') {
             $file = XOOPS_ROOT_PATH . '/modules/wfresource/class/classforms/form_' . strtolower($value) . '.php';
         } else {
             $file = XOOPS_ROOT_PATH . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/class/classforms/form_' . strtolower($value) . '.php';
@@ -49,7 +51,9 @@ class wfp_Object extends XoopsObject
     /**
      * wfp_Object::getTimeStamp()
      *
-     * @return
+     * @param         $value
+     * @param  string $timestamp
+     * @return string
      */
     public function getTimeStamp($value, $timestamp = '')
     {
@@ -63,9 +67,11 @@ class wfp_Object extends XoopsObject
     /**
      * wfp_Object::getUerName()
      *
-     * @param mixed  $value
-     * @param string $timestamp
-     * @return
+     * @param  mixed  $value
+     * @param  string $timestamp
+     * @param  bool   $usereal
+     * @param  bool   $linked
+     * @return string
      */
     public function getUserName($value, $timestamp = '', $usereal = false, $linked = true)
     {
@@ -77,16 +83,16 @@ class wfp_Object extends XoopsObject
     /**
      * wfp_Object::getUserID()
      *
-     * @param mixed  $value
-     * @param string $timestamp
-     * @param mixed  $usereal
-     * @param mixed  $linked
-     * @return
+     * @param  mixed     $value
+     * @param  string    $timestamp
+     * @param  mixed     $usereal
+     * @param  mixed     $linked
+     * @return int|mixed
      */
     public function getUserID($value, $timestamp = '', $usereal = false, $linked = false)
     {
         if (!$this->getVar($value)) {
-            return (is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
+            return is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
         }
 
         return $this->getVar($value);
@@ -95,11 +101,11 @@ class wfp_Object extends XoopsObject
     /**
      * wfp_Object::getTextbox()
      *
-     * @param mixed   $id
-     * @param mixed   $name
-     * @param integer $size
-     * @param mixed   $max
-     * @return
+     * @param  mixed   $id
+     * @param  mixed   $name
+     * @param  integer $size
+     * @param  mixed   $max
+     * @return string
      */
     public function getTextbox($id = null, $name = null, $size = 25, $max = 255)
     {
@@ -111,26 +117,26 @@ class wfp_Object extends XoopsObject
     /**
      * wfc_Page::getYesNobox()
      *
-     * @param mixed $id
-     * @param mixed $name
-     * @param mixed $value
-     * @return
+     * @param  mixed  $id
+     * @param  mixed  $name
+     * @param  mixed  $value
+     * @return string
      */
     public function getYesNobox($id = null, $name = null, $value = null)
     {
         $i        = $this->getVar($id);
-        $ret      = "<input type='radio' name='" . $name . "[" . $i . "]' value='1'";
+        $ret      = "<input type='radio' name='" . $name . '[' . $i . "]' value='1'";
         $selected = $this->getVar($name);
-        if (isset($selected) && (1 == $selected)) {
+        if (null !== $selected && (1 === $selected)) {
             $ret .= " checked='checked'";
         }
-        $ret .= " />" . _YES . "\n";
-        $ret .= "<input type='radio' name='" . $name . "[" . $i . "]' value='0'";
+        $ret .= ' />' . _YES . "\n";
+        $ret .= "<input type='radio' name='" . $name . '[' . $i . "]' value='0'";
         $selected = $this->getVar($name);
-        if (isset($selected) && (0 == $selected)) {
+        if (null !== $selected && (0 === $selected)) {
             $ret .= " checked='checked'";
         }
-        $ret .= " />" . _NO . "\n";
+        $ret .= ' />' . _NO . "\n";
 
         return $ret;
     }
@@ -138,8 +144,8 @@ class wfp_Object extends XoopsObject
     /**
      * XoopsObject::getCheckbox()
      *
-     * @param mixed $id
-     * @return
+     * @param  mixed  $id
+     * @return string
      */
     public function getCheckbox($id = null)
     {
@@ -151,43 +157,47 @@ class wfp_Object extends XoopsObject
     /**
      * Display a human readable date form
      * parm: intval:    $time    - unix timestamp
+     * @param  null   $_time
+     * @param  string $format
+     * @param  string $err
+     * @return string
      */
     public function formatTimeStamp($_time = null, $format = 'D, M-d-Y', $err = '-------------')
     {
-        if (is_string($_time) && $_time != 'today') {
+        if (is_string($_time) && $_time !== 'today') {
             $_time = $this->getVar($_time, 'e');
         } elseif (is_numeric($_time)) {
             $_time = $_time;
-        } elseif ($_time == 'today') {
+        } elseif ($_time === 'today') {
             $_time = time();
         }
-        $ret = ($_time) ? formatTimestamp($_time, $format) : $err;
+        $ret = $_time ? formatTimestamp($_time, $format) : $err;
 
         return $ret;
     }
 
     /**
      * wfc_Page::toArray()
-     *
-     * @return
+     * @return array
      */
     public function toArray()
     {
         $ret  = array();
-        $vars = $this->getVars();
+        $vars =& $this->getVars();
         foreach (array_keys($vars) as $i) {
             $ret[$i] = $this->getVar($i);
         }
 
         return $ret;
-        unset($ret);
+//        unset($ret);
     }
 
     /**
      * wfp_Object::getImage()
      *
-     * @param mixed $value
-     * @return
+     * @param  mixed  $value
+     * @param  string $imagedir
+     * @return bool
      */
     public function getImage($value, $imagedir = '')
     {
@@ -197,23 +207,24 @@ class wfp_Object extends XoopsObject
         }
 
         $cleani       = explode('|', $this->getVar($value));
-        $orginalImage = (is_array($cleani)) ? $cleani[0] : $this->getVar($value);
+        $orginalImage = is_array($cleani) ? $cleani[0] : $this->getVar($value);
         if (!empty($orginalImage) && preg_match('/^blank\./', $orginalImage)) {
             return false;
         }
 
         $imageArray      = explode('|', $this->getVar($value));
-        $image['image']  = (isset($imageArray[0])) ? $imageArray[0] : $orginalImage;
+        $image['image']  = isset($imageArray[0]) ? $imageArray[0] : $orginalImage;
         $image['width']  = (!empty($imageArray[1])) ? $imageArray[1] : 0;
         $image['height'] = (!empty($imageArray[2])) ? $imageArray[2] : 0;
         $image['url']    = XOOPS_URL . '/' . $imagedir . '/' . $image['image'];
-        if (!file_exists(XOOPS_ROOT_PATH . '/' . $imagedir . '/' . $image['image']) || is_dir(XOOPS_ROOT_PATH . '/' . $imagedir . '/' . $image['image'])) {
+        $imageFile       = XOOPS_ROOT_PATH . '/' . $imagedir . '/' . $image['image'];
+        if (!file_exists($imageFile) || is_dir($imageFile)) {
             unset($image, $orginalImage, $cleani, $imagedir, $value);
 
             return false;
         }
-        if ($image['width'] == 0 || $image['height'] == 0) {
-            $image_details   = getimagesize(XOOPS_ROOT_PATH . '/' . $imagedir . '/' . $image['image']);
+        if ($image['width'] === 0 || $image['height'] === 0) {
+            $image_details   = getimagesize($imageFile);
             $image['width']  = $image_details[0];
             $image['height'] = $image_details[1];
         }
@@ -224,19 +235,19 @@ class wfp_Object extends XoopsObject
     /**
      * wfp_Object::getImageEdit()
      *
-     * @param mixed $value
-     * @return
+     * @param  mixed $value
+     * @return bool
      */
     public function getImageEdit($value)
     {
         $cleani       = explode('|', $this->getVar($value));
-        $orginalImage = (is_array($cleani)) ? $cleani[0] : $this->getVar($value);
+        $orginalImage = is_array($cleani) ? $cleani[0] : $this->getVar($value);
         if (!empty($orginalImage) && preg_match('/^blank\./', $orginalImage)) {
             return false;
         }
 
         $imageArray      = explode('|', $this->getVar($value));
-        $image['image']  = (isset($imageArray[0])) ? $imageArray[0] : $orginalImage;
+        $image['image']  = isset($imageArray[0]) ? $imageArray[0] : $orginalImage;
         $image['width']  = (!empty($imageArray[1])) ? $imageArray[1] : 0;
         $image['height'] = (!empty($imageArray[2])) ? $imageArray[2] : 0;
 

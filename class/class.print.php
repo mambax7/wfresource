@@ -2,17 +2,20 @@
 // $Id: class.print.php 8181 2011-11-07 01:14:53Z beckmi $
 // ------------------------------------------------------------------------ //
 // ------------------------------------------------------------------------ //
-// WF-Channel - WF-Projects													//
-// Copyright (c) 2007 WF-Channel											//
+// WF-Channel - WF-Projects                                                 //
+// Copyright (c) 2007 WF-Channel                                            //
 // //
-// Authors:																	//
-// John Neill ( AKA Catzwolf )												//
+// Authors:                                                                 //
+// John Neill ( AKA Catzwolf )                                              //
 // //
-// URL: http://catzwolf.x10hosting.com/										//
-// Project: WF-Projects														//
+// URL: http://catzwolf.x10hosting.com/                                     //
+// Project: WF-Projects                                                     //
 // -------------------------------------------------------------------------//
 defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
 
+/**
+ * Class wfp_doPrint
+ */
 class wfp_doPrint
 {
     public $options     = array();
@@ -25,9 +28,9 @@ class wfp_doPrint
      *
      * @param array $opt
      */
-    public function wfp_doPrint($opt = array())
+    public function __construct($opt = array())
     {
-        if (!is_array($opt) || empty($opt)) {
+        if (!is_array($opt) || 0 === count($opt)) {
             return false;
         }
         $this->options = $opt;
@@ -36,7 +39,6 @@ class wfp_doPrint
     /**
      * wfc_doPrint::renderPrint()
      *
-     * @return
      */
     public function renderPrint()
     {
@@ -44,12 +46,12 @@ class wfp_doPrint
         $ret .= "\n";
         $ret .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . _LANGCODE . '" lang="' . _LANGCODE . '">';
         $ret .= "<head>\n";
-        $ret .= "<title>" . _MD_WFC_PRINTER . " - " . $this->options['title'] . " - " . $this->options['sitename'] . "</title>\n";
+        $ret .= '<title>' . _MD_WFP_PRINTER . ' - ' . $this->options['title'] . ' - ' . $this->options['sitename'] . "</title>\n";
         $ret .= "<meta http-equiv='Content-Type' content='text/html; charset=" . _CHARSET . "' />\n";
         $ret .= "<meta name='author' content='" . $this->options['sitename'] . "' />\n";
-        $ret .= "<meta name='keywords' content='" . @$this->options['keywords'] . "' />\n";
+        $ret .= "<meta name='keywords' content='" . (isset($this->options['keywords']) ? $this->options['keywords'] : '') . "' />\n";
         $ret .= "<meta name='copyright' content='Copyright (c) 2006 by " . $this->options['sitename'] . "' />\n";
-        $ret .= "<meta name='description' content='" . @$this->options['meta'] . "' />\n";
+        $ret .= "<meta name='description' content='" . (isset($this->options['meta']) ? $this->options['meta'] : '') . "' />\n";
         $ret .= "<meta name='generator' content='Xoops' />\n";
         $ret .= "<style type=\"text/css\">
             body { margin: 10px; font-family: {$this->font}; font-size: {$this->fontsize}px; }
@@ -79,83 +81,116 @@ class wfp_doPrint
                          <td colspan=\"3\" align=\"left\">
                            <hr />
                            <h2>" . $this->options['title'] . "</h2>\n
-                           <div>" . _CONTENT_AUTHOR . " " . @$this->options['author'] . "</div>
-                           <div>" . _CONTENT_PUBLISHED . " " . @$this->options['pdate'] . "</div>";
+                           <div>" . _CONTENT_AUTHOR . ' ' . (isset($this->options['author']) ? $this->options['author'] : '') . '</div>
+                           <div>' . _CONTENT_PUBLISHED . ' ' . (isset($this->options['pdate']) ? $this->options['pdate'] : '') . '</div>';
         if (isset($this->options['pdate'])) {
-            $ret .= "<div>" . _CONTENT_UPDATED . " " . @$this->options['udate'] . "</div>";
+            $ret .= '<div>' . _CONTENT_UPDATED . ' ' . (isset($this->options['udate']) ? $this->options['udate'] : '') . '</div>';
         }
 
         if (isset($this->options['itemurl'])) {
-            $ret .= "<br /><br />" . _CONTENT_URL_TOITEM . " " . $this->options['itemurl'] . "<br /><br />";
+            $ret .= '<br /><br />' . _CONTENT_URL_TOITEM . ' ' . $this->options['itemurl'] . '<br /><br />';
         }
 
         $ret .= "<br /><div><strong>{$this->options['subtitle']}</strong></div><br />
                         </td>\n
                        </tr>\n
                        <tr colspan=\"3\" valign='top' style='font:12px;'>
-                           <td colspan=\"3\">" . $this->options['content'] . "<br /><br />";
+                           <td colspan=\"3\">" . $this->options['content'] . '<br /><br />';
         $ret .= "<hr /></td>
                        </tr>
                       </table>
                      </div>
                     <br />
-                <div style='text-align: center;'><input type=button value='" . _MD_WFC_PRINT_PAGE . "' onclick='window.print();'></div><br />
+                <div style='text-align: center;'><input type=button value='" . _MD_WFP_PRINT_PAGE . "' onclick='window.print();'></div><br />
                 </body></html>\n";
         echo $ret;
     }
 
+    /**
+     * @param string $value
+     */
     public function setTitle($value = '')
     {
         $this->options['title'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setSubTitle($value = '')
     {
         $this->options['subtitle'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setCreater($value = '')
     {
         $this->options['creator'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setSlogan($value = '')
     {
         $this->options['slogan'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setAuthor($value = '')
     {
         $this->options['author'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setContent($value = '')
     {
         $this->options['content'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setPDate($value = '')
     {
         $this->options['pdate'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setUDate($value = '')
     {
         $this->options['udate'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setUrul($value = '')
     {
         $this->options['itemurl'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setFont($value = '')
     {
-        $this->font = strval(trim($value));
+        $this->font = (string)trim($value);
     }
 
+    /**
+     * @param string $value
+     */
     public function setFontSize($value = '')
     {
-        $this->fontsize = (int)($value);
+        $this->fontsize = (int)$value;
     }
 }

@@ -2,14 +2,14 @@
 // $Id: class.permissions.php,v 1.2 2007/03/30 22:05:45 catzwolf Exp $
 // ------------------------------------------------------------------------ //
 // ------------------------------------------------------------------------ //
-// WF-Channel - WF-Projects													//
-// Copyright (c) 2007 WF-Channel											//
+// WF-Channel - WF-Projects                                                 //
+// Copyright (c) 2007 WF-Channel                                            //
 // //
-// Authors:																	//
-// John Neill ( AKA Catzwolf )												//
+// Authors:                                                                 //
+// John Neill ( AKA Catzwolf )                                              //
 // //
-// URL: http://catzwolf.x10hosting.com/										//
-// Project: WF-Projects														//
+// URL: http://catzwolf.x10hosting.com/                                     //
+// Project: WF-Projects                                                     //
 // -------------------------------------------------------------------------//
 /**
  * This class is copyright Xoops.com and must remain so.
@@ -22,13 +22,15 @@ defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this fi
  * @package
  * @author    Catzwolf
  * @copyright Copyright (c) 2005
- * @version   $Id: class.permissions.php,v 1.2 2007/03/30 22:05:45 catzwolf Exp $
  * @access    public
  */
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 
 //xoops_load( 'XoopsGroupPermForm' );
 
+/**
+ * Class wfp_Permissions
+ */
 class wfp_Permissions extends XoopsGroupPermForm
 {
     public $db;
@@ -40,12 +42,8 @@ class wfp_Permissions extends XoopsGroupPermForm
     /**
      * wfp_Permissions::wfp_Permissions()
      *
-     * @param string $table
-     * @param string $_perm_name
-     * @param string $_perm_descript
-     * @return
      */
-    public function wfp_Permissions()
+    public function __construct()
     {
         // null value
     }
@@ -57,32 +55,30 @@ class wfp_Permissions extends XoopsGroupPermForm
      * @param string $perm_name
      * @param string $perm_descript
      * @param mixed  $mod_id
-     * @return
      */
     public function setPermissions($table = '', $perm_name = '', $perm_descript = '', $mod_id)
     {
         if (!empty($table)) {
-            $this->db       = &XoopsDatabaseFactory::getDatabaseConnection();
+            $this->db       = XoopsDatabaseFactory::getDatabaseConnection();
             $this->db_table = $this->db->prefix($table);
         }
-        $this->_mod_id        = (int)($mod_id);
-        $this->_perm_name     = strval($perm_name);
-        $this->_perm_descript = strval($perm_descript);
+        $this->_mod_id        = (int)$mod_id;
+        $this->_perm_name     = (string)$perm_name;
+        $this->_perm_descript = (string)$perm_descript;
     }
 
     /**
      * wfp_Permissions::wfp_Permissions_render()
      *
-     * @param array $arr
-     * @return
+     * @param  array       $arr
+     * @return string|void
      */
     public function render($arr = array())
     {
-        $ret = '';
+        $ret           = '';
+        $perm_descript = null;
         if ($this->_perm_descript) {
             $perm_descript = $this->_perm_descript;
-        } else {
-            $perm_descript = null;
         }
         $sql = "SELECT {$arr['cid']}";
         if (!empty($arr['pid'])) {
@@ -99,13 +95,13 @@ class wfp_Permissions extends XoopsGroupPermForm
         }
 
         if (!$result = $this->db->query($sql)) {
-            $error = $this->db->error() . " : " . $this->db->errno();
+            $error = $this->db->error() . ' : ' . $this->db->errno();
             trigger_error($error);
         }
 
         $form_info = new XoopsGroupPermForm('', $this->_mod_id, $this->_perm_name, $this->_perm_descript);
         if ($this->db->getRowsNum($result)) {
-            while ($row_arr = $this->db->fetcharray($result)) {
+            while (false !== ($row_arr = $this->db->fetcharray($result))) {
                 if (!empty($arr['pid'])) {
                     $form_info->addItem($row_arr[$arr['cid']], $row_arr[$arr['title']], $row_arr[$arr['pid']]);
                 } else {
@@ -121,14 +117,14 @@ class wfp_Permissions extends XoopsGroupPermForm
     /**
      * wfp_Permissions::save()
      *
-     * @param array $groups
-     * @param mixed $item_id
-     * @return
+     * @param  array $groups
+     * @param  mixed $item_id
+     * @return bool
      */
-    public function save($groups = array(), $item_id = 0)
+    public function save(array $groups = null, $item_id = 0)
     {
-        $item_id = (int)($item_id);
-        if (!is_array($groups) || !count($groups) || $item_id == 0) {
+        $item_id = (int)$item_id;
+        if (!is_array($groups) || !count($groups) || $item_id === 0) {
             return false;
         }
 
@@ -156,15 +152,15 @@ class wfp_Permissions extends XoopsGroupPermForm
     /**
      * wfp_Permissions::get()
      *
-     * @param mixed $item_id
-     * @return
+     * @param  mixed $item_id
+     * @return bool
      */
     public function get($item_id)
     {
         global $xoopsUser;
 
-        $item_id       = strval((int)($item_id));
-        $groups        = (is_object($xoopsUser)) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $item_id       = (string)((int)$item_id);
+        $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $gperm_handler = &wfp_gethandler('groupperm');
         if ($groups && is_object($gperm_handler)) {
             $ret = $gperm_handler->checkRight($this->_perm_name, $item_id, $_groups, $this->_mod_id);
@@ -178,16 +174,16 @@ class wfp_Permissions extends XoopsGroupPermForm
     /**
      * wfp_Permissions::getAdmin()
      *
-     * @param mixed $item_id
-     * @param mixed $isNew
-     * @return
+     * @param  mixed $item_id
+     * @param  mixed $isNew
+     * @return array
      */
     public function getAdmin($item_id, $isNew = null)
     {
-        $item_id       = (int)($item_id);
+        $item_id       = (int)$item_id;
         $gperm_handler = &wfp_gethandler('groupperm');
         $groups        = $gperm_handler->getGroupIds($this->_perm_name, $item_id, $this->_mod_id);
-        if (!count($groups) && $isNew == true) {
+        if (!count($groups) && $isNew === true) {
             $groups = array(0 => 1, 1 => 2);
         }
 
@@ -197,15 +193,15 @@ class wfp_Permissions extends XoopsGroupPermForm
     /**
      * wfp_Permissions::doDelete()
      *
-     * @param mixed $item_id
-     * @return
+     * @param  mixed $item_id
+     * @return bool
      */
     public function doDelete($item_id)
     {
         global $xoopsUser;
 
-        $item_id       = (int)($item_id);
-        $groups        = (is_object($xoopsUser)) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $item_id       = (int)$item_id;
+        $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $gperm_handler = &wfp_gethandler('groupperm');
         if ($groups && is_object($gperm_handler)) {
             $gperm_handler->deleteByModule($this->_mod_id, $this->_perm_name, $item_id);

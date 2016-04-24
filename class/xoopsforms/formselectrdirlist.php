@@ -1,14 +1,14 @@
 <?php
 // $Id: formselectrdirlist.php 8181 2011-11-07 01:14:53Z beckmi $
 // ------------------------------------------------------------------------ //
-// Xoops - PHP Content Management System                      			//
-// Copyright (c) 2007 Xoops                           				//
+// Xoops - PHP Content Management System                                //
+// Copyright (c) 2007 Xoops                                         //
 // //
-// Authors: 																//
-// John Neill ( AKA Catzwolf )                                     			//
-// Raimondas Rimkevicius ( AKA Mekdrop )									//
+// Authors:                                                                 //
+// John Neill ( AKA Catzwolf )                                              //
+// Raimondas Rimkevicius ( AKA Mekdrop )                                    //
 // //
-// URL: http:www.xoops.com 												//
+// URL: http:www.xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
 /**
@@ -22,7 +22,7 @@
 /**
  * Parent
  */
-include_once XOOPS_ROOT_PATH . "/class/xoopsform/formselect.php";
+include_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 // RMV-NOTIFY
 /**
  * A select field with a choice of available users
@@ -39,15 +39,15 @@ class XoopsFormSelectRDirList extends XoopsFormSelect
      *
      * @param string $caption
      * @param string $name
-     * @param bool   $include_anon Include user "anonymous"?
-     * @param mixed  $value        Pre-selected value (or array of them).
-     * @param int    $size         Number or rows. "1" makes a drop-down-list.
-     * @param bool   $multiple     Allow multiple selections?
+     * @param mixed  $value    Pre-selected value (or array of them).
+     * @param int    $size     Number or rows. "1" makes a drop-down-list.
+     * @param bool   $multiple Allow multiple selections?
+     * @param bool   $is_cat
      */
     public function __construct($caption, $name, $value, $size = 1, $multiple = false, $is_cat = false)
     {
         parent::__construct($caption, $name, $value, $size, $multiple);
-        if ($is_cat == true) {
+        if ($is_cat === true) {
             $this->addOption('*2*', 'Use Section');
             $this->addOption('*#*', '---------------------');
         }
@@ -55,14 +55,13 @@ class XoopsFormSelectRDirList extends XoopsFormSelect
         $this->addOption('*0*', 'None');
         $this->addOption('*#*', '---------------------');
         $this->addOption('*/*', '/');
-        $filelist = self::getRecDirlistAsArray(XOOPS_MEDIA_PATH . '/images');
+        $filelist = $this->getRecDirlistAsArray(XOOPS_MEDIA_PATH . '/images');
     }
 
     /**
      * XoopsFormSelectRDirList::getRecDirlistAsArray()
      *
      * @param mixed $dirname
-     * @return
      */
     public function getRecDirlistAsArray($dirname)
     {
@@ -74,8 +73,8 @@ class XoopsFormSelectRDirList extends XoopsFormSelect
             while (false !== ($dir = readdir($dh))) {
                 if ($dir !== '.' && $dir !== '..' && is_dir($dirname . '/' . $dir) && strtolower($dir) !== 'cvs' && strtolower($dir) !== '.svn') {
                     $subdirname = $dirname . '/' . $dir;
-                    $this->addOption(self::processDir($dirname) . '/' . $dir);
-                    $subdirlist = self::getRecDirlistAsArray($subdirname);
+                    $this->addOption($this->processDir($dirname) . '/' . $dir);
+                    $subdirlist = $this->getRecDirlistAsArray($subdirname);
                 }
             }
             closedir($dh);
@@ -85,8 +84,8 @@ class XoopsFormSelectRDirList extends XoopsFormSelect
     /**
      * XoopsFormSelectRDirList::processDir()
      *
-     * @param mixed $dirname
-     * @return
+     * @param  mixed $dirname
+     * @return mixed
      */
     public function processDir($dirname)
     {

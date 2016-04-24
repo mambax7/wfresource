@@ -53,12 +53,12 @@ class XoopsFormSelectEditor extends XoopsFormElementTray
      * @param string $value  Pre-selected text value
      * @param bool   $noHtml dohtml disabled
      */
-    public function __construct(&$form, $name = "editor", $value = null, $noHtml = false)
+    public function __construct($form, $name = 'editor', $value = null, $noHtml = false)
     {
-        $this->XoopsFormElementTray(_SELECT);
+        parent::__construct(_SELECT);
 
         $editor_handler = new XoopsEditorHandler();
-        $option_select  = new XoopsFormSelect("", $name, $value);
+        $option_select  = new XoopsFormSelect('', $name, $value);
         $extra          = 'onchange="if (this.options[this.selectedIndex].value.length > 0) {
             window.document.forms.' . $form->getName() . '.submit();
             }"';

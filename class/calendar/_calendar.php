@@ -11,6 +11,9 @@
 
 define('NEWLINE', "\n");
 
+/**
+ * Class DHTML_Calendar
+ */
 class DHTML_Calendar
 {
     public $calendar_lib_path;
@@ -21,7 +24,13 @@ class DHTML_Calendar
     public $calendar_theme_file;
     public $calendar_options;
 
-    public function DHTML_Calendar($calendar_lib_path = '/calendar/', $lang = 'en', $theme = 'calendar', $stripped = false)
+    /**
+     * @param string     $calendar_lib_path
+     * @param string     $lang
+     * @param string     $theme
+     * @param bool|false $stripped
+     */
+    public function __construct($calendar_lib_path = '/calendar/', $lang = 'en', $theme = 'calendar', $stripped = false)
     {
         global $xoopsConfig;
         $lang  = 'en';
@@ -33,7 +42,7 @@ class DHTML_Calendar
             $this->calendar_file       = 'calendar.js';
             $this->calendar_setup_file = 'calendar-setup.js';
         }
-        $lang                      = file_exists('lang/calendar-' . $lang . '.js') ? $lang : "en";
+        $lang                      = file_exists('lang/calendar-' . $lang . '.js') ? $lang : 'en';
         $this->calendar_lang_file  = 'lang/calendar-' . $lang . '.js';
         $this->calendar_theme_file = $theme . '.css';
         $this->calendar_lib_path   = preg_replace('/\/+$/', '/', $calendar_lib_path);
@@ -46,7 +55,6 @@ class DHTML_Calendar
      *
      * @param mixed $name
      * @param mixed $value
-     * @return
      */
     public function set_option($name, $value)
     {
@@ -56,7 +64,6 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::load_files()
      *
-     * @return
      */
     public function load_files()
     {
@@ -65,8 +72,7 @@ class DHTML_Calendar
 
     /**
      * DHTML_Calendar::get_load_files_code()
-     *
-     * @return
+     * @return string
      */
     public function get_load_files_code()
     {
@@ -89,8 +95,8 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::_make_calendar()
      *
-     * @param array $other_options
-     * @return
+     * @param  array  $other_options
+     * @return string
      */
     public function _make_calendar($other_options = array())
     {
@@ -103,10 +109,10 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::make_input_field()
      *
-     * @param array $cal_options
-     * @param array $field_attributes
-     * @param mixed $show
-     * @return
+     * @param  array  $cal_options
+     * @param  array  $field_attributes
+     * @param  mixed  $show
+     * @return string
      */
     public function make_input_field($cal_options = array(), $field_attributes = array(), $show = true)
     {
@@ -126,16 +132,27 @@ class DHTML_Calendar
     }
 
     // / PRIVATE SECTION
+    /**
+     * @param $id
+     * @return string
+     */
     public function _field_id($id)
     {
         return 'f-calendar-field-' . $id;
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
     public function _trigger_id($id)
     {
         return 'f-calendar-trigger-' . $id;
     }
 
+    /**
+     * @return int
+     */
     public function _gen_id()
     {
         static $id = 0;
@@ -143,11 +160,15 @@ class DHTML_Calendar
         return ++$id;
     }
 
+    /**
+     * @param $array
+     * @return string
+     */
     public function _make_js_hash($array)
     {
         $jstr = '';
         reset($array);
-        while (list($key, $val) = each($array)) {
+        while (false !== (list($key, $val) = each($array))) {
             if (is_bool($val)) {
                 $val = $val ? 'true' : 'false';
             } elseif (!is_numeric($val)) {
@@ -162,16 +183,18 @@ class DHTML_Calendar
         return $jstr;
     }
 
+    /**
+     * @param $array
+     * @return string
+     */
     public function _make_html_attr($array)
     {
         $attrstr = '';
         reset($array);
-        while (list($key, $val) = each($array)) {
+        while (false !== (list($key, $val) = each($array))) {
             $attrstr .= $key . '="' . $val . '" ';
         }
 
         return $attrstr;
     }
 }
-
-;

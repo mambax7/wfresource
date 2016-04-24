@@ -9,7 +9,6 @@ include_once XOOPS_ROOT_PATH . '/class/xoopsform/formbutton.php';
  * @package
  * @author    John
  * @copyright Copyright (c) 2007
- * @version   $Id: formbuttontray.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class XoopsFormButtonTray extends XoopsFormElement
@@ -37,9 +36,11 @@ class XoopsFormButtonTray extends XoopsFormElement
      * @param string $value
      * @param string $type
      * @param string $onclick
+     * @param bool   $showDelete
      */
-    public function XoopsFormButtonTray($name, $value = '', $type = '', $onclick = '', $showDelete = false)
+    public function __construct($name, $value = '', $type = '', $onclick = '', $showDelete = false)
     {
+        parent::__construct();
         $this->setName($name);
         $this->setValue($value);
         $this->_type       = (!empty($type)) ? $type : 'submit';
@@ -53,8 +54,7 @@ class XoopsFormButtonTray extends XoopsFormElement
 
     /**
      * XoopsFormButtonTray::getValue()
-     *
-     * @return
+     * @return string
      */
     public function getValue()
     {
@@ -65,7 +65,6 @@ class XoopsFormButtonTray extends XoopsFormElement
      * XoopsFormButtonTray::setValue()
      *
      * @param mixed $value
-     * @return
      */
     public function setValue($value)
     {
@@ -74,8 +73,7 @@ class XoopsFormButtonTray extends XoopsFormElement
 
     /**
      * XoopsFormButtonTray::getType()
-     *
-     * @return
+     * @return string
      */
     public function getType()
     {
@@ -84,8 +82,7 @@ class XoopsFormButtonTray extends XoopsFormElement
 
     /**
      * XoopsFormButtonTray::render()
-     *
-     * @return
+     * @return string|void
      */
     public function render()
     {

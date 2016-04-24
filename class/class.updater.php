@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: class.updater.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -20,7 +19,6 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @package
  * @author    John
  * @copyright Copyright (c) 2007
- * @version   $Id: class.updater.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_Updater
@@ -31,18 +29,17 @@ class wfp_Updater
     public $success = array();
 
     /**
-     * wfp_Updater::wfp_Updater()
+     * wfp_Updater::__constructor()
      */
-    public function wfp_Updater()
+    public function __construct()
     {
-        $this->db = &XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
     }
 
     /**
      * wfp_Updater::setTable()
      *
      * @param mixed $value
-     * @return
      */
     public function setTable($value)
     {
@@ -65,7 +62,6 @@ class wfp_Updater
      * @param mixed  $fieldname
      * @param mixed  $sql
      * @param string $after
-     * @return
      */
     public function addField($fieldname = '', $sql, $after = '')
     {
@@ -81,11 +77,10 @@ class wfp_Updater
      *
      * @param mixed $fieldname
      * @param mixed $sql
-     * @return
      */
     public function changeField($fieldname, $sql)
     {
-        $this->_query['type'][]      = "CHANGE";
+        $this->_query['type'][]      = 'CHANGE';
         $this->_query['fieldname'][] = $fieldname;
         $this->_query['sql'][]       = $sql;
         $this->_query['after'][]     = '';
@@ -98,11 +93,10 @@ class wfp_Updater
      * @param mixed  $fieldname
      * @param mixed  $sql
      * @param string $after
-     * @return
      */
     public function modifyField($fieldname, $sql, $after = '')
     {
-        $this->_query['type'][]      = "MODIFY";
+        $this->_query['type'][]      = 'MODIFY';
         $this->_query['fieldname'][] = $fieldname;
         $this->_query['sql'][]       = $sql;
         $this->_query['after'][]     = $after;
@@ -113,7 +107,7 @@ class wfp_Updater
      * wfp_Updater::dropField()
      *
      * @param mixed $fieldname
-     * @return
+     * @param       $sql
      */
     public function dropField($fieldname = '', $sql)
     {
@@ -127,9 +121,9 @@ class wfp_Updater
     /**
      * wfp_Updater::RenameTable()
      *
-     * @param mixed $oldName
-     * @param mixed $newName
-     * @return
+     * @param  mixed $oldName
+     * @param  mixed $newName
+     * @return bool
      */
     public function RenameTable($oldName, $newName)
     {
@@ -143,12 +137,12 @@ class wfp_Updater
         }
         $sql    = 'RENAME TABLE ' . $this->db->prefix($oldName) . ' TO ' . $this->db->prefix($newName);
         $result = $this->db->queryF($sql);
-        if (!$result && ($this->db->errno() != '1050')) {
+        if (!$result && ($this->db->errno() !== '1050')) {
             $this->setError($this->db->error() . ' ' . $this->db->errno() . ": Table $oldName could not be renamed");
 
             return false;
         } else {
-            if ($this->db->errno() != '1050') {
+            if ($this->db->errno() !== '1050') {
                 $this->setSuccess("Notice: Table $oldName renamed to $newName");
 
                 return true;
@@ -161,10 +155,10 @@ class wfp_Updater
     /**
      * wfp_Updater::CreateTable()
      *
-     * @param mixed $tablename
-     * @param mixed $data
-     * @param mixed $addAuto
-     * @return
+     * @param  mixed $tablename
+     * @param  mixed $data
+     * @param  mixed $addAuto
+     * @return bool
      */
     public function CreateTable($tablename, $data, $addAuto = 0)
     {
@@ -174,15 +168,15 @@ class wfp_Updater
             return true;
         }
         if (in_array($tablename, array('wfcrefers'))) {
-            $sql = "CREATE TABLE " . $this->db->prefix($tablename) . " (";
+            $sql = 'CREATE TABLE ' . $this->db->prefix($tablename) . ' (';
             $sql .= "$data";
-            $sql .= ") ENGINE=MyISAM ";
+            $sql .= ') ENGINE=MyISAM ';
             if ($addAuto) {
-                $sql .= "AUTO_INCREMENT=0";
+                $sql .= 'AUTO_INCREMENT=0';
             }
         }
         $result = $this->db->queryF($sql);
-        if (!$result && ($this->db->errno() != '1050')) {
+        if (!$result && ($this->db->errno() !== '1050')) {
             $this->setError("Table $tablename could not be created<br /<br />" . $this->db->error() . ' ' . $this->db->errno());
 
             return false;
@@ -196,30 +190,29 @@ class wfp_Updater
     /**
      * wfp_Updater::doChange()
      *
-     * @return
      */
     public function doChange()
     {
         foreach (array_keys($this->_query['type']) as $i) {
-            $sql = "ALTER TABLE " . $this->db->prefix($this->_table) . " ";
+            $sql = 'ALTER TABLE ' . $this->db->prefix($this->_table) . ' ';
             $sql .= $this->_query['type'][$i];
             // if ( !empty( $this->_query['fieldname'][$i] ) && empty( $this->_query['bit'][$i] ) ) {
-            $sql .= " " . $this->_query['fieldname'][$i] . " ";
+            $sql .= ' ' . $this->_query['fieldname'][$i] . ' ';
             // }
             if (!empty($this->_query['sql'][$i])) {
-                $sql .= " " . $this->_query['sql'][$i] . " ";
+                $sql .= ' ' . $this->_query['sql'][$i] . ' ';
             }
-            if (!empty($this->_query['after'][$i]) && $this->_query['after'][$i] == 'FIRST') {
-                $sql .= " FIRST ";
+            if (!empty($this->_query['after'][$i]) && $this->_query['after'][$i] === 'FIRST') {
+                $sql .= ' FIRST ';
             } elseif (!empty($this->_query['after'][$i])) {
-                $sql .= " AFTER " . $this->_query['after'][$i] . " ";
+                $sql .= ' AFTER ' . $this->_query['after'][$i] . ' ';
             }
             $sql .= "\n\n";
             $result = $this->db->queryF($sql);
             if (!$result) {
-                $this->setError("Field <span style=\"color: red;\">" . $this->_query['fieldname'][$i] . "</span> could not be updated <br />Error: " . $this->db->errno() . ' ' . $this->db->error());
+                $this->setError("Field <span style=\"color: red;\">" . $this->_query['fieldname'][$i] . '</span> could not be updated <br />Error: ' . $this->db->errno() . ' ' . $this->db->error());
             } else {
-                $this->setSuccess("Field " . $this->_query['fieldname'][$i] . " updated ");
+                $this->setSuccess('Field ' . $this->_query['fieldname'][$i] . ' updated ');
             }
         }
     }
@@ -227,21 +220,20 @@ class wfp_Updater
     /**
      * wfp_Updater::table_exists()
      *
-     * @param mixed $tablename
-     * @return
+     * @param  mixed $tablename
+     * @return int
      */
     public function table_exists($tablename)
     {
-        $result = $this->db->query("SELECT 1 FROM " . $this->db->prefix($tablename) . " LIMIT 0");
+        $result = $this->db->query('SELECT 1 FROM ' . $this->db->prefix($tablename) . ' LIMIT 0');
 
-        return ($result) ? 1 : 0;
+        return $result ? 1 : 0;
     }
 
     /**
      * wfp_Updater::setError()
      *
      * @param mixed $value
-     * @return
      */
     public function setError($value)
     {
@@ -252,7 +244,6 @@ class wfp_Updater
      * wfp_Updater::setSuccess()
      *
      * @param mixed $value
-     * @return
      */
     public function setSuccess($value)
     {
@@ -271,8 +262,7 @@ class wfp_Updater
 
     /**
      * wfp_Updater::getSuccess()
-     *
-     * @return
+     * @return array
      */
     public function getSuccess()
     {
@@ -282,7 +272,6 @@ class wfp_Updater
     /**
      * wfp_Updater::render()
      *
-     * @return
      */
     public function render()
     {
@@ -294,7 +283,6 @@ class wfp_Updater
     /**
      * wfp_Updater::renderS()
      *
-     * @return
      */
     public function renderS()
     {

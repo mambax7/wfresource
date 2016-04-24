@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: formtabs.php 0000 14/03/2009 12:37:16:000 Catzwolf $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -22,7 +21,6 @@ define('newLine', "\n");
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id$
  * @access    public
  */
 class XooslaFormTabs
@@ -33,7 +31,7 @@ class XooslaFormTabs
      * Constructor
      * Includes files needed for displaying tabs and sets cookie options
      *
-     * @param int $ useCookies, if set to 1 cookie will hold last used tab between page refreshes
+     * @param int $useCookies - useCookies, if set to 1 cookie will hold last used tab between page refreshes
      */
     public function __construct($useCookies = 0)
     {
@@ -51,8 +49,8 @@ class XooslaFormTabs
     /**
      * xo_FormTab::startPane()
      *
-     * @param mixed $id
-     * @return
+     * @param  mixed  $id
+     * @return string
      */
     public function startPane($id)
     {
@@ -64,8 +62,7 @@ class XooslaFormTabs
 
     /**
      * xo_FormTab::endPane()
-     *
-     * @return
+     * @return string
      */
     public function endPane()
     {
@@ -77,8 +74,9 @@ class XooslaFormTabs
     /**
      * Creates a tab with title text and starts that tabs page
      *
-     * @param tabText $ - This is what is displayed on the tab
-     * @param paneid  $ - This is the parent pane to build this tab on
+     * @param $tabText - This is what is displayed on the tab
+     * @param $paneid- This is the parent pane to build this tab on
+     * @return string
      */
     public function startTab($tabText, $paneid)
     {

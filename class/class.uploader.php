@@ -1,14 +1,14 @@
 <?php
 // $Id: class.uploader.php 8181 2011-11-07 01:14:53Z beckmi $
 // ------------------------------------------------------------------------ //
-// Xoops - PHP Content Management System                      			//
-// Copyright (c) 2007 Xoops                           				//
+// Xoops - PHP Content Management System                                //
+// Copyright (c) 2007 Xoops                                         //
 // //
-// Authors: 																//
-// John Neill ( AKA Catzwolf )                                     			//
-// Raimondas Rimkevicius ( AKA Mekdrop )									//
+// Authors:                                                                 //
+// John Neill ( AKA Catzwolf )                                              //
+// Raimondas Rimkevicius ( AKA Mekdrop )                                    //
 // //
-// URL: http:www.xoops.com 												//
+// URL: http:www.xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
 /*!
@@ -42,6 +42,9 @@
  * @copyright copyright (c) 2007 Xoops Project - http.www.xoops.com
  */
 
+/**
+ * Class wfp_Uploader
+ */
 class wfp_Uploader
 {
     public $mediaName;
@@ -69,7 +72,6 @@ class wfp_Uploader
      * @param int    $maxFileSize
      * @param int    $maxWidth
      * @param int    $maxHeight
-     * @param int    $cmodvalue
      */
     public function __construct($uploadDir, $allowedMimeTypes, $maxFileSize, $maxWidth = null, $maxHeight = null)
     {
@@ -77,12 +79,12 @@ class wfp_Uploader
             $this->allowedMimeTypes = &$allowedMimeTypes;
         }
         $this->uploadDir   = $uploadDir;
-        $this->maxFileSize = (int)($maxFileSize);
-        if (isset($maxWidth)) {
-            $this->maxWidth = (int)($maxWidth);
+        $this->maxFileSize = (int)$maxFileSize;
+        if (null !== $maxWidth) {
+            $this->maxWidth = (int)$maxWidth;
         }
-        if (isset($maxHeight)) {
-            $this->maxHeight = (int)($maxHeight);
+        if (null !== $maxHeight) {
+            $this->maxHeight = (int)$maxHeight;
         }
     }
 
@@ -96,7 +98,7 @@ class wfp_Uploader
     public function fetchMedia(&$media_name, $index = null)
     {
         if (is_array($media_name) && !empty($media_name)) {
-            $this->mediaName    = (get_magic_quotes_gpc()) ? stripslashes($media_name['name']) : $media_name['name'];
+            //            $this->mediaName    = (get_magic_quotes_gpc()) ? stripslashes($media_name['name']) : $media_name['name'];
             $this->mediaName    = $media_name['name'];
             $this->mediaType    = $media_name['type'];
             $this->mediaSize    = $media_name['size'];
@@ -105,12 +107,12 @@ class wfp_Uploader
             $this->mediaError   = !empty($media_name['error']) ? $media_name['error'] : 0;
         }
         $this->errors = array();
-        if ((int)($this->mediaSize) < 0) {
+        if ((int)$this->mediaSize < 0) {
             $this->setErrors('Invalid File Size');
 
             return false;
         }
-        if ($this->mediaName == '') {
+        if ($this->mediaName === '') {
             $this->setErrors('Filename Is Empty');
 
             return false;
@@ -120,7 +122,7 @@ class wfp_Uploader
 
             return false;
         }
-        if ($this->mediaTmpName == 'none' || !is_uploaded_file($this->mediaTmpName)) {
+        if ($this->mediaTmpName === 'none' || !is_uploaded_file($this->mediaTmpName)) {
             $this->setErrors('No file uploaded');
 
             return false;
@@ -141,7 +143,7 @@ class wfp_Uploader
      */
     public function setTargetFileName($value)
     {
-        $this->targetFileName = strval(trim($value));
+        $this->targetFileName = (string)trim($value);
     }
 
     /**
@@ -151,7 +153,7 @@ class wfp_Uploader
      */
     public function setPrefix($value)
     {
-        $this->prefix = strval(trim($value));
+        $this->prefix = (string)trim($value);
     }
 
     /**
@@ -227,11 +229,12 @@ class wfp_Uploader
     /**
      * Check the file and copy it to the destination
      *
+     * @param  int  $chmod
      * @return bool
      */
     public function upload($chmod = 0644)
     {
-        if ($this->uploadDir == '') {
+        if ($this->uploadDir === '') {
             $this->setErrors('Upload directory not set');
 
             return false;
@@ -239,7 +242,7 @@ class wfp_Uploader
         if (!is_dir($this->uploadDir)) {
             $this->setErrors('Failed opening directory: ' . $this->uploadDir);
         }
-        if (!is_writeable($this->uploadDir)) {
+        if (!is_writable($this->uploadDir)) {
             $this->setErrors('Failed opening directory with write permission: ' . $this->uploadDir);
         }
         if (!$this->checkMaxFileSize()) {
@@ -269,6 +272,7 @@ class wfp_Uploader
     /**
      * Copy the file to its destination
      *
+     * @param $chmod
      * @return bool
      */
     public function _copyFile($chmod)
@@ -277,10 +281,10 @@ class wfp_Uploader
         if (!preg_match("/\.([a-zA-Z0-9]+)$/", $this->mediaName, $matched)) {
             return false;
         }
-        if (isset($this->targetFileName)) {
+        if (null !== $this->targetFileName) {
             $this->savedFileName = $this->targetFileName;
-        } elseif (isset($this->prefix)) {
-            $this->savedFileName = uniqid($this->prefix) . '.' . strtolower($matched[1]);
+        } elseif (null !== $this->prefix) {
+            $this->savedFileName = uniqid($this->prefix, true) . '.' . strtolower($matched[1]);
         } else {
             $this->savedFileName = strtolower($this->mediaName);
         }
@@ -315,7 +319,7 @@ class wfp_Uploader
      */
     public function checkMaxWidth()
     {
-        if (!isset($this->maxWidth)) {
+        if (null === $this->maxWidth) {
             return true;
         }
         if (false !== $dimension = getimagesize($this->mediaTmpName)) {
@@ -336,7 +340,7 @@ class wfp_Uploader
      */
     public function checkMaxHeight()
     {
-        if (!isset($this->maxHeight)) {
+        if (null === $this->maxHeight) {
             return true;
         }
         if (false !== $dimension = getimagesize($this->mediaTmpName)) {
@@ -379,7 +383,7 @@ class wfp_Uploader
     /**
      * Add an error
      *
-     * @param string $error
+     * @return array
      */
     public function getErrors()
     {
@@ -389,7 +393,7 @@ class wfp_Uploader
     /**
      * Get generated errors
      *
-     * @param  bool $ashtml Format using HTML?
+     * @param  bool  $ashtml Format using HTML?
      * @return array |string    Array of array messages OR HTML string
      */
     public function &getHtmlErrors($ashtml = false)

@@ -15,7 +15,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
     public $_id;
     public $_imgcat_id;
 
-    public $_category = "uploads";
+    public $_category = 'uploads';
     public $_options  = array();
     public $_multiple = false;
     public $_size     = 10;
@@ -23,17 +23,18 @@ class XoopsFormSelectImage extends XoopsFormSelect
     /**
      * Constructor
      *
-     * @param string $caption  Caption
-     * @param string $name     "name" attribute
-     * @param mixed  $value    Pre-selected value (or array of them).
-     * @param int    $size     Number or rows. "1" makes a drop-down-list
-     * @param bool   $multiple Allow multiple selections?
+     * @param string $caption   Caption
+     * @param string $name      "name" attribute
+     * @param mixed  $value     Pre-selected value (or array of them).
+     * @param string $id
+     * @param bool   $imgcat_id
+     * @param int    $size      Number or rows. "1" makes a drop-down-list
      */
     public function __construct($caption, $name, $value = null, $id = 'Xoops_image', $imgcat_id, $size = 5)
     {
         $this->setCaption($caption);
         $this->_name = $name;
-        if (isset($value)) {
+        if (null !== $values) {
             $this->setValue($value);
         }
         $this->_id        = $id;
@@ -84,6 +85,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
     /**
      * Get an array of pre-selected values
      *
+     * @param $value
      * @return array
      */
     public function setCategory($value)
@@ -104,6 +106,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
     /**
      * Set Category
      *
+     * @param $value
      * @return int
      */
     public function setDir($value)
@@ -133,15 +136,14 @@ class XoopsFormSelectImage extends XoopsFormSelect
 
     /**
      * XoopsFormSelectImg::getImage()
-     *
-     * @return
+     * @return array
      */
     public function getImage()
     {
         $value = $this->getValue();
         $image = explode('|', $value);
 
-        return (is_array($image)) ? $image : $value;
+        return is_array($image) ? $image : $value;
     }
 
     /**
@@ -150,9 +152,9 @@ class XoopsFormSelectImage extends XoopsFormSelect
      * @param string $value "value" attribute
      * @param string $name  "name" attribute
      */
-    public function addOption($value, $name = "")
+    public function addOption($value, $name = '')
     {
-        if ($name != "") {
+        if ($name !== '') {
             $this->_options[$value] = $name;
         } else {
             $this->_options[$value] = $value;
@@ -192,8 +194,8 @@ class XoopsFormSelectImage extends XoopsFormSelect
     {
         require XOOPS_ROOT_PATH . '/modules/wfresource/include/js/wfpimage.js.php';
         if ($this->_imgcat_id > 0 && $useimagemanger = 0) {
-            $image_handler  = &Xoops_gethandler('image');
-            $imgcat_handler = &Xoops_gethandler('imagecategory');
+            $image_handler  = xoops_getHandler('image');
+            $imgcat_handler = xoops_getHandler('imagecategory');
             $image_cat_obj  = $imgcat_handler->get($this->_imgcat_id);
             if ($image_cat_obj) {
                 $art_image_array = $image_handler->getList($this->_imgcat_id, null, 'image');
@@ -208,11 +210,15 @@ class XoopsFormSelectImage extends XoopsFormSelect
         $image_array = array();
         if ($this->getValue()) {
             $image_array = explode('|', $this->getValue());
-            if (count($image_array) == 1) {
-                $image_size     = @getimagesize(XOOPS_ROOT_PATH . '/' . $this->getCategory() . '/' . $this->getValue());
-                $image_array[0] = $this->getValue();
-                $image_array[1] = ($image_size[0] > 300) ? '300' : $image_size[0];
-                $image_array[2] = ($image_size[1] > 250) ? '250' : $image_size[1];
+            if (count($image_array) === 1) {
+                $imageFile = XOOPS_ROOT_PATH . '/' . $this->getCategory() . '/' . $this->getValue();
+                if (false !== stream_resolve_include_path($imageFile) && is_file($imageFile)) {
+                    $image_size = getimagesize($imageFile);
+
+                    $image_array[0] = $this->getValue();
+                    $image_array[1] = ($image_size[0] > 300) ? '300' : $image_size[0];
+                    $image_array[2] = ($image_size[1] > 250) ? '250' : $image_size[1];
+                }
             }
         } else {
             $this->setValue('');
@@ -223,7 +229,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
 
         $ret = "<table border='0' width='100%' cellspacing='0' cellpadding='0'>\n<tr>\n<td style=\"vertical-align: top;\">";
         $ret .= "<select size='" . $this->getSize() . "'" . $this->getExtra();
-        if ($this->isMultiple() != false) {
+        if ($this->isMultiple() !== false) {
             $ret .= " name='" . $this->getName() . "[]' id='" . $this->getName() . "[]' multiple='multiple' ";
         } else {
             $ret .= " name='" . $this->getName() . "' id='" . $this->getName() . "' ";
@@ -233,28 +239,31 @@ class XoopsFormSelectImage extends XoopsFormSelect
         $ret .= " onchange='chooseImage(this, \"" . $this->_id . "\", \"" . XOOPS_URL . '/' . $this->getCategory() . "\", \"\")'>";
         $result = array_merge(array('' => 'No Selection'), $art_image_array);
         foreach ($result as $value => $name) {
-            $image_name  = explode('.', $name);
-            $imagesize2  = @getimagesize(XOOPS_ROOT_PATH . "/" . $this->getCategory() . "/" . $value);
-            $imagewidth  = ($imagesize2[0] > 300) ? '300' : $imagesize2[0];
-            $imageheight = ($imagesize2[1] > 250) ? '250' : $imagesize2[1];
-            unset($imagesize);
+            $image_name = explode('.', $name);
+            $imageFile  = XOOPS_ROOT_PATH . '/' . $this->getCategory() . '/' . $value;
+            if (false !== stream_resolve_include_path($imageFile) && is_file($imageFile)) {
+                $imagesize2  = getimagesize($imageFile);
+                $imagewidth  = ($imagesize2[0] > 300) ? '300' : $imagesize2[0];
+                $imageheight = ($imagesize2[1] > 250) ? '250' : $imagesize2[1];
+                unset($imagesize2);
+            }
 
             $ret .= "<option value='" . htmlspecialchars($value, ENT_QUOTES) . "|$imagewidth|$imageheight'";
-            if (!$value || !isset($value) || empty($value)) {
+            if (!$value || null === $values || empty($value)) {
                 $value = '';
             }
-            if (trim($value) == $image_array[0]) {
+            if (trim($value) === $image_array[0]) {
                 $ret .= " selected='selected'";
             }
-            $ret .= ">" . $image_name[0] . "</option>\n";
+            $ret .= '>' . $image_name[0] . "</option>\n";
         }
         /**
          */
         $image         = $image_array[0];
         $image_display = XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0];
-        $ret .= "	</select></td><td width='100%' style='padding-left: 1%;'>
+        $ret .= "   </select></td><td width='100%' style='padding-left: 1%;'>
             <div id=\"" . $this->_id . "\" style=\"padding: 10px; text-align: center; border:1px solid black;\">
-              <img src='" . XOOPS_URL . "/" . $this->getCategory() . "/" . $image_array[0] . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/" . $this->getCategory() . "/" . $image_array[0] . "\",\"image\" );' align='absmiddle' width='{$image_array[1]}' height='{$image_array[2]}' />
+              <img src='" . XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0] . "' onclick='openWithSelfMain(\"" . XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0] . "\",\"image\" );' align='absmiddle' width='{$image_array[1]}' height='{$image_array[2]}' />
              </div>
             </td>
            </tr>

@@ -8,7 +8,6 @@ defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this fi
  * @package
  * @author    John
  * @copyright Copyright (c) 2007
- * @version   $Id: formdateselect.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  **/
 class XoopsFormDateSelect extends XoopsFormText
@@ -22,21 +21,20 @@ class XoopsFormDateSelect extends XoopsFormText
      * @param mixed   $value
      * @param mixed   $dotime
      **/
-    public function XoopsFormDateSelect($caption, $name, $size = 20, $value = null, $dotime = true)
+    public function __construct($caption, $name, $size = 20, $value = null, $dotime = true)
     {
-        if (is_numeric($value) && (int)($value) > 4000) {
-            $value = date("Y-m-d H:i:s", (int)($value));
+        if (is_numeric($value) && (int)$value > 4000) {
+            $value = date('Y-m-d H:i:s', (int)$value);
         } else {
-            $value = ($dotime) ? date("Y-m-d H:i:s", time()) : null;
+            $value = $dotime ? date('Y-m-d H:i:s', time()) : null;
         }
-        $this->XoopsFormText($caption, $name, $size, 25, $value);
+        parent::__construct($caption, $name, $size, 25, $value);
     }
 
     /**
      * XoopsFormDateSelect::render()
-     *
-     * @return
-     **/
+     * @return string
+     */
     public function render()
     {
         $jstime = formatTimestamp($this->getValue(), 'F j Y, H:i:s');

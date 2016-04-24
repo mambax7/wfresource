@@ -10,10 +10,12 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: class.addto.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
+/**
+ * Class wfp_addto
+ */
 class wfp_addto
 {
     public $bookMarklist = array();
@@ -25,9 +27,6 @@ class wfp_addto
 
     /**
      * wfp_addtoo::__construct()
-     *
-     * @param integer $layout
-     * @param mixed   $method
      */
     public function __construct()
     {
@@ -36,15 +35,15 @@ class wfp_addto
     /**
      * wfp_addtoo::render()
      *
-     * @param mixed $fetchOnly
-     * @return
+     * @param  string       $title
+     * @return mixed|string $ret     
      */
     public function render($title = '')
     {
         $this->itemTitle = htmlspecialchars($title);
         $this->addText   = (int)$GLOBALS['xoopsModuleConfig']['bookmarktextadd'];
-        $this->layout    = (int)$GLOBALS['xoopsModuleConfig']['bookmarklayout'];;
-        $this->method = 0;
+        $this->layout    = (int)$GLOBALS['xoopsModuleConfig']['bookmarklayout'];
+        $this->method    = 0;
         /**
          */
         xoops_load('xoopscache');
@@ -67,21 +66,35 @@ class wfp_addto
 
     /**
      * wfp_addto::bookmarklist()
-     *
-     * @return
+     * @return array
      */
     public function bookMarkList()
     {
-        $ret[] = array('title' => 'blinklist', 'url' => 'http://www.blinklist.com/index.php?Action=Blink/addblink.php&amp;Description=&amp;Url=<$BlogItemPermalinkURL$>&amp;Title=<$BlogItemTitle$>');
+        $ret[] = array(
+            'title' => 'blinklist',
+            'url'   => 'http://www.blinklist.com/index.php?Action=Blink/addblink.php&amp;Description=&amp;Url=<$BlogItemPermalinkURL$>&amp;Title=<$BlogItemTitle$>'
+        );
         $ret[] = array('title' => 'delicious', 'url' => 'http://del.icio.us/post?url=<$BlogItemPermalinkURL$>&amp;title=<$BlogItemTitle$>');
         $ret[] = array('title' => 'digg', 'url' => 'http://digg.com/submit?phase=2&amp;url=<$BlogItemPermalinkURL$>');
-        $ret[] = array('title' => 'fark', 'url' => 'http://cgi.fark.com/cgi/fark/edit.pl?new_url=<$BlogItemPermalinkURL$>&amp;new_comment=<$BlogItemTitle$>&amp;new_link_other=<$BlogItemTitle$>&amp;linktype=Misc');
+        $ret[] = array(
+            'title' => 'fark',
+            'url'   => 'http://cgi.fark.com/cgi/fark/edit.pl?new_url=<$BlogItemPermalinkURL$>&amp;new_comment=<$BlogItemTitle$>&amp;new_link_other=<$BlogItemTitle$>&amp;linktype=Misc'
+        );
         $ret[] = array('title' => 'furl', 'url' => 'http://www.furl.net/storeIt.jsp?t=<$BlogItemTitle$>&amp;u=<$BlogItemPermalinkURL$>');
-        $ret[] = array('title' => 'newsvine', 'url' => 'http://www.newsvine.com/_tools/seed&amp;save?u=<$BlogItemPermalinkURL$>&amp;h=<$BlogItemTitle$>');
+        $ret[] = array(
+            'title' => 'newsvine',
+            'url'   => 'http://www.newsvine.com/_tools/seed&amp;save?u=<$BlogItemPermalinkURL$>&amp;h=<$BlogItemTitle$>'
+        );
         $ret[] = array('title' => 'reddit', 'url' => 'http://reddit.com/submit?url=<$BlogItemPermalinkURL$>&amp;title=<$BlogItemTitle$>');
-        $ret[] = array('title' => 'simpy', 'url' => 'http://www.simpy.com/simpy/LinkAdd.do?href=<$BlogItemPermalinkURL$>&amp;title=<$BlogItemTitle$>');
+        $ret[] = array(
+            'title' => 'simpy',
+            'url'   => 'http://www.simpy.com/simpy/LinkAdd.do?href=<$BlogItemPermalinkURL$>&amp;title=<$BlogItemTitle$>'
+        );
         $ret[] = array('title' => 'spurl', 'url' => 'http://www.spurl.net/spurl.php?title=<$BlogItemTitle$>&amp;url=<$BlogItemPermalinkURL$>');
-        $ret[] = array('title' => 'yahoomyweb', 'url' => 'http://myweb2.search.yahoo.com/myresults/bookmarklet?t=<$BlogItemTitle$>&amp;u=<$BlogItemPermalinkURL$>');
+        $ret[] = array(
+            'title' => 'yahoomyweb',
+            'url'   => 'http://myweb2.search.yahoo.com/myresults/bookmarklet?t=<$BlogItemTitle$>&amp;u=<$BlogItemPermalinkURL$>'
+        );
         $ret[] = array('title' => 'facebook', 'url' => 'http://www.facebook.com/sharer.php?u=<$BlogItemPermalinkURL$>&amp;t=<$BlogItemTitle$>');
 
         return $ret;
@@ -89,8 +102,7 @@ class wfp_addto
 
     /**
      * wfp_addto::addThisCode()
-     *
-     * @return
+     * @return string
      */
     public function addThisCode()
     {
@@ -104,20 +116,19 @@ class wfp_addto
 
     /**
      * wfp_addto::doBookMarks()
-     *
-     * @return
+     * @return string
      */
     public function doBookMarks()
     {
         $ret = '<div>';
         foreach ($this->bookMarkList() as $b_marks) {
-            $ret .= '<a rel="nofollow" href="' . $this->getBookMarkUrl($b_marks['url']) . '" title="' . $this->getBookMarkName($b_marks['title']) . '" target="' . $this->method() . '">';
+            $ret .= '<a rel="nofollow" href="' . $this->getBookMarkUrl($b_marks['url']) . '" title="' . $this->getBookMarkName($b_marks['title']) . '" target="' . $this->getMethod() . '">';
             $ret .= $this->getBookMarkImage($b_marks['title']);
-            if ($this->addText == true) {
+            if ($this->addText === true) {
                 $ret .= '&nbsp;' . $this->getBookMarkName($b_marks['title']);
             }
             $ret .= '</a>';
-            $ret .= $this->layout();
+            $ret .= $this->getLayout();
         }
         $ret .= '</div>';
 
@@ -127,8 +138,8 @@ class wfp_addto
     /**
      * wfp_addto::replace()
      *
-     * @param mixed $text
-     * @return
+     * @param  mixed $text
+     * @return mixed
      */
     public function replace(&$text)
     {
@@ -138,7 +149,7 @@ class wfp_addto
         $replacements[]     = $this->getItemUrl();
         $patterns[]         = '<$BlogItemTitle$>';
         $replacements[]     = $this->getItemTitle();
-        $this->text         = $text;
+        $this->text         =& $text;
         $this->patterns     = $patterns;
         $this->replacements = $replacements;
         $text               = str_replace($this->patterns, $this->replacements, $this->text);
@@ -148,8 +159,7 @@ class wfp_addto
 
     /**
      * wfp_addto::getItemTitle()
-     *
-     * @return
+     * @return string
      */
     public function getItemTitle()
     {
@@ -158,8 +168,7 @@ class wfp_addto
 
     /**
      * wfp_addto::getUrl()
-     *
-     * @return
+     * @return string
      */
     public function getItemUrl()
     {
@@ -169,7 +178,8 @@ class wfp_addto
     /**
      * wfp_addto::getBookMarkUrl()
      *
-     * @return
+     * @param  string       $value
+     * @return mixed|string
      */
     private function getBookMarkUrl($value = '')
     {
@@ -179,8 +189,8 @@ class wfp_addto
     /**
      * wfp_addto::getBookMarkImage()
      *
-     * @param string $value
-     * @return
+     * @param  string $value
+     * @return string
      */
     private function getBookMarkImage($value = '')
     {
@@ -190,7 +200,8 @@ class wfp_addto
     /**
      * wfp_addto::getBookMarkName()
      *
-     * @return
+     * @param $value
+     * @return string
      */
     private function getBookMarkName($value)
     {
@@ -199,21 +210,19 @@ class wfp_addto
 
     /**
      * wfp_addto::method()
-     *
-     * @return
+     * @return string
      */
-    public function method()
+    public function getMethod()
     {
-        return ($this->method) ? '_blank' : '_self';
+        return $this->method ? '_blank' : '_self';
     }
 
     /**
      * wfp_addto::layout()
-     *
-     * @return
+     * @return string
      */
-    public function layout()
+    public function getLayout()
     {
-        return ($this->layout == 0) ? '&nbsp;' : '</div><div>';
+        return ($this->layout === 0) ? '&nbsp;' : '</div><div>';
     }
 }

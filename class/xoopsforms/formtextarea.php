@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: formtextarea.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -65,12 +64,12 @@ class XoopsFormTextArea extends XoopsFormElement
      * @param int    $rows    number of rows
      * @param int    $cols    number of columns
      */
-    public function XoopsFormTextArea($caption, $name, $value = "", $rows = 5, $cols = 50)
+    public function __construct($caption, $name, $value = '', $rows = 5, $cols = 50)
     {
         $this->setCaption($caption);
         $this->setName($name);
-        $this->_rows = (int)($rows);
-        $this->_cols = (int)($cols);
+        $this->_rows = (int)$rows;
+        $this->_cols = (int)$cols;
         $this->setValue($value);
     }
 
@@ -97,7 +96,7 @@ class XoopsFormTextArea extends XoopsFormElement
     /**
      * Get initial content
      *
-     * @param  bool $encode To sanitizer the text? Default value should be "true"; however we have to set "false" for backward compat
+     * @param  bool   $encode To sanitizer the text? Default value should be "true"; however we have to set "false" for backward compat
      * @return string
      */
     public function getValue($encode = false)
@@ -122,6 +121,6 @@ class XoopsFormTextArea extends XoopsFormElement
      */
     public function render()
     {
-        return "<textarea name='" . $this->getName() . "' id='" . $this->getName() . "' rows='" . $this->getRows() . "' cols='" . $this->getCols() . "'" . $this->getExtra() . ">" . $this->getValue() . "</textarea>";
+        return "<textarea name='" . $this->getName() . "' id='" . $this->getName() . "' rows='" . $this->getRows() . "' cols='" . $this->getCols() . "'" . $this->getExtra() . '>' . $this->getValue() . '</textarea>';
     }
 }

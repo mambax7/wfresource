@@ -1,7 +1,6 @@
 <?php
 
 /**
- * $Id: class.tabs.php 8181 2011-11-07 01:14:53Z beckmi $ Untitled 5.php v0.0 17/08/2007 03:24:56 John
  *
  * @Zarilia   -    PHP Content Management System
  * @copyright 2007 Zarilia
@@ -23,17 +22,21 @@ class xoops_Tabs
      * Constructor
      * Includes files needed for displaying tabs and sets cookie options
      *
-     * @param int $ useCookies, if set to 1 cookie will hold last used tab between page refreshes
+     * @param bool $useCookies - if set to 1 cookie will hold last used tab between page refreshes
+     * @param bool $echo
      */
     public function __construct($useCookies = true, $echo = false)
     {
-        $this->_useCookies = ((int)$useCookies) == 1 ? 1 : 0;
-        $this->_echo       = ((int)$echo == 1) ? true : false;
+        $this->_useCookies = ((int)$useCookies) === 1 ? 1 : 0;
+        $this->_echo       = ((int)$echo === 1) ? true : false;
         //$GLOBALS['xoTheme']->addStylesheet( '/include/javascript/tabs/tabpane.css', array( 'id="luna-tab-style-sheet"' ) );
         //$GLOBALS['xoTheme']->addScript( '/include/javascript/tabs/tabpane.js' );
         //$this->contents[] = "<script type=\"text/javascript\" src=\"" . XOOPS_URL . "/include/javascript/tabs/tabpane.js\"></script>";
     }
 
+    /**
+     * @param $value
+     */
     public function setEcho($value)
     {
         $this->_echo = $value;
@@ -42,7 +45,7 @@ class xoops_Tabs
     /**
      * creates a tab pane and creates JS obj
      *
-     * @param string $ The Tab Pane Name
+     * @param $id
      */
     public function startPane($id)
     {
@@ -58,22 +61,22 @@ class xoops_Tabs
      */
     public function endPane()
     {
-        $output           = "</div>";
+        $output           = '</div>';
         $this->contents[] = $output;
     }
 
     /**
      * Creates a tab with title text and starts that tabs page
      *
-     * @param tabText $ - This is what is displayed on the tab
-     * @param paneid  $ - This is the parent pane to build this tab on
+     * @param $tabText  - This is what is displayed on the tab
+     * @param $paneid  - This is the parent pane to build this tab on
      */
-    public function startTab($tabText, $paneid)
+    public function startTab($tabText, $paneId)
     {
-        $output           = "<div class=\"tab-page\" id=\"" . $paneid . "\">
+        $output           = "<div class=\"tab-page\" id=\"" . $paneId . "\">
             <h2 class=\"tab\">" . $tabText . "</h2>
             <script type=\"text/javascript\">\n
-            tabPane1.addTabPage( document.getElementById( \"" . $paneid . "\" ) );
+            tabPane1.addTabPage( document.getElementById( \"" . $paneId . "\" ) );
           </script>";
         $this->contents[] = $output;
     }
@@ -83,22 +86,28 @@ class xoops_Tabs
      */
     public function endTab()
     {
-        $output           = "</div>";
+        $output           = '</div>';
         $this->contents[] = $output;
     }
 
+    /**
+     * @param null $value
+     */
     public function addContent($value = null)
     {
         $this->contents[] = $value;
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         $cont = '';
         foreach ($this->contents as $contents) {
             $cont .= $contents;
         }
-        if ($this->_echo == false) {
+        if ($this->_echo === false) {
             return $cont;
         } else {
             echo $cont;

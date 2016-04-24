@@ -1,14 +1,14 @@
 <?php
 // $Id: form_wfp_category.php 8181 2011-11-07 01:14:53Z beckmi $
 // ------------------------------------------------------------------------ //
-// Xoops - PHP Content Management System                      			//
-// Copyright (c) 2007 Xoops                           				//
+// Xoops - PHP Content Management System                                //
+// Copyright (c) 2007 Xoops                                         //
 // //
-// Authors: 																//
-// John Neill ( AKA Catzwolf )                                     			//
-// Raimondas Rimkevicius ( AKA Mekdrop )									//
+// Authors:                                                                 //
+// John Neill ( AKA Catzwolf )                                              //
+// Raimondas Rimkevicius ( AKA Mekdrop )                                    //
 // //
-// URL: http:www.xoops.com 												//
+// URL: http:www.xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
 defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
@@ -19,7 +19,7 @@ global $modversion, $xoopsUser, $category_handler;
 
 $wfs = false;
 
-$caption = (!$this->isNew()) ? $caption = sprintf(_AM_ECATEGORY_MODIFY, $this->getVar('category_title')) : _AM_ECATEGORY_CREATE;
+$caption = (!$this->isNew()) ? $caption = sprintf(_AM_WFP_CATEGORY_MODIFY, $this->getVar('category_title')) : _AM_WFP_CREATECATEGORY;
 $form    = new XoopsThemeTabForm($caption, 'cat_form', $modversion['adminpath']);
 $form->setExtra('enctype="multipart/form-data"');
 $form->dotabs();
@@ -54,7 +54,7 @@ if ($wfs) {
 if (class_exists('XoopsFormEditor')) {
     $options['name']  = 'category_description';
     $options['value'] = $this->getVar('category_description', 'e');
-    $ele              = new XoopsFormEditor(_AM_ECATEGORY_TEXT, $xoopsUser->getVar('editor'), $options, $nohtml = false, $onfailure = "textarea");
+    $ele              = new XoopsFormEditor(_AM_ECATEGORY_TEXT, $xoopsUser->getVar('editor'), $options, $nohtml = false, $onfailure = 'textarea');
     $ele->setNocolspan(1);
     $form->addElement($ele);
 } else {
@@ -92,7 +92,7 @@ $form->addElement($buttons);
 $form->endTab();
 
 $form->startTab('Image folder', 'xo_category-image');
-$_files           = ($this->isNew()) ? '*1*' : $this->getVar('category_folders', 'e');
+$_files           = $this->isNew() ? '*1*' : $this->getVar('category_folders', 'e');
 $category_folders = new XoopsFormSelectRDirList(_AM_ECATEGORY_SELECT, 'category_folders', $_files, 10, true, true);
 $category_folders->setDescription(_AM_ECATEGORY_SELECT_DSC);
 $form->addElement($category_folders, false);

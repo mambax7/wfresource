@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: xoopsformloader.php 0000 08/04/2009 22:02:14:000 Catzwolf $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 

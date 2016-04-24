@@ -2,11 +2,20 @@
 /**
  * base class
  */
-include_once XOOPS_ROOT_PATH . "/class/xoopsform/formselect.php";
+include_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 
+/**
+ * Class XoopsFormSelectContest
+ */
 class XoopsFormSelectContest extends XoopsFormSelect
 {
-    public function XoopsFormSelectContest($caption, $name, $value = null, $size = 1)
+    /**
+     * @param      $caption
+     * @param      $name
+     * @param null $value
+     * @param int  $size
+     */
+    public function __construct($caption, $name, $value = null, $size = 1)
     {
         global $contestOption_handler;
 
@@ -15,7 +24,7 @@ class XoopsFormSelectContest extends XoopsFormSelect
         /*
         *
         */
-        $this->XoopsFormSelect($caption, $name, $value, $size);
+        parent::__construct($caption, $name, $value, $size);
         $this->addOption(0, '--------------');
         $this->addOptionArray($wfcon_cont_obj);
     }

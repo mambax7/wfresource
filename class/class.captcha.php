@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: class.captcha.php 0000 31/03/2009 07:50:29:000 Catzwolf $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -22,7 +21,6 @@ require(XOOPS_ROOT_PATH . '/modules/wfresource/class/captcha/php-captcha.inc.php
  * @package
  * @author    John
  * @copyright Copyright (c) 2007
- * @version   $Id: class.captcha.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_captcha extends PhpCaptcha
@@ -31,11 +29,10 @@ class wfp_captcha extends PhpCaptcha
     public $_errors;
 
     /**
-     * wfp_captcha::wfp_captach()
+     * wfp_captcha::__construct()
      *
-     * @return
      */
-    public function wfp_captach()
+    public function __construct()
     {
         $this->_font = array(XOOPS_ROOT_PATH . '/modules/wfresource/class/media/VeraMoBd.ttf');
     }
@@ -44,25 +41,26 @@ class wfp_captcha extends PhpCaptcha
      * wfp_captcha::loadFont()
      *
      * @param array $value
-     * @return
      */
-    public function loadFont($value = array())
+    public function loadFont(array $value = null)
     {
     }
 
     /**
      * wfp_captcha::create()
-     *
-     * @return
+     * @return bool|void
      */
     public function create()
     {
         $oVisualCaptcha = new PhpCaptcha($aFonts, 150, 40);
-        $oVisualCaptcha->SetFileType('png');
-        $oVisualCaptcha->UseColour(true);
-        $oVisualCaptcha->Create('visual-captcha.php');
+        $oVisualCaptcha->setFileType('png');
+        $oVisualCaptcha->useColour(true);
+        $oVisualCaptcha->create('visual-captcha.php');
     }
 
+    /**
+     *
+     */
     public function validate()
     {
     }

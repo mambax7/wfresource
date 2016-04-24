@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: formselectcheckgroup.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -33,17 +32,16 @@ class XoopsFormSelectCheckGroup extends XoopsFormCheckBox
      *
      * @param string $caption
      * @param string $name
-     * @param bool   $include_anon Include user "anonymous"?
-     * @param mixed  $value        Pre-selected value (or array of them).
-     * @param int    $size         Number or rows. "1" makes a drop-down-list.
-     * @param bool   $multiple     Allow multiple selections?
+     * @param mixed  $value    Pre-selected value (or array of them).
+     * @param int    $size     Number or rows. "1" makes a drop-down-list.
+     * @param bool   $multiple Allow multiple selections?
      */
     public function __construct($caption, $name, $value = null, $size = 1, $multiple = false)
     {
-        $member_handler   = &xoops_gethandler('member');
+        $member_handler   = xoops_getHandler('member');
         $this->userGroups = $member_handler->getGroupList();
 
-        $this->XoopsFormCheckBox($caption, $name, $value, '', true);
+        parent::__construct($caption, $name, $value, '', true);
         $this->columns = 3;
         foreach ($this->userGroups as $group_id => $group_name) {
             //if ($group_id != XOOPS_GROUP_ADMIN) {

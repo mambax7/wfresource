@@ -1,8 +1,7 @@
 <?php
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit();
-}
-require XOOPS_ROOT_PATH . "/class/xoopsformloader.php";
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+
+require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 if (!class_exists('XoopsFormButtonTray')) {
     require XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formbuttontray.php';

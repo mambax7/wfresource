@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: form_wfp_import.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -81,7 +80,7 @@ $wfc_submenu = new XoopsFormRadioYN(_AM_EWFC_SUBMENU, 'wfc_submenu', 0, ' ' . _A
 $wfc_submenu->setDescription(_AM_EWFC_SUBMENU_DSC);
 $form->addElement($wfc_submenu);
 
-$group = wfp_getClass('permissions');
+$group = &wfp_getClass('permissions');
 $group->setPermissions('wfcpages', 'page_read', '', $GLOBALS['xoopsModule']->getVar('mid'));
 $groups = new XoopsFormSelectCheckGroup(_AM_EWFP_GROUPS, 'page_read', '', '', true);
 $groups->setDescription(_AM_EWFP_GROUPS_DSC);

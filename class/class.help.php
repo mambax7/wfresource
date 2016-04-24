@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: class.help.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -20,7 +19,6 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: class.help.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wpf_Help
@@ -31,20 +29,19 @@ class wpf_Help
     /**
      * wpf_Help::wpf_Help()
      *
-     * @param string $aboutTitle
+     * @internal param string $aboutTitle
      */
-    public function wpf_Help()
+    public function __construct()
     {
     }
 
     /**
      * XoopsAbout::display()
      *
-     * @return
      */
     public function display()
     {
-        $ts = &MyTextSanitizer::getInstance();
+        $ts = MyTextSanitizer::getInstance();
 
         $contents        = '';
         $this->_path     = XOOPS_ROOT_PATH . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/docs/';

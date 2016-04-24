@@ -10,12 +10,14 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: formcheckbox.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 xoops_load('xoopsformelement');
 
+/**
+ * Class XoopsFormCheckBox
+ */
 class XoopsFormCheckBox extends XoopsFormElement
 {
     /**
@@ -55,13 +57,15 @@ class XoopsFormCheckBox extends XoopsFormElement
      *
      * @param string $caption
      * @param string $name
-     * @param mixed  $value Either one value as a string or an array of them.
+     * @param mixed  $value       Either one value as a string or an array of them.
+     * @param string $delimeter
+     * @param bool   $show_button
      */
-    public function __construct($caption, $name, $value = null, $delimeter = "&nbsp;", $show_button = false)
+    public function __construct($caption, $name, $value = null, $delimeter = '&nbsp;', $show_button = false)
     {
         $this->setCaption($caption);
         $this->setName($name);
-        if (isset($value)) {
+        if (null !== $values) {
             $this->setValue($value);
         }
         $this->_delimeter  = $delimeter;
@@ -71,7 +75,7 @@ class XoopsFormCheckBox extends XoopsFormElement
     /**
      * Get the "value"
      *
-     * @param  bool $encode To sanitizer the text?
+     * @param  bool  $encode To sanitizer the text?
      * @return array
      */
     public function getValue($encode = false)
@@ -90,7 +94,7 @@ class XoopsFormCheckBox extends XoopsFormElement
     /**
      * Set the "value"
      *
-     * @param array $
+     * @param $value
      */
     public function setValue($value)
     {
@@ -110,9 +114,9 @@ class XoopsFormCheckBox extends XoopsFormElement
      * @param string $value
      * @param string $name
      */
-    public function addOption($value, $name = "")
+    public function addOption($value, $name = '')
     {
-        if ($name != "") {
+        if ($name !== '') {
             $this->_options[$value] = $name;
         } else {
             $this->_options[$value] = $value;
@@ -136,8 +140,8 @@ class XoopsFormCheckBox extends XoopsFormElement
     /**
      * Get an array with all the options
      *
-     * @param  int $encode To sanitizer the text? potential values: 0 - skip; 1 - only for value; 2 - for both value and name
-     * @return array Associative array of value->name pairs
+     * @param  bool|int $encode To sanitizer the text? potential values: 0 - skip; 1 - only for value; 2 - for both value and name
+     * @return array    Associative array of value->name pairs
      */
     public function getOptions($encode = false)
     {
@@ -155,7 +159,7 @@ class XoopsFormCheckBox extends XoopsFormElement
     /**
      * Get the delimiter of this group
      *
-     * @param  bool $encode To sanitizer the text?
+     * @param  bool   $encode To sanitizer the text?
      * @return string The delimiter
      */
     public function getDelimeter($encode = false)
@@ -177,9 +181,9 @@ class XoopsFormCheckBox extends XoopsFormElement
         $ele_value     = $this->getValue();
         $ele_options   = $this->getOptions();
         $ele_extra     = $this->getExtra();
-        $ele_delimeter = empty($this->columns) ? $this->getDelimeter() : "";
-        if (count($ele_options) > 1 && substr($ele_name, -2, 2) != "[]") {
-            $ele_name = $ele_name . "[]";
+        $ele_delimeter = empty($this->columns) ? $this->getDelimeter() : '';
+        if (count($ele_options) > 1 && substr($ele_name, -2, 2) !== '[]') {
+            $ele_name .= '[]';
             $this->setName($ele_name);
         }
         $ret = '';
@@ -200,22 +204,22 @@ class XoopsFormCheckBox extends XoopsFormElement
             if (count($ele_value) > 0 && in_array($value, $ele_value)) {
                 $ret .= " checked='checked'";
             }
-            $ret .= $ele_extra . " />" . $name . $ele_delimeter . "\n";
+            $ret .= $ele_extra . ' />' . $name . $ele_delimeter . "\n";
             if (!empty($this->columns)) {
-                $ret .= "</td>";
+                $ret .= '</td>';
                 if (++$i % $this->columns == 0) {
-                    $ret .= "</tr>";
+                    $ret .= '</tr>';
                 }
             }
         }
         if (!empty($this->columns)) {
-            if ($span = $i % $this->columns) {
+            if (false !== ($span = $i % $this->columns)) {
                 $ret .= "<td width='33%' colspan='" . ($this->columns - $span) . "'></td></tr>";
             }
-            $ret .= "</table>";
+            $ret .= '</table>';
         }
         if ($this->_showbutton) {
-            $ret .= _MD_WFP_SELECTALL . '<input name="' . $ele_name . 'x_checkall" type="checkbox" onClick="this.value=xoopsCheckAllElementsButton(this,\'' . $this->getName() . '\')" value="' . _MD_WFP_SELECTALL . '">';
+            $ret .= _AM_WFP_SELECTALL . '<input name="' . $ele_name . 'x_checkall" type="checkbox" onClick="this.value=xoopsCheckAllElementsButton(this,\'' . $this->getName() . '\')" value="' . _AM_WFP_SELECTALL . '">';
         }
 
         return $ret;
@@ -229,7 +233,7 @@ class XoopsFormCheckBox extends XoopsFormElement
     public function renderValidationJS()
     {
         // render custom validation code if any
-        if (!empty($this->customValidationCode)) {
+        if (0 !== count($this->customValidationCode)) {
             return implode("\n", $this->customValidationCode);
             // generate validation code if required
         } elseif ($this->isRequired()) {
@@ -238,7 +242,7 @@ class XoopsFormCheckBox extends XoopsFormElement
             $eltmsg     = empty($eltcaption) ? sprintf(_FORM_ENTER, $eltname) : sprintf(_FORM_ENTER, $eltcaption);
             $eltmsg     = str_replace('"', '\"', stripslashes($eltmsg));
 
-            return "\nvar hasChecked = false; var checkBox = myform.elements['{$eltname}'];" . "for (var i = 0; i < checkBox.length; i++) { if (checkBox[i].checked == true) { hasChecked = true; break; } }" . "if (!hasChecked) { window.alert(\"{$eltmsg}\"); checkBox[0].focus(); return false; }";
+            return "\nvar hasChecked = false; var checkBox = myform.elements['{$eltname}'];" . 'for (var i = 0; i < checkBox.length; i++) { if (checkBox[i].checked == true) { hasChecked = true; break; } }' . "if (!hasChecked) { window.alert(\"{$eltmsg}\"); checkBox[0].focus(); return false; }";
         }
 
         return '';

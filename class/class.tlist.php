@@ -9,7 +9,6 @@
  * @author    John Neill <catzwolf@users.sourceforge.net>
  * @copyright Copyright (C) 2009 Xoosla. All rights reserved.
  * @license   GNU/LGPL, see docs/license.php
- * @version   $Id: class.tlist.php 10055 2012-08-11 12:46:10Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -23,7 +22,6 @@ if (!defined('_NEWLINE')) {
  * @package
  * @author    John
  * @copyright Copyright (c) 2008
- * @version   $Id: class.tlist.php 10055 2012-08-11 12:46:10Z beckmi $
  * @access    public
  */
 class wfp_Tlist
@@ -41,11 +39,11 @@ class wfp_Tlist
     public $_headers_count = 0;
 
     /**
-     * wfp_Tlist::__Construct()
+     * wfp_Tlist::__construct()
      *
      * @param array $headers
      */
-    public function __Construct($headers = array())
+    public function __construct($headers = array())
     {
         $this->_headers = $headers;
     }
@@ -57,7 +55,6 @@ class wfp_Tlist
      * @param integer $size
      * @param string  $align
      * @param mixed   $islink
-     * @return
      */
     public function AddHeader($name, $size = 0, $align = 'left', $islink = false)
     {
@@ -69,44 +66,40 @@ class wfp_Tlist
      * wfp_Tlist::setPrefix()
      *
      * @param mixed $value
-     * @return
      */
     public function setPrefix($value = null)
     {
-        $this->_pre_fix = ($value != null) ? strval($value) : '_MD_';
+        $this->_pre_fix = ($value !== null) ? (string)$value : '_MD_';
     }
 
     /**
      * wfp_Tlist::setOutput()
      *
      * @param mixed $value
-     * @return
      */
     public function setOutput($value = true)
     {
-        $this->_output = ($value == true) ? true : false;
+        $this->_output = ($value === true) ? true : false;
     }
 
     /**
      * wfp_Tlist::setPath()
      *
      * @param mixed $value
-     * @return
      */
     public function setPath($value)
     {
-        $this->_path = strval($value);
+        $this->_path = (string)$value;
     }
 
     /**
      * wfp_Tlist::setOp()
      *
      * @param mixed $value
-     * @return
      */
     public function setOp($value)
     {
-        $this->_op = strval($value);
+        $this->_op = (string)$value;
     }
 
     /**
@@ -115,13 +108,12 @@ class wfp_Tlist
      * @param mixed $data
      * @param mixed $class
      * @param mixed $isarray
-     * @return
      */
     public function add($data, $class = null, $isarray = false)
     {
-        if ($isarray != false) {
+        if ($isarray !== false) {
             foreach ($data as $value) {
-                self::add($value, $class); //$this->_data[] = array( $value, $class );
+                $this->add($value, $class); //$this->_data[] = array( $value, $class );
             }
         } else {
             $this->_data[] = array($data, $class);
@@ -131,8 +123,8 @@ class wfp_Tlist
     /**
      * wfp_Tlist::import()
      *
-     * @param mixed $array
-     * @return
+     * @param  mixed $array
+     * @return bool
      */
     public function import($array)
     {
@@ -147,9 +139,8 @@ class wfp_Tlist
     /**
      * wfp_Tlist::addHidden()
      *
+     * @param string $key
      * @param mixed  $value
-     * @param string $name
-     * @return
      */
     public function addHidden($key = '', $value = '')
     {
@@ -165,12 +156,11 @@ class wfp_Tlist
      *
      * @param mixed $options
      * @param mixed $multi
-     * @return
      */
     public function addHiddenArray($options, $multi = true)
     {
         if (is_array($options)) {
-            if ($multi == true) {
+            if ($multi === true) {
                 foreach ($options as $k => $v) {
                     $this->addHidden($k, $v);
                 }
@@ -184,8 +174,7 @@ class wfp_Tlist
 
     /**
      * wfp_Tlist::noselection()
-     *
-     * @return
+     * @return string
      */
     public function noselection()
     {
@@ -201,7 +190,6 @@ class wfp_Tlist
      * wfp_Tlist::addFooter()
      *
      * @param string $value
-     * @return
      */
     public function addFooter($value = '')
     {
@@ -211,8 +199,8 @@ class wfp_Tlist
     /**
      * wfp_Tlist::footer_listing()
      *
-     * @param string $align
-     * @return
+     * @param  string $align
+     * @return string
      */
     public function footer_listing($align = 'right')
     {
@@ -234,11 +222,10 @@ class wfp_Tlist
      * @param string $method
      * @param string $action
      * @param string $name
-     * @return
      */
     public function addFormStart($method = 'post', $action = '', $name = '')
     {
-        $this->_formName = strval($name);
+        $this->_formName = (string)$name;
         if ($this->_formName) {
             if (!empty($action)) {
                 $action = $action;
@@ -255,8 +242,7 @@ class wfp_Tlist
 
     /**
      * wfp_Tlist::addFormEnd()
-     *
-     * @return
+     * @return string
      */
     public function addFormEnd()
     {
@@ -268,10 +254,8 @@ class wfp_Tlist
     /**
      * wfp_Tlist::addSubmit()
      *
-     * @param string $value
-     * @param string $name
-     * @param array  $_array
-     * @return
+     * @param  array  $array
+     * @return string
      */
     public function setSubmit($array = array())
     {
@@ -279,7 +263,8 @@ class wfp_Tlist
             $array = array(
                 'updateall'    => _AM_WFC_UPDATESELECTED,
                 'deleteall'    => _AM_WFC_DELETESELECTED,
-                'duplicateall' => _AM_WFC_DUPLICATESELECTED);
+                'duplicateall' => _AM_WFC_DUPLICATESELECTED
+            );
         }
         $ret = '<select size="1" name="op" id="op">';
         if (!empty($array)) {
@@ -296,7 +281,8 @@ class wfp_Tlist
     /**
      * wfp_Tlist::render()
      *
-     * @return
+     * @param  bool   $display
+     * @return string
      */
     public function render($display = true)
     {
@@ -307,10 +293,10 @@ class wfp_Tlist
         foreach ($this->_headers as $value) {
             $width = (!empty($value['width'])) ? 'width: ' . $value['width'] . ';' : '';
             $ret .= '<th style="text-align: ' . $value['align'] . '; ' . $width . '" >';
-            if ((int)$value['islink'] == 2) {
+            if ((int)$value['islink'] === 2) {
                 $ret .= wfp_getConstants($this->_pre_fix . $value['name']);
-                $ret .= '<input name="' . $value['name'] . 'x_checkall" id="' . $value['name'] . 'x_checkall" onclick="xoopsCheckAll( \'' . $this->_formName . '\', \'' . $value["name"] . 'x_checkall\');" type="checkbox" value="Check All" />';
-            } elseif ($value['islink'] == true) {
+                $ret .= '<input name="' . $value['name'] . 'x_checkall" id="' . $value['name'] . 'x_checkall" onclick="xoopsCheckAll( \'' . $this->_formName . '\', \'' . $value['name'] . 'x_checkall\');" type="checkbox" value="Check All" />';
+            } elseif ($value['islink'] === true) {
                 $ret .= '<a href="main.php?';
                 if ($this->_path) {
                     $ret .= $this->_path . '&amp;';
@@ -329,16 +315,17 @@ class wfp_Tlist
         }
         $ret .= '</tr>';
         $count = count($this->_data);
+        $class = '';
         if (isset($this->_data[0]) && $count) {
             foreach ($this->_data as $data) {
                 if (!empty($data[1])) {
                     $class = $data[1];
                 } else {
-                    $class = (isset($class) && $class == 'even') ? 'odd' : 'even';
+                    $class = (null !== $class && 'even' === $class) ? 'odd' : 'even';
                 }
                 $ret .= '<tr class="' . $class . '">' . _NEWLINE;
                 $i = 0;
-                if ($data[1] != true) {
+                if ($data[1] !== true) {
                     foreach ($data[0] as $value) {
                         $ret .= '<td style="text-align: ' . $this->_headers[$i]['align'] . ';">' . $value . '</td>';
                         ++$i;
@@ -358,7 +345,7 @@ class wfp_Tlist
         }
         $ret .= $GLOBALS['xoopsSecurity']->getTokenHTML();
         $ret .= $this->addFormEnd();
-        if ($display == true) {
+        if ($display === true) {
             echo $ret;
         } else {
             return $ret;

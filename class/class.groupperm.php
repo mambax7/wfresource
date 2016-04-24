@@ -46,12 +46,12 @@ class wfp_GroupPermHandler extends XoopsGroupPermHandler
     /**
      * Store a {@link XoopsGroupPerm}
      *
-     * @param object $ &$perm  {@link XoopsGroupPerm} object
-     * @return bool TRUE on success
+     * @param  XoopsObject $perm
+     * @return bool        TRUE on success     
      */
-    public function insert(&$perm)
+    public function insert(XoopsObject $perm)
     {
-        if (strtolower(get_class($perm)) != 'xoopsgroupperm') {
+        if (strtolower(get_class($perm)) !== 'xoopsgroupperm') {
             return false;
         }
         if (!$perm->isDirty()) {
@@ -65,9 +65,9 @@ class wfp_GroupPermHandler extends XoopsGroupPermHandler
         }
         if ($perm->isNew()) {
             $gperm_id = $this->db->genId('group_permission_gperm_id_seq');
-            $sql      = sprintf("INSERT INTO %s (gperm_id, gperm_groupid, gperm_itemid, gperm_modid, gperm_name) VALUES (%u, %u, %u, %u, %s)", $this->db->prefix('group_permission'), $gperm_id, $gperm_groupid, $gperm_itemid, $gperm_modid, $this->db->quoteString($gperm_name));
+            $sql      = sprintf('INSERT INTO %s (gperm_id, gperm_groupid, gperm_itemid, gperm_modid, gperm_name) VALUES (%u, %u, %u, %u, %s)', $this->db->prefix('group_permission'), $gperm_id, $gperm_groupid, $gperm_itemid, $gperm_modid, $this->db->quoteString($gperm_name));
         } else {
-            $sql = sprintf("UPDATE %s SET gperm_groupid = %u, gperm_itemid = %u, gperm_modid = %u WHERE gperm_id = %u", $this->db->prefix('group_permission'), $gperm_groupid, $gperm_itemid, $gperm_modid, $gperm_id);
+            $sql = sprintf('UPDATE %s SET gperm_groupid = %u, gperm_itemid = %u, gperm_modid = %u WHERE gperm_id = %u', $this->db->prefix('group_permission'), $gperm_groupid, $gperm_itemid, $gperm_modid, $gperm_id);
         }
         if (!$result = $this->db->queryF($sql)) {
             return false;
@@ -83,15 +83,15 @@ class wfp_GroupPermHandler extends XoopsGroupPermHandler
     /**
      * Delete a {@link XoopsGroupPerm}
      *
-     * @param object $ &$perm
-     * @return bool TRUE on success
+     * @param  XoopsObject $perm
+     * @return bool        TRUE on success
      */
-    public function delete(&$perm)
+    public function delete(XoopsObject $perm)
     {
-        if (strtolower(get_class($perm)) != 'xoopsgroupperm') {
+        if (strtolower(get_class($perm)) !== 'xoopsgroupperm') {
             return false;
         }
-        $sql = sprintf("DELETE FROM %s WHERE gperm_id = %u", $this->db->prefix('group_permission'), $perm->getVar('gperm_id'));
+        $sql = sprintf('DELETE FROM %s WHERE gperm_id = %u', $this->db->prefix('group_permission'), $perm->getVar('gperm_id'));
         if (!$result = $this->db->queryF($sql)) {
             return false;
         }
@@ -102,13 +102,13 @@ class wfp_GroupPermHandler extends XoopsGroupPermHandler
     /**
      * Delete all permissions by a certain criteria
      *
-     * @param  object $criteria {@link CriteriaElement}
-     * @return bool   TRUE on success
+     * @param  CriteriaElement $criteria {@link CriteriaElement}
+     * @return bool            TRUE on success
      */
-    public function deleteAll($criteria = null)
+    public function deleteAll(CriteriaElement $criteria = null)
     {
-        $sql = sprintf("DELETE FROM %s", $this->db->prefix('group_permission'));
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        $sql = sprintf('DELETE FROM %s', $this->db->prefix('group_permission'));
+        if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
             $sql .= ' ' . $criteria->renderWhere();
         }
         if (!$result = $this->db->queryF($sql)) {

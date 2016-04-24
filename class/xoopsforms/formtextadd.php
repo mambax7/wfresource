@@ -28,9 +28,7 @@
 // URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
 // Project: The XOOPS Project                                                //
 // ------------------------------------------------------------------------- //
-if (!defined('XOOPS_ROOT_PATH')) {
-    die("XOOPS root path not defined");
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 /**
  *
  * @package    kernel
@@ -93,10 +91,11 @@ class XoopsFormTextAdd extends XoopsFormElement
      */
     public function __construct($caption, $name, $size, $maxlength, $value = '', $number = 5)
     {
+        parent::__construct();
         $this->setCaption($caption);
         $this->setName($name);
-        $this->_size      = (int)($size);
-        $this->_maxlength = (int)($maxlength);
+        $this->_size      = (int)$size;
+        $this->_maxlength = (int)$maxlength;
         $this->setValue($value);
         $this->setNumber($number);
     }
@@ -124,7 +123,7 @@ class XoopsFormTextAdd extends XoopsFormElement
     /**
      * Get initial content
      *
-     * @param  bool $encode To sanitizer the text? Default value should be "true"; however we have to set "false" for backward compat
+     * @param  bool   $encode To sanitizer the text? Default value should be "true"; however we have to set "false" for backward compat
      * @return string
      */
     public function getValue($encode = false)

@@ -1,14 +1,14 @@
 <?php
 // $Id: class.broken.php 8181 2011-11-07 01:14:53Z beckmi $
 // ------------------------------------------------------------------------ //
-// Xoops - PHP Content Management System                      			//
-// Copyright (c) 2007 Xoops                           				//
+// Xoops - PHP Content Management System                                //
+// Copyright (c) 2007 Xoops                                         //
 // //
-// Authors: 																//
-// John Neill ( AKA Catzwolf )                                     			//
-// Raimondas Rimkevicius ( AKA Mekdrop )									//
+// Authors:                                                                 //
+// John Neill ( AKA Catzwolf )                                              //
+// Raimondas Rimkevicius ( AKA Mekdrop )                                    //
 // //
-// URL: http:www.Xoops.com 												//
+// URL: http:www.Xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
 if (!defined('XOOPS_ROOT_PATH')) {
@@ -23,7 +23,6 @@ wfp_getObjectHandler();
  * @package
  * @author    John
  * @copyright Copyright (c) 2008
- * @version   $Id: class.broken.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_Broken extends wfp_Object
@@ -47,28 +46,30 @@ class wfp_Broken extends wfp_Object
     /**
      * wfp_Broken::getUser()
      *
-     * @param mixed $value
-     * @return
+     * @param  mixed $value
+     * @return string
      */
     public function getUser($value = null)
     {
-        $uid = &$this->getVar('broken_uid');
+        $uid = $this->getVar('broken_uid');
+        $ret = 'Unknown Author';
         if (is_array($value) && isset($value[$uid])) {
             $ret = $value[$uid];
-        } else {
-            $ret = 'Unknown Author';
         }
 
         return $ret;
     }
 
+    /**
+     * @param  null $value
+     * @return string
+     */
     public function getFiles($value = null)
     {
-        $file = &$this->getVar('broken_fid');
+        $file = $this->getVar('broken_fid');
+        $ret  = 'Unknown File';
         if (is_array($value) && isset($value[$file])) {
             $ret = $value[$file];
-        } else {
-            $ret = 'Unknown File';
         }
 
         return $ret;
@@ -81,7 +82,6 @@ class wfp_Broken extends wfp_Object
  * @package
  * @author    John
  * @copyright Copyright (c) 2008
- * @version   $Id: class.broken.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_BrokenHandler extends wfp_ObjectHandler
@@ -91,17 +91,17 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
      *
      * @param mixed $db
      */
-    public function __Construct(&$db)
+    public function __construct($db)
     {
-        $this->wfp_ObjectHandler($db, 'wfp_broken', 'wfp_Broken', 'broken_id', 'broken_fid');
+        parent::__construct($db, 'wfp_broken', 'wfp_Broken', 'broken_id', 'broken_fid');
     }
 
     /**
      * wfp_BrokenHandler::getObj()
      *
-     * @param array $nav
-     * @param mixed $value
-     * @return
+     * @param  array $nav
+     * @param  mixed $value
+     * @return bool
      */
     public function &getObj($nav = array(), $value = false)
     {
@@ -110,7 +110,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
             $args     = func_get_args();
             $criteria = new CriteriaCompo();
             if (!empty($args[0]['pulldate'])) {
-                $addon_date = &$this->getaDate($args[0]['broken_date']);
+                $addon_date = $this->getaDate($args[0]['broken_date']);
                 if ($addon_date['begin'] && $addon_date['end']) {
                     $criteria->add(new Criteria('broken_date', $addon_date['begin'], '>='));
                     $criteria->add(new Criteria('broken_date', $addon_date['end'], '<='));
@@ -129,7 +129,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
                 $criteria->setStart($args[0]['start']);
                 $criteria->setLimit($args[0]['limit']);
             }
-            $obj['list'] = &$this->getObjects($criteria, $args[1]);
+            $obj['list'] = $this->getObjects($criteria, $args[1]);
         }
 
         return $obj;
@@ -138,18 +138,18 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
     /**
      * wfp_BrokenHandler::getaDate()
      *
-     * @param string $exp_value
-     * @param string $exp_time
-     * @param mixed  $useMonth
-     * @return
+     * @param  string $exp_value
+     * @param  string $exp_time
+     * @param  mixed  $useMonth
+     * @return array
      */
-    private function getaDate($exp_value = '', $exp_time = '', $useMonth = 0)
+    public function getaDate($exp_value = '', $exp_time = '', $useMonth = 0)
     {
         $_date_arr = array();
-        $_date     = ($exp_value) ? $exp_value : time();
-        $d         = date("j", $_date);
-        $m         = date("m", $_date);
-        $y         = date("Y", $_date);
+        $_date     = $exp_value ?: time();
+        $d         = date('j', $_date);
+        $m         = date('m', $_date);
+        $y         = date('Y', $_date);
         if ($useMonth > 0) {
             /**
              * We use +1 for the the previous month and not the next here,
@@ -169,6 +169,9 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
         return $_date_arr;
     }
 
+    /**
+     * @return mixed
+     */
     private function &getUserInfo()
     {
         $sql    = sprintf('
@@ -185,15 +188,18 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $this->db->fetchArray($result)) {
-            $ret[$myrow['uid']] = &$myrow['uname'];
+        while (false !== ($myrow = $this->db->fetchArray($result))) {
+            $ret[$myrow['uid']] = $myrow['uname'];
         }
         $this->db->freeRecordSet($result);
 
         return $ret;
     }
 
-    private function &GetFileInfo()
+    /**
+     * @return mixed
+     */
+    private function &getFileInfo()
     {
         $sql    = sprintf('
          SELECT SQL_CACHE DISTINCT
@@ -208,58 +214,74 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $this->db->fetchArray($result)) {
-            $ret[$myrow['file_id']] = &$myrow['file_displayname'];
+        while (false !== ($myrow = $this->db->fetchArray($result))) {
+            $ret[$myrow['file_id']] = $myrow['file_displayname'];
         }
         $this->db->freeRecordSet($result);
 
         return $ret;
     }
 
+    /**
+     * @return mixed
+     */
     public function &getUserList()
     {
         static $user_array;
-        if (!isset($user_array)) {
-            $data       = &self::GetUserInfo();
-            $user_array = &$data;
+        if (null === $user_array) {
+            $data       =& $this->getUserInfo();
+            $user_array =& $data;
         }
 
         return $user_array;
     }
 
+    /**
+     * @return mixed
+     */
     public function &getFilesList()
     {
         static $file_array;
-        if (!isset($file_array)) {
-            $data       = &self::GetFileInfo();
+        if (null === $file_array) {
+            $data       =& $this->getFileInfo();
             $file_array = &$data;
         }
 
         return $file_array;
     }
 
+    /**
+     * @return null|string|void
+     */
     public function showHtmlCalendar()
     {
-        if (func_num_args() != 2) {
+        if (func_num_args() !== 2) {
             return null;
         }
         $display = func_get_arg(0);
         $date    = func_get_arg(1);
 
         $jstime = formatTimestamp('F j Y, H:i:s', time());
-        $value  = ($date == '') ? '' : strftime('%Y-%m-%d %I:%M', $date);
+        $value  = ($date === '') ? '' : strftime('%Y-%m-%d %I:%M', $date);
         require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/calendar/calendar.php';
         $calendar = new DHTML_Calendar(XOOPS_URL . '/modules/wfresource/class/calendar/', 'en', 'calendar-system', false);
         $calendar->load_files();
 
-        return $calendar->make_input_field(array('firstDay' => 1, 'showsTime' => true, 'showOthers' => true, 'ifFormat' => '%Y-%m-%d %I:%M', 'timeFormat' => '12'), // field attributes go here
+        return $calendar->make_input_field(array(
+                                               'firstDay'   => 1,
+                                               'showsTime'  => true,
+                                               'showOthers' => true,
+                                               'ifFormat'   => '%Y-%m-%d %I:%M',
+                                               'timeFormat' => '12'
+                                           ), // field attributes go here
                                            array('style' => '', 'name' => 'date1', 'value' => $value), $display);
     }
 
     /**
      * wfc_PageHandler::headingHtml()
      *
-     * @return
+     * @param $value
+     * @param $total_count
      */
     public function headingHtml($value, $total_count)
     {
@@ -273,8 +295,8 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
         $ret      = '<div style="padding-bottom: 16px;">';
         $ret .= '<form><div style="text-align: left; margin-bottom: 12px;"><input type="button" name="button" onclick=\'location="admin.broken.php?op=edit"\' value="' . _MD_WFP_CREATENEW . '"></div></form>';
         $ret .= '<div>
-            <span style="float: left">' . wfp_getSelection($broken_authors, $nav['broken_uid'], 'broken_uid', 1, 1, false, false, sprintf($onchange, 'broken_uid'), 0, false) . '</span>
-            <span style="float: right">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
+            <span style="float: left;">' . wfp_getSelection($broken_authors, $nav['broken_uid'], 'broken_uid', 1, 1, false, false, sprintf($onchange, 'broken_uid'), 0, false) . '</span>
+            <span style="float: right;">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
             </div>';
         $ret .= '</div><br clear="all" />';
         echo $ret;

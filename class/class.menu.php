@@ -1,14 +1,14 @@
 <?php
 // $Id: class.menu.php 8181 2011-11-07 01:14:53Z beckmi $
 // ------------------------------------------------------------------------ //
-// Xoops - PHP Content Management System                      			//
-// Copyright (c) 2007 Xoops                           				//
+// Xoops - PHP Content Management System                                //
+// Copyright (c) 2007 Xoops                                         //
 // //
-// Authors: 																//
-// John Neill ( AKA Catzwolf )                                     			//
-// Raimondas Rimkevicius ( AKA Mekdrop )									//
+// Authors:                                                                 //
+// John Neill ( AKA Catzwolf )                                              //
+// Raimondas Rimkevicius ( AKA Mekdrop )                                    //
 // //
-// URL: http:www.Xoops.com 												//
+// URL: http:www.Xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
 defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
@@ -19,7 +19,6 @@ defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this fi
  * @package
  * @author    John
  * @copyright Copyright (c) 2006
- * @version   $Id: class.menu.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_MenuHandler
@@ -54,11 +53,10 @@ class wfp_MenuHandler
      *
      * @param mixed  $value
      * @param string $name
-     * @return
      */
     public function addMenuTop($value, $name = '')
     {
-        if ($name != '') {
+        if ($name !== '') {
             $this->_menutop[$value] = $name;
         } else {
             $this->_menutop[$value] = $value;
@@ -70,12 +68,11 @@ class wfp_MenuHandler
      *
      * @param mixed $options
      * @param mixed $multi
-     * @return
      */
     public function addMenuTopArray($options, $multi = true)
     {
         if (is_array($options)) {
-            if ($multi == true) {
+            if ($multi === true) {
                 foreach ($options as $k => $v) {
                     $this->addMenuTop($k, $v);
                 }
@@ -92,11 +89,10 @@ class wfp_MenuHandler
      *
      * @param mixed  $value
      * @param string $name
-     * @return
      */
     public function addMenuTabs($value, $name = '')
     {
-        if ($name != '') {
+        if ($name !== '') {
             $this->_menutabs[$value] = $name;
         } else {
             $this->_menutabs[$value] = $value;
@@ -108,12 +104,11 @@ class wfp_MenuHandler
      *
      * @param mixed $options
      * @param mixed $multi
-     * @return
      */
     public function addMenuTabsArray($options, $multi = true)
     {
         if (is_array($options)) {
-            if ($multi == true) {
+            if ($multi === true) {
                 foreach ($options as $k => $v) {
                     $this->addMenuTabs($k, $v);
                 }
@@ -130,11 +125,10 @@ class wfp_MenuHandler
      *
      * @param mixed  $value
      * @param string $name
-     * @return
      */
     public function addMenuIcons($value, $name = '')
     {
-        if ($name != '') {
+        if ($name !== '') {
             $this->_menuicons[$value] = $name;
         } else {
             $this->_menuicons[$value] = $value;
@@ -146,12 +140,11 @@ class wfp_MenuHandler
      *
      * @param mixed $options
      * @param mixed $multi
-     * @return
      */
     public function addMenuIconsArray($options, $multi = true)
     {
         if (is_array($options)) {
-            if ($multi == true) {
+            if ($multi === true) {
                 foreach ($options as $k => $v) {
                     $this->addMenuIcons($k, $v);
                 }
@@ -167,7 +160,6 @@ class wfp_MenuHandler
      * wfp_MenuHandler::addHeader()
      *
      * @param mixed $value
-     * @return
      */
     public function addHeader($value)
     {
@@ -178,7 +170,6 @@ class wfp_MenuHandler
      * wfp_MenuHandler::addSubHeader()
      *
      * @param mixed $value
-     * @return
      */
     public function addSubHeader($value)
     {
@@ -189,7 +180,6 @@ class wfp_MenuHandler
      * xo_Adminmenu::addIcon()
      *
      * @param mixed $value
-     * @return
      */
     public function addIcon($value = '')
     {
@@ -198,8 +188,7 @@ class wfp_MenuHandler
 
     /**
      * xo_Adminmenu::getIcon()
-     *
-     * @return
+     * @return string
      */
     public function getIcon()
     {
@@ -208,13 +197,12 @@ class wfp_MenuHandler
 
     /**
      * xo_Adminmenu::getNavMenuIcons()
-     *
-     * @return
+     * @return string
      */
     public function getNavMenuIcons()
     {
         $menu = '';
-        if (!empty($this->_menuicons)) {
+        if (0 !== count($this->_menuicons)) {
             foreach ($this->_menuicons as $k => $v) {
                 $menu .= '<a href="' . $v . '">' . wfp_showImage('cpanel_' . $k, $k, '', 'png') . '</a>';
             }
@@ -226,9 +214,9 @@ class wfp_MenuHandler
     /**
      * wfp_MenuHandler::render()
      *
-     * @param integer $currentoption
-     * @param mixed   $display
-     * @return
+     * @param  integer $currentoption
+     * @param  mixed   $display
+     * @return bool
      */
     public function render($currentoption = 1, $display = true)
     {
@@ -237,7 +225,7 @@ class wfp_MenuHandler
         /**
          * Menu Top Links
          */
-        $menuTopLinks = "<a class='nobutton' href='" . XOOPS_URL . "/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $GLOBALS['xoopsModule']->getVar('mid') . "'>" . _AM_WFP_ADMINPREFS . "</a>";
+        $menuTopLinks = "<a class='nobutton' href='" . XOOPS_URL . '/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' . $GLOBALS['xoopsModule']->getVar('mid') . "'>" . _AM_WFP_ADMINPREFS . '</a>';
         foreach ($this->_menutop as $k => $v) {
             $menuTopLinks .= ' | <a href="' . htmlentities($k) . '"><span>' . $v . '</span></a>';
         }
@@ -266,9 +254,10 @@ class wfp_MenuHandler
                          'menu_subheader' => $this->_subheader,
                          'menu_header'    => $this->_header,
                          'menu_icons'     => $this->getNavMenuIcons(),
-                         'menu_module'    => $GLOBALS['xoopsModule']->getVar('name')));
+                         'menu_module'    => $GLOBALS['xoopsModule']->getVar('name')
+                     ));
 
-//mb        $tpl->display(XOOPS_ROOT_PATH . '/modules/wfresource/templates/wfp_adminmenu.tpl');
+        //mb        $tpl->display(XOOPS_ROOT_PATH . '/modules/wfresource/templates/wfp_adminmenu.tpl');
 
         return true;
     }

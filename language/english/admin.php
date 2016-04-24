@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: admin.php 10055 2012-08-11 12:46:10Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -31,6 +30,7 @@ define('_AM_WFP_MENU_MODULE', 'Module: ');
  * Misc Lanaguge
  */
 define('_AM_WFP_CREATECATEGORY', 'Create Category');
+define('_AM_WFP_CATEGORY_MODIFY', 'Modify Category');
 define('_AM_WFP_CREATENEW', 'Create Item');
 define('_AM_WFP_PERMISSIONS', 'Set Permissions');
 define('_AM_', '');
@@ -139,7 +139,7 @@ define('_AM_VOTE_RATING', 'Rating');
 define('_AM_VOTE_IPADDRESS', 'IP Address');
 define('_AM_VOTE_DATE', 'Date');
 define('_AM_VOTE_ANAME', 'Article');
-define('_AM_ACTIONS', 'Actions');
+define('_AM_WFP_ACTION', 'Actions');
 
 /**
  * Broken language defines

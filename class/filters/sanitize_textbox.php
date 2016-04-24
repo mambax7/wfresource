@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: sanitize_textbox.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -20,7 +19,6 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: sanitize_textbox.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class xo_Filters_Sanitize_Textbox extends wfp_Request
@@ -28,8 +26,9 @@ class xo_Filters_Sanitize_Textbox extends wfp_Request
     /**
      * xo_Filters_Validate_String::render()
      *
-     * @param mixed $value
-     * @return
+     * @param $method
+     * @param $key
+     * @return bool|mixed
      */
     public function doRender($method, $key)
     {

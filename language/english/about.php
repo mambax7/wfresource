@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: about.php 10055 2012-08-11 12:46:10Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -22,7 +21,6 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @package   Language
  * @since     v1.0.0
  * @author    John Neill <catzwolf@users.sourceforge.net>
- * @version   $Id: about.php 10055 2012-08-11 12:46:10Z beckmi $
  */
 define('_CP_AM_AB_MODULE', 'Module Name:');
 define('_CP_AM_AB_AUTHOR', 'Author:');

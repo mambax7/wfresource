@@ -28,9 +28,8 @@
 // URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
 // Project: The XOOPS Project                                                //
 // ------------------------------------------------------------------------- //
-if (!defined('XOOPS_ROOT_PATH')) {
-    die("XOOPS root path not defined");
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+
 /**
  *
  * @package    kernel
@@ -168,14 +167,13 @@ class XoopsFormElement
     /**
      * get the "name" attribute for the element
      *
-     * @param bool $encode
+     * @param  bool   $encode
      * @return string "name" attribute
-     * @internal param $bool $ encode?
      */
     public function getName($encode = true)
     {
         if (false != $encode) {
-            return str_replace("&amp;", "&", htmlspecialchars($this->_name, ENT_QUOTES));
+            return str_replace('&amp;', '&', htmlspecialchars($this->_name, ENT_QUOTES));
         }
 
         return $this->_name;
@@ -220,8 +218,7 @@ class XoopsFormElement
     /**
      * set the "class" attribute for the element
      *
-     * @param $class
-     * @internal param string $key "class" attribute for the element
+     * @param $class    "class" attribute for the element
      */
     public function setClass($class)
     {
@@ -238,7 +235,7 @@ class XoopsFormElement
      */
     public function getClass()
     {
-        if (empty($this->_class)) {
+        if (0 == count($this->_class)) {
             return '';
         }
         $class = array();
@@ -246,7 +243,7 @@ class XoopsFormElement
             $class[] = htmlspecialchars($class, ENT_QUOTES);
         }
 
-        return implode(" ", $class);
+        return implode(' ', $class);
     }
 
     /**
@@ -262,7 +259,7 @@ class XoopsFormElement
     /**
      * get the caption for the element
      *
-     * @param  bool $encode To sanitizer the text?
+     * @param  bool   $encode To sanitizer the text?
      * @return string
      */
     public function getCaption($encode = false)
@@ -283,7 +280,7 @@ class XoopsFormElement
     /**
      * get the element's description
      *
-     * @param  bool $encode To sanitizer the text?
+     * @param  bool   $encode To sanitizer the text?
      * @return string
      */
     public function getDescription($encode = false)
@@ -325,9 +322,9 @@ class XoopsFormElement
      * This string will be inserted verbatim and unvalidated in the
      * element's tag. Know what you are doing!
      *
-     * @param  string     $extra
-     * @param bool|string $replace If true, passed string will replace current content otherwise it will be appended to it
-     * @return array New content of the extra string
+     * @param  string      $extra
+     * @param  bool|string $replace If true, passed string will replace current content otherwise it will be appended to it
+     * @return array       New content of the extra string
      */
     public function setExtra($extra, $replace = false)
     {
@@ -343,7 +340,7 @@ class XoopsFormElement
     /**
      * Get the extra attributes for the element
      *
-     * @param  bool $encode To sanitizer the text?
+     * @param  bool   $encode To sanitizer the text?
      * @return string
      */
     public function getExtra($encode = false)
@@ -356,15 +353,14 @@ class XoopsFormElement
             $value[] = str_replace('>', '&gt;', str_replace('<', '&lt;', $val));
         }
 
-        return empty($value) ? "" : " " . implode(' ', $value);
+        return 0 == count($value) ? '' : ' ' . implode(' ', $value);
     }
 
     /**
      * Set the element's nocolspan
      * Modified by Catzwolf
      *
-     * @param bool $nocolspan
-     * @internal param string $description
+     * @param bool $nocolspan     
      */
     public function setNocolspan($nocolspan = false)
     {
@@ -390,7 +386,7 @@ class XoopsFormElement
     public function renderValidationJS()
     {
         // render custom validation code if any
-        if (!empty($this->customValidationCode)) {
+        if (0 !== count($this->customValidationCode)) {
             return implode("\n", $this->customValidationCode);
             // generate validation code if required
         } elseif ($this->isRequired()) {
@@ -419,7 +415,7 @@ class XoopsFormElement
     /**
      * get the caption for the element
      *
-     * @param  bool $encode To sanitizer the text?
+     * @param  bool   $encode To sanitizer the text?
      * @return string
      */
     public function getTitle($encode = false)

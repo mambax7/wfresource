@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: validate_float.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -20,7 +19,6 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: validate_float.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class xo_Filters_Validate_Float extends wfp_Request
@@ -28,10 +26,8 @@ class xo_Filters_Validate_Float extends wfp_Request
     /**
      * xo_Filters_Validate_String::doRender()
      *
-     * @param mixed $method
-     * @param mixed $key
-     * @param array $options
-     * @return
+     * @param  null $float
+     * @return bool
      */
     public function doRender($float = null)
     {

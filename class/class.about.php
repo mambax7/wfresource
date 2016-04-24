@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: class.about.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -22,7 +21,6 @@ wfp_loadLangauge('about', 'wfresource');
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: class.about.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wpf_About
@@ -30,19 +28,18 @@ class wpf_About
     /**
      * wpf_About::wpf_About()
      */
-    public function wpf_About()
+    public function __construct()
     {
     }
 
     /**
      * wpf_About::display()
      *
-     * @return
      */
     public function display()
     {
         $ret         = '';
-        $author_name = $GLOBALS['xoopsModule']->getInfo('author') ? $GLOBALS['xoopsModule']->getInfo('author') : '';
+        $author_name = $GLOBALS['xoopsModule']->getInfo('author') ?: '';
 
         $ret .= '<p><img src="' . XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/' . $GLOBALS['xoopsModule']->getInfo('image') . '" align="left" title="' . $GLOBALS['xoopsModule']->getInfo('name') . '" alt="' . $GLOBALS['xoopsModule']->getInfo('name') . '" hspace="5" vspace="0" /></a>
                 <div style="margin-top: 10px; color: #33538e; margin-bottom: 4px; font-size: 16px; line-height: 16px; font-weight: bold; display: block;">' . $GLOBALS['xoopsModule']->getInfo('name') . ' version ' . $GLOBALS['xoopsModule']->getInfo('version') . '</div>
@@ -92,8 +89,8 @@ class wpf_About
     /**
      * wpf_About::about_header()
      *
-     * @param mixed $heading
-     * @return
+     * @param  mixed  $heading
+     * @return string
      */
     public function about_header($heading = null)
     {
@@ -103,21 +100,21 @@ class wpf_About
     /**
      * wpf_About::about_content()
      *
-     * @param string $heading
-     * @param string $value
-     * @param string $value2
-     * @param string $type
-     * @param mixed  $colspan
-     * @return
+     * @param  string $heading
+     * @param  string $value
+     * @param  string $value2
+     * @param  string $type
+     * @param  mixed  $colspan
+     * @return string
      */
     public function about_content($heading = '', $value = '', $value2 = '', $type = 'normal', $colspan = null)
     {
-        $myts    = &MyTextSanitizer::getInstance();
-        $heading = ($heading) ? $heading : '';
+        $myts    = MyTextSanitizer::getInstance();
+        $heading = $heading ?: '';
         switch ($type) {
             case 'normal':
             default:
-                $value = (empty($value)) ? '' : ($value == 'changelog') ? $this->changelog() : $GLOBALS['xoopsModule']->getInfo($value);
+                $value = empty($value) ? '' : ($value === 'changelog') ? $this->changelog() : $GLOBALS['xoopsModule']->getInfo($value);
                 switch ($colspan) {
                     case 0:
                         return '<tr><td class="head">' . $heading . '</td><td class="even">' . $value . '</td></tr>';
@@ -128,13 +125,13 @@ class wpf_About
                 } // switch
                 break;
             case 'url':
-                $value  = ($value) ? $GLOBALS['xoopsModule']->getInfo($value) : '';
-                $value2 = ($value2) ? $GLOBALS['xoopsModule']->getInfo($value2) : '';
+                $value  = $value ? $GLOBALS['xoopsModule']->getInfo($value) : '';
+                $value2 = $value2 ? $GLOBALS['xoopsModule']->getInfo($value2) : '';
 
                 return '<tr><td class="head">' . $heading . '</td><td class="even"><a href="' . $value . '" target="_blank">' . $value2 . '</a></td></tr>';
                 break;
             case 'email':
-                $value = ($value) ? $GLOBALS['xoopsModule']->getInfo($value) : '';
+                $value = $value ? $GLOBALS['xoopsModule']->getInfo($value) : '';
 
                 return '<tr><td class="head">' . $heading . '</td><td class="even"><a href="mailto:' . $value . '">' . $value . '</a></td></tr>';
                 break;
@@ -143,8 +140,7 @@ class wpf_About
 
     /**
      * wpf_About::about_footer()
-     *
-     * @return
+     * @return string
      */
     public function about_footer()
     {
@@ -153,14 +149,13 @@ class wpf_About
 
     /**
      * wpf_About::changelog()
-     *
-     * @return
+     * @return bool|string
      */
     public function changelog()
     {
         $file_name = XOOPS_ROOT_PATH . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/docs/changelog.txt';
         if (file_exists($file_name) && !is_dir($file_name)) {
-            // $myts = &MyTextSanitizer::getInstance();
+            // $myts = MyTextSanitizer::getInstance();
             $file_text = file_get_contents($file_name);
             // $changelog = $myts->displayTarea( $file_text, $html = 1, $smiley = 0, $xcode = 0, $image = 0, $br = 1 );
             unset($myts);

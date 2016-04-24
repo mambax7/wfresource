@@ -3,7 +3,6 @@ defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this fi
 
 /**
  *
- * @version   $Id: formimagever.php 8181 2011-11-07 01:14:53Z beckmi $
  * @copyright 2006
  */
 class XoopsFormImagever extends XoopsFormElement
@@ -27,19 +26,21 @@ class XoopsFormImagever extends XoopsFormElement
     /**
      * Constuctor
      *
-     * @param string $caption caption
-     * @param string $name    name
-     * @param string $value   initial content
-     * @param int    $bgimage number of rows
+     * @param string     $caption   caption
+     * @param string     $name      name
+     * @param            $size
+     * @param            $maxlength
+     * @param string     $value     initial content
+     * @param int|string $bgimage   number of rows
      */
-    public function XoopsFormImagever($caption, $name, $size, $maxlength, $value = "", $bgimage = "")
+    public function __construct($caption, $name, $size, $maxlength, $value = '', $bgimage = '')
     {
         $this->setCaption($caption);
         $this->setName($name);
         $this->setValue($value);
         $this->setBackGround($bgimage);
-        $this->_size      = (int)($size);
-        $this->_maxlength = (int)($maxlength);
+        $this->_size      = (int)$size;
+        $this->_maxlength = (int)$maxlength;
     }
 
     /**
@@ -102,9 +103,12 @@ class XoopsFormImagever extends XoopsFormElement
         $this->_background = $value;
     }
 
+    /**
+     * @return int|string
+     */
     public function getRand()
     {
-        $alphanum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $alphanum = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         switch (2) {
             case 2:
                 $this->_rand = substr(str_shuffle($alphanum), 0, 5);
@@ -114,18 +118,21 @@ class XoopsFormImagever extends XoopsFormElement
                 break;
             case 1:
             default:
-                $this->_rand = rand(10000, 99999);
+                $this->_rand = mt_rand(10000, 99999);
                 break;
         } // switch
 
         return $this->_rand;
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         // return "<div><input type='text' name='" . $this -> getName() . "' id='" . $this -> getName() . "' size='" . $this -> getSize() . "' maxlength='" . $this -> getMaxlength() . "' value='" . $this -> getValue() . "'" . $this -> getExtra() . " />";
-        $ret = "<div><input type='text' name='" . $this->getName() . "' id='" . $this->getName() . "' size='" . $this->getSize() . "' maxlength='" . $this->getMaxlength() . "' value='" . $this->getValue() . "'" . $this->getExtra() . " />";
-        $ret .= "<br />";
+        $ret = "<div><input type='text' name='" . $this->getName() . "' id='" . $this->getName() . "' size='" . $this->getSize() . "' maxlength='" . $this->getMaxlength() . "' value='" . $this->getValue() . "'" . $this->getExtra() . ' />';
+        $ret .= '<br />';
         $ret .= "<div style='padding: 8px;'><img src='" . $this->getImage() . ".jpg' /></div>";
         $ret .= "<input type='hidden' name='image_random_value' id='image_random_value' value='" . $this->getRand() . "' /></div>";
 
@@ -134,7 +141,7 @@ class XoopsFormImagever extends XoopsFormElement
 
     public function getImage()
     {
-        $this->_image = (!$this->getBackGround()) ? imagecreate(60, 30) : imagecreatefromjpeg("images/" . $this->getBackGround());
+        $this->_image = (!$this->getBackGround()) ? imagecreate(60, 30) : imagecreatefromjpeg('images/' . $this->getBackGround());
         $this->_image = imagecreate(60, 30);
         /*
         * use white as the background image
@@ -156,11 +163,11 @@ class XoopsFormImagever extends XoopsFormElement
         *  Date in the past
         */
         if (!headers_sent()) {
-            header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-            header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-            header("Cache-Control: no-store, no-cache, must-revalidate");
-            header("Cache-Control: post-check=0, pre-check=0", false);
-            header("Pragma: no-cache");
+            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+            header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+            header('Cache-Control: no-store, no-cache, must-revalidate');
+            header('Cache-Control: post-check=0, pre-check=0', false);
+            header('Pragma: no-cache');
             header('Content-type: image/jpeg');
         }
         // imagejpeg( $this -> _image );

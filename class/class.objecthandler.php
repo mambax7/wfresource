@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: class.objecthandler.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -22,7 +21,6 @@ wfp_loadLangauge('errors', 'wfresource');
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: class.objecthandler.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_ObjectHandler extends XoopsObjectHandler
@@ -45,32 +43,44 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     public $doPermissions;
     public $_errors = array();
 
-    public function __construct(&$db, $db_table = '', $obj_class = '', $key_name = '', $identifier_name = false, $group_name = false)
+    /**
+     * @param            $db
+     * @param string     $db_table
+     * @param string     $obj_class
+     * @param string     $key_name
+     * @param bool|false $identifier_name
+     * @param bool|false $group_name
+     */
+    public function __construct($db, $db_table = '', $obj_class = '', $key_name = '', $identifier_name = false, $group_name = false)
     {
         global $xoopsUserIsAdmin, $xoopsUser;
 
         static $db;
-        if (!isset($db)) {
-            $db = &XoopsDatabaseFactory::getDatabaseConnection();
+        if (null === $db) {
+            $db = XoopsDatabaseFactory::getDatabaseConnection();
         }
 
-        $this->XoopsObjectHandler($db);
+        parent::__construct($db);
         $this->db_table  = $db->prefix($db_table);
         $this->obj_class = $obj_class;
         // **//
-        $this->identifierName = ($identifier_name != false) ? $identifier_name : '';
-        $this->groupName      = ($group_name != false) ? $group_name : '';
-        $this->user_groups    = (is_object($xoopsUser)) ? $xoopsUser->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
-        $this->doPermissions  = ($this->groupName != '' && !in_array(1, $this->user_groups)) ? 1 : 0;
-        $this->ckeyName       = ($this->doPermissions) ? 'c.' . $key_name : $key_name;
+        $this->identifierName = ($identifier_name !== false) ? $identifier_name : '';
+        $this->groupName      = ($group_name !== false) ? $group_name : '';
+        $this->user_groups    = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
+        $this->doPermissions  = ($this->groupName !== '' && !in_array(1, $this->user_groups)) ? 1 : 0;
+        $this->ckeyName       = $this->doPermissions ? 'c.' . $key_name : $key_name;
         $this->keyName        = $key_name;
         $this->tkeyName       = null;
     }
 
-    public function &getInstance(&$db)
+    /**
+     * @param $db
+     * @return mixed
+     */
+    public function getInstance($db)
     {
         static $instance;
-        if (!isset($instance)) {
+        if (null === $instance) {
             $_class   = $this->obj_class . 'Handler';
             $instance = new $_class($db);
         }
@@ -78,16 +88,25 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         return $instance;
     }
 
+    /**
+     * @param bool|true $value
+     */
     public function setPermission($value = true)
     {
         $this->doPermissions = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setTempKeyName($value)
     {
         $this->tkey_name = $value;
     }
 
+    /**
+     * @return mixed
+     */
     public function getTempKeyName()
     {
         return $this->tkey_name;
@@ -98,6 +117,10 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         unset($this->tkey_name);
     }
 
+    /**
+     * @param  bool|true $isNew
+     * @return bool
+     */
     public function &create($isNew = true)
     {
         $obj = new $this->obj_class();
@@ -117,18 +140,19 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::get()
      *
-     * @param string $id
-     * @param mixed  $as_object
-     * @param string $keyName
-     * @return
+     * @param  string    $id
+     * @param  mixed     $as_object
+     * @param  string    $keyName
+     * @return bool|void
      */
-    public function get($id = '', $as_object = true, $keyName = '')
+    public function &get($id = '', $as_object = true, $keyName = '')
     {
         $id       = (int)$id;
         $ret      = false;
         $criteria = new CriteriaCompo();
         if (is_array($this->keyName)) {
-            for ($i = 0; $i < count($this->keyName); ++$i) {
+            $arrayCount = count($this->keyName);
+            for ($i = 0; $i < $arrayCount; ++$i) {
                 $criteria->add(new Criteria($this->keyName[$i], $id[$i]));
             }
         } else {
@@ -140,8 +164,8 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         }
         $criteria->setLimit(1);
         $obj_array = $this->getObjects($criteria, false, $as_object);
-        if (!is_array($obj_array) || count($obj_array) != 1) {
-            $this->setErrors(_MD_WFC_ERROR_GET_ITEM);
+        if (!is_array($obj_array) || count($obj_array) !== 1) {
+            $this->setErrors(_MD_WFP_ERROR_GET_ITEM);
 
             return false;
         }
@@ -152,28 +176,28 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::getObjects()
      *
-     * @param mixed $criteria
-     * @param mixed $id_as_key
-     * @param mixed $as_object
-     * @param mixed $return_error
-     * @return
+     * @param  mixed      $criteria
+     * @param  mixed      $id_as_key
+     * @param  mixed      $as_object
+     * @param  mixed      $return_error
+     * @return array|bool
      */
     public function getObjects($criteria = null, $id_as_key = false, $as_object = true, $return_error = false)
     {
         $ret   = array();
         $limit = $start = 0;
         if ($this->doPermissions) {
-            $sql = 'SELECT DISTINCT c.* FROM ' . $this->db_table . ' c	LEFT JOIN ' . $this->db->prefix('group_permission') . " l	ON l.gperm_itemid = $this->ckeyName	WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',', $this->user_groups) . " )	)";
+            $sql = 'SELECT DISTINCT c.* FROM ' . $this->db_table . ' c  LEFT JOIN ' . $this->db->prefix('group_permission') . " l   ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',', $this->user_groups) . ' )   )';
         } else {
             $sql = 'SELECT * FROM ' . $this->db_table;
         }
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
             if ($this->doPermissions) {
                 $sql .= ' AND ' . $criteria->render();
             } else {
                 $sql .= ' ' . $criteria->renderWhere();
             }
-            if ($criteria->getSort() != '') {
+            if ($criteria->getSort() !== '') {
                 $sql .= ' ORDER BY ' . $criteria->getSort() . ' ' . $criteria->getOrder();
             }
             $limit = $criteria->getLimit();
@@ -182,11 +206,11 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         $result = $this->db->query($sql, $limit, $start);
         if (!$result) {
             trigger_error($this->db->errno() . ' ' . $this->db->error(), E_USER_WARNING);
-            $this->setErrors(mysql_errno() . ' ' . mysql_error() . ' ' . __FILE__ . ' ' . __LINE__);
+            $this->setErrors(mysqli_errno() . ' ' . mysqli_error() . ' ' . __FILE__ . ' ' . __LINE__);
 
             return false;
         } else {
-            $result = &$this->convertResultSet($result, $id_as_key, $as_object);
+            $result =& $this->convertResultSet($result, $id_as_key, $as_object);
 
             return $result;
         }
@@ -195,18 +219,18 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::convertResultSet()
      *
-     * @param mixed $result
-     * @param mixed $id_as_key
-     * @param mixed $as_object
-     * @return
+     * @param  mixed $result
+     * @param  mixed $id_as_key
+     * @param  mixed $as_object
+     * @return array
      */
     public function &convertResultSet($result, $id_as_key = false, $as_object = true)
     {
         $ret = array();
-        while ($myrow = $this->db->fetchArray($result)) {
-            $obj = &$this->create(false);
+        while (false !== ($myrow = $this->db->fetchArray($result))) {
+            $obj =& $this->create(false);
             if (!$obj) {
-                trigger_error(_MD_WFC_ERROR_CREATE_NEW_OBJECT, E_USER_WARNING);
+                trigger_error(_MD_WFP_ERROR_CREATE_NEW_OBJECT, E_USER_WARNING);
 
                 return false;
             }
@@ -243,11 +267,11 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::getList()
      *
-     * @param mixed  $criteria
-     * @param string $querie
-     * @param mixed  $show
-     * @param mixed  $doCriteria
-     * @return
+     * @param  mixed      $criteria
+     * @param  string     $querie
+     * @param  mixed      $show
+     * @param  mixed      $doCriteria
+     * @return array|bool
      */
     public function getList($criteria = null, $querie = '*', $show = null, $doCriteria = true)
     {
@@ -262,7 +286,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
                     $query .= ', c.' . $this->identifierName;
                 }
             }
-            $sql = 'SELECT DISTINCT c.* FROM ' . $this->db_table . ' c LEFT JOIN ' . $this->db->prefix('group_permission') . " l ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',', $this->user_groups) . " ))";
+            $sql = 'SELECT DISTINCT c.* FROM ' . $this->db_table . ' c LEFT JOIN ' . $this->db->prefix('group_permission') . " l ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',', $this->user_groups) . ' ))';
         } else {
             if ($querie) {
                 $query = $querie;
@@ -274,20 +298,20 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             }
             $sql = 'SELECT ' . $query . ' FROM ' . $this->db_table;
         }
-        if ($doCriteria != false) {
-            if ($criteria == null) {
+        if ($doCriteria !== false) {
+            if ($criteria === null) {
                 $criteria = new CriteriaCompo();
             }
-            if ($criteria->getSort() == '') {
+            if ($criteria->getSort() === '') {
                 $criteria->setSort($this->identifierName);
             }
-            if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+            if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
                 if ($this->doPermissions) {
                     $sql .= ' AND ' . $criteria->render();
                 } else {
                     $sql .= ' ' . $criteria->renderWhere();
                 }
-                if ($criteria->getSort() != '') {
+                if ($criteria->getSort() !== '') {
                     $sql .= ' ORDER BY ' . $criteria->getSort() . ' ' . $criteria->getOrder();
                 }
                 $limit = $criteria->getLimit();
@@ -295,15 +319,15 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             }
         }
         if (!$result = $this->db->query($sql, $limit, $start)) {
-            $this->setErrors(mysql_errno() . ' ' . mysql_error() . ' ' . __FILE__ . ' ' . __LINE__);
+            $this->setErrors(mysqli_errno() . ' ' . mysqli_error() . ' ' . __FILE__ . ' ' . __LINE__);
 
             return false;
         }
-        while ($myrow = $this->db->fetchArray($result)) {
+        while (false !== ($myrow = $this->db->fetchArray($result))) {
             if ($this->getTempKeyName()) {
-                $ret[$myrow[$this->tkey_name]] = empty($this->identifierName) ? '' : htmlSpecialChars($myrow[$this->identifierName], ENT_QUOTES);
+                $ret[$myrow[$this->tkey_name]] = empty($this->identifierName) ? '' : htmlspecialchars($myrow[$this->identifierName], ENT_QUOTES);
             } else {
-                $ret[$myrow[$this->keyName]] = empty($this->identifierName) ? '' : htmlSpecialChars($myrow[$this->identifierName], ENT_QUOTES);
+                $ret[$myrow[$this->keyName]] = empty($this->identifierName) ? '' : htmlspecialchars($myrow[$this->identifierName], ENT_QUOTES);
             }
         }
         $this->unsetTempKeyName();
@@ -314,18 +338,18 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::getCount()
      *
-     * @param mixed  $criteria
-     * @param string $querie
-     * @return
+     * @param  mixed  $criteria
+     * @param  string $querie
+     * @return bool
      */
     public function getCount($criteria = null, $querie = '*')
     {
         if ($this->doPermissions) {
-            $sql = "SELECT ${querie} FROM " . $this->db_table . " c LEFT JOIN " . $this->db->prefix('group_permission') . " l ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',', $this->user_groups) . " ) )";
+            $sql = "SELECT ${querie} FROM " . $this->db_table . ' c LEFT JOIN ' . $this->db->prefix('group_permission') . " l ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',', $this->user_groups) . ' ) )';
         } else {
             $sql = "SELECT ${querie} FROM " . $this->db_table;
         }
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
             if ($this->doPermissions) {
                 $sql .= ' AND ' . $criteria->render();
             } else {
@@ -333,11 +357,11 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             }
         }
         if (!$result = $this->db->query($sql)) {
-            trigger_error(mysql_errno() . ' ' . mysql_error() . ' ' . __FILE__ . ' ' . __LINE__);
+            trigger_error(mysqli_errno() . ' ' . mysqli_error() . ' ' . __FILE__ . ' ' . __LINE__);
 
             return false;
         }
-        if ($querie != '*') {
+        if ($querie !== '*') {
             return $this->db->fetchArray($result);
         } else {
             $count = $this->db->getRowsNum($result);
@@ -346,9 +370,12 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         return $count;
     }
 
-    public function isid()
+    /**
+     * @return string
+     */
+    public function isId()
     {
-        echo "hello";
+        echo 'hello';
         $a = '212121';
 
         return $a;
@@ -357,22 +384,22 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::insert()
      *
-     * @param mixed $obj
-     * @param mixed $checkObject
-     * @param mixed $andclause
-     * @param mixed $force
-     * @return
+     * @param  XoopsObject $obj
+     * @param  mixed       $checkObject
+     * @param  mixed       $andclause
+     * @param  mixed       $force
+     * @return bool|void
      */
-    public function insert(&$obj, $checkObject = true, $andclause = null, $force = false)
+    public function insert(XoopsObject $obj, $force = true, $checkObject = true, $andclause = null) // insert(&$obj, $checkObject = true, $andclause = null, $force = false)
     {
         if ($checkObject === true) {
             if (!is_object($obj) || !is_a($obj, $this->obj_class)) {
-                $this->setErrors(_MD_WFC_ISNOTOBEJECT);
+                $this->setErrors(_MD_WFP_ISNOTOBEJECT);
 
                 return false;
             }
             if (!$obj->isDirty()) {
-                $this->setErrors(_MD_WFC_ISNOTOBEJECTDIRTY . '<br />' . $obj->getErrors());
+                $this->setErrors(_MD_WFP_ISNOTOBEJECTDIRTY . '<br />' . $obj->getErrors());
 
                 return false;
             }
@@ -385,28 +412,28 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         if ($obj->isNew()) {
             $obj->cleanVars[$this->keyName] = '';
             foreach ($obj->cleanVars as $k => $v) {
-                $cleanvars[$k] = ($obj->vars[$k]['data_type'] == XOBJ_DTYPE_INT) ? (int)($v) : $this->db->quoteString($v);
+                $cleanvars[$k] = ($obj->vars[$k]['data_type'] == XOBJ_DTYPE_INT) ? (int)$v : $this->db->quoteString($v);
             }
-            $sql = "INSERT INTO " . $this->db_table . " (`" . implode('`, `', array_keys($cleanvars)) . "`) VALUES (" . implode(',', array_values($cleanvars)) . ")";
+            $sql = 'INSERT INTO ' . $this->db_table . ' (`' . implode('`, `', array_keys($cleanvars)) . '`) VALUES (' . implode(',', array_values($cleanvars)) . ')';
         } else {
-            $sql = "UPDATE " . $this->db_table . " SET";
+            $sql = 'UPDATE ' . $this->db_table . ' SET';
             foreach ($obj->cleanVars as $k => $v) {
-                if (isset($notfirst)) {
-                    $sql .= ", ";
+                if (null !== $notfirst) {
+                    $sql .= ', ';
                 }
-                if ($obj->vars[$k]['data_type'] == XOBJ_DTYPE_INT) {
-                    $sql .= " " . $k . " = " . (int)($v);
+                if ($obj->vars[$k]['data_type'] === XOBJ_DTYPE_INT) {
+                    $sql .= ' ' . $k . ' = ' . (int)$v;
                 } else {
-                    $sql .= " " . $k . " = " . $this->db->quoteString($v);
+                    $sql .= ' ' . $k . ' = ' . $this->db->quoteString($v);
                 }
                 $notfirst = true;
             }
-            $sql .= " WHERE " . $this->keyName . " = '" . $obj->getVar($this->keyName) . "'";
+            $sql .= ' WHERE ' . $this->keyName . " = '" . $obj->getVar($this->keyName) . "'";
             if ($andclause) {
                 $sql .= $andclause;
             }
         }
-        if ($force != false) {
+        if ($force !== false) {
             $result = $this->db->queryF($sql);
         } else {
             $result = $this->db->query($sql);
@@ -414,7 +441,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         // echo $sql.'<br />';
         if (!$result) {
             trigger_error($this->db->errno() . ' ' . $this->db->error(), E_USER_ERROR);
-            $this->setErrors(mysql_errno() . ' ' . mysql_error() . ' ' . __FILE__ . ' ' . __LINE__);
+            $this->setErrors(mysqli_errno() . ' ' . mysqli_error() . ' ' . __FILE__ . ' ' . __LINE__);
 
             return false;
         }
@@ -428,21 +455,21 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::updateAll()
      *
-     * @param mixed   $fieldname
-     * @param integer $fieldvalue
-     * @param mixed   $criteria
-     * @param mixed   $force
-     * @return
+     * @param  mixed   $fieldname
+     * @param  integer $fieldvalue
+     * @param  mixed   $criteria
+     * @param  mixed   $force
+     * @return bool
      */
     public function updateAll($fieldname, $fieldvalue = 0, $criteria = null, $force = true)
     {
-        if (is_array($fieldname) && $fieldvalue == 0) {
+        if (is_array($fieldname) && $fieldvalue === 0) {
             $set_clause = '';
             foreach ($fieldname as $key => $value) {
-                if (isset($notfirst)) {
-                    $set_clause .= ", ";
+                if (null !== $notfirst) {
+                    $set_clause .= ', ';
                 }
-                $set_clause .= is_numeric($key) ? " " . $key . " = " . $value : " " . $key . " = " . $this->db->quoteString($value);
+                $set_clause .= is_numeric($key) ? ' ' . $key . ' = ' . $value : ' ' . $key . ' = ' . $this->db->quoteString($value);
                 $notfirst = true;
             }
         } else {
@@ -450,16 +477,16 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         }
         $sql = 'UPDATE ' . $this->db_table . ' SET ' . $set_clause;
 
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
             $sql .= ' ' . $criteria->renderWhere();
         }
-        if ($force != false) {
+        if ($force !== false) {
             $result = $this->db->queryF($sql);
         } else {
             $result = $this->db->query($sql);
         }
         if (!$result) {
-            $this->setErrors(sprintf(_MD_WFC_ERROR, mysql_errno(), mysql_error(), __FILE__, __LINE__));
+            $this->setErrors(sprintf(_MD_WFP_ERROR, mysqli_errno(), mysqli_error(), __FILE__, __LINE__));
 
             return false;
         }
@@ -470,34 +497,35 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::delete()
      *
-     * @param mixed $obj
-     * @param mixed $force
-     * @return
+     * @param  XoopsObject $obj
+     * @param  mixed       $force
+     * @return bool|void
      */
-    public function delete(&$obj, $force = false)
+    public function delete(XoopsObject $obj, $force = false)
     {
         if (!is_object($obj) || !is_a($obj, $this->obj_class)) {
-            $this->setErrors(sprintf(_MD_WFC_ERROR_DELETE, basename(__FILE__), __LINE__));
+            $this->setErrors(sprintf(_MD_WFP_ERROR_DELETE, basename(__FILE__), __LINE__));
 
             return false;
         }
         if (is_array($this->keyName)) {
-            $clause = array();
-            for ($i = 0; $i < count($this->keyName); ++$i) {
-                $clause[] = $this->keyName[$i] . " = " . $obj->getVar($this->keyName[$i]);
+            $clause     = array();
+            $arrayCount = count($this->keyName);
+            for ($i = 0; $i < $arrayCount; ++$i) {
+                $clause[] = $this->keyName[$i] . ' = ' . $obj->getVar($this->keyName[$i]);
             }
-            $whereclause = implode(" AND ", $clause);
+            $whereclause = implode(' AND ', $clause);
         } else {
-            $whereclause = $this->keyName . " = " . $obj->getVar($this->keyName);
+            $whereclause = $this->keyName . ' = ' . $obj->getVar($this->keyName);
         }
-        $sql = "DELETE FROM " . $this->db_table . " WHERE " . $whereclause;
-        if ($force != false) {
+        $sql = 'DELETE FROM ' . $this->db_table . ' WHERE ' . $whereclause;
+        if ($force !== false) {
             $result = $this->db->queryF($sql);
         } else {
             $result = $this->db->query($sql);
         }
         if (!$result) {
-            $this->setErrors(sprintf(_MD_WFC_ERROR, mysql_errno(), mysql_error(), __FILE__, __LINE__));
+            $this->setErrors(sprintf(_MD_WFP_ERROR, mysqli_errno(), mysqli_error(), __FILE__, __LINE__));
 
             return false;
         }
@@ -508,25 +536,25 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::updateCounter()
      *
-     * @param mixed $fieldname
-     * @param mixed $criteria
-     * @param mixed $force
-     * @return
+     * @param  mixed $fieldname
+     * @param  mixed $criteria
+     * @param  mixed $force
+     * @return bool
      */
     public function updateCounter($fieldname, $criteria = null, $force = true)
     {
         $set_clause = $fieldname . '=' . $fieldname . '+1';
         $sql        = 'UPDATE ' . $this->db_table . ' SET ' . $set_clause;
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
             $sql .= ' ' . $criteria->renderWhere();
         }
-        if ($force != false) {
+        if ($force !== false) {
             $result = $this->db->queryF($sql);
         } else {
             $result = $this->db->query($sql);
         }
         if (!$result) {
-            $this->setErrors(sprintf(_MD_WFC_ERROR, mysql_errno(), mysql_error(), __FILE__, __LINE__));
+            $this->setErrors(sprintf(_MD_WFP_ERROR, mysqli_errno(), mysqli_error(), __FILE__, __LINE__));
 
             return false;
         }
@@ -537,18 +565,18 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::getaDate()
      *
-     * @param string $exp_value
-     * @param string $exp_time
-     * @param mixed  $useMonth
-     * @return
+     * @param  string $exp_value
+     * @param  string $exp_time
+     * @param  mixed  $useMonth
+     * @return array
      */
     public function getaDate($exp_value = '', $exp_time = '', $useMonth = 0)
     {
         $_date_arr = array();
-        $_date     = ($exp_value) ? $exp_value : time();
-        $d         = date("j", $_date);
-        $m         = date("m", $_date);
-        $y         = date("Y", $_date);
+        $_date     = $exp_value ?: time();
+        $d         = date('j', $_date);
+        $m         = date('m', $_date);
+        $y         = date('Y', $_date);
         if ($useMonth > 0) {
             /**
              * We use +1 for the the previous month and not the next here,
@@ -570,38 +598,40 @@ class wfp_ObjectHandler extends XoopsObjectHandler
 
     /**
      * wfc_RefersHandler::showHtmlCalendar()
-     *
-     * @param mixed  $display
-     * @param string $date
-     * @return
+     * @return null|string|void
      */
     public function showHtmlCalendar()
     {
-        if (func_num_args() != 2) {
+        if (func_num_args() !== 2) {
             return null;
         }
         $display = func_get_arg(0);
         $date    = func_get_arg(1);
 
         $jstime = formatTimestamp('F j Y, H:i:s', time());
-        $value  = ($date == '') ? '' : strftime('%Y-%m-%d %I:%M', $date);
+        $value  = ($date === '') ? '' : strftime('%Y-%m-%d %I:%M', $date);
         require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/calendar/calendar.php';
         $calendar = new DHTML_Calendar(XOOPS_URL . '/modules/wfresource/class/calendar/', 'en', 'calendar-system', false);
         $calendar->load_files();
 
-        return $calendar->make_input_field(array('firstDay' => 1, 'showsTime' => true, 'showOthers' => true, 'ifFormat' => '%Y-%m-%d %I:%M', 'timeFormat' => '12'), // field attributes go here
+        return $calendar->make_input_field(array(
+                                               'firstDay'   => 1,
+                                               'showsTime'  => true,
+                                               'showOthers' => true,
+                                               'ifFormat'   => '%Y-%m-%d %I:%M',
+                                               'timeFormat' => '12'
+                                           ), // field attributes go here
                                            array('style' => '', 'name' => 'date', 'value' => $value), $display);
     }
 
     /**
      * wfp_ObjectHandler::displayCalendar()
-     *
-     * @return
+     * @return string
      */
     public function displayCalendar()
     {
         $ret = '';
-        if (func_num_args() != 2) {
+        if (func_num_args() !== 2) {
             return $ret;
         }
         $nav     = func_get_arg(0);
@@ -611,11 +641,11 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         $onchange = 'onchange=\'location="' . basename($_SERVER['SCRIPT_FILENAME']) . '?op=' . $op . '&amp;%s="+this.options[this.selectedIndex].value\'';
         $ret .= '<form id="calender" method="post">';
         $ret .= '<div id="wrapper" style="padding-bottom: 8px;">';
-        $ret .= '<div style="float: left">' . $this->showHtmlCalendar(false, $nav['date']);
+        $ret .= '<div style="float: left;">' . $this->showHtmlCalendar(false, $nav['date']);
         $ret .= '<input type="text" name="search" id="search" size="20" maxlength="255" value="' . wfp_stripslashes($nav['search']) . '"/>&nbsp;';
         $ret .= wfp_getSelection(wfp_ListAndOr(), $nav['andor'], 'andor', 1, 0, false, false, '', 0, false) . '&nbsp;';
         $ret .= '<input align="left" type="submit" class="formbutton" value="' . _AM_WFP_SEARCH . '" name="selsubmit" /></div>';
-        $ret .= '<div style="float: right">';
+        $ret .= '<div style="float: right;">';
         if ($display) {
             $ret .= _AM_WFC_DISPLAYPUBLISHED . wfp_getSelection(wfp_ListPages(), $nav['active'], 'active', 1, 0, false, false, sprintf($onchange, 'active'), 0, false) . '&nbsp;';
         }
@@ -640,8 +670,9 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * add an error
      *
-     * @param string $value error to add
-     * @access public
+     * @param $err_str
+     * @internal param string $value error to add
+     * @access   public
      */
     public function setErrors($err_str)
     {
@@ -657,19 +688,21 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::getHtmlErrors()
      *
-     * @return
+     * @param  bool   $return
+     * @param  int    $menu
+     * @return string
      */
     public function getHtmlErrors($return = false, $menu = 0)
     {
         global $menu_handler;
 
         $ret = '';
-        if (!empty($this->_errors)) {
+        if (0 !== count($this->_errors)) {
             foreach ($this->_errors as $error) {
                 $ret .= $error . '<br />';
             }
         }
-        if ($return == false) {
+        if ($return === false) {
             xoops_cp_header();
             $menu_handler->addSubHeader(_MD_WFP_ERRORS);
             $menu_handler->render($menu);

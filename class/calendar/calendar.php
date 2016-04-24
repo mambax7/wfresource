@@ -17,7 +17,6 @@ define('NEWLINE', "\n");
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: calendar.php 10055 2012-08-11 12:46:10Z beckmi $
  * @access    public
  */
 class DHTML_Calendar
@@ -39,7 +38,7 @@ class DHTML_Calendar
      * @param array  $calendar_options
      * @param array  $calendar_field_attributes
      */
-    public function DHTML_Calendar($calendar_lib_path = '', $lang = 'en', $theme = 'calendar-win2k-1', $stripped = false, $calendar_options = array(), $calendar_field_attributes = array())
+    public function __construct($calendar_lib_path = '', $lang = 'en', $theme = 'calendar-win2k-1', $stripped = false, $calendar_options = array(), $calendar_field_attributes = array())
     {
         $this->set_option('date', '');
         $this->set_option('ifFormat', '%m/%d/%Y %H:%M');
@@ -62,6 +61,10 @@ class DHTML_Calendar
         $this->calendar_theme_url  = 'modules/wfresource/class/calendar/css/';
     }
 
+    /**
+     * @param $name
+     * @param $value
+     */
     public function set_option($name, $value)
     {
         $this->calendar_options[$name] = $value;
@@ -70,7 +73,6 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::load_files()
      *
-     * @return
      */
     public function load_files()
     {
@@ -80,7 +82,6 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::get_load_files_code()
      *
-     * @return
      */
     public function get_load_files_code()
     {
@@ -101,8 +102,8 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::_make_calendar()
      *
-     * @param array $other_options
-     * @return
+     * @param  array  $other_options
+     * @return string
      */
     public function _make_calendar($other_options = array())
     {
@@ -115,10 +116,10 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::make_input_field()
      *
-     * @param array $cal_options
-     * @param array $field_attributes
-     * @param mixed $show
-     * @return
+     * @param  array  $cal_options
+     * @param  array  $field_attributes
+     * @param  mixed  $show
+     * @return string
      */
     public function make_input_field($cal_options = array(), $field_attributes = array(), $show = true)
     {
@@ -127,8 +128,9 @@ class DHTML_Calendar
         $data    = '<input ' . $attrstr . '/>';
         $data .= '<a href="#" id="' . $this->_trigger_id($id) . '">' . '&nbsp;<img src="' . XOOPS_URL . '/' . $this->calendar_lib_path . 'img.png" style="vertical-align: middle; border: 0px;" alt="" /></a>&nbsp;';
         $options = array_merge($cal_options, array(
-                                               'inputField' => $this->_field_id($id),
-                                               'button'     => $this->_trigger_id($id)));
+            'inputField' => $this->_field_id($id),
+            'button'     => $this->_trigger_id($id)
+        ));
         $data .= $this->_make_calendar($options);
         if ($show) {
             echo $data;
@@ -140,16 +142,27 @@ class DHTML_Calendar
     }
 
     // / PRIVATE SECTION
+    /**
+     * @param $id
+     * @return string
+     */
     public function _field_id($id)
     {
         return 'f-calendar-field-' . $id;
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
     public function _trigger_id($id)
     {
         return 'f-calendar-trigger-' . $id;
     }
 
+    /**
+     * @return int
+     */
     public function _gen_id()
     {
         static $id = 0;
@@ -157,11 +170,15 @@ class DHTML_Calendar
         return ++$id;
     }
 
+    /**
+     * @param $array
+     * @return string
+     */
     public function _make_js_hash($array)
     {
         $jstr = '';
         reset($array);
-        while (list($key, $val) = each($array)) {
+        while (false !== (list($key, $val) = each($array))) {
             if (is_bool($val)) {
                 $val = $val ? 'true' : 'false';
             } elseif (!is_numeric($val)) {
@@ -176,11 +193,15 @@ class DHTML_Calendar
         return $jstr;
     }
 
+    /**
+     * @param $array
+     * @return string
+     */
     public function _make_html_attr($array)
     {
         $attrstr = '';
         reset($array);
-        while (list($key, $val) = each($array)) {
+        while (false !== (list($key, $val) = each($array))) {
             $attrstr .= $key . '="' . $val . '" ';
         }
 

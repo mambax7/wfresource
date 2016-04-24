@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: xo_loader.php 10055 2012-08-11 12:46:10Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -23,15 +22,14 @@ define('XO_ROOT_PATH', dirname(dirname(dirname(__DIR__))));
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: xo_loader.php 10055 2012-08-11 12:46:10Z beckmi $
  * @access    public
  */
 class xo_Loader
 {
-    private static   $instance  = array();
-    private static   $config    = array();
-    private static   $paths     = array();
-    private static   $urls      = array();
+    private static $instance  = array();
+    private static $config    = array();
+    private static $paths     = array();
+    private static $urls      = array();
     protected static $handlers  = array();
     protected static $languages = array();
     protected static $services  = array();
@@ -46,7 +44,6 @@ class xo_Loader
     /**
      * xo_Loader::loadObjectHandlers()
      *
-     * @return
      */
     public function loadObjectHandlers()
     {
@@ -55,14 +52,17 @@ class xo_Loader
     /**
      * xo_Loader::loadHandler()
      *
-     * @return
+     * @param         $var
+     * @param  string $module
+     * @param  string $class
+     * @param  null   $options
+     * @param  null   $args
+     * @return bool
      */
     public static function loadHandler($var, $module = 'system', $class = 'xoops_', $options = null, $args = null)
     {
-        $path = ($module == 'system') ? 'kernel' : 'modules' . DS . $module . DS . 'class';
-
+        $path = ($module === 'system') ? 'kernel' : 'modules/' . $module . '/class';
         $filename = $class . $var . '.php';
-
         echo $path . DS . $filename;
 
         $result = self::loadInclude($path . DS . $filename);
@@ -80,13 +80,15 @@ class xo_Loader
         }
 
         return false;
-        unset($ret);
+//        unset($ret);
     }
 
     /**
      * xo_Loader::loadClass()
      *
-     * @return
+     * @param      $var
+     * @param null $options
+     * @param null $args
      */
     public static function loadClass($var, $options = null, $args = null)
     {
@@ -95,7 +97,9 @@ class xo_Loader
     /**
      * xo_Loader::loadService()
      *
-     * @return
+     * @param      $var
+     * @param null $options
+     * @param null $args
      */
     public static function loadService($var, $options = null, $args = null)
     {
@@ -104,10 +108,10 @@ class xo_Loader
     /**
      * xo_Loader::getService()
      *
-     * @param mixed $var
-     * @param mixed $options
-     * @param mixed $args
-     * @return
+     * @param  mixed     $var
+     * @param  mixed     $options
+     * @param  mixed     $args
+     * @return bool|void
      */
     private static function &getService($var, $options = null, $args = null)
     {
@@ -147,14 +151,16 @@ class xo_Loader
 
     /**
      * Set several properties of an object
+     * @param      $instance
+     * @param null $options
      */
     private static function _addOptions(&$instance, $options = null)
     {
         if ($instance) {
-            if (isset($options) && is_object($options)) {
+            if (null !== $options && is_object($options)) {
                 $options = get_object_vars($options);
             }
-            if (!is_null($options)) {
+            if (null !== $options) {
                 foreach ($options as $key => $val) {
                     if (is_callable(array(&$instance, $method = 'set' . ucfirst($key)))) {
                         $instance->$method($val);
@@ -172,12 +178,12 @@ class xo_Loader
     /**
      * xo_Loader::getHelper()
      *
-     * @return
+     * @param $var
      */
     private static function loadHelper($var)
     {
         if (!isset(self::$services[$var])) {
-            self::$services[$var] = self::getHelper($var);
+            self::$services[$var] =& self::getHelper($var);
         }
         $ret = self::$services[$var];
         if ($ret) {
@@ -188,7 +194,8 @@ class xo_Loader
     /**
      * xo_Loader::loadHelper()
      *
-     * @return
+     * @param $var
+     * @return bool|string
      */
     private static function &getHelper($var)
     {
@@ -196,20 +203,23 @@ class xo_Loader
         $ret = &self::path(XOOSLA_SERVICE_PATH . DS . strtolower($var) . DS . $ret);
 
         return $ret;
-        unset($ret);
+//        unset($ret);
     }
 
     /**
      * xo_Loader::loadLanguage()
      *
-     * @return
+     * @param       $var
+     * @param  null $module
+     * @param  null $language
+     * @return bool
      */
     public static function loadLanguage($var, $module = null, $language = null)
     {
         if (!empty($var)) {
-            $language  = (!is_null($language)) ? $language : $GLOBALS['xoopsConfig']['language'];
+            $language  = (null !== $language) ? $language : $GLOBALS['xoopsConfig']['language'];
             $buildPath = XOOPS_ROOT_PATH;
-            if ($module != null) {
+            if ($module !== null) {
                 $buildPath = DS . 'modules' . DS . $module;
             }
             $buildPath = DS . 'language' . DS . $var . '.php';
@@ -225,12 +235,14 @@ class xo_Loader
     /**
      * xo_Loader::loadInclude()
      *
-     * @return
+     * @param       $var
+     * @param  null $type
+     * @return bool
      */
     public static function loadInclude($var, $type = null)
     {
         $var = &self::path($var);
-        if ($var != false) {
+        if ($var !== false) {
             switch ($type) {
                 case 'include':
                     include $var;
@@ -248,10 +260,10 @@ class xo_Loader
     /**
      * xo_Loader::path()
      *
-     * @param mixed $var
-     * @param mixed $isVirtual
-     * @param mixed $verbose
-     * @return
+     * @param  mixed $var
+     * @param  mixed $isVirtual
+     * @param  mixed $verbose
+     * @return bool
      */
     public static function path($var, $isVirtual = false, $verbose = true)
     {
@@ -263,17 +275,17 @@ class xo_Loader
         /**
          * Return a physical path
          */
-        if ($isVirtual == false) {
+        if ($isVirtual === false) {
             if (isset(self::$paths[$md5Name])) {
                 return self::$paths[$md5Name];
             }
             $fileName = self::buildpath($var);
-            if ($fileName != false) {
-                if ((stristr($fileName, XOOPS_ROOT_PATH) == true)) {
+            if ($fileName !== false) {
+                if (stristr($fileName, XOOPS_ROOT_PATH) === true) {
                     $filename = str_replace(XOOPS_ROOT_PATH, '', $filename);
                 }
                 self::$paths[$md5Name] = XO_ROOT_PATH . DS . $fileName;
-                if ($verbose == true) {
+                if ($verbose === true) {
                     echo self::$paths[$md5Name];
                 }
                 /**
@@ -299,24 +311,21 @@ class xo_Loader
 
     /**
      * xo_Loader::buildpath()
-     *
-     * @param mixed  $var
-     * @param string $ext
-     * @return
+     * @return bool|mixed|string
      */
     private static function buildpath()
     {
-        if (func_num_args() == 1) {
+        if (func_num_args() === 1) {
             $var = func_get_arg(0);
             $ext = 'php';
-            if (stristr($var, XOOPS_ROOT_PATH . DS) == true) {
+            if (stristr($var, XOOPS_ROOT_PATH . DS) === true) {
                 $var = str_replace(XOOPS_ROOT_PATH . DS, '', $var);
             }
             $fileName = preg_replace('/[\/\\\]/U', '.', $var);
 
-            if (stristr($fileName, '.php') == true) {
+            if (stristr($fileName, '.php') === true) {
                 $fileName = str_replace('.php', '', $fileName);
-            } elseif ($pos = stristr($fileName, '.php') == true) {
+            } elseif (false !== ($pos = stristr($fileName, '.php') === true)) {
                 $fileName = substr($fileName, $pos + 4);
             }
             $parts    = explode('.', $fileName);
@@ -338,12 +347,11 @@ class xo_Loader
 
     /**
      * xo_Loader::fileExists()
-     *
-     * @return
+     * @return bool
      */
     public function fileExists()
     {
-        if (func_num_args() == 1) {
+        if (func_num_args() === 1) {
             $var = func_get_arg(0);
             if (stristr($var, XO_ROOT_PATH) === false) {
                 $var = XO_ROOT_PATH . DS . $var;
@@ -359,12 +367,11 @@ class xo_Loader
 
     /**
      * xo_Loader::dirExists()
-     *
-     * @return
+     * @return bool
      */
     public function dirExists()
     {
-        if (func_num_args() == 1) {
+        if (func_num_args() === 1) {
             $var = func_get_arg(0);
             if (stristr($var, XO_ROOT_PATH) === false) {
                 $var = XO_ROOT_PATH . DS . $var;
@@ -380,12 +387,11 @@ class xo_Loader
 
     /**
      * xo_Loader::loadConfig()
-     *
-     * @return
+     * @return bool
      */
     public static function getConfig()
     {
-        if (func_num_args() == 1) {
+        if (func_num_args() === 1) {
             $var = func_get_arg(0);
             echo $var;
 
@@ -399,12 +405,11 @@ class xo_Loader
 
     /**
      * xo_Loader::loadConfig()
-     *
-     * @return
+     * @return bool
      */
     public static function loadConfig()
     {
-        if (func_num_args() == 1) {
+        if (func_num_args() === 1) {
             $var    = func_get_arg(0);
             $config = &xo_Loader::loadHandler('config');
 
@@ -416,12 +421,11 @@ class xo_Loader
 
     /**
      * xo_Loader::setConfig()
-     *
-     * @return
+     * @return bool
      */
     public static function setConfig()
     {
-        if (func_num_args() == 2) {
+        if (func_num_args() === 2) {
             $var      = func_get_arg(0);
             $newValue = func_get_arg(1);
             if (isset(self::$config[$var])) {

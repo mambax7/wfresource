@@ -7,7 +7,6 @@ defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this fi
  * @package
  * @author    John
  * @copyright Copyright (c) 2007
- * @version   $Id: objectcallback.php,v 1.2 2007/05/05 11:12:12 catzwolf Exp $
  * @access    public
  */
 class wfp_Callback extends wfp_ObjectHandler
@@ -28,13 +27,12 @@ class wfp_Callback extends wfp_ObjectHandler
 
     /**
      * wfp_Callback::getSingleton()
-     *
-     * @return
+     * @return mixed
      */
-    public function &getSingleton()
+    public static function &getSingleton()
     {
         static $instance;
-        if (!isset($instance)) {
+        if (null === $instance) {
             $class    = __CLASS__;
             $instance = new $class();
         }
@@ -45,19 +43,17 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::setCallback()
      *
-     * @return
      */
     public function setCallback()
     {
         $this->_callback = func_get_arg(0);
         $this->_id       = wfp_Request::doRequest($_REQUEST, $this->_callback->keyName, 0, 'int');
-        $this->url       = (isset($_SERVER['HTTP_REFERER'])) ? urldecode($_SERVER['HTTP_REFERER']) : xoops_getenv('PHP_SELF');
+        $this->url       = isset($_SERVER['HTTP_REFERER']) ? urldecode($_SERVER['HTTP_REFERER']) : xoops_getenv('PHP_SELF');
     }
 
     /**
      * wfp_Callback::setMenu()
      *
-     * @return
      */
     public function setMenu()
     {
@@ -67,7 +63,6 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::setSubHeader()
      *
-     * @return
      */
     public function setSubHeader()
     {
@@ -77,7 +72,6 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::setRedirect()
      *
-     * @return
      */
     public function setRedirect()
     {
@@ -87,7 +81,6 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::setId()
      *
-     * @return
      */
     public function setId()
     {
@@ -98,7 +91,6 @@ class wfp_Callback extends wfp_ObjectHandler
      * wfp_Callback::setNotificationType()
      *
      * @param string $type
-     * @return
      */
     public function setNotificationType($type = '')
     {
@@ -107,8 +99,7 @@ class wfp_Callback extends wfp_ObjectHandler
 
     /**
      * wfp_Callback::getId()
-     *
-     * @return
+     * @return int
      */
     public function getId()
     {
@@ -119,8 +110,7 @@ class wfp_Callback extends wfp_ObjectHandler
 
     /**
      * wfp_Callback::help()
-     *
-     * @return
+     * @return bool
      */
     public function help()
     {
@@ -133,8 +123,7 @@ class wfp_Callback extends wfp_ObjectHandler
 
     /**
      * wfp_Callback::about()
-     *
-     * @return
+     * @return bool
      */
     public function about()
     {
@@ -147,9 +136,7 @@ class wfp_Callback extends wfp_ObjectHandler
 
     /**
      * wfp_Callback::edit()
-     *
-     * @param mixed $var
-     * @return
+     * @return bool
      */
     public function edit()
     {
@@ -157,9 +144,13 @@ class wfp_Callback extends wfp_ObjectHandler
 
         $_function = ($this->getId() > 0) ? 'get' : 'create';
         if ($this->getId() > 0) {
-            $_obj = &call_user_func(array(&$this->_callback, $_function), $this->getId());
+            //            $_obj = &call_user_func(array(&$this->_callback, $_function), $this->getId());
+            $callArray = array(&$this->_callback, $_function);
+            $_obj      = call_user_func($callArray, $this->getId());
         } else {
-            $_obj = &call_user_func(array(&$this->_callback, $_function));
+            //            $_obj = &call_user_func(array(&$this->_callback, $_function));
+            $callArray = array(&$this->_callback, $_function);
+            $_obj      = call_user_func($callArray);
         }
         xoops_cp_header();
         $GLOBALS['menu_handler']->render($this->_menuid);
@@ -175,7 +166,8 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::save()
      *
-     * @return
+     * @param $options
+     * @return bool
      */
     public function save($options)
     {
@@ -189,7 +181,7 @@ class wfp_Callback extends wfp_ObjectHandler
         $_obj->setVars($this->value);
 
         if ($this->_callback->insert($_obj, false)) {
-            $this->groups = (!empty($this->groups) && is_array($this->groups)) ? (array)$this->groups : array('0' => '1');
+            $this->groups = (0 !== count($this->groups) && is_array($this->groups)) ? (array)$this->groups : array('0' => '1');
             if (is_array($this->groups)) {
                 foreach ($this->groups as $groups) {
                     wfp_savePerms($this->_callback, $groups, $_obj->getVar($this->_callback->keyName));
@@ -211,14 +203,16 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::delete()
      *
-     * @return
+     * @param  XoopsObject $obj
+     * @param  bool        $force
+     * @return bool|void
      */
-    public function delete()
+    public function delete(XoopsObject $obj, $force = false)
     {
         $wfc_cid = wfp_Request::doRequest($_REQUEST, $this->_callback->keyName, 0, 'int');
-        $_obj    = &$this->_callback->get($this->_id);
+        $_obj    = $this->_callback->get($this->_id);
         if (is_object($_obj)) {
-            $ok = &wfp_Request::doRequest($_REQUEST, 'ok', 0, 'int');;
+            $ok = &wfp_Request::doRequest($_REQUEST, 'ok', 0, 'int');
             switch ($ok) {
                 case 0:
                 default:
@@ -228,7 +222,8 @@ class wfp_Callback extends wfp_ObjectHandler
                                     'op'                      => 'delete',
                                     $this->_callback->keyName => $this->_id,
                                     'ok'                      => 1,
-                                    'url'                     => $this->url), $this->url, sprintf(_AM_WFP_DYRWTDICONFIRM, $_obj->getVar($this->_callback->identifierName)));
+                                    'url'                     => $this->url
+                                ), $this->url, sprintf(_AM_WFP_DYRWTDICONFIRM, $_obj->getVar($this->_callback->identifierName)));
 
                     return true;
                     break;
@@ -251,8 +246,7 @@ class wfp_Callback extends wfp_ObjectHandler
 
     /**
      * wfp_Callback::duplicate()
-     *
-     * @return
+     * @return bool
      */
     public function duplicate()
     {
@@ -263,7 +257,7 @@ class wfp_Callback extends wfp_ObjectHandler
         if (func_num_args()) {
             $optionArray = &func_get_arg(0);
         }
-        $_obj = &$this->_callback->get($this->_id);
+        $_obj = $this->_callback->get($this->_id);
         if (!is_object($_obj)) {
             return false;
         } else {
@@ -281,7 +275,6 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::deleteall()
      *
-     * @return
      */
     public function deleteall()
     {
@@ -296,7 +289,7 @@ class wfp_Callback extends wfp_ObjectHandler
         $checkbox = wfp_Request::doRequest($_REQUEST, 'checkbox', false, 'array');
         if (is_array($checkbox) && count($checkbox) > 0) {
             foreach (array_keys($checkbox) as $id) {
-                $_obj = &$this->_callback->get($id);
+                $_obj = $this->_callback->get($id);
                 if ($_obj) {
                     /**
                      * This is a check to prevent core or selected items from deletion
@@ -311,7 +304,7 @@ class wfp_Callback extends wfp_ObjectHandler
                             }
                         }
                     }
-                    if ($do_delete == true) {
+                    if ($do_delete === true) {
                         if ($this->_callback->delete($_obj, false)) {
                             if (!empty($this->_handler->groupName)) {
                                 wfp_deletePerms($this->_handler, $_obj->getVar($this->_handler->keyName));
@@ -329,7 +322,6 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::cloneall()
      *
-     * @return
      */
     public function duplicateAll()
     {
@@ -344,7 +336,7 @@ class wfp_Callback extends wfp_ObjectHandler
         $checkbox = wfp_Request::doRequest($_REQUEST, 'checkbox', false, 'array');
         if (is_array($checkbox) && count($checkbox) > 0) {
             foreach (array_keys($checkbox) as $id) {
-                $_obj = &$this->_callback->get($id);
+                $_obj = $this->_callback->get($id);
                 if ($_obj) {
                     $_obj->setNew();
                     if (is_array($array_keys) && count($array_keys) > 0) {
@@ -367,9 +359,13 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::updateall()
      *
-     * @return
+     * @param  mixed     $fieldname
+     * @param  int       $fieldvalue
+     * @param  null      $criteria
+     * @param  bool      $force
+     * @return bool|void
      */
-    public function updateall()
+    public function updateall($fieldname, $fieldvalue = 0, $criteria = null, $force = true)
     {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header(xoops_getenv('PHP_SELF'), 1, _AM_WFP_DBERROR);
@@ -381,8 +377,9 @@ class wfp_Callback extends wfp_ObjectHandler
         // $checkbox = &wfp_cleanRequestVars( $_REQUEST, 'checkbox', null, XOBJ_DTYPE_OTHER );
         if (is_array($checkbox) && count($checkbox) > 0) {
             foreach (array_keys((array)$checkbox) as $id) {
-                $_obj = &$this->_callback->get($id);
-                for ($i = 0; $i < count($array_keys); ++$i) {
+                $_obj       = $this->_callback->get($id);
+                $arrayCount = count($array_keys);
+                for ($i = 0; $i < $arrayCount; ++$i) {
                     if (isset($_REQUEST[$array_keys[$i]])) {
                         $temp_array = &$_REQUEST[$array_keys[$i]];
                         $_obj->setVar($array_keys[$i], $temp_array[$id]);
@@ -403,7 +400,6 @@ class wfp_Callback extends wfp_ObjectHandler
      * wfp_Callback::notifications()
      *
      * @param mixed $_obj
-     * @return
      */
     public function notifications(&$_obj)
     {
@@ -420,7 +416,6 @@ class wfp_Callback extends wfp_ObjectHandler
      * wfp_Callback::tags()
      *
      * @param mixed $_obj
-     * @return
      */
     public function tags(&$_obj)
     {
@@ -434,7 +429,6 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::doBasics()
      *
-     * @return
      */
     public function setBasics()
     {
@@ -450,7 +444,6 @@ class wfp_Callback extends wfp_ObjectHandler
      *
      * @param mixed $key
      * @param mixed $value
-     * @return
      */
     public function setValue($key, $value)
     {
@@ -463,7 +456,6 @@ class wfp_Callback extends wfp_ObjectHandler
      *
      * @param mixed $key
      * @param mixed $value
-     * @return
      */
     public function setValueTime($key, $value)
     {
@@ -483,7 +475,6 @@ class wfp_Callback extends wfp_ObjectHandler
      *
      * @param mixed $key
      * @param mixed $value
-     * @return
      */
     public function setValueGroups($key, $value)
     {
@@ -495,21 +486,20 @@ class wfp_Callback extends wfp_ObjectHandler
      * wfp_Callback::setValueArray()
      *
      * @param mixed $array
-     * @return
      */
     public function setValueArray($array)
     {
         foreach ($array as $key => $value) {
             $key = preg_replace('/[^a-zA-Z0-9_-]/', '', $key);
-            self::setValue($key, $value);
+            $this->setValue($key, $value);
         }
     }
 
     /**
      * wfp_Callback::getValue()
      *
-     * @param mixed $key
-     * @return
+     * @param  mixed $key
+     * @return mixed
      */
     public function getValue($key)
     {
@@ -525,14 +515,13 @@ class wfp_Callback extends wfp_ObjectHandler
      * @param mixed  $name
      * @param string $width
      * @param string $height
-     * @return
      */
     public function setImage($key, $name, $width = '', $height = '')
     {
         $key = preg_replace('/[^a-zA-Z0-9_-]/', '', $key);
 
         $cleani = explode('|', $name);
-        $image  = (is_array($cleani)) ? $cleani[0] : $name;
+        $image  = is_array($cleani) ? $cleani[0] : $name;
         $width  = (!empty($width) || $width >= 0) ? $width : $cleani[1];
         $height = (!empty($height) || $height >= 0) ? $height : $cleani[2];
         if (is_array($cleani)) {
@@ -549,7 +538,9 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfc_PageHandler::htmlImport()
      *
-     * @return
+     * @param  string $file
+     * @param  bool   $doimport
+     * @return null
      */
     public function htmlImport($file = '', $doimport = false)
     {
@@ -558,7 +549,7 @@ class wfp_Callback extends wfp_ObjectHandler
          * Do import
          */
         $ret = null;
-        if ($doimport == true && !empty($file)) {
+        if ($doimport === true && !empty($file)) {
             $clean = &wfp_getClass('clean');
             $ret   = $clean->importHtml($file, wfp_getModuleOption('htmluploaddir'));
         }
@@ -569,12 +560,9 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfc_PageHandler::htmlClean()
      *
-     * @param string  $file
-     * @param mixed   $doimport
-     * @param integer $options
-     * @param mixed   $title
-     * @param mixed   $text
-     * @return
+     * @param  mixed        $text
+     * @param  integer      $options
+     * @return mixed|string
      */
     public function htmlClean($text = '', $options = 0)
     {

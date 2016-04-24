@@ -1,6 +1,5 @@
 <?php
 /**
- * $Id: modinfo.php 10055 2012-08-11 12:46:10Z beckmi $
  * Module: WF-Channel
  * Version: v1.0.2
  * Release Date: 20 November 2003

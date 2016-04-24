@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: form.php 0000 25/03/2009 12:59:34:000 Catzwolf $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -20,7 +19,6 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id$
  * @access    public
  */
 class XooslaForm extends XoopsForm
@@ -30,7 +28,6 @@ class XooslaForm extends XoopsForm
     /**
      * wfp_Form::doTabs()
      *
-     * @return
      */
     public function doTabs()
     {

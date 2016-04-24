@@ -2,7 +2,6 @@
 
 /**
  *
- * @version   $Id: form_wfp_mimetype.php 8181 2011-11-07 01:14:53Z beckmi $
  * @copyright 2007
  */
 require XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsformloader.php';
@@ -11,7 +10,7 @@ global $modversion, $xoopsConfigUser;
 
 $mime_handler = &wfp_gethandler('mimetype');
 
-$form = new XoopsThemeForm($forminfo = ($this->isNew()) ? _AM_MIME_CREATEF : _AM_MIME_MODIFYF, 'mimetype_form', $modversion['adminpath']);
+$form = new XoopsThemeForm($forminfo = $this->isNew() ? _AM_MIME_CREATEF : _AM_MIME_MODIFYF, 'mimetype_form', $modversion['adminpath']);
 $form->addElement(new XoopsFormText(_AM_MIME_EXTF, 'mime_ext', 5, 60, $this->getVar('mime_ext', 'e')), true);
 $form->addElement(new XoopsFormText(_AM_MIME_NAMEF, 'mime_name', 50, 60, $this->getVar('mime_name', 'e')), true);
 

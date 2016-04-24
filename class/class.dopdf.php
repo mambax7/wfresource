@@ -10,7 +10,6 @@
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
- * @version    : $Id: class.dopdf.php 8181 2011-11-07 01:14:53Z beckmi $
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
@@ -20,7 +19,6 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: class.dopdf.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_Dopdf
@@ -31,9 +29,7 @@ class wfp_Dopdf
     public $cachekey    = null;
 
     /**
-     * wfp_dopdf::wfp_dopdf()
-     *
-     * @param array $opt
+     * wfp_Dopdf::__construct()
      */
     public function __construct()
     {
@@ -42,12 +38,12 @@ class wfp_Dopdf
     /**
      * wfp_Dopdf::setOptions()
      *
-     * @param array $opt
-     * @return
+     * @param  array $opt
+     * @return bool
      */
     public function setOptions($opt = array())
     {
-        if (!is_array($opt) || empty($opt)) {
+        if (!is_array($opt) || 0 === count($opt)) {
             return false;
         }
         $this->cachedir = XOOPS_ROOT_PATH . '/cache/';
@@ -57,13 +53,12 @@ class wfp_Dopdf
     /**
      * wfp_dopdf::renderpdf()
      *
-     * @return
      */
     public function doRender()
     {
         wfp_loadLangauge('print', 'wfresource');
         error_reporting(0);
-        $this->stdoutput = self::getCache($this->options['id'], $this->options['title']);
+        $this->stdoutput = $this->getCache($this->options['id'], $this->options['title']);
         if (!$this->stdoutput) {
             /**
              */
@@ -113,110 +108,139 @@ class wfp_Dopdf
                 $pdf->ezText("\n", 6);
             }
             $pdf->ezText($this->getContent(), 10);
-            if ($this->options['stdoutput'] == 'file') {
+            if ($this->options['stdoutput'] === 'file') {
                 $this->stdoutput = $pdf->ezOutput(0);
-                self::createCache($this->options['id'], $this->options['title']);
+                $this->createCache($this->options['id'], $this->options['title']);
             } else {
                 $pdf->ezStream(1);
                 exit();
             }
         }
-        self::doDisplay();
+        $this->doDisplay();
     }
 
     /**
      * wfp_dopdf::xo_Display()
      *
-     * @return
      */
     public function doDisplay()
     {
         $fileName = (isset($this->options['title']) ? $this->options['title'] . '.pdf' : 'file.pdf');
 
         header('Content-type: application/pdf');
-        header("Content-Length: " . strlen(ltrim($fileName)));
-        header("Content-Disposition: inline; filename=" . $fileName);
-        if (isset($options['Accept-Ranges']) && $options['Accept-Ranges'] == 1) {
-            header("Accept-Ranges: " . strlen(ltrim($tmp)));
+        header('Content-Length: ' . strlen(ltrim($fileName)));
+        header('Content-Disposition: inline; filename=' . $fileName);
+        if (isset($options['Accept-Ranges']) && $options['Accept-Ranges'] === 1) {
+            header('Accept-Ranges: ' . strlen(ltrim($tmp)));
         }
         echo $this->stdoutput;
         exit();
     }
 
+    /**
+     * @param string $value
+     */
     public function setTitle($value = '')
     {
         $this->options['title'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setSubTitle($value = '')
     {
         $this->options['subtitle'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setCreater($value = '')
     {
         $this->options['creator'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setSlogan($value = '')
     {
         $this->options['slogan'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setAuthor($value = '')
     {
         $this->options['author'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setContent($value = '')
     {
         $this->options['content'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setPDate($value = '')
     {
         $this->options['pdate'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setUDate($value = '')
     {
         $this->options['udate'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setFont($value = '')
     {
-        $this->font = strval(trim($value));
+        $this->font = (string)trim($value);
     }
 
+    /**
+     * @param bool|false $value
+     */
     public function useCompression($value = false)
     {
-        $this->compression = ($value == true) ? true : false;
+        $this->compression = ($value === true) ? true : false;
     }
 
     /**
      * wfp_Dopdf::getContent()
-     *
-     * @return
+     * @return mixed
      */
     public function getContent()
     {
-        return self::cleanPDF($this->options['content']);
+        return $this->cleanPDF($this->options['content']);
     }
 
     /**
      * wfp_Clean::cleanPDF()
      *
-     * @return
+     * @param $text
+     * @return mixed
      */
     public function cleanPDF($text)
     {
-        $myts = &MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $text = $myts->undoHtmlSpecialChars($text);
         $text = preg_replace('/\<style[\w\W]*?\<\/style\>/i', '', $text);
         $text = preg_replace("/<img[^>]+\>/i", '', $text);
         $text = str_replace('[pagebreak]', '<br /><br />', $text);
 
-        $htmltidy = wfp_getClass('htmltidy', _RESOURCE_DIR, _RESOURCE_CLASS);
+        $htmltidy = &wfp_getClass('htmltidy', _RESOURCE_DIR, _RESOURCE_CLASS);
         if ($htmltidy) {
             $htmltidy->Options['UseTidy']     = false;
             $htmltidy->Options['OutputXHTML'] = true;
@@ -244,9 +268,9 @@ class wfp_Dopdf
     /**
      * wfp_dopdf::setFilename()
      *
-     * @param mixed $id
-     * @param mixed $title
-     * @return
+     * @param  mixed  $id
+     * @param  mixed  $title
+     * @return string
      */
     public function setFilename($id, $title)
     {
@@ -260,16 +284,16 @@ class wfp_Dopdf
     /**
      * wfp_dopdf::createCache()
      *
-     * @param mixed $id
-     * @param mixed $title
-     * @return
+     * @param  mixed $id
+     * @param  mixed $title
+     * @return bool
      */
     public function getCache($id, $title)
     {
         xoops_load('xoopscache');
-        $this->stdoutput = XoopsCache::read(self::setFilename($id, $title));
+        $this->stdoutput = XoopsCache::read($this->setFilename($id, $title));
         if ($this->stdoutput) {
-            self::doDisplay();
+            $this->doDisplay();
             exit();
         }
 
@@ -279,12 +303,13 @@ class wfp_Dopdf
     /**
      * wfp_dopdf::deleteCache()
      *
-     * @return
+     * @param $id
+     * @param $title
      */
     public function deleteCache($id, $title)
     {
         $loaded = xoops_load('xoopscache');
-        XoopsCache::delete(self::setFilename($id, $title));
+        XoopsCache::delete($this->setFilename($id, $title));
     }
 
     /**
@@ -292,11 +317,10 @@ class wfp_Dopdf
      *
      * @param mixed $id
      * @param mixed $title
-     * @return
      */
     public function createCache($id, $title)
     {
         xoops_load('xoopscache');
-        XoopsCache::write(self::setFilename($id, $title), $this->stdoutput);
+        XoopsCache::write($this->setFilename($id, $title), $this->stdoutput);
     }
 }

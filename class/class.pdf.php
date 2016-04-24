@@ -1,14 +1,14 @@
 <?php
 // $Id: class.pdf.php 8181 2011-11-07 01:14:53Z beckmi $
 // ------------------------------------------------------------------------ //
-// WF-Channel - WF-Projects													//
-// Copyright (c) 2007 WF-Channel											//
+// WF-Channel - WF-Projects                                                 //
+// Copyright (c) 2007 WF-Channel                                            //
 // //
-// Authors:																	//
-// John Neill ( AKA Catzwolf )												//
+// Authors:                                                                 //
+// John Neill ( AKA Catzwolf )                                              //
 // //
-// URL: http://catzwolf.x10hosting.com/										//
-// Project: WF-Projects														//
+// URL: http://catzwolf.x10hosting.com/                                     //
+// Project: WF-Projects                                                     //
 // -------------------------------------------------------------------------//
 defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
 
@@ -18,7 +18,6 @@ defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this fi
  * @package
  * @author    John
  * @copyright Copyright (c) 2009
- * @version   $Id: class.pdf.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_dopdf
@@ -32,10 +31,10 @@ class wfp_dopdf
      *
      * @param array $opt
      */
-    public function wfp_dopdf($opt = array())
+    public function __construct(array $opt)
     {
         if (!is_array($opt) || empty($opt)) {
-            return false;
+            //            return false;
         }
         $this->options = $opt;
     }
@@ -91,53 +90,83 @@ class wfp_dopdf
         $pdf->ezStream();
     }
 
+    /**
+     * @param string $value
+     */
     public function setTitle($value = '')
     {
         $this->options['title'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setSubTitle($value = '')
     {
         $this->options['subtitle'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setCreater($value = '')
     {
         $this->options['creator'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setSlogan($value = '')
     {
         $this->options['slogan'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setAuthor($value = '')
     {
         $this->options['author'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setContent($value = '')
     {
         $this->options['content'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setPDate($value = '')
     {
         $this->options['pdate'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setUDate($value = '')
     {
         $this->options['udate'] = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function setFont($value = '')
     {
-        $this->font = strval(trim($value));
+        $this->font = (string)trim($value);
     }
 
+    /**
+     * @param bool|false $value
+     */
     public function useCompression($value = false)
     {
-        $this->compression = ($value == true) ? true : false;
+        $this->compression = ($value === true);
     }
 }

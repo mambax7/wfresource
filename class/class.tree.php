@@ -38,6 +38,9 @@
  */
 include_once XOOPS_ROOT_PATH . '/class/tree.php';
 
+/**
+ * Class wfpObjectTree
+ */
 class wfpObjectTree extends XoopsObjectTree
 {
     /**
@@ -50,12 +53,13 @@ class wfpObjectTree extends XoopsObjectTree
      * @param  string  $selected       Value to display as selected
      * @param  bool    $addEmptyOption Set TRUE to add an empty option with value "0" at the top of the hierarchy
      * @param  integer $key            ID of the object to display as the root of select options
+     * @param  string  $extra
      * @return string  HTML select box
      */
     public function makeSelBox($name, $fieldName, $prefix = '-', $selected = '', $addEmptyOption = false, $key = 0, $extra = '')
     {
         $ret = '<select name="' . $name . '" id="' . $name . '" ' . $extra . '>';
-        if (false != $addEmptyOption) {
+        if (false !== $addEmptyOption) {
             $ret .= '<option value="0"></option>';
         }
         $this->_makeSelBoxOptions($fieldName, $selected, $key, $ret, $prefix);

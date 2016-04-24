@@ -1,14 +1,14 @@
 <?php
 // $Id: class.category.php 8181 2011-11-07 01:14:53Z beckmi $
 // ------------------------------------------------------------------------ //
-// Xoops - PHP Content Management System                      			//
-// Copyright (c) 2007 Xoops                           				//
+// Xoops - PHP Content Management System                                //
+// Copyright (c) 2007 Xoops                                         //
 // //
-// Authors: 																//
-// John Neill ( AKA Catzwolf )                                     			//
-// Raimondas Rimkevicius ( AKA Mekdrop )									//
+// Authors:                                                                 //
+// John Neill ( AKA Catzwolf )                                              //
+// Raimondas Rimkevicius ( AKA Mekdrop )                                    //
 // //
-// URL: http:www.xoops.com 												//
+// URL: http:www.xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
 defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
@@ -21,7 +21,6 @@ wfp_getObjectHandler();
  * @package
  * @author    John
  * @copyright Copyright (c) 2006
- * @version   $Id: class.category.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_Category extends wfp_Object
@@ -59,7 +58,6 @@ class wfp_Category extends wfp_Object
  * @package
  * @author    John Neill AKA Catzwolf
  * @copyright Copyright (c) 2006
- * @version   $Id: class.category.php 8181 2011-11-07 01:14:53Z beckmi $
  * @access    public
  */
 class wfp_CategoryHandler extends wfp_ObjectHandler
@@ -67,12 +65,11 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
     /**
      * wfp_CategoryHandler::wfp_CategoryHandler()
      *
-     * @param  $db
-     * @return
+     * @param $db
      */
-    public function wfp_CategoryHandler(&$db)
+    public function __construct($db)
     {
-        $this->wfp_ObjectHandler($db, 'wfp_category', 'wfp_Category', 'category_id', 'category_title', 'wfp_category_read', 'wfp_category_write');
+        parent::__construct($db, 'wfp_category', 'wfp_Category', 'category_id', 'category_title', 'wfp_category_read', 'wfp_category_write');
     }
 
     /**
@@ -94,10 +91,10 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
     /**
      * wfp_SectionHandler::getSave_permissions()
      *
-     * @param mixed  $value
-     * @param mixed  $obj
-     * @param string $type : This is the type of permission to be saved example: Read, submit, moderator permissions
-     * @return
+     * @param  mixed  $obj
+     * @param  string $type  : This is the type of permission to be saved example: Read, submit, moderator permissions
+     * @param  mixed  $value
+     * @return bool
      */
     public function getSave_permissions(&$obj, $type = 'wfp_category_read', $value = null)
     {
@@ -113,15 +110,12 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
 
     /**
      * wfp_CategoryHandler::getCategoryObj()
-     *
-     * @param array $nav
-     * @param mixed $category_id
-     * @return
+     * @return bool
      */
     public function &getObj()
     {
         $obj = false;
-        if (func_num_args() == 2) {
+        if (func_num_args() === 2) {
             $args     = func_get_args();
             $criteria = new CriteriaCompo();
             if ($GLOBALS['xoopsModule']->getVar('mid')) {
@@ -137,18 +131,15 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
                 $criteria->setStart($args[0]['start']);
                 $criteria->setLimit($args[0]['limit']);
             }
-            $obj['list'] = &$this->getObjects($criteria, $args[1]);
+            $obj['list'] = $this->getObjects($criteria, $args[1]);
         }
 
         return $obj;
     }
 
     /**
-     * wfp_CategoryHandler::getCategoryObj()
-     *
-     * @param array $nav
-     * @param mixed $category_id
-     * @return
+     * wfp_CategoryHandler::getMenuObj()
+     * @return array|bool $obj
      */
     public function &getMenuObj()
     {
@@ -156,15 +147,14 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
         if ($GLOBALS['xoopsModule']->getVar('mid')) {
             $criteria->add(new Criteria('category_mid', $GLOBALS['xoopsModule']->getVar('mid')));
         }
-        $obj = &$this->getObjects($criteria, false);
+        $obj = $this->getObjects($criteria, false);
 
         return $obj;
     }
 
     /**
      * wfp_CategoryHandler::getAllImages()
-     *
-     * @return
+     * @return bool|string
      */
     public function getAllImages()
     {
@@ -175,9 +165,9 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
             return false;
         }
         $ret = '';
-        while ($myrow = $this->db->fetchArray($result)) {
-            if ($myrow['category_image'] != '||') {
-                $ret[$myrow['category_id']] = htmlSpecialChars($myrow['category_image'], ENT_QUOTES);
+        while (false !== ($myrow = $this->db->fetchArray($result))) {
+            if ($myrow['category_image'] !== '||') {
+                $ret[$myrow['category_id']] = htmlspecialchars($myrow['category_image'], ENT_QUOTES);
             }
         }
 
@@ -187,7 +177,8 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
     /**
      * wfc_PageHandler::headingHtml()
      *
-     * @return
+     * @param $value
+     * @param $total_count
      */
     public function headingHtml($value, $total_count)
     {
@@ -205,7 +196,7 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
           <input type="button" name="button" onclick=\'location="admin.category.php?op=permissions"\' value="' . _MD_WFP_PERMISSIONS . '">
          </div></form>';
         $ret .= '<div>
-            <span style="float: right">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection(wfp_ListArray(), $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
+            <span style="float: right;">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection(wfp_ListArray(), $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
             </div>';
         $ret .= '</div><br clear="all" />';
         echo $ret;
