@@ -238,9 +238,9 @@ class wfp_Dopdf
         $text = $myts->undoHtmlSpecialChars($text);
         $text = preg_replace('/\<style[\w\W]*?\<\/style\>/i', '', $text);
         $text = preg_replace("/<img[^>]+\>/i", '', $text);
-        $text = str_replace('[pagebreak]', '<br /><br />', $text);
+        $text = str_replace('[pagebreak]', '<br><br>', $text);
 
-        $htmltidy = &wfp_getClass('htmltidy', _RESOURCE_DIR, _RESOURCE_CLASS);
+        $htmltidy = wfp_getClass('htmltidy', _RESOURCE_DIR, _RESOURCE_CLASS);
         if ($htmltidy) {
             $htmltidy->Options['UseTidy']     = false;
             $htmltidy->Options['OutputXHTML'] = true;
@@ -252,12 +252,12 @@ class wfp_Dopdf
 
         $text = str_replace(array('<p>', '</p>'), "\n", $text);
         $text = str_replace('<P>', "\n", $text);
-        $text = str_replace('<br />', "\n", $text);
         $text = str_replace('<br>', "\n", $text);
-        $text = str_replace('<BR />', "\n", $text);
-        $text = str_replace('<BR>', "\n", $text);
+        $text = str_replace('<br>', "\n", $text);
+        $text = str_replace('<br>', "\n", $text);
+        $text = str_replace('<br>', "\n", $text);
         $text = str_replace('<li>', "\n - ", $text);
-        $text = str_replace('<LI>', "\n - ", $text);
+        $text = str_replace('<li>', "\n - ", $text);
         $text = str_replace('[pagebreak]', '', $text);
         $text = strip_tags(ltrim($text));
         $text = htmlspecialchars_decode(ltrim($text));
@@ -268,8 +268,8 @@ class wfp_Dopdf
     /**
      * wfp_dopdf::setFilename()
      *
-     * @param  mixed  $id
-     * @param  mixed  $title
+     * @param  mixed $id
+     * @param  mixed $title
      * @return string
      */
     public function setFilename($id, $title)

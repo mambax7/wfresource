@@ -57,7 +57,7 @@ class XoopsFormCheckBox extends XoopsFormElement
      *
      * @param string $caption
      * @param string $name
-     * @param mixed  $value       Either one value as a string or an array of them.
+     * @param mixed  $value Either one value as a string or an array of them.
      * @param string $delimeter
      * @param bool   $show_button
      */
@@ -75,7 +75,7 @@ class XoopsFormCheckBox extends XoopsFormElement
     /**
      * Get the "value"
      *
-     * @param  bool  $encode To sanitizer the text?
+     * @param  bool $encode To sanitizer the text?
      * @return array
      */
     public function getValue($encode = false)
@@ -159,7 +159,7 @@ class XoopsFormCheckBox extends XoopsFormElement
     /**
      * Get the delimiter of this group
      *
-     * @param  bool   $encode To sanitizer the text?
+     * @param  bool $encode To sanitizer the text?
      * @return string The delimiter
      */
     public function getDelimeter($encode = false)
@@ -202,7 +202,7 @@ class XoopsFormCheckBox extends XoopsFormElement
             }
             $ret .= "<input type='checkbox' name='{$ele_name}' id='{$ele_id}{$id_ele}' value='" . htmlspecialchars($value, ENT_QUOTES) . "'";
             if (count($ele_value) > 0 && in_array($value, $ele_value)) {
-                $ret .= " checked='checked'";
+                $ret .= ' checked';
             }
             $ret .= $ele_extra . ' />' . $name . $ele_delimeter . "\n";
             if (!empty($this->columns)) {
@@ -242,7 +242,8 @@ class XoopsFormCheckBox extends XoopsFormElement
             $eltmsg     = empty($eltcaption) ? sprintf(_FORM_ENTER, $eltname) : sprintf(_FORM_ENTER, $eltcaption);
             $eltmsg     = str_replace('"', '\"', stripslashes($eltmsg));
 
-            return "\nvar hasChecked = false; var checkBox = myform.elements['{$eltname}'];" . 'for (var i = 0; i < checkBox.length; i++) { if (checkBox[i].checked == true) { hasChecked = true; break; } }' . "if (!hasChecked) { window.alert(\"{$eltmsg}\"); checkBox[0].focus(); return false; }";
+            return "\nvar hasChecked = false; var checkBox = myform.elements['{$eltname}'];" . 'for (var i = 0; i < checkBox.length; i++) { if (checkBox[i].checked === true) { hasChecked = true; break; } }'
+                   . "if (!hasChecked) { window.alert(\"{$eltmsg}\"); checkBox[0].focus(); return false; }";
         }
 
         return '';

@@ -61,7 +61,7 @@ class xo_Loader
      */
     public static function loadHandler($var, $module = 'system', $class = 'xoops_', $options = null, $args = null)
     {
-        $path = ($module === 'system') ? 'kernel' : 'modules/' . $module . '/class';
+        $path     = ($module === 'system') ? 'kernel' : 'modules/' . $module . '/class';
         $filename = $class . $var . '.php';
         echo $path . DS . $filename;
 
@@ -80,7 +80,7 @@ class xo_Loader
         }
 
         return false;
-//        unset($ret);
+        //        unset($ret);
     }
 
     /**
@@ -108,12 +108,12 @@ class xo_Loader
     /**
      * xo_Loader::getService()
      *
-     * @param  mixed     $var
-     * @param  mixed     $options
-     * @param  mixed     $args
+     * @param  mixed $var
+     * @param  mixed $options
+     * @param  mixed $args
      * @return bool|void
      */
-    private static function &getService($var, $options = null, $args = null)
+    private static function getService($var, $options = null, $args = null)
     {
         /**
          */
@@ -197,13 +197,13 @@ class xo_Loader
      * @param $var
      * @return bool|string
      */
-    private static function &getHelper($var)
+    private static function getHelper($var)
     {
         $ret = strtolower($var . '-helper');
         $ret = &self::path(XOOSLA_SERVICE_PATH . DS . strtolower($var) . DS . $ret);
 
         return $ret;
-//        unset($ret);
+        //        unset($ret);
     }
 
     /**
@@ -248,7 +248,7 @@ class xo_Loader
                     include $var;
                     break;
                 case 'include_once':
-                default;
+                default:
                     include_once $var;
                     break;
             }
@@ -349,7 +349,7 @@ class xo_Loader
      * xo_Loader::fileExists()
      * @return bool
      */
-    public function fileExists()
+    public static function fileExists()
     {
         if (func_num_args() === 1) {
             $var = func_get_arg(0);

@@ -15,7 +15,7 @@ defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this fi
 
 require XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsformloader.php';
 
-global $modversion, $xoopsUser, $category_handler;
+global $modversion, $xoopsUser, $categoryHandler;
 
 $wfs = false;
 
@@ -34,7 +34,7 @@ if ($wfs) {
     $category_sid->setDescription(_AM_SMILIES_SELECTIMAGE_DSC);
     $form->addElement($category_sid);
 }
-// $categorys = call_user_func( array( &$category_handler, 'getObj' ), $this->getVar('category_id') );
+// $categorys = call_user_func( array( &$categoryHandler, 'getObj' ), $this->getVar('category_id') );
 // if ($categorys['list']) {
 // $category_id = new XoopsFormTree( _AM_ECATEGORY_CSUBCATEGORY, 'category_pid', 'category_title', '-', $this->getVar( 'category_pid' ), true, 0 );
 // $category_id->addOptions( $categorys['list'], 'category_id', 'category_pid' );
@@ -72,10 +72,10 @@ $form->endTab();
  */
 $form->startTab('Publication', 'xo_category-Publication');
 
-$group_array = &call_user_func(array($category_handler, 'getRead_permissions'), $this, 'category_read');
+$group_array = &call_user_func(array($categoryHandler, 'getRead_permissions'), $this, 'category_read');
 $form->addElement(new XoopsFormSelectGroup(_AM_ECATEGORY_RGRP, 'category_read', true, $group_array, 5, true), false);
 
-$group_array = &call_user_func(array($category_handler, 'getRead_permissions'), $this, 'category_write');
+$group_array = &call_user_func(array($categoryHandler, 'getRead_permissions'), $this, 'category_write');
 $form->addElement(new XoopsFormSelectGroup(_AM_ECATEGORY_WGRP, 'category_write', true, $group_array, 5, true), false);
 
 /*Set display name*/

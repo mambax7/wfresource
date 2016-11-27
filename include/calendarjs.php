@@ -6,7 +6,8 @@ if (!defined('XOOPS_ROOT_PATH')) {
 include_once XOOPS_ROOT_PATH . '/modules/wfresource/language/' . $GLOBALS['xoopsConfig']['language'] . '/calendar.php';
 
 ?>
-<link rel="stylesheet" type="text/css" media="all" href="<?php echo XOOPS_URL; ?>/modules/wfresource/include/calendar-blue.css"/>
+<link rel="stylesheet" type="text/css" media="all"
+      href="<?php echo XOOPS_URL; ?>/modules/wfresource/include/calendar-blue.css"/>
 <script type="text/javascript" src="<?php echo XOOPS_URL . '/modules/wfresource/include/calendar.js'; ?>"></script>
 <script type="text/javascript">
     <!--
@@ -36,10 +37,10 @@ include_once XOOPS_ROOT_PATH . '/modules/wfresource/language/' . $GLOBALS['xoops
             calendar.hide();
         } else {
             var cal = new Calendar(true, "<?php if (null !== $jstime) {
-                echo $jstime;
-            } else {
-                echo 'null';
-            }?>", selected, closeHandler);
+    echo $jstime;
+} else {
+    echo 'null';
+}?>", selected, closeHandler);
             calendar = cal;
             cal.setRange(2000, 2015);
             calendar.create();

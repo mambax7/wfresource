@@ -68,8 +68,8 @@ class xoops_Tabs
     /**
      * Creates a tab with title text and starts that tabs page
      *
-     * @param $tabText  - This is what is displayed on the tab
-     * @param $paneid  - This is the parent pane to build this tab on
+     * @param $tabText - This is what is displayed on the tab
+     * @param $paneId - This is the parent pane to build this tab on
      */
     public function startTab($tabText, $paneId)
     {

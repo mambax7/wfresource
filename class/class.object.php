@@ -83,10 +83,10 @@ class wfp_Object extends XoopsObject
     /**
      * wfp_Object::getUserID()
      *
-     * @param  mixed     $value
-     * @param  string    $timestamp
-     * @param  mixed     $usereal
-     * @param  mixed     $linked
+     * @param  mixed  $value
+     * @param  string $timestamp
+     * @param  mixed  $usereal
+     * @param  mixed  $linked
      * @return int|mixed
      */
     public function getUserID($value, $timestamp = '', $usereal = false, $linked = false)
@@ -117,9 +117,9 @@ class wfp_Object extends XoopsObject
     /**
      * wfc_Page::getYesNobox()
      *
-     * @param  mixed  $id
-     * @param  mixed  $name
-     * @param  mixed  $value
+     * @param  mixed $id
+     * @param  mixed $name
+     * @param  mixed $value
      * @return string
      */
     public function getYesNobox($id = null, $name = null, $value = null)
@@ -128,13 +128,13 @@ class wfp_Object extends XoopsObject
         $ret      = "<input type='radio' name='" . $name . '[' . $i . "]' value='1'";
         $selected = $this->getVar($name);
         if (null !== $selected && (1 === $selected)) {
-            $ret .= " checked='checked'";
+            $ret .= ' checked';
         }
         $ret .= ' />' . _YES . "\n";
         $ret .= "<input type='radio' name='" . $name . '[' . $i . "]' value='0'";
         $selected = $this->getVar($name);
         if (null !== $selected && (0 === $selected)) {
-            $ret .= " checked='checked'";
+            $ret .= ' checked';
         }
         $ret .= ' />' . _NO . "\n";
 
@@ -144,7 +144,7 @@ class wfp_Object extends XoopsObject
     /**
      * XoopsObject::getCheckbox()
      *
-     * @param  mixed  $id
+     * @param  mixed $id
      * @return string
      */
     public function getCheckbox($id = null)
@@ -189,7 +189,7 @@ class wfp_Object extends XoopsObject
         }
 
         return $ret;
-//        unset($ret);
+        //        unset($ret);
     }
 
     /**

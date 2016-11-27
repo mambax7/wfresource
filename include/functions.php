@@ -97,24 +97,24 @@ function wfp_loadLangauge($filename, $module = null, $language = null)
 /**
  * wfp_getObjectCallback()
  *
- * @param  mixed $_handler
+ * @param  mixed $Handler
  * @return mixed
  */
-function &wfp_getObjectCallback($_handler)
+function wfp_getObjectCallback($Handler)
 {
     if (!class_exists('wfp_Callback')) {
         if (file_exists($hnd_file = _WFP_RESOURCE_PATH . '/class/class.objectcallback.php')) {
             include_once $hnd_file;
         }
     }
-    $_do_callback = &wfp_Callback::getSingleton();
-    $_do_callback->setCallback($_handler);
+    $_do_callback = wfp_Callback::getSingleton();
+    $_do_callback->setCallback($Handler);
 
     return $_do_callback;
 }
 
 /**
- * wfp_gethandler()
+ * wfp_getHandler()
  *
  * @param  mixed  $name
  * @param  string $dirname
@@ -122,7 +122,7 @@ function &wfp_getObjectCallback($_handler)
  * @param  mixed  $optional
  * @return bool
  */
-function &wfp_gethandler($name, $dirname = 'wfresource', $c_prefix = 'wfp_', $optional = false)
+function wfp_getHandler($name, $dirname = 'wfresource', $c_prefix = 'wfp_', $optional = false)
 {
     static $handlers;
 
@@ -131,7 +131,7 @@ function &wfp_gethandler($name, $dirname = 'wfresource', $c_prefix = 'wfp_', $op
         if (file_exists($hnd_file = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/class/class.' . $name . '.php')) {
             include_once $hnd_file;
         } else {
-            trigger_error('file for <b>' . $name . '</b> does not exist<br />file: ' . $hnd_file . '<br />Handler Name: ' . $name, E_USER_ERROR);
+            trigger_error('file for <b>' . $name . '</b> does not exist<br>file: ' . $hnd_file . '<br>Handler Name: ' . $name, E_USER_ERROR);
         }
 
         $class = $c_prefix . ucfirst($name) . 'Handler';
@@ -140,7 +140,7 @@ function &wfp_gethandler($name, $dirname = 'wfresource', $c_prefix = 'wfp_', $op
         }
     }
     if (!isset($handlers[$name]) && !$optional) {
-        trigger_error('Class <b>' . $class . '</b> does not exist<br />Handler Name: ' . $name, E_USER_ERROR);
+        trigger_error('Class <b>' . $class . '</b> does not exist<br>Handler Name: ' . $name, E_USER_ERROR);
     }
     if (isset($handlers[$name])) {
         return $handlers[$name];
@@ -180,7 +180,7 @@ function wfp_getClass($name, $dirname = 'wfresource', $c_prefix = 'wfp_', $optio
         $_class[$name] = new $class($options);
     }
     if (!isset($_class[$name])) {
-        trigger_error('Class <b>' . $class . '</b> does not exist<br />Class Name: ' . $name, E_USER_ERROR);
+        trigger_error('Class <b>' . $class . '</b> does not exist<br>Class Name: ' . $name, E_USER_ERROR);
     }
     if (isset($_class[$name])) {
         return $_class[$name];
@@ -202,8 +202,15 @@ function wfp_getClass($name, $dirname = 'wfresource', $c_prefix = 'wfp_', $optio
  * @param  mixed   $returns
  * @return string
  */
-function wfp_ShowPagenav($tot_num = 0, $num_dis = 10, $start = 0, $from = 'start', $nav_type = 1, $nav_path = '', $returns = false)
-{
+function wfp_ShowPagenav(
+    $tot_num = 0,
+    $num_dis = 10,
+    $start = 0,
+    $from = 'start',
+    $nav_type = 1,
+    $nav_path = '',
+    $returns = false
+) {
     $from_result = $start + 1;
     if ($num_dis === 0) {
         $num_dis = $tot_num;
@@ -259,8 +266,12 @@ function wfp_ShowPagenav($tot_num = 0, $num_dis = 10, $start = 0, $from = 'start
  * @param  array  $button_array
  * @return bool
  */
-function wfp_show_buttons($butt_align = 'right', $butt_id = 'button', $class_id = 'formbutton', $button_array = array())
-{
+function wfp_show_buttons(
+    $butt_align = 'right',
+    $butt_id = 'button',
+    $class_id = 'formbutton',
+    $button_array = array()
+) {
     if (!is_array($button_array)) {
         return false;
     }
@@ -328,7 +339,7 @@ function wfp_getConstants($_title, $prefix = '', $suffix = '')
 /**
  * wfp_getImage()
  *
- * @param  mixed              $value
+ * @param  mixed $value
  * @return array|mixed|string
  */
 function wfp_getImage($value)
@@ -346,10 +357,10 @@ function wfp_getImage($value)
 /**
  * wfp_getIcons()
  *
- * @param  array  $_icon_array
- * @param  mixed  $key
- * @param  mixed  $value
- * @param  mixed  $extra
+ * @param  array $_icon_array
+ * @param  mixed $key
+ * @param  mixed $value
+ * @param  mixed $extra
  * @return string
  */
 function wfp_getIcons($_icon_array = array(), $key, $value = null, $extra = null)
@@ -383,8 +394,18 @@ function wfp_getIcons($_icon_array = array(), $key, $value = null, $extra = null
  * @param  mixed   $echo
  * @return string
  */
-function wfp_getSelection($this_array = array(), $selected = 0, $value = '', $size = '', $emptyselect = false, $multipule = false, $noselecttext = '------------------', $extra = '', $vvalue = 0, $echo = true)
-{
+function wfp_getSelection(
+    $this_array = array(),
+    $selected = 0,
+    $value = '',
+    $size = '',
+    $emptyselect = false,
+    $multipule = false,
+    $noselecttext = '------------------',
+    $extra = '',
+    $vvalue = 0,
+    $echo = true
+) {
     if ($multipule === true) {
         $ret = "<select size='" . $size . "' name='" . $value . "[]' id='" . $value . "[]' multiple='multiple' $extra>";
     } else {
@@ -398,10 +419,10 @@ function wfp_getSelection($this_array = array(), $selected = 0, $value = '', $si
             $opt_selected = '';
             $newKey       = ((int)$vvalue === 1) ? $content : $key;
             if (is_array($selected) && in_array($newKey, $selected)) {
-                $opt_selected .= " selected='selected'";
+                $opt_selected .= ' selected';
             } else {
                 if ($key === $selected) {
-                    $opt_selected = "selected='selected'";
+                    $opt_selected = 'selected';
                 }
             }
             $content = xoops_substr($content, 0, 24);
@@ -410,7 +431,7 @@ function wfp_getSelection($this_array = array(), $selected = 0, $value = '', $si
     }
     $ret .= '</select>';
     if ($echo === true) {
-        echo '<div>' . $ret . '</div><br />';
+        echo '<div>' . $ret . '</div><br>';
     } else {
         return $ret;
     }
@@ -419,7 +440,7 @@ function wfp_getSelection($this_array = array(), $selected = 0, $value = '', $si
 /**
  * wfp_ShowLegend()
  *
- * @param  mixed  $led_array
+ * @param  mixed $led_array
  * @return string
  */
 function wfp_ShowLegend($led_array)
@@ -450,7 +471,8 @@ function xoosla_cp_footer()
     //    </div>';
     //    global $xoopsModule;
     $pathIcon32 = XOOPS_URL . '/' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
-    echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "    <a href='http://www.xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . '  ' . _AM_MODULEADMIN_ADMIN_FOOTER . "\n" . '</div>';
+    echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "    <a href='http://www.xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . '  '
+         . _AM_MODULEADMIN_ADMIN_FOOTER . "\n" . '</div>';
     xoops_cp_footer();
 }
 
@@ -499,7 +521,7 @@ function wfp_confirm($hiddens, $op, $msg, $submit = '', $cancel = '', $noarray =
         if (is_array($value) && $noarray === true) {
             foreach ($value as $caption => $newvalue) {
                 $ret .= '<input type="radio" name="' . $name . '" value="' . htmlspecialchars($newvalue) . '" /> ' . $caption;
-                $ret .= '<br />';
+                $ret .= '<br>';
             }
         } else {
             if (is_array($value)) {
@@ -533,7 +555,7 @@ function wfp_confirm($hiddens, $op, $msg, $submit = '', $cancel = '', $noarray =
  */
 function wfp_savePerms(&$h, &$groups, $id)
 {
-    $group =& wfp_getClass('permissions');
+    $group = wfp_getClass('permissions');
     $group->setPermissions($h->tableName, $h->groupName, '', $GLOBALS['xoopsModule']->getVar('mid'));
     $group->save($groups, $id);
 }
@@ -552,7 +574,7 @@ function wfp_clonePerms(&$h, $old_id = null, $new_id = null)
         return false;
     }
     // set the persmissions
-    $group =& wfp_getClass('permissions');
+    $group = wfp_getClass('permissions');
     $group->setPermissions($h->tableName, $h->groupName, '', $GLOBALS['xoopsModule']->getVar('mid'));
     // get ID's for current page
     $groups = $group->getAdmin($old_id);
@@ -568,7 +590,7 @@ function wfp_clonePerms(&$h, $old_id = null, $new_id = null)
  */
 function wfp_deletePerms(&$h, $id)
 {
-    $group =& wfp_getClass('permissions');
+    $group = wfp_getClass('permissions');
     $group->setPermissions($h->tableName, $h->groupName, '', $GLOBALS['xoopsModule']->getVar('mid'));
     $group->doDelete($id);
 }
@@ -601,9 +623,9 @@ if (!function_exists('print_r_html')) {
 /**
  * wfp_file_exists()
  *
- * @param  mixed       $path
- * @param  mixed       $file
- * @param  mixed       $require
+ * @param  mixed $path
+ * @param  mixed $file
+ * @param  mixed $require
  * @return bool|string
  */
 function wfp_file_exists($path, $file, $require = null)
@@ -708,16 +730,23 @@ function wfp_doUpload($value = 'file', $handler, $prefix = null, $uploadfolder =
 /**
  * wfp_uploader()
  *
- * @param  mixed        $allowed_mimetypes
- * @param  mixed        $uploadfile
- * @param  string       $redirecturl
- * @param  integer      $num
- * @param  string       $uploaddir
- * @param  mixed        $redirect
+ * @param  mixed   $allowed_mimetypes
+ * @param  mixed   $uploadfile
+ * @param  string  $redirecturl
+ * @param  integer $num
+ * @param  string  $uploaddir
+ * @param  mixed   $redirect
  * @return array|string
  */
-function wfp_uploader($allowed_mimetypes, $uploadfile, $redirecturl = 'index.php', $num = 0, $uploaddir = 'uploads', $redirect = 0)
-{
+function wfp_uploader(
+    $allowed_mimetypes,
+    $uploadfile,
+//    $redirecturl = 'index.php',
+    $redirecturl = 'main.php',
+    $num = 0,
+    $uploaddir = 'uploads',
+    $redirect = 0
+) {
     global $xoopsModuleConfig;
     /**
      */
@@ -758,7 +787,7 @@ function wfp_getFileExtension($value = '')
  */
 function wfp_removeHeaders($buffer)
 {
-    return str_replace('<h4></h4><br />', '', $buffer);
+    return str_replace('<h4></h4><br>', '', $buffer);
 }
 
 /**
@@ -767,7 +796,18 @@ function wfp_removeHeaders($buffer)
  */
 function wfp_ListArray()
 {
-    return array(1 => '1', 2 => '2', 3 => '3', 5 => '5', 10 => '10', 15 => '15', 25 => '25', 50 => '50', 100 => '100', 0 => 'All');
+    return array(
+        1   => '1',
+        2   => '2',
+        3   => '3',
+        5   => '5',
+        10  => '10',
+        15  => '15',
+        25  => '25',
+        50  => '50',
+        100 => '100',
+        0   => 'All'
+    );
 }
 
 /**
@@ -809,7 +849,8 @@ function wfp_ListAndOr()
  */
 function wfp_isEditorHTML()
 {
-    if (isset($GLOBALS['xoopsModuleConfig']['use_wysiwyg']) && in_array($GLOBALS['xoopsModuleConfig']['use_wysiwyg'], array(
+    if (isset($GLOBALS['xoopsModuleConfig']['use_wysiwyg'])
+        && in_array($GLOBALS['xoopsModuleConfig']['use_wysiwyg'], array(
             'tinymce',
             'ckeditor',
             'koivi',
@@ -831,8 +872,8 @@ function wfp_tag_module_included()
 {
     static $wfp_tag_module_included;
     if (null === $wfp_tag_module_included) {
-        $modules_handler = xoops_getHandler('module');
-        $tag_mod         = $modules_handler->getByDirName('tag');
+        $modulesHandler = xoops_getHandler('module');
+        $tag_mod         = $modulesHandler->getByDirName('tag');
         if (!$tag_mod) {
             $tag_mod = false;
         } else {
@@ -858,16 +899,21 @@ function wfp_getModuleOption($option, $dirname = 'wfchannel')
     }
 
     $ret = false;
-    if (isset($GLOBALS['xoopsModuleConfig']) && (is_object($GLOBALS['xoopsModule']) && $GLOBALS['xoopsModule']->getVar('dirname') == $dirname && $GLOBALS['xoopsModule']->getVar('isactive'))) {
+    if (isset($GLOBALS['xoopsModuleConfig'])
+        && (is_object($GLOBALS['xoopsModule'])
+            && $GLOBALS['xoopsModule']->getVar('dirname') == $dirname
+            && $GLOBALS['xoopsModule']->getVar('isactive'))
+    ) {
         if (isset($GLOBALS['xoopsModuleConfig'][$option])) {
             $ret = $GLOBALS['xoopsModuleConfig'][$option];
         }
     } else {
-        $moduleHandler  = xoops_getHandler('module');
+        /** @var XoopsModuleHandler $moduleHandler */
+        $moduleHandler = xoops_getHandler('module');
         $module         = $moduleHandler->getByDirname($dirname);
-        $config_handler = xoops_getHandler('config');
+        $configHandler = xoops_getHandler('config');
         if ($module) {
-            $moduleConfig = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+            $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
             if (isset($moduleConfig[$option])) {
                 $ret = $moduleConfig[$option];
             }
@@ -892,7 +938,7 @@ function wfp_addslashes($text)
 /**
  * wfp_stripslashes()
  *
- * @param  mixed  $text
+ * @param  mixed $text
  * @return string
  */
 function wfp_stripslashes($text)
@@ -910,8 +956,8 @@ function wfp_module_installed($module = '')
 {
     static $wfp_module;
     if (!isset($wfp_module[$module])) {
-        $modules_handler = xoops_getHandler('module');
-        $tag_mod         = $modules_handler->getByDirName('tag');
+        $modulesHandler = xoops_getHandler('module');
+        $tag_mod         = $modulesHandler->getByDirName('tag');
         if ($tag_mod && $tag_mod->getVar('isactive')) {
             $wfp_module[$module] = $tag_mod = true;
         } else {

@@ -26,12 +26,12 @@ class XoopsFormImagever extends XoopsFormElement
     /**
      * Constuctor
      *
-     * @param string     $caption   caption
-     * @param string     $name      name
+     * @param string     $caption caption
+     * @param string     $name    name
      * @param            $size
      * @param            $maxlength
-     * @param string     $value     initial content
-     * @param int|string $bgimage   number of rows
+     * @param string     $value   initial content
+     * @param int|string $bgimage number of rows
      */
     public function __construct($caption, $name, $size, $maxlength, $value = '', $bgimage = '')
     {
@@ -132,7 +132,7 @@ class XoopsFormImagever extends XoopsFormElement
     {
         // return "<div><input type='text' name='" . $this -> getName() . "' id='" . $this -> getName() . "' size='" . $this -> getSize() . "' maxlength='" . $this -> getMaxlength() . "' value='" . $this -> getValue() . "'" . $this -> getExtra() . " />";
         $ret = "<div><input type='text' name='" . $this->getName() . "' id='" . $this->getName() . "' size='" . $this->getSize() . "' maxlength='" . $this->getMaxlength() . "' value='" . $this->getValue() . "'" . $this->getExtra() . ' />';
-        $ret .= '<br />';
+        $ret .= '<br>';
         $ret .= "<div style='padding: 8px;'><img src='" . $this->getImage() . ".jpg' /></div>";
         $ret .= "<input type='hidden' name='image_random_value' id='image_random_value' value='" . $this->getRand() . "' /></div>";
 

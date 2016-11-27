@@ -81,7 +81,7 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
      */
     public function getRead_permissions(&$obj, $type = 'wfp_category_read')
     {
-        $_group = &wfp_getClass('permissions');
+        $_group = wfp_getClass('permissions');
         $_group->setPermissions('category', $type, '', 1);
         $group_array = $_group->getAdmin(@$obj->getVar('category_id'));
 
@@ -92,7 +92,7 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
      * wfp_SectionHandler::getSave_permissions()
      *
      * @param  mixed  $obj
-     * @param  string $type  : This is the type of permission to be saved example: Read, submit, moderator permissions
+     * @param  string $type : This is the type of permission to be saved example: Read, submit, moderator permissions
      * @param  mixed  $value
      * @return bool
      */
@@ -101,7 +101,7 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
         if (!is_array($value)) {
             return false;
         }
-        $_group = &wfp_getClass('permissions');
+        $_group = wfp_getClass('permissions');
         $_group->setPermissions('category', $type, 'Menu permissions', 1);
         $result = $_group->save($value, @$obj->getVar('category_id'));
 
@@ -112,7 +112,7 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
      * wfp_CategoryHandler::getCategoryObj()
      * @return bool
      */
-    public function &getObj()
+    public function getObj()
     {
         $obj = false;
         if (func_num_args() === 2) {
@@ -141,7 +141,7 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
      * wfp_CategoryHandler::getMenuObj()
      * @return array|bool $obj
      */
-    public function &getMenuObj()
+    public function getMenuObj()
     {
         $criteria = new CriteriaCompo();
         if ($GLOBALS['xoopsModule']->getVar('mid')) {

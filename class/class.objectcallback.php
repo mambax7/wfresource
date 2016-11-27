@@ -29,7 +29,7 @@ class wfp_Callback extends wfp_ObjectHandler
      * wfp_Callback::getSingleton()
      * @return mixed
      */
-    public static function &getSingleton()
+    public static function getSingleton()
     {
         static $instance;
         if (null === $instance) {
@@ -115,7 +115,7 @@ class wfp_Callback extends wfp_ObjectHandler
     public function help()
     {
         xoops_cp_header();
-        $GLOBALS['menu_handler']->render($this->_menuid);
+        $GLOBALS['menuHandler']->render($this->_menuid);
         wfp_showHelp();
 
         return true;
@@ -128,7 +128,7 @@ class wfp_Callback extends wfp_ObjectHandler
     public function about()
     {
         xoops_cp_header();
-        $GLOBALS['menu_handler']->render($this->_menuid);
+        $GLOBALS['menuHandler']->render($this->_menuid);
         wfp_showAbout();
 
         return true;
@@ -153,7 +153,7 @@ class wfp_Callback extends wfp_ObjectHandler
             $_obj      = call_user_func($callArray);
         }
         xoops_cp_header();
-        $GLOBALS['menu_handler']->render($this->_menuid);
+        $GLOBALS['menuHandler']->render($this->_menuid);
         if (is_object($_obj)) {
             $_obj->formEdit($this->_callback->obj_class);
 
@@ -177,11 +177,12 @@ class wfp_Callback extends wfp_ObjectHandler
             }
         }
 
-        $_obj = &call_user_func(array($this->_callback, ($this->getId() > 0) ? 'get' : 'create'), ($this->getId() > 0) ? $this->getId() : true);
+        $_obj = call_user_func(array($this->_callback, ($this->getId() > 0) ? 'get' : 'create'), ($this->getId() > 0) ? $this->getId() : true);
         $_obj->setVars($this->value);
 
         if ($this->_callback->insert($_obj, false)) {
-            $this->groups = (0 !== count($this->groups) && is_array($this->groups)) ? (array)$this->groups : array('0' => '1');
+            $this->groups = (0 !== count($this->groups)
+                             && is_array($this->groups)) ? (array)$this->groups : array('0' => '1');
             if (is_array($this->groups)) {
                 foreach ($this->groups as $groups) {
                     wfp_savePerms($this->_callback, $groups, $_obj->getVar($this->_callback->keyName));
@@ -201,23 +202,23 @@ class wfp_Callback extends wfp_ObjectHandler
     }
 
     /**
-     * wfp_Callback::delete()
-     *
-     * @param  XoopsObject $obj
+     * wfp_Callback::deleteByID()
+     * delete an object from the database by id.
+     * @param  mixed $obj id of the object to delete
      * @param  bool        $force
      * @return bool|void
      */
-    public function delete(XoopsObject $obj, $force = false)
+    public function deleteByID($obj, $force = false)
     {
         $wfc_cid = wfp_Request::doRequest($_REQUEST, $this->_callback->keyName, 0, 'int');
         $_obj    = $this->_callback->get($this->_id);
         if (is_object($_obj)) {
-            $ok = &wfp_Request::doRequest($_REQUEST, 'ok', 0, 'int');
+            $ok = wfp_Request::doRequest($_REQUEST, 'ok', 0, 'int');
             switch ($ok) {
                 case 0:
                 default:
                     xoops_cp_header();
-                    $GLOBALS['menu_handler']->render($this->_menuid);
+                    $GLOBALS['menuHandler']->render($this->_menuid);
                     wfp_confirm(array(
                                     'op'                      => 'delete',
                                     $this->_callback->keyName => $this->_id,
@@ -255,7 +256,7 @@ class wfp_Callback extends wfp_ObjectHandler
         // }
         $optionArray = '';
         if (func_num_args()) {
-            $optionArray = &func_get_arg(0);
+            $optionArray = func_get_arg(0);
         }
         $_obj = $this->_callback->get($this->_id);
         if (!is_object($_obj)) {
@@ -263,7 +264,7 @@ class wfp_Callback extends wfp_ObjectHandler
         } else {
             $_obj->setNew();
             $oldID = $_obj->getVar($this->_callback->keyName);
-            if ($this->_callback->insert($_obj, false, null, true)) {
+            if ($this->_callback->insert($_obj, true, null, true)) {
                 wfp_clonePerms($this->_callback, $oldID, $_obj->getVar($this->_callback->keyName));
                 redirect_header($this->url, 1, _AM_WFP_DBITEMDUPLICATED);
             } else {
@@ -306,8 +307,8 @@ class wfp_Callback extends wfp_ObjectHandler
                     }
                     if ($do_delete === true) {
                         if ($this->_callback->delete($_obj, false)) {
-                            if (!empty($this->_handler->groupName)) {
-                                wfp_deletePerms($this->_handler, $_obj->getVar($this->_handler->keyName));
+                            if (!empty($this->Handler->groupName)) {
+                                wfp_deletePerms($this->Handler, $_obj->getVar($this->Handler->keyName));
                             }
                         } else {
                             trigger_error($_obj, E_USER_WARNING);
@@ -346,8 +347,8 @@ class wfp_Callback extends wfp_ObjectHandler
                     }
                     $oldID = $_obj->getVar($this->_callback->keyName);
                     if ($this->_callback->insert($_obj, false)) {
-                        if (!empty($this->_handler->groupName)) {
-                            wfp_clonePerms($this->_handler, $oldID, $_obj->getVar($this->_handler->keyName));
+                        if (!empty($this->Handler->groupName)) {
+                            wfp_clonePerms($this->Handler, $oldID, $_obj->getVar($this->Handler->keyName));
                         }
                     }
                 }
@@ -359,10 +360,10 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::updateall()
      *
-     * @param  mixed     $fieldname
-     * @param  int       $fieldvalue
-     * @param  null      $criteria
-     * @param  bool      $force
+     * @param  mixed $fieldname
+     * @param  int   $fieldvalue
+     * @param  null  $criteria
+     * @param  bool  $force
      * @return bool|void
      */
     public function updateall($fieldname, $fieldvalue = 0, $criteria = null, $force = true)
@@ -393,7 +394,8 @@ class wfp_Callback extends wfp_ObjectHandler
                 }
             }
         }
-        redirect_header($this->url, 1, (is_array($checkbox) && count($checkbox) > 0) ? _AM_WFP_DBSELECTEDITEMSUPTATED : _AM_WFP_DBNOTUPDATED);
+        redirect_header($this->url, 1, (is_array($checkbox)
+                                        && count($checkbox) > 0) ? _AM_WFP_DBSELECTEDITEMSUPTATED : _AM_WFP_DBNOTUPDATED);
     }
 
     /**
@@ -403,7 +405,9 @@ class wfp_Callback extends wfp_ObjectHandler
      */
     public function notifications(&$_obj)
     {
-        if (isset($GLOBALS['xoopsModuleConfig']['notification_enabled']) && $GLOBALS['xoopsModuleConfig']['notification_enabled'] > 0) {
+        if (isset($GLOBALS['xoopsModuleConfig']['notification_enabled'])
+            && $GLOBALS['xoopsModuleConfig']['notification_enabled'] > 0
+        ) {
             if (method_exists($this->_callback, 'upDateNotification')) {
                 if (!empty($this->_notifyType)) {
                     $this->_callback->upDateNotification($_obj, $this->_notifyType);
@@ -550,7 +554,7 @@ class wfp_Callback extends wfp_ObjectHandler
          */
         $ret = null;
         if ($doimport === true && !empty($file)) {
-            $clean = &wfp_getClass('clean');
+            $clean = wfp_getClass('clean');
             $ret   = $clean->importHtml($file, wfp_getModuleOption('htmluploaddir'));
         }
 
@@ -560,8 +564,8 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfc_PageHandler::htmlClean()
      *
-     * @param  mixed        $text
-     * @param  integer      $options
+     * @param  mixed   $text
+     * @param  integer $options
      * @return mixed|string
      */
     public function htmlClean($text = '', $options = 0)
@@ -570,7 +574,7 @@ class wfp_Callback extends wfp_ObjectHandler
          * Do import
          */
         if ($options >= 0 && $options < 5) {
-            $clean = &wfp_getClass('clean');
+            $clean = wfp_getClass('clean');
             $text  = $clean->cleanUpHTML($text, $options);
         }
 

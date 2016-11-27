@@ -102,7 +102,7 @@ class XoopsFormSelect extends XoopsFormElement
     /**
      * Get an array of pre-selected values
      *
-     * @param  bool  $encode To sanitizer the text?
+     * @param  bool $encode To sanitizer the text?
      * @return array
      */
     public function getValue($encode = false)
@@ -203,7 +203,7 @@ class XoopsFormSelect extends XoopsFormElement
         foreach ($ele_options as $value => $name) {
             $ret .= "<option value='" . htmlspecialchars($value, ENT_QUOTES) . "'";
             if (count($ele_value) > 0 && in_array($value, $ele_value)) {
-                $ret .= " selected='selected'";
+                $ret .= ' selected';
             }
             $ret .= ">{$name}</option>\n";
         }
@@ -229,7 +229,8 @@ class XoopsFormSelect extends XoopsFormElement
             $eltmsg     = empty($eltcaption) ? sprintf(_FORM_ENTER, $eltname) : sprintf(_FORM_ENTER, $eltcaption);
             $eltmsg     = str_replace('"', '\"', stripslashes($eltmsg));
 
-            return "\nvar hasSelected = false; var selectBox = myform.{$eltname};" . 'for (i = 0; i < selectBox.options.length; i++) { if (selectBox.options[i].selected == true) { hasSelected = true; break; } }' . "if (!hasSelected) { window.alert(\"{$eltmsg}\"); selectBox.focus(); return false; }";
+            return "\nvar hasSelected = false; var selectBox = myform.{$eltname};" . 'for (i = 0; i < selectBox.options.length; i++) { if (selectBox.options[i].selected === true) { hasSelected = true; break; } }'
+                   . "if (!hasSelected) { window.alert(\"{$eltmsg}\"); selectBox.focus(); return false; }";
         }
 
         return '';

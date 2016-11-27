@@ -88,7 +88,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
      * wfp_VotesHandler::getObj()
      * @return bool
      */
-    public function &getObj()
+    public function getObj()
     {
         $obj = false;
         if (func_num_args() === 2) {
@@ -162,10 +162,9 @@ class wfp_VotesHandler extends wfp_ObjectHandler
 
     /**
      * wfp_VotesHandler::getModule()
-     *
-     * @return
+     * @return array
      */
-    public function &getModule()
+    public function getModule()
     {
         global $moduleHandler;
         static $_cachedModule_list;

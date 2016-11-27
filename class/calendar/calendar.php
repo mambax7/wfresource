@@ -38,8 +38,14 @@ class DHTML_Calendar
      * @param array  $calendar_options
      * @param array  $calendar_field_attributes
      */
-    public function __construct($calendar_lib_path = '', $lang = 'en', $theme = 'calendar-win2k-1', $stripped = false, $calendar_options = array(), $calendar_field_attributes = array())
-    {
+    public function __construct(
+        $calendar_lib_path = '',
+        $lang = 'en',
+        $theme = 'calendar-win2k-1',
+        $stripped = false,
+        $calendar_options = array(),
+        $calendar_field_attributes = array()
+    ) {
         $this->set_option('date', '');
         $this->set_option('ifFormat', '%m/%d/%Y %H:%M');
         $this->set_option('daFormat', '%m/%d/%Y %H:%M');
@@ -102,7 +108,7 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::_make_calendar()
      *
-     * @param  array  $other_options
+     * @param  array $other_options
      * @return string
      */
     public function _make_calendar($other_options = array())
@@ -116,9 +122,9 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::make_input_field()
      *
-     * @param  array  $cal_options
-     * @param  array  $field_attributes
-     * @param  mixed  $show
+     * @param  array $cal_options
+     * @param  array $field_attributes
+     * @param  mixed $show
      * @return string
      */
     public function make_input_field($cal_options = array(), $field_attributes = array(), $show = true)

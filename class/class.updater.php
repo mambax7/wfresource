@@ -177,7 +177,7 @@ class wfp_Updater
         }
         $result = $this->db->queryF($sql);
         if (!$result && ($this->db->errno() !== '1050')) {
-            $this->setError("Table $tablename could not be created<br /<br />" . $this->db->error() . ' ' . $this->db->errno());
+            $this->setError("Table $tablename could not be created<br /<br>" . $this->db->error() . ' ' . $this->db->errno());
 
             return false;
         } else {
@@ -210,7 +210,7 @@ class wfp_Updater
             $sql .= "\n\n";
             $result = $this->db->queryF($sql);
             if (!$result) {
-                $this->setError("Field <span style=\"color: red;\">" . $this->_query['fieldname'][$i] . '</span> could not be updated <br />Error: ' . $this->db->errno() . ' ' . $this->db->error());
+                $this->setError("Field <span style=\"color: red;\">" . $this->_query['fieldname'][$i] . '</span> could not be updated <br>Error: ' . $this->db->errno() . ' ' . $this->db->error());
             } else {
                 $this->setSuccess('Field ' . $this->_query['fieldname'][$i] . ' updated ');
             }

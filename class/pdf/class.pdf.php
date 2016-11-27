@@ -517,7 +517,10 @@ class Cpdf
         }
         switch ($action) {
             case 'new':
-                $this->objects[$id]                    = array('t' => 'font', 'info' => array('name' => $options['name'], 'SubType' => 'Type1'));
+                $this->objects[$id]                    = array(
+                    't'    => 'font',
+                    'info' => array('name' => $options['name'], 'SubType' => 'Type1')
+                );
                 $fontNum                               = $this->numFonts;
                 $this->objects[$id]['info']['fontNum'] = $fontNum;
                 // deal with the encoding and the differences
@@ -752,7 +755,10 @@ class Cpdf
                 $date               = 'D:' . date('Ymd');
                 $this->objects[$id] = array(
                     't'    => 'info',
-                    'info' => array('Creator' => 'R and OS php pdf writer, http://www.ros.co.nz', 'CreationDate' => $date)
+                    'info' => array(
+                        'Creator'      => 'R and OS php pdf writer, http://www.ros.co.nz',
+                        'CreationDate' => $date
+                    )
                 );
                 break;
             case 'Title':
@@ -909,7 +915,13 @@ class Cpdf
         switch ($action) {
             case 'new':
                 $this->numPages++;
-                $this->objects[$id] = array('t' => 'page', 'info' => array('parent' => $this->currentNode, 'pageNum' => $this->numPages));
+                $this->objects[$id] = array(
+                    't'    => 'page',
+                    'info' => array(
+                        'parent'  => $this->currentNode,
+                        'pageNum' => $this->numPages
+                    )
+                );
                 if (is_array($options)) {
                     // then this must be a page insertion, array shoudl contain 'rid','pos'=[before|after]
                     $options['id'] = $id;
@@ -1041,7 +1053,11 @@ class Cpdf
         switch ($action) {
             case 'new':
                 // make the new object
-                $this->objects[$id]                    = array('t' => 'image', 'data' => $options['data'], 'info' => array());
+                $this->objects[$id]                    = array(
+                    't'    => 'image',
+                    'data' => $options['data'],
+                    'info' => array()
+                );
                 $this->objects[$id]['info']['Type']    = '/XObject';
                 $this->objects[$id]['info']['Subtype'] = '/Image';
                 $this->objects[$id]['info']['Width']   = $options['iw'];
@@ -1125,7 +1141,8 @@ class Cpdf
                 $this->objects[$id] = array('t' => 'encryption', 'info' => $options);
                 $this->arc4_objnum  = $id;
                 // figure out the additional paramaters required
-                $pad = chr(0x28) . chr(0xBF) . chr(0x4E) . chr(0x5E) . chr(0x4E) . chr(0x75) . chr(0x8A) . chr(0x41) . chr(0x64) . chr(0x00) . chr(0x4E) . chr(0x56) . chr(0xFF) . chr(0xFA) . chr(0x01) . chr(0x08) . chr(0x2E) . chr(0x2E) . chr(0x00) . chr(0xB6) . chr(0xD0) . chr(0x68) . chr(0x3E) . chr(0x80) . chr(0x2F) . chr(0x0C) . chr(0xA9) . chr(0xFE) . chr(0x64) . chr(0x53) . chr(0x69) . chr(0x7A);
+                $pad = chr(0x28) . chr(0xBF) . chr(0x4E) . chr(0x5E) . chr(0x4E) . chr(0x75) . chr(0x8A) . chr(0x41) . chr(0x64) . chr(0x00) . chr(0x4E) . chr(0x56) . chr(0xFF) . chr(0xFA) . chr(0x01) . chr(0x08) . chr(0x2E) . chr(0x2E) . chr(0x00)
+                       . chr(0xB6) . chr(0xD0) . chr(0x68) . chr(0x3E) . chr(0x80) . chr(0x2F) . chr(0x0C) . chr(0xA9) . chr(0xFE) . chr(0x64) . chr(0x53) . chr(0x69) . chr(0x7A);
                 $len = strlen($options['owner']);
                 if ($len > 32) {
                     $owner = substr($options['owner'], 0, 32);
@@ -1347,7 +1364,7 @@ class Cpdf
 
     /**
      * return the pdf stream as a string returned from the function
-     * @param  int    $debug
+     * @param  int $debug
      * @return string
      */
     public function output($debug = 0)
@@ -1453,7 +1470,7 @@ class Cpdf
         }
 
         if (substr($name, -4) === '.afm') {
-            $name = substr($name, 0, - 4);
+            $name = substr($name, 0, -4);
         }
         $this->addMessage('openFont: ' . $font . ' - ' . $name);
         if (file_exists($dir . 'php_' . $name . '.afm')) {
@@ -1568,7 +1585,7 @@ class Cpdf
                 //      $dir=substr($fontName,0,$pos+1);
                 $name = substr($fontName, $pos + 1);
                 if (substr($name, -4) === '.afm') {
-                    $name = substr($name, 0, - 4);
+                    $name = substr($name, 0, -4);
                 }
                 $options = array('name' => $name);
                 if (is_array($encoding)) {
@@ -1589,7 +1606,7 @@ class Cpdf
                 // if this is a '.afm' font, and there is a '.pfa' file to go with it ( as there
                 // should be for all non-basic fonts), then load it into an object and put the
                 // references into the font object
-                $basefile = substr($fontName, 0, - 4);
+                $basefile = substr($fontName, 0, -4);
                 $fbtype   = '';
                 if (file_exists($basefile . '.pfb')) {
                     $fbtype = 'pfb';
@@ -1769,7 +1786,9 @@ class Cpdf
             $this->selectFont('./fonts/Helvetica.afm');
         }
         $cf = substr($this->currentBaseFont, strrpos($this->currentBaseFont, '/') + 1);
-        if (isset($this->fontFamilies[$cf]) && strlen($this->currentTextState) && isset($this->fontFamilies[$cf][$this->currentTextState])) {
+        if (isset($this->fontFamilies[$cf]) && strlen($this->currentTextState)
+            && isset($this->fontFamilies[$cf][$this->currentTextState])
+        ) {
             // then we are in some state or another
             // and this font has a family, and the current setting exists within it
             // select the font, then return it
@@ -1814,7 +1833,10 @@ class Cpdf
      */
     public function setColor($r, $g, $b, $force = 0)
     {
-        if ($r >= 0 && ($force || $r !== $this->currentColour['r'] || $g !== $this->currentColour['g'] || $b !== $this->currentColour['b'])) {
+        if ($r >= 0
+            && ($force || $r !== $this->currentColour['r'] || $g !== $this->currentColour['g']
+                || $b !== $this->currentColour['b'])
+        ) {
             $this->objects[$this->currentContents]['c'] .= "\n" . sprintf('%.3f', $r) . ' ' . sprintf('%.3f', $g) . ' ' . sprintf('%.3f', $b) . ' rg';
             $this->currentColour = array('r' => $r, 'g' => $g, 'b' => $b);
         }
@@ -1829,7 +1851,10 @@ class Cpdf
      */
     public function setStrokeColor($r, $g, $b, $force = 0)
     {
-        if ($r >= 0 && ($force || $r !== $this->currentStrokeColour['r'] || $g !== $this->currentStrokeColour['g'] || $b !== $this->currentStrokeColour['b'])) {
+        if ($r >= 0
+            && ($force || $r !== $this->currentStrokeColour['r'] || $g !== $this->currentStrokeColour['g']
+                || $b !== $this->currentStrokeColour['b'])
+        ) {
             $this->objects[$this->currentContents]['c'] .= "\n" . sprintf('%.3f', $r) . ' ' . sprintf('%.3f', $g) . ' ' . sprintf('%.3f', $b) . ' RG';
             $this->currentStrokeColour = array('r' => $r, 'g' => $g, 'b' => $b);
         }
@@ -1918,8 +1943,18 @@ class Cpdf
      * @param int $close
      * @param int $fill
      */
-    public function ellipse($x0, $y0, $r1, $r2 = 0, $angle = 0, $nSeg = 8, $astart = 0, $afinish = 360, $close = 1, $fill = 0)
-    {
+    public function ellipse(
+        $x0,
+        $y0,
+        $r1,
+        $r2 = 0,
+        $angle = 0,
+        $nSeg = 8,
+        $astart = 0,
+        $afinish = 360,
+        $close = 1,
+        $fill = 0
+    ) {
         if ($r1 === 0) {
             return;
         }
@@ -2275,8 +2310,17 @@ class Cpdf
      * @param  int      $wordSpaceAdjust
      * @return bool|int
      */
-    private function privCheckTextDirective1(&$text, $i, &$f, $final, &$x, &$y, $size = 0, $angle = 0, $wordSpaceAdjust = 0)
-    {
+    private function privCheckTextDirective1(
+        &$text,
+        $i,
+        &$f,
+        $final,
+        &$x,
+        &$y,
+        $size = 0,
+        $angle = 0,
+        $wordSpaceAdjust = 0
+    ) {
         $directive = 0;
         $j         = $i;
         if ($text[$j] === '<') {

@@ -54,18 +54,18 @@ class XoopsFormEditor extends XoopsFormTextArea
     /**
      * Constructor
      *
-     * @param string $caption        Caption
-     * @param string $name           "name" attribute
+     * @param string $caption   Caption
+     * @param string $name      "name" attribute
      * @param null   $editor_configs
-     * @param bool   $noHtml         use non-WYSIWYG eitor onfailure
-     * @param string $OnFailure      editor to be used if current one failed
+     * @param bool   $noHtml    use non-WYSIWYG eitor onfailure
+     * @param string $OnFailure editor to be used if current one failed
      */
     public function __construct($caption, $name, $editor_configs = null, $noHtml = false, $OnFailure = '')
     {
         require_once XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php';
         parent::__construct($caption, $editor_configs['name']);
-        $editor_handler = new XoopsEditorHandler();
-        $this->editor   =& $editor_handler->get($name, $editor_configs, $noHtml, $OnFailure);
+        $editorHandler = new XoopsEditorHandler();
+        $this->editor   = $editorHandler->get($name, $editor_configs, $noHtml, $OnFailure);
     }
 
     /**

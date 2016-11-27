@@ -23,12 +23,12 @@ class XoopsFormSelectImage extends XoopsFormSelect
     /**
      * Constructor
      *
-     * @param string $caption   Caption
-     * @param string $name      "name" attribute
-     * @param mixed  $value     Pre-selected value (or array of them).
+     * @param string $caption Caption
+     * @param string $name    "name" attribute
+     * @param mixed  $value   Pre-selected value (or array of them).
      * @param string $id
      * @param bool   $imgcat_id
-     * @param int    $size      Number or rows. "1" makes a drop-down-list
+     * @param int    $size    Number or rows. "1" makes a drop-down-list
      */
     public function __construct($caption, $name, $value = null, $id = 'Xoops_image', $imgcat_id, $size = 5)
     {
@@ -57,7 +57,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
      *
      * @return int
      */
-    public function getName()
+    public function getName($encode = true)
     {
         return $this->_name;
     }
@@ -180,7 +180,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
      *
      * @return array Associative array of value->name pairs
      */
-    public function getOptions()
+    public function getOptions($encode = false)
     {
         return $this->_options;
     }
@@ -194,11 +194,11 @@ class XoopsFormSelectImage extends XoopsFormSelect
     {
         require XOOPS_ROOT_PATH . '/modules/wfresource/include/js/wfpimage.js.php';
         if ($this->_imgcat_id > 0 && $useimagemanger = 0) {
-            $image_handler  = xoops_getHandler('image');
-            $imgcat_handler = xoops_getHandler('imagecategory');
-            $image_cat_obj  = $imgcat_handler->get($this->_imgcat_id);
+            $imageHandler  = xoops_getHandler('image');
+            $imgcatHandler = xoops_getHandler('imagecategory');
+            $image_cat_obj  = $imgcatHandler->get($this->_imgcat_id);
             if ($image_cat_obj) {
-                $art_image_array = $image_handler->getList($this->_imgcat_id, null, 'image');
+                $art_image_array = $imageHandler->getList($this->_imgcat_id, null, 'image');
                 $this->setCategory($image_cat_obj->getVar('imgcat_dirname'));
             } else {
                 $art_image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $this->getCategory());
@@ -253,7 +253,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
                 $value = '';
             }
             if (trim($value) === $image_array[0]) {
-                $ret .= " selected='selected'";
+                $ret .= ' selected';
             }
             $ret .= '>' . $image_name[0] . "</option>\n";
         }

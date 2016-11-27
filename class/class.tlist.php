@@ -58,7 +58,12 @@ class wfp_Tlist
      */
     public function AddHeader($name, $size = 0, $align = 'left', $islink = false)
     {
-        $this->_headers[]     = array('name' => (string)$name, 'width' => (string)$size, 'align' => (string)$align, 'islink' => $islink);
+        $this->_headers[]     = array(
+            'name'   => (string)$name,
+            'width'  => (string)$size,
+            'align'  => (string)$align,
+            'islink' => $islink
+        );
         $this->_headers_count = count($this->_headers);
     }
 
@@ -230,11 +235,13 @@ class wfp_Tlist
             if (!empty($action)) {
                 $action = $action;
             } elseif (!empty($_SERVER['QUERY_STRING'])) {
-                $action = 'index.php' . htmlspecialchars($_SERVER['QUERY_STRING']);
+//                $action = 'index.php' . htmlspecialchars($_SERVER['QUERY_STRING']);
+                $action = 'main.php' . htmlspecialchars($_SERVER['QUERY_STRING']);
             } elseif (isset($_SERVER['SCRIPT_FILENAME'])) {
                 $action = basename($_SERVER['SCRIPT_FILENAME']);
             } else {
-                $action = 'index.php';
+//                $action = 'index.php';
+                $action = 'main.php';
             }
             $this->_formAction .= '<form name="' . $this->_formName . '" action="' . $action . '" method="' . $method . '" >';
         }
@@ -254,7 +261,7 @@ class wfp_Tlist
     /**
      * wfp_Tlist::addSubmit()
      *
-     * @param  array  $array
+     * @param  array $array
      * @return string
      */
     public function setSubmit($array = array())
@@ -281,7 +288,7 @@ class wfp_Tlist
     /**
      * wfp_Tlist::render()
      *
-     * @param  bool   $display
+     * @param  bool $display
      * @return string
      */
     public function render($display = true)

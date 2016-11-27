@@ -37,8 +37,8 @@ class XoopsFormSelectCategory extends XoopsFormSelect
     public function __construct($caption, $name, $value = null, $size = 1, $multiple = false)
     {
         parent::__construct($caption, $name, $value, $size, $multiple);
-        $category_handler = &wfp_gethandler('category', 'wfsection', 'wfs_');
-        $categorys        = $category_handler->getList();
+        $categoryHandler = wfp_getHandler('category', 'wfsection', 'wfs_');
+        $categorys        = $categoryHandler->getList();
         $this->addOptionArray($categorys);
     }
 }

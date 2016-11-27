@@ -13,7 +13,7 @@
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
-require(XOOPS_ROOT_PATH . '/modules/wfresource/class/captcha/php-captcha.inc.php');
+require XOOPS_ROOT_PATH . '/modules/wfresource/class/captcha/php-captcha.inc.php';
 
 /**
  * wfp_captcha
@@ -50,7 +50,7 @@ class wfp_captcha extends PhpCaptcha
      * wfp_captcha::create()
      * @return bool|void
      */
-    public function create()
+    public function create($sFilename = '')
     {
         $oVisualCaptcha = new PhpCaptcha($aFonts, 150, 40);
         $oVisualCaptcha->setFileType('png');
@@ -61,7 +61,7 @@ class wfp_captcha extends PhpCaptcha
     /**
      *
      */
-    public function validate()
+    public function validate($sUserCode, $bCaseInsensitive = true)
     {
     }
 }

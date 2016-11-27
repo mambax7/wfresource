@@ -38,14 +38,19 @@ class XoopsFormCalendar extends XoopsFormElement
     /**
      * Constuctor
      *
-     * @param string $caption                   caption
-     * @param string $name                      name
-     * @param int    $initial_value initial content
-     * @param array  $calendar_options   Extra options - see class/calendar/calendar-setup.js for more info on possible parameters
+     * @param string $caption          caption
+     * @param string $name             name
+     * @param int    $initial_value    initial content
+     * @param array  $calendar_options Extra options - see class/calendar/calendar-setup.js for more info on possible parameters
      * @param array  $calendar_field_attributes
      */
-    public function __construct($caption, $name, $initial_value = 0, $calendar_options = array(), $calendar_field_attributes = array())
-    {
+    public function __construct(
+        $caption,
+        $name,
+        $initial_value = 0,
+        $calendar_options = array(),
+        $calendar_field_attributes = array()
+    ) {
         parent::__construct();
         $stripped = false;
         $this->setCaption($caption);
@@ -125,7 +130,7 @@ class XoopsFormCalendar extends XoopsFormElement
     /**
      * XoopsFormCalendar::_make_calendar()
      *
-     * @param  array  $other_options
+     * @param  array $other_options
      * @return string
      */
     public function _make_calendar($other_options = array())
@@ -163,7 +168,7 @@ class XoopsFormCalendar extends XoopsFormElement
     /**
      * XoopsFormCalendar::_get_id()
      *
-     * @param  mixed  $id
+     * @param  mixed $id
      * @return string
      */
     public function _get_id($id)
@@ -174,7 +179,7 @@ class XoopsFormCalendar extends XoopsFormElement
     /**
      * XoopsFormCalendar::_trigger_id()
      *
-     * @param  mixed  $id
+     * @param  mixed $id
      * @return string
      */
     public function _trigger_id($id)
@@ -197,7 +202,7 @@ class XoopsFormCalendar extends XoopsFormElement
     /**
      * XoopsFormCalendar::_make_js_hash()
      *
-     * @param  mixed  $array
+     * @param  mixed $array
      * @return string
      */
     public function _make_js_hash($array)
@@ -222,7 +227,7 @@ class XoopsFormCalendar extends XoopsFormElement
     /**
      * XoopsFormCalendar::_make_html_attr()
      *
-     * @param  mixed  $array
+     * @param  mixed $array
      * @return string
      */
     public function _make_html_attr($array)

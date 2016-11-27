@@ -29,13 +29,12 @@ class wfp_Filter
 
     /**
      * xo_Xoosla::getIntance()
-     *
-     * @return
+     * @return static
      */
     public static function getInstance()
     {
         static $instance;
-        if (!isset($instance)) {
+        if (null === $instance) {
             $instance = new static($db);
         }
 
@@ -72,7 +71,7 @@ class wfp_Filter
                     $handlers[self::$name] = $handler;
                 }
             } else {
-                trigger_error('Error: Filter <b>' . $name . '</b> could not be load due to an error. Please check the filter name and try again.<br />File: ' . __FILE__ . ' line: ' . __LINE__);
+                trigger_error('Error: Filter <b>' . $name . '</b> could not be load due to an error. Please check the filter name and try again.<br>File: ' . __FILE__ . ' line: ' . __LINE__);
             }
         }
         unset($name);

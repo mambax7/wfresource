@@ -57,13 +57,13 @@ class XoopsFormSelectEditor extends XoopsFormElementTray
     {
         parent::__construct(_SELECT);
 
-        $editor_handler = new XoopsEditorHandler();
+        $editorHandler = new XoopsEditorHandler();
         $option_select  = new XoopsFormSelect('', $name, $value);
         $extra          = 'onchange="if (this.options[this.selectedIndex].value.length > 0) {
             window.document.forms.' . $form->getName() . '.submit();
             }"';
         $option_select->setExtra($extra);
-        $option_select->addOptionArray($editor_handler->getList($noHtml));
+        $option_select->addOptionArray($editorHandler->getList($noHtml));
 
         $this->addElement($option_select);
     }

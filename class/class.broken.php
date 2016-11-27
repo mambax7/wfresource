@@ -103,7 +103,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
      * @param  mixed $value
      * @return bool
      */
-    public function &getObj($nav = array(), $value = false)
+    public function getObj($nav = array(), $value = false)
     {
         $obj = false;
         if (func_num_args() == 2) {

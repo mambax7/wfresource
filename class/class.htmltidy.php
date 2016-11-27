@@ -71,31 +71,50 @@ class wfp_Htmltidy
     public function __construct()
     {
         $this->options = array(
-            'RemoveStyles'        => true, // removes style definitions like style and class
-            'IsWord'              => true, // Microsoft Word flag - specific operations may occur
-            'UseTidy'             => true, // uses the tidy engine also to cleanup the source (reccomended)
-            'TidyBefore'          => true, // apply Tidy first (not reccomended as tidy messes up sometimes legitimate spaces
-            'CleaningMethod'      => array(TAG_WHITELIST, ATTRIB_BLACKLIST), // cleaning methods
-            'OutputXHTML'         => true, // converts to XHTML by using TIDY.
-            'FillEmptyTableCells' => true, // fills empty cells with non-breaking spaces
-            'DropEmptyParas'      => true, // drops empty paragraphs
-            'Optimize'            => true, // Optimize code - merge tags
+            'RemoveStyles'        => true,
+            // removes style definitions like style and class
+            'IsWord'              => true,
+            // Microsoft Word flag - specific operations may occur
+            'UseTidy'             => true,
+            // uses the tidy engine also to cleanup the source (reccomended)
+            'TidyBefore'          => true,
+            // apply Tidy first (not reccomended as tidy messes up sometimes legitimate spaces
+            'CleaningMethod'      => array(TAG_WHITELIST, ATTRIB_BLACKLIST),
+            // cleaning methods
+            'OutputXHTML'         => true,
+            // converts to XHTML by using TIDY.
+            'FillEmptyTableCells' => true,
+            // fills empty cells with non-breaking spaces
+            'DropEmptyParas'      => true,
+            // drops empty paragraphs
+            'Optimize'            => true,
+            // Optimize code - merge tags
             'Compress'            => true
         ); //trims all spaces (line breaks, tabs) between tags and between words.
 
         // Specify TIDY configuration
         $this->tidyConfig = array(
-            'indent'                      => true, // a bit slow
-            'fix-bad-comments'            => false, //from Catzwolf?
-            'output-xhtml'                => true, //Outputs the data in XHTML format
-            'word-2000'                   => false, //Removes all proprietary data when an MS Word document has been saved as HTML
-            'bare'                        => false, //from Catzwolf?
+            'indent'                      => true,
+            // a bit slow
+            'fix-bad-comments'            => false,
+            //from Catzwolf?
+            'output-xhtml'                => true,
+            //Outputs the data in XHTML format
+            'word-2000'                   => false,
+            //Removes all proprietary data when an MS Word document has been saved as HTML
+            'bare'                        => false,
+            //from Catzwolf?
             //'clean'                       => true, /*too slow*/
-            'drop-proprietary-attributes' => true, //Removes all attributes that are not part of a web standard
-            'drop-empty-paras'            => true, //from Catzwolf?
-            'hide-comments'               => true, //Strips all comments
-            'preserve-entities'           => false, // preserve the well-formed entitites as found in the input
-            'quote-ampersand'             => true, //output unadorned & characters as &amp;.
+            'drop-proprietary-attributes' => true,
+            //Removes all attributes that are not part of a web standard
+            'drop-empty-paras'            => true,
+            //from Catzwolf?
+            'hide-comments'               => true,
+            //Strips all comments
+            'preserve-entities'           => false,
+            // preserve the well-formed entitites as found in the input
+            'quote-ampersand'             => true,
+            //output unadorned & characters as &amp;.
             'show-body-only'              => true,
             'wrap'                        => 200
         ); //Sets the number of characters allowed before a line is soft-wrapped
@@ -142,7 +161,7 @@ class wfp_Htmltidy
 
     /**
      * -----------------------------------------------------------------------------
-     * @param  string       $encoding
+     * @param  string $encoding
      * @return mixed|string
      */
 

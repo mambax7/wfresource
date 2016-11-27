@@ -56,8 +56,15 @@ class wfpObjectTree extends XoopsObjectTree
      * @param  string  $extra
      * @return string  HTML select box
      */
-    public function makeSelBox($name, $fieldName, $prefix = '-', $selected = '', $addEmptyOption = false, $key = 0, $extra = '')
-    {
+    public function makeSelBox(
+        $name,
+        $fieldName,
+        $prefix = '-',
+        $selected = '',
+        $addEmptyOption = false,
+        $key = 0,
+        $extra = ''
+    ) {
         $ret = '<select name="' . $name . '" id="' . $name . '" ' . $extra . '>';
         if (false !== $addEmptyOption) {
             $ret .= '<option value="0"></option>';

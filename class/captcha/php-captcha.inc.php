@@ -95,9 +95,10 @@ class PhpCaptcha
      * @param int $iWidth
      * @param int $iHeight
      */
-    public function __construct($aFonts, // array of TrueType fonts to use - specify full path
-                                $iWidth = CAPTCHA_WIDTH, // width of image
-                                $iHeight = CAPTCHA_HEIGHT // height of image
+    public function __construct(
+        $aFonts, // array of TrueType fonts to use - specify full path
+        $iWidth = CAPTCHA_WIDTH, // width of image
+        $iHeight = CAPTCHA_HEIGHT // height of image
 )
     {
         // get parameters
@@ -396,7 +397,9 @@ class PhpCaptcha
     public function create($sFilename = '')
     {
         // check for required gd functions
-        if (!function_exists('imagecreate') || !function_exists("image$this->sFileType") || ($this->vBackgroundImages !== '' && !function_exists('imagecreatetruecolor'))) {
+        if (!function_exists('imagecreate') || !function_exists("image$this->sFileType")
+            || ($this->vBackgroundImages !== '' && !function_exists('imagecreatetruecolor'))
+        ) {
             return false;
         }
         // get background image if specified and copy to CAPTCHA
@@ -475,8 +478,9 @@ class AudioPhpCaptcha
      * @param string $sFlitePath
      * @param string $sAudioPath
      */
-    public function __construct($sFlitePath = CAPTCHA_FLITE_PATH, // path to flite binary
-                                $sAudioPath = CAPTCHA_AUDIO_PATH // the location to temporarily store the generated audio CAPTCHA
+    public function __construct(
+        $sFlitePath = CAPTCHA_FLITE_PATH, // path to flite binary
+        $sAudioPath = CAPTCHA_AUDIO_PATH // the location to temporarily store the generated audio CAPTCHA
 )
     {
         $this->setFlitePath($sFlitePath);

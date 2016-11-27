@@ -17,10 +17,10 @@ class XoopsFormSelectContest extends XoopsFormSelect
      */
     public function __construct($caption, $name, $value = null, $size = 1)
     {
-        global $contestOption_handler;
+        global $contestOptionHandler;
 
-        $_handler       = &wfcon_gethandler('contestant');
-        $wfcon_cont_obj = $_handler->getClientsArray();
+        $Handler       = &wfcon_gethandler('contestant');
+        $wfcon_cont_obj = $Handler->getClientsArray();
         /*
         *
         */

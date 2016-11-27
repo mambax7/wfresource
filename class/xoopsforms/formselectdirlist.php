@@ -47,8 +47,16 @@ class XoopsFormSelectDirList extends XoopsFormSelect
      * @param string $prefix
      * @param array  $type
      */
-    public function __construct($caption, $name, $value = null, $size = 1, $multiple = false, $dirname = null, $prefix = '', $type = array())
-    {
+    public function __construct(
+        $caption,
+        $name,
+        $value = null,
+        $size = 1,
+        $multiple = false,
+        $dirname = null,
+        $prefix = '',
+        $type = array()
+    ) {
         parent::__construct($caption, $name, $value, $size, $multiple);
         $filelist = $this->getFileListAsArray($dirname, $prefix, $type);
         $this->addOption('-1', '---------------------');

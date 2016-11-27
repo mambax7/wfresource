@@ -1,4 +1,5 @@
-<link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="<{$xoops_url}>/modules/wfresource/module.css"/>
+<link rel="stylesheet" type="text/css" media="all" title="Style sheet"
+      href="<{$xoops_url}>/modules/wfresource/module.css"/>
 <div class="menu_module_header"><{$smarty.const._MD_WFP_MENU_MODULE}><{$menu_module}></div>
 <div id="buttontop_mod">
     <div class="menu_links"><{$menu_links}></div>

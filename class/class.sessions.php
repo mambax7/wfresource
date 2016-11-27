@@ -34,7 +34,7 @@ class wfp_Sessions
     public static function getInstance()
     {
         static $instance;
-        if (!isset($instance)) {
+        if (null === $instance) {
             $instance = new static();
         }
 

@@ -8,7 +8,7 @@ require XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsformloader.php';
 
 global $modversion, $xoopsConfigUser;
 
-$mime_handler = &wfp_gethandler('mimetype');
+$mimeHandler = wfp_getHandler('mimetype');
 
 $form = new XoopsThemeForm($forminfo = $this->isNew() ? _AM_MIME_CREATEF : _AM_MIME_MODIFYF, 'mimetype_form', $modversion['adminpath']);
 $form->addElement(new XoopsFormText(_AM_MIME_EXTF, 'mime_ext', 5, 60, $this->getVar('mime_ext', 'e')), true);
@@ -30,7 +30,7 @@ $form->addElement($mimetype_image_dir);
         */
 $mime_category = new XoopsFormSelect(_AM_MIME_ECATEGORY, 'mime_category', $this->getVar('mime_category'));
 $mime_category->setDescription(_AM_MIME_ECATEGORY_DSC);
-$cat = &$mime_handler->mimeCategory();
+$cat = $mimeHandler->mimeCategory();
 unset($cat['all']);
 $mime_category->addOptionArray($cat);
 $form->addElement($mime_category);

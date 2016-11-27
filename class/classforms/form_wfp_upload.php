@@ -41,7 +41,7 @@ if (ini_get('enable_dl')) {
 }
 echo '<div style="padding: 0 0 12px 0;"><span style="font-weight: bold;">' . _AM_WFP_UPLOADPATH . '</span> <span style="margin-left: 40px;">' . XOOPS_URL . '/' . $dirarray[$rootpath] . '</span></div>';
 // if ($rootpath) {
-// echo '<b>' . _AM_WFP_ANDTHEMAX . '</b> ' . ini_get( 'upload_max_filesize' ) . '<br />';
+// echo '<b>' . _AM_WFP_ANDTHEMAX . '</b> ' . ini_get( 'upload_max_filesize' ) . '<br>';
 // }
 $form = new XoopsThemeForm(_AM_WFP_UPLOADIMAGE . $listarray[$rootpath], 'op', 'upload.php');
 $form->setExtra('enctype="multipart/form-data"');

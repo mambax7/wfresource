@@ -30,8 +30,12 @@ class DHTML_Calendar
      * @param string     $theme
      * @param bool|false $stripped
      */
-    public function __construct($calendar_lib_path = '/calendar/', $lang = 'en', $theme = 'calendar', $stripped = false)
-    {
+    public function __construct(
+        $calendar_lib_path = '/calendar/',
+        $lang = 'en',
+        $theme = 'calendar',
+        $stripped = false
+    ) {
         global $xoopsConfig;
         $lang  = 'en';
         $theme = 'calendar-win2k-1';
@@ -95,7 +99,7 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::_make_calendar()
      *
-     * @param  array  $other_options
+     * @param  array $other_options
      * @return string
      */
     public function _make_calendar($other_options = array())
@@ -109,9 +113,9 @@ class DHTML_Calendar
     /**
      * DHTML_Calendar::make_input_field()
      *
-     * @param  array  $cal_options
-     * @param  array  $field_attributes
-     * @param  mixed  $show
+     * @param  array $cal_options
+     * @param  array $field_attributes
+     * @param  mixed $show
      * @return string
      */
     public function make_input_field($cal_options = array(), $field_attributes = array(), $show = true)

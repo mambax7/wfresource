@@ -51,8 +51,14 @@ class wfp_ObjectHandler extends XoopsObjectHandler
      * @param bool|false $identifier_name
      * @param bool|false $group_name
      */
-    public function __construct($db, $db_table = '', $obj_class = '', $key_name = '', $identifier_name = false, $group_name = false)
-    {
+    public function __construct(
+        $db,
+        $db_table = '',
+        $obj_class = '',
+        $key_name = '',
+        $identifier_name = false,
+        $group_name = false
+    ) {
         global $xoopsUserIsAdmin, $xoopsUser;
 
         static $db;
@@ -119,9 +125,9 @@ class wfp_ObjectHandler extends XoopsObjectHandler
 
     /**
      * @param  bool|true $isNew
-     * @return bool
+     * @return bool|XoopsObject
      */
-    public function &create($isNew = true)
+    public function create($isNew = true)
     {
         $obj = new $this->obj_class();
         if (!is_object($obj)) {
@@ -140,12 +146,12 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::get()
      *
-     * @param  string    $id
-     * @param  mixed     $as_object
-     * @param  string    $keyName
+     * @param  string $id
+     * @param  mixed  $as_object
+     * @param  string $keyName
      * @return bool|void
      */
-    public function &get($id = '', $as_object = true, $keyName = '')
+    public function get($id = '', $as_object = true, $keyName = '')
     {
         $id       = (int)$id;
         $ret      = false;
@@ -176,10 +182,10 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::getObjects()
      *
-     * @param  mixed      $criteria
-     * @param  mixed      $id_as_key
-     * @param  mixed      $as_object
-     * @param  mixed      $return_error
+     * @param  mixed $criteria
+     * @param  mixed $id_as_key
+     * @param  mixed $as_object
+     * @param  mixed $return_error
      * @return array|bool
      */
     public function getObjects($criteria = null, $id_as_key = false, $as_object = true, $return_error = false)
@@ -187,7 +193,8 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         $ret   = array();
         $limit = $start = 0;
         if ($this->doPermissions) {
-            $sql = 'SELECT DISTINCT c.* FROM ' . $this->db_table . ' c  LEFT JOIN ' . $this->db->prefix('group_permission') . " l   ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',', $this->user_groups) . ' )   )';
+            $sql = 'SELECT DISTINCT c.* FROM ' . $this->db_table . ' c  LEFT JOIN ' . $this->db->prefix('group_permission') . " l   ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( "
+                   . implode(',', $this->user_groups) . ' )   )';
         } else {
             $sql = 'SELECT * FROM ' . $this->db_table;
         }
@@ -206,7 +213,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         $result = $this->db->query($sql, $limit, $start);
         if (!$result) {
             trigger_error($this->db->errno() . ' ' . $this->db->error(), E_USER_WARNING);
-            $this->setErrors(mysqli_errno() . ' ' . mysqli_error() . ' ' . __FILE__ . ' ' . __LINE__);
+            $this->setErrors($GLOBALS['xoopsDB']->errno() . ' ' . $GLOBALS['xoopsDB']->error() . ' ' . __FILE__ . ' ' . __LINE__);
 
             return false;
         } else {
@@ -228,7 +235,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     {
         $ret = array();
         while (false !== ($myrow = $this->db->fetchArray($result))) {
-            $obj =& $this->create(false);
+            $obj = $this->create(false);
             if (!$obj) {
                 trigger_error(_MD_WFP_ERROR_CREATE_NEW_OBJECT, E_USER_WARNING);
 
@@ -267,10 +274,10 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::getList()
      *
-     * @param  mixed      $criteria
-     * @param  string     $querie
-     * @param  mixed      $show
-     * @param  mixed      $doCriteria
+     * @param  mixed  $criteria
+     * @param  string $querie
+     * @param  mixed  $show
+     * @param  mixed  $doCriteria
      * @return array|bool
      */
     public function getList($criteria = null, $querie = '*', $show = null, $doCriteria = true)
@@ -286,7 +293,9 @@ class wfp_ObjectHandler extends XoopsObjectHandler
                     $query .= ', c.' . $this->identifierName;
                 }
             }
-            $sql = 'SELECT DISTINCT c.* FROM ' . $this->db_table . ' c LEFT JOIN ' . $this->db->prefix('group_permission') . " l ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',', $this->user_groups) . ' ))';
+            $sql = 'SELECT DISTINCT c.* FROM ' . $this->db_table . ' c LEFT JOIN ' . $this->db->prefix('group_permission') . " l ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',',
+                                                                                                                                                                                                                                                    $this->user_groups)
+                   . ' ))';
         } else {
             if ($querie) {
                 $query = $querie;
@@ -319,7 +328,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             }
         }
         if (!$result = $this->db->query($sql, $limit, $start)) {
-            $this->setErrors(mysqli_errno() . ' ' . mysqli_error() . ' ' . __FILE__ . ' ' . __LINE__);
+            $this->setErrors($GLOBALS['xoopsDB']->errno() . ' ' . $GLOBALS['xoopsDB']->error() . ' ' . __FILE__ . ' ' . __LINE__);
 
             return false;
         }
@@ -345,7 +354,9 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     public function getCount($criteria = null, $querie = '*')
     {
         if ($this->doPermissions) {
-            $sql = "SELECT ${querie} FROM " . $this->db_table . ' c LEFT JOIN ' . $this->db->prefix('group_permission') . " l ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',', $this->user_groups) . ' ) )';
+            $sql = "SELECT ${querie} FROM " . $this->db_table . ' c LEFT JOIN ' . $this->db->prefix('group_permission') . " l ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',',
+                                                                                                                                                                                                                                                 $this->user_groups)
+                   . ' ) )';
         } else {
             $sql = "SELECT ${querie} FROM " . $this->db_table;
         }
@@ -357,7 +368,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             }
         }
         if (!$result = $this->db->query($sql)) {
-            trigger_error(mysqli_errno() . ' ' . mysqli_error() . ' ' . __FILE__ . ' ' . __LINE__);
+            trigger_error($GLOBALS['xoopsDB']->errno() . ' ' . $GLOBALS['xoopsDB']->error() . ' ' . __FILE__ . ' ' . __LINE__);
 
             return false;
         }
@@ -390,7 +401,12 @@ class wfp_ObjectHandler extends XoopsObjectHandler
      * @param  mixed       $force
      * @return bool|void
      */
-    public function insert(XoopsObject $obj, $force = true, $checkObject = true, $andclause = null) // insert(&$obj, $checkObject = true, $andclause = null, $force = false)
+    public function insert(
+        XoopsObject $obj,
+        $force = true,
+        $checkObject = true,
+        $andclause = null
+    ) // insert(&$obj, $checkObject = true, $andclause = null, $force = false)
     {
         if ($checkObject === true) {
             if (!is_object($obj) || !is_a($obj, $this->obj_class)) {
@@ -399,7 +415,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
                 return false;
             }
             if (!$obj->isDirty()) {
-                $this->setErrors(_MD_WFP_ISNOTOBEJECTDIRTY . '<br />' . $obj->getErrors());
+                $this->setErrors(_MD_WFP_ISNOTOBEJECTDIRTY . '<br>' . $obj->getErrors());
 
                 return false;
             }
@@ -438,10 +454,10 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         } else {
             $result = $this->db->query($sql);
         }
-        // echo $sql.'<br />';
+        // echo $sql.'<br>';
         if (!$result) {
             trigger_error($this->db->errno() . ' ' . $this->db->error(), E_USER_ERROR);
-            $this->setErrors(mysqli_errno() . ' ' . mysqli_error() . ' ' . __FILE__ . ' ' . __LINE__);
+            $this->setErrors($GLOBALS['xoopsDB']->errno() . ' ' . $GLOBALS['xoopsDB']->error() . ' ' . __FILE__ . ' ' . __LINE__);
 
             return false;
         }
@@ -486,7 +502,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             $result = $this->db->query($sql);
         }
         if (!$result) {
-            $this->setErrors(sprintf(_MD_WFP_ERROR, mysqli_errno(), mysqli_error(), __FILE__, __LINE__));
+            $this->setErrors(sprintf(_MD_WFP_ERROR, $GLOBALS['xoopsDB']->errno(), $GLOBALS['xoopsDB']->error(), __FILE__, __LINE__));
 
             return false;
         }
@@ -497,7 +513,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::delete()
      *
-     * @param  XoopsObject $obj
+     * @param  int|XoopsObject $obj
      * @param  mixed       $force
      * @return bool|void
      */
@@ -525,7 +541,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             $result = $this->db->query($sql);
         }
         if (!$result) {
-            $this->setErrors(sprintf(_MD_WFP_ERROR, mysqli_errno(), mysqli_error(), __FILE__, __LINE__));
+            $this->setErrors(sprintf(_MD_WFP_ERROR, $GLOBALS['xoopsDB']->errno(), $GLOBALS['xoopsDB']->error(), __FILE__, __LINE__));
 
             return false;
         }
@@ -554,7 +570,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             $result = $this->db->query($sql);
         }
         if (!$result) {
-            $this->setErrors(sprintf(_MD_WFP_ERROR, mysqli_errno(), mysqli_error(), __FILE__, __LINE__));
+            $this->setErrors(sprintf(_MD_WFP_ERROR, $GLOBALS['xoopsDB']->errno(), $GLOBALS['xoopsDB']->error(), __FILE__, __LINE__));
 
             return false;
         }
@@ -688,24 +704,24 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::getHtmlErrors()
      *
-     * @param  bool   $return
-     * @param  int    $menu
+     * @param  bool $return
+     * @param  int  $menu
      * @return string
      */
     public function getHtmlErrors($return = false, $menu = 0)
     {
-        global $menu_handler;
+        global $menuHandler;
 
         $ret = '';
         if (0 !== count($this->_errors)) {
             foreach ($this->_errors as $error) {
-                $ret .= $error . '<br />';
+                $ret .= $error . '<br>';
             }
         }
         if ($return === false) {
             xoops_cp_header();
-            $menu_handler->addSubHeader(_MD_WFP_ERRORS);
-            $menu_handler->render($menu);
+            $menuHandler->addSubHeader(_MD_WFP_ERRORS);
+            $menuHandler->render($menu);
             echo $ret;
             xoosla_cp_footer();
             exit();

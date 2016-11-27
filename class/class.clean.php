@@ -50,9 +50,9 @@ class wfp_Clean
     /**
      * wfp_Clean::getHtml()
      *
-     * @param  string      $file
-     * @param  string      $content
-     * @param  string      $uploaddir
+     * @param  string $file
+     * @param  string $content
+     * @param  string $uploaddir
      * @return null|string
      */
     public function getHtml($file = '', $content = '', $uploaddir = '')
@@ -101,14 +101,14 @@ class wfp_Clean
     /**
      * wfp_Clean::cleanUpHTML()
      *
-     * @param  mixed        $text
-     * @param  mixed        $cleanlevel
+     * @param  mixed $text
+     * @param  mixed $cleanlevel
      * @return mixed|string
      */
     public function &cleanUpHTML($text, $cleanlevel = 0)
     {
         $text     = stripslashes($text);
-        $htmltidy = &wfp_getClass('htmltidy', _RESOURCE_DIR, _RESOURCE_CLASS);
+        $htmltidy = wfp_getClass('htmltidy', _RESOURCE_DIR, _RESOURCE_CLASS);
 
         $htmltidy->Options['UseTidy']     = false;
         $htmltidy->Options['OutputXHTML'] = false;
@@ -130,7 +130,7 @@ class wfp_Clean
                 $htmltidy->Options['IsWord'] = true;
                 $htmltidy->html              =& $text;
                 $text                        =& $htmltidy->cleanUp();
-                $text                        = strip_tags($text, '<br /><br /><p>');
+                $text                        = strip_tags($text, '<br><br><p>');
                 break;
             default:
         } // switch

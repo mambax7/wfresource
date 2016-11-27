@@ -71,7 +71,9 @@ class XoopsFormSelectRDirList extends XoopsFormSelect
         if (is_dir($dirname)) {
             $dh = opendir($dirname);
             while (false !== ($dir = readdir($dh))) {
-                if ($dir !== '.' && $dir !== '..' && is_dir($dirname . '/' . $dir) && strtolower($dir) !== 'cvs' && strtolower($dir) !== '.svn') {
+                if ($dir !== '.' && $dir !== '..' && is_dir($dirname . '/' . $dir) && strtolower($dir) !== 'cvs'
+                    && strtolower($dir) !== '.svn'
+                ) {
                     $subdirname = $dirname . '/' . $dir;
                     $this->addOption($this->processDir($dirname) . '/' . $dir);
                     $subdirlist = $this->getRecDirlistAsArray($subdirname);

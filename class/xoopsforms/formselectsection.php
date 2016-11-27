@@ -46,10 +46,17 @@ class XoopsFormSelectSection extends XoopsFormSelect
      * @param null   $groupid
      * @param bool   $static
      */
-    public function __construct($caption, $name, $value = null, $size = 1, $multiple = false, $groupid = null, $static = false)
-    {
-        $section_handler = &wfp_gethandler('section', 'wfsection', 'wfs_');
-        $sections        = $section_handler->getList();
+    public function __construct(
+        $caption,
+        $name,
+        $value = null,
+        $size = 1,
+        $multiple = false,
+        $groupid = null,
+        $static = false
+    ) {
+        $sectionHandler = wfp_getHandler('section', 'wfsection', 'wfs_');
+        $sections        = $sectionHandler->getList();
         parent::__construct($caption, $name, $value, $size, $multiple);
         if ($static === true) {
             $this->addOption(0, 'Static Content');

@@ -17,7 +17,7 @@
  *
  * Example of usage:
  * <code>
- * include_once 'uploader.php';
+ * include_once __DIR__ . '/uploader.php';
  * $allowed_mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png');
  * $maxfilesize = 50000;
  * $maxfilewidth = 120;
@@ -28,7 +28,7 @@
  *         echo $uploader->getErrors();
  *      } else {
  *         echo '<h4>File uploaded successfully!</h4>'
- *         echo 'Saved as: ' . $uploader->getSavedFileName() . '<br />';
+ *         echo 'Saved as: ' . $uploader->getSavedFileName() . '<br>';
  *         echo 'Full path: ' . $uploader->getSavedDestination();
  *      }
  * } else {
@@ -229,7 +229,7 @@ class wfp_Uploader
     /**
      * Check the file and copy it to the destination
      *
-     * @param  int  $chmod
+     * @param  int $chmod
      * @return bool
      */
     public function upload($chmod = 0644)
@@ -393,7 +393,7 @@ class wfp_Uploader
     /**
      * Get generated errors
      *
-     * @param  bool  $ashtml Format using HTML?
+     * @param  bool $ashtml Format using HTML?
      * @return array |string    Array of array messages OR HTML string
      */
     public function &getHtmlErrors($ashtml = false)
@@ -405,7 +405,7 @@ class wfp_Uploader
             if (count($this->errors) > 0) {
                 $ret = '<h4>Errors Returned While Uploading</h4>';
                 foreach ($this->errors as $error) {
-                    $ret .= $error . '<br />';
+                    $ret .= $error . '<br>';
                 }
             }
             echo $ret;

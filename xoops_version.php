@@ -12,20 +12,21 @@
  * @license    : GNU/LGPL, see docs/license.php
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
-
-$modversion['name']          = _MD_WF_RESOURCE;
+$moduleDirName = basename(__DIR__);
 $modversion['version']       = 1.06;
+$modversion['module_status'] = 'Final';
+$modversion['release_date']  = '2016/11/26';
+$modversion['name']          = _MD_WF_RESOURCE;
 $modversion['description']   = _MD_WF_RESOURCE_DSC;
 $modversion['author']        = 'Catzwolf';
 $modversion['credits']       = 'Mark Boyden, Mamba';
 $modversion['releasedate']   = 'NOT RELEASED';
-$modversion['status']        = '1.06 Beta';
-$modversion['module_status'] = 'Beta 1';
+$modversion['status']        = '1.06 Final';
 $modversion['help']          = '';
 $modversion['license']       = 'GPL see LICENSE';
 $modversion['official']      = 0;
-$modversion['dirname']       = 'wfresource';
-$modversion['image']         = 'images/module_logo.png';
+$modversion['dirname']       = $moduleDirName;
+$modversion['image']         = 'images/logoModule.png';
 // Admin things
 $modversion['hasAdmin']                    = 0;
 $modversion['templates'][1]['file']        = 'wfp_addto.tpl';

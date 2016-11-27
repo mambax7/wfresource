@@ -41,11 +41,13 @@ class wpf_About
         $ret         = '';
         $author_name = $GLOBALS['xoopsModule']->getInfo('author') ?: '';
 
-        $ret .= '<p><img src="' . XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/' . $GLOBALS['xoopsModule']->getInfo('image') . '" align="left" title="' . $GLOBALS['xoopsModule']->getInfo('name') . '" alt="' . $GLOBALS['xoopsModule']->getInfo('name') . '" hspace="5" vspace="0" /></a>
-                <div style="margin-top: 10px; color: #33538e; margin-bottom: 4px; font-size: 16px; line-height: 16px; font-weight: bold; display: block;">' . $GLOBALS['xoopsModule']->getInfo('name') . ' version ' . $GLOBALS['xoopsModule']->getInfo('version') . '</div>
+        $ret .= '<p><img src="' . XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/' . $GLOBALS['xoopsModule']->getInfo('image') . '" align="left" title="' . $GLOBALS['xoopsModule']->getInfo('name') . '" alt="'
+                . $GLOBALS['xoopsModule']->getInfo('name') . '" hspace="5" vspace="0" /></a>
+                <div style="margin-top: 10px; color: #33538e; margin-bottom: 4px; font-size: 16px; line-height: 16px; font-weight: bold; display: block;">' . $GLOBALS['xoopsModule']->getInfo('name') . ' version '
+                . $GLOBALS['xoopsModule']->getInfo('version') . '</div>
                 <div><strong>' . _CP_AM_AB_RELEASEDATE . '</strong> ' . $GLOBALS['xoopsModule']->getInfo('releasedate') . '</div>
                 <div><strong>' . _CP_AM_AB_AUTHOR . '</strong> ' . $author_name . '</div>
-                <div>' . $GLOBALS['xoopsModule']->getInfo('license') . '</div><br />
+                <div>' . $GLOBALS['xoopsModule']->getInfo('license') . '</div><br>
             </p>';
 
         $ret .= '<form action="index2.php" method="post" name="adminForm"><table width="100%" cellpadding="2" cellspacing="1">';
@@ -89,7 +91,7 @@ class wpf_About
     /**
      * wpf_About::about_header()
      *
-     * @param  mixed  $heading
+     * @param  mixed $heading
      * @return string
      */
     public function about_header($heading = null)

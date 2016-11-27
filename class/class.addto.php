@@ -35,8 +35,8 @@ class wfp_addto
     /**
      * wfp_addtoo::render()
      *
-     * @param  string       $title
-     * @return mixed|string $ret     
+     * @param  string $title
+     * @return mixed|string $ret
      */
     public function render($title = '')
     {
@@ -74,28 +74,43 @@ class wfp_addto
             'title' => 'blinklist',
             'url'   => 'http://www.blinklist.com/index.php?Action=Blink/addblink.php&amp;Description=&amp;Url=<$BlogItemPermalinkURL$>&amp;Title=<$BlogItemTitle$>'
         );
-        $ret[] = array('title' => 'delicious', 'url' => 'http://del.icio.us/post?url=<$BlogItemPermalinkURL$>&amp;title=<$BlogItemTitle$>');
+        $ret[] = array(
+            'title' => 'delicious',
+            'url'   => 'http://del.icio.us/post?url=<$BlogItemPermalinkURL$>&amp;title=<$BlogItemTitle$>'
+        );
         $ret[] = array('title' => 'digg', 'url' => 'http://digg.com/submit?phase=2&amp;url=<$BlogItemPermalinkURL$>');
         $ret[] = array(
             'title' => 'fark',
             'url'   => 'http://cgi.fark.com/cgi/fark/edit.pl?new_url=<$BlogItemPermalinkURL$>&amp;new_comment=<$BlogItemTitle$>&amp;new_link_other=<$BlogItemTitle$>&amp;linktype=Misc'
         );
-        $ret[] = array('title' => 'furl', 'url' => 'http://www.furl.net/storeIt.jsp?t=<$BlogItemTitle$>&amp;u=<$BlogItemPermalinkURL$>');
+        $ret[] = array(
+            'title' => 'furl',
+            'url'   => 'http://www.furl.net/storeIt.jsp?t=<$BlogItemTitle$>&amp;u=<$BlogItemPermalinkURL$>'
+        );
         $ret[] = array(
             'title' => 'newsvine',
             'url'   => 'http://www.newsvine.com/_tools/seed&amp;save?u=<$BlogItemPermalinkURL$>&amp;h=<$BlogItemTitle$>'
         );
-        $ret[] = array('title' => 'reddit', 'url' => 'http://reddit.com/submit?url=<$BlogItemPermalinkURL$>&amp;title=<$BlogItemTitle$>');
+        $ret[] = array(
+            'title' => 'reddit',
+            'url'   => 'http://reddit.com/submit?url=<$BlogItemPermalinkURL$>&amp;title=<$BlogItemTitle$>'
+        );
         $ret[] = array(
             'title' => 'simpy',
             'url'   => 'http://www.simpy.com/simpy/LinkAdd.do?href=<$BlogItemPermalinkURL$>&amp;title=<$BlogItemTitle$>'
         );
-        $ret[] = array('title' => 'spurl', 'url' => 'http://www.spurl.net/spurl.php?title=<$BlogItemTitle$>&amp;url=<$BlogItemPermalinkURL$>');
+        $ret[] = array(
+            'title' => 'spurl',
+            'url'   => 'http://www.spurl.net/spurl.php?title=<$BlogItemTitle$>&amp;url=<$BlogItemPermalinkURL$>'
+        );
         $ret[] = array(
             'title' => 'yahoomyweb',
             'url'   => 'http://myweb2.search.yahoo.com/myresults/bookmarklet?t=<$BlogItemTitle$>&amp;u=<$BlogItemPermalinkURL$>'
         );
-        $ret[] = array('title' => 'facebook', 'url' => 'http://www.facebook.com/sharer.php?u=<$BlogItemPermalinkURL$>&amp;t=<$BlogItemTitle$>');
+        $ret[] = array(
+            'title' => 'facebook',
+            'url'   => 'http://www.facebook.com/sharer.php?u=<$BlogItemPermalinkURL$>&amp;t=<$BlogItemTitle$>'
+        );
 
         return $ret;
     }
@@ -178,7 +193,7 @@ class wfp_addto
     /**
      * wfp_addto::getBookMarkUrl()
      *
-     * @param  string       $value
+     * @param  string $value
      * @return mixed|string
      */
     private function getBookMarkUrl($value = '')
@@ -194,7 +209,8 @@ class wfp_addto
      */
     private function getBookMarkImage($value = '')
     {
-        return (!empty($value)) ? '<img style="vertical-align: middle;" src="' . XOOPS_URL . '/modules/wfresource/images/icon/bookmark/' . $value . '.png" border="0" title="' . $this->getBookMarkName($value) . '" alt="' . $this->getBookMarkName($value) . '"  />' : '';
+        return (!empty($value)) ? '<img style="vertical-align: middle;" src="' . XOOPS_URL . '/modules/wfresource/images/icon/bookmark/' . $value . '.png" border="0" title="' . $this->getBookMarkName($value) . '" alt="'
+                                  . $this->getBookMarkName($value) . '"  />' : '';
     }
 
     /**

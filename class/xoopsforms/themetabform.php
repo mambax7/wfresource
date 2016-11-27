@@ -61,7 +61,7 @@ class XoopsThemeTabForm extends wfp_Form
     public function insertSplit($extra = '')
     {
         $extra = $extra ?: '&nbsp;';
-        $ret   = "<tr>\n<td colspan=\"2\" class=\"foot\">&nbsp;</td>\n</tr></table>\n<br />\n<br />\n
+        $ret   = "<tr>\n<td colspan=\"2\" class=\"foot\">&nbsp;</td>\n</tr></table>\n<br>\n<br>\n
         <table width=\"100%\" class=\"outer\" cellspacing=\"1\">
          <tr>\n<th colspan=\"2\">$extra</th>\n</tr>\n";
         $this->addElement($extra);

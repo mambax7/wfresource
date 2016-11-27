@@ -103,20 +103,20 @@ class wfp_Doprint
         }
 
         if (isset($this->options['itemurl'])) {
-            $ret .= '<br /><br />' . _CONTENT_URL_TOITEM . ' ' . $this->options['itemurl'] . '<br /><br />';
+            $ret .= '<br><br>' . _CONTENT_URL_TOITEM . ' ' . $this->options['itemurl'] . '<br><br>';
         }
 
-        $ret .= "<br /><div><strong>{$this->options['subtitle']}</strong></div><br />
+        $ret .= "<br><div><strong>{$this->options['subtitle']}</strong></div><br>
                         </td>\n
                        </tr>\n
                        <tr colspan=\"3\" valign='top' style='font:12px;'>
-                           <td colspan=\"3\">" . $this->options['content'] . '<br /><br />';
+                           <td colspan=\"3\">" . $this->options['content'] . '<br><br>';
         $ret .= "<hr /></td>
                        </tr>
                       </table>
                      </div>
-                    <br />
-                <div style='text-align: center;'><input type=button value='" . _MD_WFP_PRINT_PAGE . "' onclick='window.print();'></div><br />
+                    <br>
+                <div style='text-align: center;'><input type=button value='" . _MD_WFP_PRINT_PAGE . "' onclick='window.print();'></div><br>
                 </body></html>\n";
         echo $ret;
     }

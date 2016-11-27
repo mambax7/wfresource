@@ -48,12 +48,12 @@ class wfp_Mimetype extends wfp_Object
     }
 
     /**
-     * @param $_handler
+     * @param $Handler
      * @return mixed
      */
-    public function mimeCategory($_handler)
+    public function mimeCategory($Handler)
     {
-        $haystack = &$_handler->mimeCategory();
+        $haystack = &$Handler->mimeCategory();
         $needle   = $this->getVar('mime_category');
         if (isset($haystack[$needle])) {
             return $haystack[$needle];
@@ -101,7 +101,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
     public function getInstance($db)
     {
         static $instance;
-        if (!isset($instance)) {
+        if (null === $instance) {
             $instance = new static($db);
         }
 
@@ -112,7 +112,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
      * wfp_MimetypeHandler::getObj()
      * @return bool
      */
-    public function &getObj()
+    public function getObj()
     {
         $obj = false;
         if (func_num_args() == 2) {
@@ -180,8 +180,8 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
     }
 
     /**
-     * @param  string     $gperm_name
-     * @param  int        $modid
+     * @param  string $gperm_name
+     * @param  int    $modid
      * @return array|bool
      */
     public function &getMtypeArray($gperm_name = '', $modid = 1)
@@ -227,7 +227,8 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
         $sql    = 'SELECT mime_name, mime_ext, mime_images, mime_category FROM ' . $this->db->prefix('wfp_mimetypes');
         $result = $this->db->query($sql);
         while (false !== ($myrow = $this->db->fetchArray($result))) {
-            $_image                  = (isset($myrow['mime_images']) && !empty($myrow['mime_images'])) ? $myrow['mime_images'] : 'default.png';
+            $_image                  = (isset($myrow['mime_images'])
+                                        && !empty($myrow['mime_images'])) ? $myrow['mime_images'] : 'default.png';
             $ret[$myrow['mime_ext']] = array(
                 'mime_name'     => $myrow['mime_name'],
                 'mime_images'   => $_image,
@@ -239,7 +240,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
     }
 
     /**
-     * @param  null  $do_select
+     * @param  null $do_select
      * @return array
      */
     public function &mimeCategory($do_select = null)
@@ -348,7 +349,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
             <span style='float: left;'>&nbsp;" . wfp_getSelection($safe_array, $nav['mime_safe'], 'mime_safe', 1, false, false, false, sprintf($onchange, 'mime_safe'), 0, false) . "</span>
             <span style='float: left;'>&nbsp;" . wfp_getSelection($this->getAlphabet(), $nav['alphabet'], 'alphabet', 1, 1, false, false, sprintf($onchange, 'alphabet'), 0, false) . "</span>
             <span style='float: right;'>" . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . "</span>
-        </div><br clear='all' /><br />";
+        </div><br clear='all' /><br>";
         echo $ret;
     }
 }

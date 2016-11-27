@@ -143,12 +143,12 @@ class XoopsGroupPermForm extends XoopsForm
             $this->_itemTree[$item_id]['allchild'] = array();
             $this->_loadAllChildItemIds($item_id, $this->_itemTree[$item_id]['allchild']);
         }
-        $gperm_handler  = xoops_getHandler('groupperm');
-        $member_handler = xoops_getHandler('member');
-        $glist          = $member_handler->getGroupList();
+        $gpermHandler  = xoops_getHandler('groupperm');
+        $memberHandler = xoops_getHandler('member');
+        $glist          = $memberHandler->getGroupList();
         foreach (array_keys($glist) as $i) {
             // get selected item id(s) for each group
-            $selected = $gperm_handler->getItemIds($this->_permName, $i, $this->_modid);
+            $selected = $gpermHandler->getItemIds($this->_permName, $i, $this->_modid);
             $ele      = new XoopsGroupFormCheckBox($glist[$i], 'perms[' . $this->_permName . ']', $i, $selected);
             $ele->setOptionTree($this->_itemTree);
             $this->addElement($ele);
@@ -159,8 +159,9 @@ class XoopsGroupPermForm extends XoopsForm
         $tray->addElement(new XoopsFormButton('', 'reset', _CANCEL, 'reset'));
         $this->addElement($tray);
 
-        $ret = '<h4>' . $this->getTitle() . '</h4>' . $this->_permDesc . '<br />';
-        $ret .= "<form name='" . $this->getName() . "' id='" . $this->getName() . "' action='" . $this->getAction() . "' method='" . $this->getMethod() . "'" . $this->getExtra() . ">\n<table width='100%' class='outer' cellspacing='1' valign='top'>\n";
+        $ret = '<h4>' . $this->getTitle() . '</h4>' . $this->_permDesc . '<br>';
+        $ret .= "<form name='" . $this->getName() . "' id='" . $this->getName() . "' action='" . $this->getAction() . "' method='" . $this->getMethod() . "'" . $this->getExtra()
+                . ">\n<table width='100%' class='outer' cellspacing='1' valign='top'>\n";
         $elements =& $this->getElements();
         $hidden   = '';
         foreach (array_keys($elements) as $i) {
@@ -169,7 +170,7 @@ class XoopsGroupPermForm extends XoopsForm
             } elseif (!$elements[$i]->isHidden()) {
                 $ret .= "<tr valign='top' align='left'><td class='head'>" . $elements[$i]->getCaption();
                 if ($elements[$i]->getDescription() !== '') {
-                    $ret .= '<br /><br /><span style="font-weight: normal;">' . $elements[$i]->getDescription() . '</span>';
+                    $ret .= '<br><br><span style="font-weight: normal;">' . $elements[$i]->getDescription() . '</span>';
                 }
                 $ret .= "</td>\n<td class='even'>\n" . $elements[$i]->render() . "\n</td></tr>\n";
             } else {
@@ -311,7 +312,7 @@ class XoopsGroupFormCheckBox extends XoopsFormElement
         // sure permissions to parent items are added as well.
         foreach ($parentIds as $pid) {
             $parent_ele = $ele_name . '[groups][' . $this->_groupId . '][' . $pid . ']';
-            $tree .= "var ele = xoopsGetElementById('" . $parent_ele . "'); if (ele.checked != true) {ele.checked = this.checked;}";
+            $tree .= "var ele = xoopsGetElementById('" . $parent_ele . "'); if (ele.checked !== true) {ele.checked = this.checked;}";
         }
         // If there are child elements, add javascript that will
         // make them unchecked when this element is unchecked to make
@@ -319,13 +320,14 @@ class XoopsGroupFormCheckBox extends XoopsFormElement
         // is no permission to this item.
         foreach ($option['allchild'] as $cid) {
             $child_ele = $ele_name . '[groups][' . $this->_groupId . '][' . $cid . ']';
-            $tree .= "var ele = xoopsGetElementById('" . $child_ele . "'); if (this.checked != true) {ele.checked = false;}";
+            $tree .= "var ele = xoopsGetElementById('" . $child_ele . "'); if (this.checked !== true) {ele.checked = false;}";
         }
         $tree .= '" value="1"';
         if (in_array($option['id'], $this->_value)) {
-            $tree .= ' checked="checked"';
+            $tree .= ' checked';
         }
-        $tree .= ' />' . $option['name'] . "<input type=\"hidden\" name=\"" . $ele_name . '[parents][' . $option['id'] . "]\" value=\"" . implode(':', $parentIds) . "\" /><input type=\"hidden\" name=\"" . $ele_name . '[itemname][' . $option['id'] . "]\" value=\"" . htmlspecialchars($option['name']) . "\" /><br />\n";
+        $tree .= ' />' . $option['name'] . "<input type=\"hidden\" name=\"" . $ele_name . '[parents][' . $option['id'] . "]\" value=\"" . implode(':', $parentIds) . "\" /><input type=\"hidden\" name=\"" . $ele_name . '[itemname][' . $option['id']
+                 . "]\" value=\"" . htmlspecialchars($option['name']) . "\" /><br>\n";
         if (isset($option['children'])) {
             foreach ($option['children'] as $child) {
                 array_push($parentIds, $option['id']);
