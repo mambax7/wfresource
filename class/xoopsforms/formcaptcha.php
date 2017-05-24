@@ -29,7 +29,7 @@ defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
  * For verification:
  * <code>
  *       xoops_load("captcha");
- *       $xoopsCaptcha =& XoopsCaptcha::getInstance();
+ *       $xoopsCaptcha = XoopsCaptcha::getInstance();
  *       if (! $xoopsCaptcha->verify() ) {
  *           echo $xoopsCaptcha->getMessage();
  *           ...
