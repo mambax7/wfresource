@@ -118,7 +118,7 @@ class XoopsFormCalendar extends XoopsFormElement
             $GLOBALS['xo_Theme']->addScript($this->calendar_lib_path . $this->calendar_lang_file);
             $GLOBALS['xo_Theme']->addScript($this->calendar_lib_path . $this->calendar_setup_file);
         } else {
-            $ret = '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/' . $this->calendar_theme_url . $this->calendar_theme_file . '" />';
+            $ret = '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/' . $this->calendar_theme_url . $this->calendar_theme_file . '">';
             $ret .= '<script type="text/javascript" src="' . XOOPS_URL . '/' . $this->calendar_lib_path . $this->calendar_file . '"></script>';
             $ret .= '<script type="text/javascript" src="' . XOOPS_URL . '/' . $this->calendar_lib_path . $this->calendar_lang_file . '"></script>';
             $ret .= '<script type="text/javascript" src="' . XOOPS_URL . '/' . $this->calendar_lib_path . $this->calendar_setup_file . '"></script>';
@@ -157,10 +157,10 @@ class XoopsFormCalendar extends XoopsFormElement
             'type' => 'text',
             'name' => $this->getName()
         )));
-        $ret .= '<input ' . $attrstr . '/>';
-        $ret .= '<a href="#" id="' . $this->_trigger_id($id) . '">' . '&nbsp;<img src="' . XOOPS_URL . '/' . $this->calendar_lib_path . 'img.png" style="vertical-align: middle; border: 0px;" alt="" /></a>';
+        $ret     .= '<input ' . $attrstr . '>';
+        $ret     .= '<a href="#" id="' . $this->_trigger_id($id) . '">' . '&nbsp;<img src="' . XOOPS_URL . '/' . $this->calendar_lib_path . 'img.png" style="vertical-align: middle; border: 0px;" alt=""></a>';
         $options = array('inputField' => $this->_get_id($id), 'button' => $this->_trigger_id($id));
-        $ret .= $this->_make_calendar($options);
+        $ret     .= $this->_make_calendar($options);
 
         return $ret;
     }
@@ -208,8 +208,9 @@ class XoopsFormCalendar extends XoopsFormElement
     public function _make_js_hash($array)
     {
         $jstr = '';
-        reset($array);
-        while (false !== (list($key, $val) = each($array))) {
+        //        reset($array);
+        //        while (false !== (list($key, $val) = each($array))) {
+        foreach ($array as $key => $val) {
             if (is_bool($val)) {
                 $val = $val ? 'true' : 'false';
             } elseif (!is_numeric($val)) {
@@ -233,8 +234,9 @@ class XoopsFormCalendar extends XoopsFormElement
     public function _make_html_attr($array)
     {
         $attrstr = '';
-        reset($array);
-        while (false !== (list($key, $val) = each($array))) {
+        //        reset($array);
+        //        while (false !== (list($key, $val) = each($array))) {
+        foreach ($array as $key => $val) {
             $attrstr .= $key . '="' . $val . '" ';
         }
 

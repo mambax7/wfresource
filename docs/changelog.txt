@@ -1,11 +1,42 @@
-  =>version 1.06 Final 2016-11-27
-    - updates for XOOPS 2.5.9 and PHP 7 (mamba)
+<h5>1.07 Beta 1  [NOT RELEASED]</h5>
+<hr>
+- XOOPS 2.5.9, PHP 7 (mamba)
+- Converted to XOOPS 2.5.8 Admin GUI (mamba)
+- removed @version (mamba)
+- PSR-2 code cosmetics (mamba)
+- addNavigation(basename(__FILE__))  (mamba)
+- dirname(__FILE__) to __DIR__ (mamba)
+- replaced < br /> with < br > (mamba)
+- Unnecessary double quotes (mamba)
+- reference mismatch (mamba)
+- Hardening to type safe (mamba)
+- update Help (mamba)
+- changed _handler to Handler (mamba)
+- removed '/' from void HTML elements (&lt;br&gt;, &lt;img&gt;, etc) (mamba)
+- HTML 5: removed 'selected' and 'checked' (mamba)
+- updated file headers for consistency (mamba)
+- renamed several $indexAdmin with $adminObject for consistency (mamba)
+- Updates for PayPal changes (zyspec)
+- added Contributing.md (mamba)
+- moved functions to Utility class (mamba)
+- include_once to require_once (mamba)
+- php-cs-fixer updates (mamba)
+- started conversion to XMF (mamba)
+    &nbsp;&nbsp;- updated addInfoBoxLine entries (mamba)
+    &nbsp;&nbsp;- displayNavigation(basename(__FILE__))  (mamba)
+    &nbsp;&nbsp;- changed to ->displayButton('left') (mamba)
 
-  =>version 1.05
+<h5>1.06 [NOT RELEASED] </h5>
+<hr>
+    - updates for XOOPS2.5.7.1 (mamba)
+
+<h5>1.05</h5>
+<hr>
     - Fixed: Some bugs and typos.
-    - Changed: Changed many of the Xoosla Form classes in favor of the newer XoopsForm classes.
+    - Changed: Changed many of the Xoosla Form class in favor of the newer XoopsForm classes.
 
-  =>version 1.04
+<h5>1.04</h5>
+<hr>
     - Fixed language issues within this module.
     - Fixed: Fixed issues with 'editor class'. Should now know that if the class does exist or not properly.
     - Changed: The method that the Xoopsform classes are included. WF-Resource will include these functions to overcome
@@ -25,7 +56,8 @@
         - Added: A modified version of 'xoopsformelement' class.
         - Added: Added XoopsThemeTabForm Class. This modified XoopsThemeForm will allow for tabbed forms. To be used in future WF-Project Modules.
 
-  =>version 1.03
+<h5>1.03</h5>
+<hr>
   - Added: Added full support Xoopseditor framework. The actual package has missing files and I have added them to the
     wfresource library.
     - Added: Version number to library. To help with version support in future versions.
@@ -33,19 +65,21 @@
         editor by default.
     - Fixed some other minor bugs.
 
-    => version 1.02
+<h5>1.02</h5>
+<hr>
     - Changed: Corrected a small typo in the about us. Wrong language define was used for the demo url.
     - Changed: Changed the about us to reflect items in the 'about us' class to show urls and email addresses as links
         and not plain text.
     - Added: New Help Class. This new class allows an easy method of quickly adding txt/html as a help area within a
         WF-Project Module.
 
-    => version 1.01
-    ===============
+<h5>1.01</h5>
+<hr>
     - Removed: Removed obsolete Changelog. Was showing WF-Channel rather than WF-Resource
     - Removed: Removed psd image in images folder
     - Added: Added calender from Xoops v2.18. This should allow better compatability with Xoops 2.18 and Xoops 2.25 now.
 
-    => version 1.00
-    ===============
+<h5>1.00</h5>
+<hr>
+
     -- No changes

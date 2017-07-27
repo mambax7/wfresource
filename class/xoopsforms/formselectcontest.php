@@ -2,7 +2,7 @@
 /**
  * base class
  */
-include_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 
 /**
  * Class XoopsFormSelectContest
@@ -19,7 +19,7 @@ class XoopsFormSelectContest extends XoopsFormSelect
     {
         global $contestOptionHandler;
 
-        $Handler       = &wfcon_gethandler('contestant');
+        $Handler        = &wfcon_gethandler('contestant');
         $wfcon_cont_obj = $Handler->getClientsArray();
         /*
         *

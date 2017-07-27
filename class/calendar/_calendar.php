@@ -87,7 +87,7 @@ class DHTML_Calendar
             $GLOBALS['xo_Theme']->addScript($this->calendar_lib_path . $this->calendar_setup_file);
         } else {
             echo XOOPS_URL . '/' . $this->calendar_lib_path . $this->calendar_file;
-            $ret = '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/' . $this->calendar_theme_url . $this->calendar_theme_file . '" />';
+            $ret = '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/' . $this->calendar_theme_url . $this->calendar_theme_file . '">';
             $ret .= '<script type="text/javascript" src="' . XOOPS_URL . '/' . $this->calendar_lib_path . $this->calendar_file . '"></script>';
             $ret .= '<script type="text/javascript" src="' . XOOPS_URL . '/' . $this->calendar_lib_path . $this->calendar_lang_file . '"></script>';
             $ret .= '<script type="text/javascript" src="' . XOOPS_URL . '/' . $this->calendar_lib_path . $this->calendar_setup_file . '"></script>';
@@ -122,10 +122,10 @@ class DHTML_Calendar
     {
         $id      = $this->_gen_id();
         $attrstr = $this->_make_html_attr(array_merge($field_attributes, array('id' => $this->_field_id($id), 'type' => 'text')));
-        $data    = '<input ' . $attrstr . '/>';
-        $data .= '<a href="#" id="' . $this->_trigger_id($id) . '">' . '<img align="middle" alt="button" title="title" border="0" src="' . XOOPS_URL . '/' . $this->calendar_lib_path . 'img.png" alt="" /></a>';
+        $data    = '<input ' . $attrstr . '>';
+        $data    .= '<a href="#" id="' . $this->_trigger_id($id) . '">' . '<img align="middle" alt="button" title="title" border="0" src="' . XOOPS_URL . '/' . $this->calendar_lib_path . 'img.png" alt=""></a>';
         $options = array_merge($cal_options, array('inputField' => $this->_field_id($id), 'button' => $this->_trigger_id($id)));
-        $data .= $this->_make_calendar($options);
+        $data    .= $this->_make_calendar($options);
         if ($show) {
             echo $data;
 
@@ -136,6 +136,7 @@ class DHTML_Calendar
     }
 
     // / PRIVATE SECTION
+
     /**
      * @param $id
      * @return string
@@ -171,8 +172,9 @@ class DHTML_Calendar
     public function _make_js_hash($array)
     {
         $jstr = '';
-        reset($array);
-        while (false !== (list($key, $val) = each($array))) {
+        //        reset($array);
+        //        while (false !== (list($key, $val) = each($array))) {
+        foreach ($array as $key => $val) {
             if (is_bool($val)) {
                 $val = $val ? 'true' : 'false';
             } elseif (!is_numeric($val)) {
@@ -194,8 +196,9 @@ class DHTML_Calendar
     public function _make_html_attr($array)
     {
         $attrstr = '';
-        reset($array);
-        while (false !== (list($key, $val) = each($array))) {
+        //        reset($array);
+        //        while (false !== (list($key, $val) = each($array))) {
+        foreach ($array as $key => $val) {
             $attrstr .= $key . '="' . $val . '" ';
         }
 

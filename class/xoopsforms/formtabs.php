@@ -31,16 +31,16 @@ class XoopsFormTab
      * Constructor
      * Includes files needed for displaying tabs and sets cookie options
      *
-     * @param int $useCookies  useCookies, if set to 1 cookie will hold last used tab between page refreshes
+     * @param int $useCookies useCookies, if set to 1 cookie will hold last used tab between page refreshes
      */
     public function __construct($useCookies = 0)
     {
         $this->_useCookies = ($useCookies == 1) ? 1 : 0;
         if (isset($GLOBALS['xoTheme'])) {
-            $GLOBALS['xoTheme']->addStylesheet('/include/javascript/tabs/tabpane.css', array('id="luna-tab-style-sheet"'));
-            $GLOBALS['xoTheme']->addScript('/include/javascript/tabs/tabpane.js');
+            $GLOBALS['xoTheme']->addStylesheet('/include/js/tabs/tabpane.css', array('id="luna-tab-style-sheet"'));
+            $GLOBALS['xoTheme']->addScript('/include/js/tabs/tabpane.js');
         } else {
-            echo '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/modules/wfresource/include/js/tabs/tabpane.css" />';
+            echo '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/modules/wfresource/include/js/tabs/tabpane.css">';
             echo '<script type="text/javascript" src="' . XOOPS_URL . '/modules/wfresource/include/js/tabs/tabpane.js"></script>';
         }
         unset($useCookies);
@@ -49,7 +49,7 @@ class XoopsFormTab
     /**
      * xo_FormTab::startPane()
      *
-     * @param  mixed  $id
+     * @param  mixed $id
      * @return string
      */
     public function startPane($id)
@@ -75,7 +75,7 @@ class XoopsFormTab
      * Creates a tab with title text and starts that tabs page
      *
      * @return string
-     * @param $tabText  - This is what is displayed on the tab
+     * @param $tabText - This is what is displayed on the tab
      * @param $paneId  - This is the parent pane to build this tab on
      * @return string
      */

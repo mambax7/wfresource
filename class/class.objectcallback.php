@@ -1,4 +1,7 @@
 <?php
+
+use Xmf\Request;
+
 defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
 
 /**
@@ -204,11 +207,11 @@ class wfp_Callback extends wfp_ObjectHandler
     /**
      * wfp_Callback::deleteByID()
      * delete an object from the database by id.
-     * @param  mixed $obj id of the object to delete
+     * @param  XoopsObject $obj id of the object to delete
      * @param  bool        $force
      * @return bool|void
      */
-    public function deleteByID($obj, $force = false)
+    public function deleteByID(XoopsObject $obj, $force = false)
     {
         $wfc_cid = wfp_Request::doRequest($_REQUEST, $this->_callback->keyName, 0, 'int');
         $_obj    = $this->_callback->get($this->_id);
@@ -406,8 +409,7 @@ class wfp_Callback extends wfp_ObjectHandler
     public function notifications(&$_obj)
     {
         if (isset($GLOBALS['xoopsModuleConfig']['notification_enabled'])
-            && $GLOBALS['xoopsModuleConfig']['notification_enabled'] > 0
-        ) {
+            && $GLOBALS['xoopsModuleConfig']['notification_enabled'] > 0) {
             if (method_exists($this->_callback, 'upDateNotification')) {
                 if (!empty($this->_notifyType)) {
                     $this->_callback->upDateNotification($_obj, $this->_notifyType);

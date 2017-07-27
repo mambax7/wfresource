@@ -62,12 +62,12 @@ class wfp_Doprint
         $ret .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . _LANGCODE . '" lang="' . _LANGCODE . '">';
         $ret .= "<head>\n";
         $ret .= '<title>' . _MD_WFP_PRINTER . ' - ' . $this->options['title'] . ' - ' . $this->options['sitename'] . "</title>\n";
-        $ret .= "<meta http-equiv='Content-Type' content='text/html; charset=" . _CHARSET . "' />\n";
-        $ret .= "<meta name='author' content='" . $this->options['sitename'] . "' />\n";
-        $ret .= "<meta name='keywords' content='" . (isset($this->options['keywords']) ? $this->options['keywords'] : '') . "' />\n";
-        $ret .= "<meta name='copyright' content='Copyright (c) 2006 by " . $this->options['sitename'] . "' />\n";
-        $ret .= "<meta name='description' content='" . (isset($this->options['meta']) ? $this->options['meta'] : '') . "' />\n";
-        $ret .= "<meta name='generator' content='Xoops' />\n";
+        $ret .= "<meta http-equiv='Content-Type' content='text/html; charset=" . _CHARSET . "'>\n";
+        $ret .= "<meta name='author' content='" . $this->options['sitename'] . "'>\n";
+        $ret .= "<meta name='keywords' content='" . (isset($this->options['keywords']) ? $this->options['keywords'] : '') . "'>\n";
+        $ret .= "<meta name='copyright' content='Copyright (c) 2006 by " . $this->options['sitename'] . "'>\n";
+        $ret .= "<meta name='description' content='" . (isset($this->options['meta']) ? $this->options['meta'] : '') . "'>\n";
+        $ret .= "<meta name='generator' content='Xoops'>\n";
         $ret .= "<style type=\"text/css\">
             body { margin: 10px; font-family: {$this->font}; font-size: {$this->fontsize}px; }
             div { font-family: inherit; }
@@ -94,7 +94,7 @@ class wfp_Doprint
                         </tfoot>
                         <tr>
                          <td colspan=\"3\" align=\"left\">
-                           <hr />
+                           <hr>
                            <h2>" . $this->options['title'] . "</h2>\n
                            <div>" . _CONTENT_AUTHOR . ' ' . (isset($this->options['author']) ? $this->options['author'] : '') . '</div>
                            <div>' . _CONTENT_PUBLISHED . ' ' . (isset($this->options['pdate']) ? $this->options['pdate'] : '') . '</div>';
@@ -111,7 +111,7 @@ class wfp_Doprint
                        </tr>\n
                        <tr colspan=\"3\" valign='top' style='font:12px;'>
                            <td colspan=\"3\">" . $this->options['content'] . '<br><br>';
-        $ret .= "<hr /></td>
+        $ret .= "<hr></td>
                        </tr>
                       </table>
                      </div>

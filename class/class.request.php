@@ -90,7 +90,7 @@ class wfp_Filter
     public static function getCore()
     {
         if (file_exists($file = __DIR__ . DS . 'filters' . DS . strtolower(self::$name) . '.php')) {
-            include_once strtolower($file);
+            require_once strtolower($file);
         }
         unset($file);
 
@@ -107,7 +107,7 @@ class wfp_Filter
     {
         $module = (null !== $module) ? $module : $GLOBALS['xoopsModule'];
         if (file_exists($file = XOOPS_ROOT_PATH . '/modules' . $module . '/filters/' . strtolower(self::$name) . '.php')) {
-            include_once $file;
+            require_once $file;
         } else {
             trigger_error($file);
         }

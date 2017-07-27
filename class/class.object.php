@@ -109,7 +109,7 @@ class wfp_Object extends XoopsObject
      */
     public function getTextbox($id = null, $name = null, $size = 25, $max = 255)
     {
-        $ret = '<input type="text" name="' . $name . '[' . $this->getVar($id) . ']" value="' . $this->getVar($name) . '" size="' . $size . '" maxlength="' . $max . '" />';
+        $ret = '<input type="text" name="' . $name . '[' . $this->getVar($id) . ']" value="' . $this->getVar($name) . '" size="' . $size . '" maxlength="' . $max . '">';
 
         return $ret;
     }
@@ -130,13 +130,13 @@ class wfp_Object extends XoopsObject
         if (null !== $selected && (1 === $selected)) {
             $ret .= ' checked';
         }
-        $ret .= ' />' . _YES . "\n";
-        $ret .= "<input type='radio' name='" . $name . '[' . $i . "]' value='0'";
+        $ret      .= '>' . _YES . "\n";
+        $ret      .= "<input type='radio' name='" . $name . '[' . $i . "]' value='0'";
         $selected = $this->getVar($name);
         if (null !== $selected && (0 === $selected)) {
             $ret .= ' checked';
         }
-        $ret .= ' />' . _NO . "\n";
+        $ret .= '>' . _NO . "\n";
 
         return $ret;
     }
@@ -149,7 +149,7 @@ class wfp_Object extends XoopsObject
      */
     public function getCheckbox($id = null)
     {
-        $ret = '<input type="checkbox" value="1" name="checkbox[' . $this->getVar($id) . ']" />';
+        $ret = '<input type="checkbox" value="1" name="checkbox[' . $this->getVar($id) . ']">';
 
         return $ret;
     }

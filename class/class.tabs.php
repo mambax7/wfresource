@@ -29,9 +29,9 @@ class xoops_Tabs
     {
         $this->_useCookies = ((int)$useCookies) === 1 ? 1 : 0;
         $this->_echo       = ((int)$echo === 1) ? true : false;
-        //$GLOBALS['xoTheme']->addStylesheet( '/include/javascript/tabs/tabpane.css', array( 'id="luna-tab-style-sheet"' ) );
-        //$GLOBALS['xoTheme']->addScript( '/include/javascript/tabs/tabpane.js' );
-        //$this->contents[] = "<script type=\"text/javascript\" src=\"" . XOOPS_URL . "/include/javascript/tabs/tabpane.js\"></script>";
+        //$GLOBALS['xoTheme']->addStylesheet( '/include/js/tabs/tabpane.css', array( 'id="luna-tab-style-sheet"' ) );
+        //$GLOBALS['xoTheme']->addScript( '/include/js/tabs/tabpane.js' );
+        //$this->contents[] = "<script type=\"text/javascript\" src=\"" . XOOPS_URL . "/include/js/tabs/tabpane.js\"></script>";
     }
 
     /**

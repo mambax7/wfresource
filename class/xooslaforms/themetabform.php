@@ -68,13 +68,13 @@ class XoopsThemeTabForm extends XooslaForm
         $ele_name = $this->getName();
         $ret      = '';
         // // $ret = '<div>' . $this->getTitle() . '</div>';
-        $ret .= "<form name='" . $ele_name . "' id='" . $ele_name . "' action='" . $this->getAction() . "' method='" . $this->getMethod() . "' onsubmit='return xoopsFormValidate_" . $ele_name . "();'" . $this->getExtra() . '>';
-        $ret .= '<div style="text-align: right; padding-right: 20px;">
-            <input type="button" class="formbutton"  name="cancels1"  id="cancel1" value="' . _CANCEL . '" onClick="history.go(-1);return true;" />
-            <input type="reset" class="formbutton"  name="resets1"  id="reset1" value="' . _RESET . '"  />
-            <input type="submit" class="formbutton"  name="submits1"  id="submit1" value="' . _SUBMIT . '" /></div>';
-        $ret .= "<table width='100%' cellspacing='1'><tr><td colspan=\"2\">\n";
-        $ret .= $this->_tabs->startPane('tab_' . $this->getTitle());
+        $ret    .= "<form name='" . $ele_name . "' id='" . $ele_name . "' action='" . $this->getAction() . "' method='" . $this->getMethod() . "' onsubmit='return xoopsFormValidate_" . $ele_name . "();'" . $this->getExtra() . '>';
+        $ret    .= '<div style="text-align: right; padding-right: 20px;">
+            <input type="button" class="formbutton"  name="cancels1"  id="cancel1" value="' . _CANCEL . '" onClick="history.go(-1);return true;">
+            <input type="reset" class="formbutton"  name="resets1"  id="reset1" value="' . _RESET . '" >
+            <input type="submit" class="formbutton"  name="submits1"  id="submit1" value="' . _SUBMIT . '"></div>';
+        $ret    .= "<table width='100%' cellspacing='1'><tr><td colspan=\"2\">\n";
+        $ret    .= $this->_tabs->startPane('tab_' . $this->getTitle());
         $hidden = '';
         $class  = 'even';
         foreach ($this->getElements() as $ele) {

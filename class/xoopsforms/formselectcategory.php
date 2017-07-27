@@ -13,7 +13,7 @@
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
-include_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 
 /**
  * A select field with a choice of available users
@@ -38,7 +38,7 @@ class XoopsFormSelectCategory extends XoopsFormSelect
     {
         parent::__construct($caption, $name, $value, $size, $multiple);
         $categoryHandler = wfp_getHandler('category', 'wfsection', 'wfs_');
-        $categorys        = $categoryHandler->getList();
+        $categorys       = $categoryHandler->getList();
         $this->addOptionArray($categorys);
     }
 }

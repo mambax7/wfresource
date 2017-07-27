@@ -174,7 +174,7 @@ class XoopsFormCheckBox extends XoopsFormElement
      */
     public function render()
     {
-        include_once XOOPS_ROOT_PATH . '/modules/wfresource/include/js/wfpselectall.js.php';
+        require_once XOOPS_ROOT_PATH . '/modules/wfresource/include/js/wfpselectall.js.php';
 
         $ele_name      = $this->getName();
         $ele_id        = $ele_name;
@@ -204,7 +204,7 @@ class XoopsFormCheckBox extends XoopsFormElement
             if (count($ele_value) > 0 && in_array($value, $ele_value)) {
                 $ret .= ' checked';
             }
-            $ret .= $ele_extra . ' />' . $name . $ele_delimeter . "\n";
+            $ret .= $ele_extra . '>' . $name . $ele_delimeter . "\n";
             if (!empty($this->columns)) {
                 $ret .= '</td>';
                 if (++$i % $this->columns == 0) {
@@ -242,8 +242,7 @@ class XoopsFormCheckBox extends XoopsFormElement
             $eltmsg     = empty($eltcaption) ? sprintf(_FORM_ENTER, $eltname) : sprintf(_FORM_ENTER, $eltcaption);
             $eltmsg     = str_replace('"', '\"', stripslashes($eltmsg));
 
-            return "\nvar hasChecked = false; var checkBox = myform.elements['{$eltname}'];" . 'for (var i = 0; i < checkBox.length; i++) { if (checkBox[i].checked === true) { hasChecked = true; break; } }'
-                   . "if (!hasChecked) { window.alert(\"{$eltmsg}\"); checkBox[0].focus(); return false; }";
+            return "\nvar hasChecked = false; var checkBox = myform.elements['{$eltname}'];" . 'for (var i = 0; i < checkBox.length; i++) { if (checkBox[i].checked === true) { hasChecked = true; break; } }' . "if (!hasChecked) { window.alert(\"{$eltmsg}\"); checkBox[0].focus(); return false; }";
         }
 
         return '';

@@ -11,9 +11,12 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
+
+use Xmf\Request;
+
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
-include_once _WFP_RESOURCE_PATH . '/class/xooslaforms/xoosla_formselectimage.php';
+require_once _WFP_RESOURCE_PATH . '/class/xooslaforms/xoosla_formselectimage.php';
 
 $safemode  = _AM_WFP_OFF;
 $downloads = ini_get('enable_dl') ? _AM_WFP_ON : _AM_WFP_OFF;

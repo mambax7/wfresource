@@ -17,7 +17,7 @@
  *
  * Example of usage:
  * <code>
- * include_once __DIR__ . '/uploader.php';
+ * require_once __DIR__ . '/uploader.php';
  * $allowed_mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png');
  * $maxfilesize = 50000;
  * $maxfilewidth = 120;
@@ -76,7 +76,7 @@ class wfp_Uploader
     public function __construct($uploadDir, $allowedMimeTypes, $maxFileSize, $maxWidth = null, $maxHeight = null)
     {
         if (is_array($allowedMimeTypes)) {
-            $this->allowedMimeTypes = &$allowedMimeTypes;
+            $this->allowedMimeTypes =& $allowedMimeTypes;
         }
         $this->uploadDir   = $uploadDir;
         $this->maxFileSize = (int)$maxFileSize;

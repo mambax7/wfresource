@@ -280,7 +280,7 @@ class wfp_Tlist
             }
         }
         $ret .= '</select>&nbsp;';
-        $ret .= '<input type="submit" name="Submit" value="' . _SUBMIT . '"  />';
+        $ret .= '<input type="submit" name="Submit" value="' . _SUBMIT . '" >';
 
         return $ret;
     }
@@ -302,7 +302,7 @@ class wfp_Tlist
             $ret .= '<th style="text-align: ' . $value['align'] . '; ' . $width . '" >';
             if ((int)$value['islink'] === 2) {
                 $ret .= wfp_getConstants($this->_pre_fix . $value['name']);
-                $ret .= '<input name="' . $value['name'] . 'x_checkall" id="' . $value['name'] . 'x_checkall" onclick="xoopsCheckAll( \'' . $this->_formName . '\', \'' . $value['name'] . 'x_checkall\');" type="checkbox" value="Check All" />';
+                $ret .= '<input name="' . $value['name'] . 'x_checkall" id="' . $value['name'] . 'x_checkall" onclick="xoopsCheckAll( \'' . $this->_formName . '\', \'' . $value['name'] . 'x_checkall\');" type="checkbox" value="Check All">';
             } elseif ($value['islink'] === true) {
                 $ret .= '<a href="main.php?';
                 if ($this->_path) {
@@ -347,7 +347,7 @@ class wfp_Tlist
         $ret .= '</table>' . _NEWLINE;
         if (count($this->_hidden)) {
             foreach ($this->_hidden as $k => $v) {
-                $ret .= '<input type="hidden" name="' . $k . '" id="' . $v . $k . '" value="' . htmlspecialchars($v) . '" />';
+                $ret .= '<input type="hidden" name="' . $k . '" id="' . $v . $k . '" value="' . htmlspecialchars($v) . '">';
             }
         }
         $ret .= $GLOBALS['xoopsSecurity']->getTokenHTML();

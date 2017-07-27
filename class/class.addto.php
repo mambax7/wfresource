@@ -209,8 +209,7 @@ class wfp_addto
      */
     private function getBookMarkImage($value = '')
     {
-        return (!empty($value)) ? '<img style="vertical-align: middle;" src="' . XOOPS_URL . '/modules/wfresource/images/icon/bookmark/' . $value . '.png" border="0" title="' . $this->getBookMarkName($value) . '" alt="'
-                                  . $this->getBookMarkName($value) . '"  />' : '';
+        return (!empty($value)) ? '<img style="vertical-align: middle;" src="' . XOOPS_URL . '/modules/wfresource/images/icon/bookmark/' . $value . '.png" border="0" title="' . $this->getBookMarkName($value) . '" alt="' . $this->getBookMarkName($value) . '" >' : '';
     }
 
     /**

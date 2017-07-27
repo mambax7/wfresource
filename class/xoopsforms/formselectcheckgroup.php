@@ -14,7 +14,7 @@
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 if (!class_exists('XoopsFormCheckBox')) {
-    include_once XOOPS_ROOT_PATH . '/class/xoopsform/formcheckbox.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsform/formcheckbox.php';
 }
 
 /**
@@ -38,7 +38,7 @@ class XoopsFormSelectCheckGroup extends XoopsFormCheckBox
      */
     public function __construct($caption, $name, $value = null, $size = 1, $multiple = false)
     {
-        $memberHandler   = xoops_getHandler('member');
+        $memberHandler    = xoops_getHandler('member');
         $this->userGroups = $memberHandler->getGroupList();
 
         parent::__construct($caption, $name, $value, '', true);

@@ -57,7 +57,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
      *
      * @return int
      */
-    public function getName($encode = true)
+    public function getName()
     {
         return $this->_name;
     }
@@ -180,7 +180,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
      *
      * @return array Associative array of value->name pairs
      */
-    public function getOptions($encode = false)
+    public function getOptions()
     {
         return $this->_options;
     }
@@ -263,7 +263,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
         $image_display = XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0];
         $ret .= "   </select></td><td width='100%' style='padding-left: 1%;'>
             <div id=\"" . $this->_id . "\" style=\"padding: 10px; text-align: center; border:1px solid black;\">
-              <img src='" . XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0] . "' onclick='openWithSelfMain(\"" . XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0] . "\",\"image\" );' align='absmiddle' width='{$image_array[1]}' height='{$image_array[2]}' />
+              <img src='" . XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0] . "' onclick='openWithSelfMain(\"" . XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0] . "\",\"image\" );' align='absmiddle' width='{$image_array[1]}' height='{$image_array[2]}'>
              </div>
             </td>
            </tr>

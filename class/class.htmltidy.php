@@ -231,7 +231,7 @@ class wfp_Htmltidy
         //++++
         if ($this->options['Optimize']) {
             //Optimize until nothing can be done for PHP 5, twice for PHP 4
-            if ((int)phpversion() >= 5) {
+            if ((int)PHP_VERSION >= 5) {
                 $repl = 1;
                 while ($repl) {
                     $repl = 0;

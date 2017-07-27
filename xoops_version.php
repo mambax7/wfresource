@@ -13,7 +13,7 @@
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 $moduleDirName = basename(__DIR__);
-$modversion['version']       = 1.06;
+$modversion['version']       = 1.07;
 $modversion['module_status'] = 'Final';
 $modversion['release_date']  = '2016/11/26';
 $modversion['name']          = _MD_WF_RESOURCE;
@@ -21,7 +21,7 @@ $modversion['description']   = _MD_WF_RESOURCE_DSC;
 $modversion['author']        = 'Catzwolf';
 $modversion['credits']       = 'Mark Boyden, Mamba';
 $modversion['releasedate']   = 'NOT RELEASED';
-$modversion['status']        = '1.06 Final';
+$modversion['status']        = '1.07 Beta 1';
 $modversion['help']          = '';
 $modversion['license']       = 'GPL see LICENSE';
 $modversion['official']      = 0;

@@ -11,9 +11,7 @@
 // URL: http:www.Xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit();
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
 
 wfp_getObjectHandler();
 
@@ -103,7 +101,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
      * @param  mixed $value
      * @return bool
      */
-    public function getObj($nav = array(), $value = false)
+    public function &getObj($nav = array(), $value = false)
     {
         $obj = false;
         if (func_num_args() == 2) {
@@ -244,7 +242,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
         static $file_array;
         if (null === $file_array) {
             $data       =& $this->getFileInfo();
-            $file_array = &$data;
+            $file_array =& $data;
         }
 
         return $file_array;
@@ -293,12 +291,12 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
          */
         $onchange = 'onchange=\'location="admin.broken.php?%s="+this.options[this.selectedIndex].value\'';
         $ret      = '<div style="padding-bottom: 16px;">';
-        $ret .= '<form><div style="text-align: left; margin-bottom: 12px;"><input type="button" name="button" onclick=\'location="admin.broken.php?op=edit"\' value="' . _MD_WFP_CREATENEW . '"></div></form>';
-        $ret .= '<div>
+        $ret      .= '<form><div style="text-align: left; margin-bottom: 12px;"><input type="button" name="button" onclick=\'location="admin.broken.php?op=edit"\' value="' . _MD_WFP_CREATENEW . '"></div></form>';
+        $ret      .= '<div>
             <span style="float: left;">' . wfp_getSelection($broken_authors, $nav['broken_uid'], 'broken_uid', 1, 1, false, false, sprintf($onchange, 'broken_uid'), 0, false) . '</span>
             <span style="float: right;">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection($list_array, $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
             </div>';
-        $ret .= '</div><br clear="all" />';
+        $ret      .= '</div><br clear="all">';
         echo $ret;
     }
 }

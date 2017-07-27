@@ -104,7 +104,7 @@ function wfp_getObjectCallback($Handler)
 {
     if (!class_exists('wfp_Callback')) {
         if (file_exists($hnd_file = _WFP_RESOURCE_PATH . '/class/class.objectcallback.php')) {
-            include_once $hnd_file;
+            require_once $hnd_file;
         }
     }
     $_do_callback = wfp_Callback::getSingleton();
@@ -129,7 +129,7 @@ function wfp_getHandler($name, $dirname = 'wfresource', $c_prefix = 'wfp_', $opt
     $name = strtolower(trim($name));
     if (!isset($handlers[$name])) {
         if (file_exists($hnd_file = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/class/class.' . $name . '.php')) {
-            include_once $hnd_file;
+            require_once $hnd_file;
         } else {
             trigger_error('file for <b>' . $name . '</b> does not exist<br>file: ' . $hnd_file . '<br>Handler Name: ' . $name, E_USER_ERROR);
         }
@@ -172,7 +172,7 @@ function wfp_getClass($name, $dirname = 'wfresource', $c_prefix = 'wfp_', $optio
     }
 
     if (file_exists($hnd_file)) {
-        include_once $hnd_file;
+        require_once $hnd_file;
     }
 
     $class = $c_prefix . ucfirst($name);
@@ -228,7 +228,7 @@ function wfp_ShowPagenav(
     $navigation = '';
     $page       = ($tot_num > $num_dis) ? _AM_WFP_PAGE : '';
     if ((int)$tot_num > (int)$num_dis) {
-        include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+        require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
         $pagenav  = new XoopsPageNav((int)$tot_num, (int)$num_dis, (int)$start, $from, $nav_path);
         $nav_type = 1;
         switch ((int)$nav_type) {
@@ -249,7 +249,7 @@ function wfp_ShowPagenav(
     $ret .= '<div style="float: left;">' . $records . '</div>';
     $ret .= '<div style="float: right;">' . $navigation . '</div>';
     $ret .= '</div>';
-    $ret .= '<br clear="all" />';
+    $ret .= '<br clear="all">';
     if ($returns === false) {
         echo $ret;
     } else {
@@ -278,7 +278,7 @@ function wfp_show_buttons(
     $ret = "<div style='text-align: $butt_align; margin-bottom: 12px;'>\n";
     $ret .= "<form id='{$butt_id}' action='showbuttons'>\n";
     foreach ($button_array as $k => $v) {
-        $ret .= "<input type='button' style='cursor: hand;' class='{$class_id}'  name='" . trim($v) . "' onclick=\"location='" . htmlspecialchars(trim($k), ENT_QUOTES) . "'\" value='" . trim($v) . "' />&nbsp;&nbsp;";
+        $ret .= "<input type='button' style='cursor: hand;' class='{$class_id}'  name='" . trim($v) . "' onclick=\"location='" . htmlspecialchars(trim($k), ENT_QUOTES) . "'\" value='" . trim($v) . "'>&nbsp;&nbsp;";
     }
     $ret .= "</form>\n";
     $ret .= "</div>\n";
@@ -312,7 +312,7 @@ function wfp_showImage($name = '', $title = '', $align = 'middle', $ext = 'png',
         if (!empty($align)) {
             $ret .= ' style="vertical-align: ' . $align . '; border: 0px;"';
         }
-        $ret .= ' />';
+        $ret .= '>';
 
         return $ret;
     }
@@ -426,7 +426,7 @@ function wfp_getSelection(
                 }
             }
             $content = xoops_substr($content, 0, 24);
-            $ret .= "<option value='" . $newKey . "' $opt_selected>" . $content . '</option>';
+            $ret     .= "<option value='" . $newKey . "' $opt_selected>" . $content . '</option>';
         }
     }
     $ret .= '</select>';
@@ -470,9 +470,8 @@ function xoosla_cp_footer()
     //        </a>
     //    </div>';
     //    global $xoopsModule;
-    $pathIcon32 = XOOPS_URL . '/' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
-    echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "    <a href='http://www.xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . '  '
-         . _AM_MODULEADMIN_ADMIN_FOOTER . "\n" . '</div>';
+    $pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
+    echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "    <a href='https://xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . '  ' . _AM_MODULEADMIN_ADMIN_FOOTER . "\n" . '</div>';
     xoops_cp_footer();
 }
 
@@ -520,23 +519,23 @@ function wfp_confirm($hiddens, $op, $msg, $submit = '', $cancel = '', $noarray =
     foreach ($hiddens as $name => $value) {
         if (is_array($value) && $noarray === true) {
             foreach ($value as $caption => $newvalue) {
-                $ret .= '<input type="radio" name="' . $name . '" value="' . htmlspecialchars($newvalue) . '" /> ' . $caption;
+                $ret .= '<input type="radio" name="' . $name . '" value="' . htmlspecialchars($newvalue) . '"> ' . $caption;
                 $ret .= '<br>';
             }
         } else {
             if (is_array($value)) {
                 foreach ($value as $new_value) {
-                    $ret .= '<input type="hidden" name="' . $name . '[]" value="' . $new_value . '" />';
+                    $ret .= '<input type="hidden" name="' . $name . '[]" value="' . $new_value . '">';
                 }
             } else {
-                $ret .= '<input type="hidden" name="' . $name . '" value="' . htmlspecialchars($value, ENT_QUOTES) . '" />';
+                $ret .= '<input type="hidden" name="' . $name . '" value="' . htmlspecialchars($value, ENT_QUOTES) . '">';
             }
         }
     }
     $ret .= '</div>';
     $ret .= "<div class='confirmButtons'>
-             <input type='button' class='formbutton' name='confirm_back' $cancel value='Cancel' />
-             <input type='submit' class='formbutton' name='confirm_submit' value='$submit' />";
+             <input type='button' class='formbutton' name='confirm_back' $cancel value='Cancel'>
+             <input type='submit' class='formbutton' name='confirm_submit' value='$submit'>";
     $ret .= $GLOBALS['xoopsSecurity']->getTokenHTML();
     $ret .= '</div></form>';
     if ($echo) {
@@ -750,7 +749,7 @@ function wfp_uploader(
     global $xoopsModuleConfig;
     /**
      */
-    include_once XOOPS_ROOT_PATH . '/class/uploader.php';
+    require_once XOOPS_ROOT_PATH . '/class/uploader.php';
     $uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH . "/${uploaddir}", $allowed_mimetypes, $xoopsModuleConfig['maxfilesize'], $xoopsModuleConfig['maximgwidth'], $xoopsModuleConfig['maximgheight']);
     /**
      */
@@ -856,8 +855,7 @@ function wfp_isEditorHTML()
             'koivi',
             'inbetween',
             'spaw'
-        ))
-    ) {
+        ))) {
         return true;
     }
 
@@ -873,7 +871,7 @@ function wfp_tag_module_included()
     static $wfp_tag_module_included;
     if (null === $wfp_tag_module_included) {
         $modulesHandler = xoops_getHandler('module');
-        $tag_mod         = $modulesHandler->getByDirName('tag');
+        $tag_mod        = $modulesHandler->getByDirName('tag');
         if (!$tag_mod) {
             $tag_mod = false;
         } else {
@@ -902,15 +900,14 @@ function wfp_getModuleOption($option, $dirname = 'wfchannel')
     if (isset($GLOBALS['xoopsModuleConfig'])
         && (is_object($GLOBALS['xoopsModule'])
             && $GLOBALS['xoopsModule']->getVar('dirname') == $dirname
-            && $GLOBALS['xoopsModule']->getVar('isactive'))
-    ) {
+            && $GLOBALS['xoopsModule']->getVar('isactive'))) {
         if (isset($GLOBALS['xoopsModuleConfig'][$option])) {
             $ret = $GLOBALS['xoopsModuleConfig'][$option];
         }
     } else {
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
-        $module         = $moduleHandler->getByDirname($dirname);
+        $module        = $moduleHandler->getByDirname($dirname);
         $configHandler = xoops_getHandler('config');
         if ($module) {
             $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
@@ -957,7 +954,7 @@ function wfp_module_installed($module = '')
     static $wfp_module;
     if (!isset($wfp_module[$module])) {
         $modulesHandler = xoops_getHandler('module');
-        $tag_mod         = $modulesHandler->getByDirName('tag');
+        $tag_mod        = $modulesHandler->getByDirName('tag');
         if ($tag_mod && $tag_mod->getVar('isactive')) {
             $wfp_module[$module] = $tag_mod = true;
         } else {

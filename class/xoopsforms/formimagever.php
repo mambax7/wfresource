@@ -130,11 +130,11 @@ class XoopsFormImagever extends XoopsFormElement
      */
     public function render()
     {
-        // return "<div><input type='text' name='" . $this -> getName() . "' id='" . $this -> getName() . "' size='" . $this -> getSize() . "' maxlength='" . $this -> getMaxlength() . "' value='" . $this -> getValue() . "'" . $this -> getExtra() . " />";
-        $ret = "<div><input type='text' name='" . $this->getName() . "' id='" . $this->getName() . "' size='" . $this->getSize() . "' maxlength='" . $this->getMaxlength() . "' value='" . $this->getValue() . "'" . $this->getExtra() . ' />';
+        // return "<div><input type='text' name='" . $this -> getName() . "' id='" . $this -> getName() . "' size='" . $this -> getSize() . "' maxlength='" . $this -> getMaxlength() . "' value='" . $this -> getValue() . "'" . $this -> getExtra() . ">";
+        $ret = "<div><input type='text' name='" . $this->getName() . "' id='" . $this->getName() . "' size='" . $this->getSize() . "' maxlength='" . $this->getMaxlength() . "' value='" . $this->getValue() . "'" . $this->getExtra() . '>';
         $ret .= '<br>';
-        $ret .= "<div style='padding: 8px;'><img src='" . $this->getImage() . ".jpg' /></div>";
-        $ret .= "<input type='hidden' name='image_random_value' id='image_random_value' value='" . $this->getRand() . "' /></div>";
+        $ret .= "<div style='padding: 8px;'><img src='" . $this->getImage() . ".jpg'></div>";
+        $ret .= "<input type='hidden' name='image_random_value' id='image_random_value' value='" . $this->getRand() . "'></div>";
 
         return $ret;
     }

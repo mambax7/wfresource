@@ -22,7 +22,7 @@
 /**
  * Parent
  */
-include_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 
 /**
  * A select field with countries

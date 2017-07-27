@@ -40,7 +40,7 @@ class XooslaFormTabs
             $GLOBALS['xoTheme']->addStylesheet('/modules/wfresource/include/js/tabs/tabpane.css', array('id="luna-tab-style-sheet"'));
             $GLOBALS['xoTheme']->addScript('/modules/wfresource/include/js/tabs/tabpane.js');
         } else {
-            echo '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/modules/wfresource/include/js/tabs/tabpane.css" />';
+            echo '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/modules/wfresource/include/js/tabs/tabpane.css">';
             echo '<script type="text/javascript" src="' . XOOPS_URL . '/modules/wfresource/include/js/tabs/tabpane.js"></script>';
         }
         unset($useCookies);
@@ -49,7 +49,7 @@ class XooslaFormTabs
     /**
      * xo_FormTab::startPane()
      *
-     * @param  mixed  $id
+     * @param  mixed $id
      * @return string
      */
     public function startPane($id)
@@ -75,7 +75,7 @@ class XooslaFormTabs
      * Creates a tab with title text and starts that tabs page
      *
      * @param $tabText - This is what is displayed on the tab
-     * @param $paneid- This is the parent pane to build this tab on
+     * @param $paneid  - This is the parent pane to build this tab on
      * @return string
      */
     public function startTab($tabText, $paneid)

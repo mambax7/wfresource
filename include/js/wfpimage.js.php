@@ -19,7 +19,7 @@
     attributes += ' height="' + sel_split[2] + '"';
     }
     url = imgDir + "/" + sel_split[0];
-    img = '<img src="' + url + '"' + attributes + ' alt="' + sel.innerHTML + '" />';
+    img = '<img src="' + url + '"' + attributes + ' alt="' + sel.innerHTML + '">';
     }
     document.getElementById(imgId).innerHTML = img
     }
@@ -43,7 +43,7 @@
     var html = '';
     html += '<img src="' + image.src + '"';
     html += image.name ? ' name="overlayer' + image.name + '"' : '';
-    html += ' width="' + width + '" height="' + height + '" />';
+    html += ' width="' + width + '" height="' + height + '">';
     l.document.open();
     l.document.write(html);
     l.document.close();
@@ -54,4 +54,4 @@
     }
     }
     //-->
-</script >;
+</script>;

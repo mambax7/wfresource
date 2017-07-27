@@ -1,7 +1,7 @@
 <?php
 defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
 
-include_once XOOPS_ROOT_PATH . '/class/xoopsform/formbutton.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/formbutton.php';
 
 /**
  * XoopsFormButtonTray
@@ -91,8 +91,21 @@ class XoopsFormButtonTray extends XoopsFormElement
         if ($this->_showDelete) {
             $ret .= '<input type="submit" class="formbutton" name="delete" id="delete" value="' . _DELETE . '" onclick="this.form.elements.op.value=\'delete\'">&nbsp;';
         }
-        $ret .= '<input type="button" value="' . _CANCEL . '" onClick="history.go(-1);return true;" />&nbsp;<input type="reset" class="formbutton"  name="reset"  id="reset" value="' . _RESET . '" />&nbsp;<input type="' . $this->getType()
-                . '" class="formbutton"  name="' . $this->getName() . '"  id="' . $this->getName() . '" value="' . $this->getValue() . '"' . $this->getExtra() . '  />';
+        $ret .= '<input type="button" value="'
+                . _CANCEL
+                . '" onClick="history.go(-1);return true;">&nbsp;<input type="reset" class="formbutton"  name="reset"  id="reset" value="'
+                . _RESET
+                . '">&nbsp;<input type="'
+                . $this->getType()
+                . '" class="formbutton"  name="'
+                . $this->getName()
+                . '"  id="'
+                . $this->getName()
+                . '" value="'
+                . $this->getValue()
+                . '"'
+                . $this->getExtra()
+                . ' >';
 
         return $ret;
     }

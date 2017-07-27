@@ -187,7 +187,7 @@ class xo_Loader
         }
         $ret = self::$services[$var];
         if ($ret) {
-            include_once $ret;
+            require_once $ret;
         }
     }
 
@@ -304,7 +304,7 @@ class xo_Loader
 
             return self::$urls[$md5Name];
         }
-        trigger_error('file not found');
+        trigger_error('file not found' . ' ' . __FILE__ . ' ' . __LINE__);
 
         return false;
     }

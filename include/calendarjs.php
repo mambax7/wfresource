@@ -1,13 +1,11 @@
 <?php
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit();
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
 
-include_once XOOPS_ROOT_PATH . '/modules/wfresource/language/' . $GLOBALS['xoopsConfig']['language'] . '/calendar.php';
+require_once XOOPS_ROOT_PATH . '/modules/wfresource/language/' . $GLOBALS['xoopsConfig']['language'] . '/calendar.php';
 
 ?>
 <link rel="stylesheet" type="text/css" media="all"
-      href="<?php echo XOOPS_URL; ?>/modules/wfresource/include/calendar-blue.css"/>
+      href="<?php echo XOOPS_URL; ?>/modules/wfresource/include/calendar-blue.css">
 <script type="text/javascript" src="<?php echo XOOPS_URL . '/modules/wfresource/include/calendar.js'; ?>"></script>
 <script type="text/javascript">
     <!--
@@ -31,6 +29,7 @@ include_once XOOPS_ROOT_PATH . '/modules/wfresource/language/' . $GLOBALS['xoops
             Calendar.stopEvent(ev);
         }
     }
+
     function showCalendar(id) {
         var el = xoopsGetElementById(id);
         if (calendar != null) {

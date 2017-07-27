@@ -22,8 +22,9 @@
 /**
  * Parent
  */
-include_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 // RMV-NOTIFY
+
 /**
  * A select field with a choice of available users
  *
@@ -72,8 +73,7 @@ class XoopsFormSelectRDirList extends XoopsFormSelect
             $dh = opendir($dirname);
             while (false !== ($dir = readdir($dh))) {
                 if ($dir !== '.' && $dir !== '..' && is_dir($dirname . '/' . $dir) && strtolower($dir) !== 'cvs'
-                    && strtolower($dir) !== '.svn'
-                ) {
+                    && strtolower($dir) !== '.svn') {
                     $subdirname = $dirname . '/' . $dir;
                     $this->addOption($this->processDir($dirname) . '/' . $dir);
                     $subdirlist = $this->getRecDirlistAsArray($subdirname);

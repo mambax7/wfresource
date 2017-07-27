@@ -246,7 +246,7 @@ class wfp_MenuHandler
             ++$i;
         }
 
-        include_once XOOPS_ROOT_PATH . '/class/template.php';
+        require_once XOOPS_ROOT_PATH . '/class/template.php';
         $tpl = new XoopsTpl();
         $tpl->assign(array(
                          'menu_links'     => $menuTopLinks,

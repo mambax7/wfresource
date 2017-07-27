@@ -23,8 +23,9 @@
 /**
  * Parent
  */
-include_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 // RMV-NOTIFY
+
 /**
  * A select field with a choice of available users
  *

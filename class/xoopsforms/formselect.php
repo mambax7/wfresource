@@ -229,7 +229,8 @@ class XoopsFormSelect extends XoopsFormElement
             $eltmsg     = empty($eltcaption) ? sprintf(_FORM_ENTER, $eltname) : sprintf(_FORM_ENTER, $eltcaption);
             $eltmsg     = str_replace('"', '\"', stripslashes($eltmsg));
 
-            return "\nvar hasSelected = false; var selectBox = myform.{$eltname};" . 'for (i = 0; i < selectBox.options.length; i++) { if (selectBox.options[i].selected === true) { hasSelected = true; break; } }'
+            return "\nvar hasSelected = false; var selectBox = myform.{$eltname};"
+                   . 'for (i = 0; i < selectBox.options.length; i++) { if (selectBox.options[i].selected === true) { hasSelected = true; break; } }'
                    . "if (!hasSelected) { window.alert(\"{$eltmsg}\"); selectBox.focus(); return false; }";
         }
 

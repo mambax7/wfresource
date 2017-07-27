@@ -23,8 +23,9 @@
 /**
  * Parent
  */
-include_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 // RMV-NOTIFY
+
 /**
  * A select field with a choice of available users
  *
@@ -56,7 +57,7 @@ class XoopsFormSelectSection extends XoopsFormSelect
         $static = false
     ) {
         $sectionHandler = wfp_getHandler('section', 'wfsection', 'wfs_');
-        $sections        = $sectionHandler->getList();
+        $sections       = $sectionHandler->getList();
         parent::__construct($caption, $name, $value, $size, $multiple);
         if ($static === true) {
             $this->addOption(0, 'Static Content');

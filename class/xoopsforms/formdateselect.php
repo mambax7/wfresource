@@ -38,9 +38,22 @@ class XoopsFormDateSelect extends XoopsFormText
     public function render()
     {
         $jstime = formatTimestamp($this->getValue(), 'F j Y, H:i:s');
-        include_once XOOPS_ROOT_PATH . '/modules/wfresource/include/calendarjs.php';
+        require_once XOOPS_ROOT_PATH . '/modules/wfresource/include/calendarjs.php';
 
-        return "<input type='text' name='" . $this->getName() . "' id='" . $this->getName() . "' size='" . $this->getSize() . "' maxlength='" . $this->getMaxlength() . "' value='" . $this->getValue() . "'" . $this->getExtra()
-               . " />&nbsp;<input type='reset' value=' ... ' onclick='return showCalendar(\"" . $this->getName() . "\");'>";
+        return "<input type='text' name='"
+               . $this->getName()
+               . "' id='"
+               . $this->getName()
+               . "' size='"
+               . $this->getSize()
+               . "' maxlength='"
+               . $this->getMaxlength()
+               . "' value='"
+               . $this->getValue()
+               . "'"
+               . $this->getExtra()
+               . ">&nbsp;<input type='reset' value=' ... ' onclick='return showCalendar(\""
+               . $this->getName()
+               . "\");'>";
     }
 }
