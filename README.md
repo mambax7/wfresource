@@ -1,4 +1,4 @@
-![alt XOOPS CMS](http://xoops.org/images/logoXoops4GithubRepository.png)
+![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
 ## WF-Resource module for  [XOOPS CMS 2.5.8+](https://xoops.org)
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](LICENSE)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/mambax7/wfresource.svg?style=flat)](https://scrutinizer-ci.com/g/mambax7/wfresource/?branch=master)
@@ -8,13 +8,13 @@
 [![Latest Pre-Resease](https://img.shields.io/github/tag/XoopsModules25x/wfresource.svg?style=flat)](https://github.com/XoopsModules25x/wfresource/tags/)
 [![Latest Version](https://img.shields.io/github/release/XoopsModules25x/wfresource.svg?style=flat)](https://github.com/XoopsModules25x/wfresource/releases/)
 
-WF-Resource module for [XOOPS CMS](http://xoops.org) is the heart and soul of all the WF-Project modules. This module must be installed and
+WF-Resource module for [XOOPS CMS](https://xoops.org) is the heart and soul of all the WF-Project modules. This module must be installed and
 kept up to date for all the other WF-Project modules to work correctly.
 
 **You can test this library with the [WF-Channel module](https://github.com/mambax7/wfchannel)**
 
-[![Translations on Transifex](http://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops)
+[![Translations on Transifex](https://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops)
 
-Please visit us on  [http://xoops.org](http://xoops.org)
+Please visit us on  [https://xoops.org](https://xoops.org)
 
 The upcoming "next generation" version of XOOPS CMS is being crafted on GitHub at: https://github.com/XOOPS
