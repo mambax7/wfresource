@@ -14,3 +14,16 @@ define('_MD_WF_RESOURCE_DSC', 'This module is REQUIRED for the functionality of 
 /**
  * Print Page
  */
+
+//Help
+define('_MI_WF_RESOURCE_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_WF_RESOURCE_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
+define('_MI_WF_RESOURCE_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_WF_RESOURCE_OVERVIEW', 'Overview');
+
+//define('_MI_WF_RESOURCE_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_WF_RESOURCE_DISCLAIMER', 'Disclaimer');
+define('_MI_WF_RESOURCE_LICENSE', 'License');
+define('_MI_WF_RESOURCE_SUPPORT', 'Support');

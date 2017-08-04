@@ -31,3 +31,11 @@ $modversion['image']         = 'images/logoModule.png';
 $modversion['hasAdmin']                    = 0;
 $modversion['templates'][1]['file']        = 'wfp_addto.tpl';
 $modversion['templates'][1]['description'] = 'Displays an AddTo bar';
+
+// ------------------- Help files ------------------- //
+$modversion['helpsection'] = array(
+    ['name' => _MI_WF_RESOURCE_OVERVIEW, 'link' => 'page=help'],
+    ['name' => _MI_WF_RESOURCE_DISCLAIMER, 'link' => 'page=disclaimer'],
+    ['name' => _MI_WF_RESOURCE_LICENSE, 'link' => 'page=license'],
+    ['name' => _MI_WF_RESOURCE_SUPPORT, 'link' => 'page=support'],
+);
