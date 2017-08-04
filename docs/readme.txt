@@ -6,15 +6,15 @@
 
 What is WF-Resource?
 
-WF-Resource is the heart and soul of all the WF-Project modules. This module must be installed and 
+WF-Resource is the heart and soul of all the WF-Project modules. This module must be installed and
 kept up to date for all the other WF-Project modules to work correctly.
 
 Why this module?
 
 The answer is simple and for two reasons:
 
-1. Scalability: Rather than having to add the same functions, classes and other files over and over again within each module. 
-I decided that it would be easier to update and maintain if I included the most used of the above into one module. This keeps the 
+1. Scalability: Rather than having to add the same functions, classes and other files over and over again within each module.
+I decided that it would be easier to update and maintain if I included the most used of the above into one module. This keeps the
 sizes down of all the WF-Project modules and makes development easier and quicker for myself.
 
 2. Compatibility: I have found that over the years, Xoops (And other clones) change, and sometimes Xoops doesn't change in the area's

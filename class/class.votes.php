@@ -169,12 +169,12 @@ class wfp_VotesHandler extends wfp_ObjectHandler
         global $moduleHandler;
         static $_cachedModule_list;
         if (!empty($_cachedModule_list)) {
-            $_module = &$_cachedModule_list;
+            $_module =& $_cachedModule_list;
 
             return $_module;
         } else {
-            $module_list        = &$moduleHandler->getList();
-            $_cachedModule_list = &$module_list;
+            $module_list        =& $moduleHandler->getList();
+            $_cachedModule_list =& $module_list;
 
             return $module_list;
         }

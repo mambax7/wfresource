@@ -26,8 +26,8 @@ class xo_Filters_Sanitize_Email extends wfp_Request
     /**
      * xo_Filters_Validate_String::doRender()
      *
-     * @param  mixed      $method
-     * @param  mixed      $key
+     * @param  mixed $method
+     * @param  mixed $key
      * @return bool|mixed
      */
     public function doRender($method, $key)

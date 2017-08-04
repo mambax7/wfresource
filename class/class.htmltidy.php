@@ -237,9 +237,9 @@ class wfp_Htmltidy
                     $repl = 0;
                     foreach ($this->CleanUpTags as $tag) {
                         $this->html = preg_replace("/<($tag)[^>]*>[\s]*([(&nbsp;)]*)[\s]*<\/($tag)>/i", "\\2", $this->html, -1, $count); //strip empty inline tags (must be on top of merge inline tags)
-                        $repl += $count;
+                        $repl       += $count;
                         $this->html = preg_replace("/<\/($tag)[^>]*>[\s]*([(&nbsp;)]*)[\s]*<($tag)>/i", "\\2", $this->html, -1, $count); //merge inline tags
-                        $repl += $count;
+                        $repl       += $count;
                     }
                 }
             } else {
@@ -248,12 +248,12 @@ class wfp_Htmltidy
                 while ($repl) {
                     $repl = 0;
                     foreach ($this->CleanUpTags as $tag) {
-                        $count = preg_match("/<($tag)[^>]*>[\s]*([(&nbsp;)]*)[\s]*<\/($tag)>/i", $this->html);
-                        $repl += $count;
+                        $count      = preg_match("/<($tag)[^>]*>[\s]*([(&nbsp;)]*)[\s]*<\/($tag)>/i", $this->html);
+                        $repl       += $count;
                         $this->html = preg_replace("/<($tag)[^>]*>[\s]*([(&nbsp;)]*)[\s]*<\/($tag)>/i", "\\2", $this->html); //strip empty inline tags (must be on top of merge inline tags)
 
-                        $count = preg_match("/<\/($tag)[^>]*>[\s]*([(&nbsp;)]*)[\s]*<($tag)>/i", $this->html);
-                        $repl += $count;
+                        $count      = preg_match("/<\/($tag)[^>]*>[\s]*([(&nbsp;)]*)[\s]*<($tag)>/i", $this->html);
+                        $repl       += $count;
                         $this->html = preg_replace("/<\/($tag)[^>]*>[\s]*([(&nbsp;)]*)[\s]*<($tag)>/i", "\\2", $this->html); //merge inline tags
                     }
                 }

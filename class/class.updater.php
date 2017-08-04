@@ -207,7 +207,7 @@ class wfp_Updater
             } elseif (!empty($this->_query['after'][$i])) {
                 $sql .= ' AFTER ' . $this->_query['after'][$i] . ' ';
             }
-            $sql .= "\n\n";
+            $sql    .= "\n\n";
             $result = $this->db->queryF($sql);
             if (!$result) {
                 $this->setError("Field <span style=\"color: red;\">" . $this->_query['fieldname'][$i] . '</span> could not be updated <br>Error: ' . $this->db->errno() . ' ' . $this->db->error());

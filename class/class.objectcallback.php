@@ -385,7 +385,7 @@ class wfp_Callback extends wfp_ObjectHandler
                 $arrayCount = count($array_keys);
                 for ($i = 0; $i < $arrayCount; ++$i) {
                     if (isset($_REQUEST[$array_keys[$i]])) {
-                        $temp_array = &$_REQUEST[$array_keys[$i]];
+                        $temp_array =& $_REQUEST[$array_keys[$i]];
                         $_obj->setVar($array_keys[$i], $temp_array[$id]);
                     }
                 } // for

@@ -190,12 +190,12 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
          */
         $onchange = 'onchange=\'location="admin.category.php?%s="+this.options[this.selectedIndex].value\'';
         $ret      = '<div style="padding-bottom: 16px;">';
-        $ret .= '<form>
+        $ret      .= '<form>
          <div style="text-align: left; margin-bottom: 12px;">
           <input type="button" name="button" onclick=\'location="admin.category.php?op=edit"\' value="' . _MD_WFP_CREATENEW . '">
           <input type="button" name="button" onclick=\'location="admin.category.php?op=permissions"\' value="' . _MD_WFP_PERMISSIONS . '">
          </div></form>';
-        $ret .= '<div>
+        $ret      .= '<div>
             <span style="float: right;">' . _AM_WFP_DISPLAYAMOUNT_BOX . wfp_getSelection(wfp_ListArray(), $nav['limit'], 'limit', 1, 0, false, false, sprintf($onchange, 'limit'), 0, false) . '</span>
             </div>';
         $ret      .= '</div><br clear="all">';

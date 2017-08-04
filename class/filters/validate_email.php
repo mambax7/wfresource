@@ -26,7 +26,7 @@ class xo_Filters_Validate_Email extends wfp_Request
     /**
      * xo_Filters_Validate_String::doRender()
      *
-     * @param  null       $email
+     * @param  null $email
      * @return bool|mixed
      */
     public function doRender($email = null)

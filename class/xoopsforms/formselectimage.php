@@ -1,5 +1,6 @@
 <?php
 // $Id: formselectimage.php 8181 2011-11-07 01:14:53Z beckmi $
+
 /**
  * A select field
  *
@@ -196,7 +197,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
         if ($this->_imgcat_id > 0 && $useimagemanger = 0) {
             $imageHandler  = xoops_getHandler('image');
             $imgcatHandler = xoops_getHandler('imagecategory');
-            $image_cat_obj  = $imgcatHandler->get($this->_imgcat_id);
+            $image_cat_obj = $imgcatHandler->get($this->_imgcat_id);
             if ($image_cat_obj) {
                 $art_image_array = $imageHandler->getList($this->_imgcat_id, null, 'image');
                 $this->setCategory($image_cat_obj->getVar('imgcat_dirname'));
@@ -236,7 +237,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
         }
         /**
          */
-        $ret .= " onchange='chooseImage(this, \"" . $this->_id . "\", \"" . XOOPS_URL . '/' . $this->getCategory() . "\", \"\")'>";
+        $ret    .= " onchange='chooseImage(this, \"" . $this->_id . "\", \"" . XOOPS_URL . '/' . $this->getCategory() . "\", \"\")'>";
         $result = array_merge(array('' => 'No Selection'), $art_image_array);
         foreach ($result as $value => $name) {
             $image_name = explode('.', $name);
@@ -261,7 +262,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
          */
         $image         = $image_array[0];
         $image_display = XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0];
-        $ret .= "   </select></td><td width='100%' style='padding-left: 1%;'>
+        $ret           .= "   </select></td><td width='100%' style='padding-left: 1%;'>
             <div id=\"" . $this->_id . "\" style=\"padding: 10px; text-align: center; border:1px solid black;\">
               <img src='" . XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0] . "' onclick='openWithSelfMain(\"" . XOOPS_URL . '/' . $this->getCategory() . '/' . $image_array[0] . "\",\"image\" );' align='absmiddle' width='{$image_array[1]}' height='{$image_array[2]}'>
              </div>

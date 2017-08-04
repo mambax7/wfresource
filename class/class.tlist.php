@@ -295,11 +295,11 @@ class wfp_Tlist
     {
         $ret   = $this->_formAction;
         $count = count($this->_headers);
-        $ret .= '<table id="tlist" width="100%" cellpadding="0" cellspacing="1" class="outer" summary="">';
-        $ret .= '<tr style="text-align: center;">';
+        $ret   .= '<table id="tlist" width="100%" cellpadding="0" cellspacing="1" class="outer" summary="">';
+        $ret   .= '<tr style="text-align: center;">';
         foreach ($this->_headers as $value) {
             $width = (!empty($value['width'])) ? 'width: ' . $value['width'] . ';' : '';
-            $ret .= '<th style="text-align: ' . $value['align'] . '; ' . $width . '" >';
+            $ret   .= '<th style="text-align: ' . $value['align'] . '; ' . $width . '" >';
             if ((int)$value['islink'] === 2) {
                 $ret .= wfp_getConstants($this->_pre_fix . $value['name']);
                 $ret .= '<input name="' . $value['name'] . 'x_checkall" id="' . $value['name'] . 'x_checkall" onclick="xoopsCheckAll( \'' . $this->_formName . '\', \'' . $value['name'] . 'x_checkall\');" type="checkbox" value="Check All">';
@@ -320,7 +320,7 @@ class wfp_Tlist
             }
             $ret .= '</th>';
         }
-        $ret .= '</tr>';
+        $ret   .= '</tr>';
         $count = count($this->_data);
         $class = '';
         if (isset($this->_data[0]) && $count) {
@@ -331,7 +331,7 @@ class wfp_Tlist
                     $class = (null !== $class && 'even' === $class) ? 'odd' : 'even';
                 }
                 $ret .= '<tr class="' . $class . '">' . _NEWLINE;
-                $i = 0;
+                $i   = 0;
                 if ($data[1] !== true) {
                     foreach ($data[0] as $value) {
                         $ret .= '<td style="text-align: ' . $this->_headers[$i]['align'] . ';">' . $value . '</td>';

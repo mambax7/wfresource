@@ -117,7 +117,7 @@ class wfp_Clean
         switch ($cleanlevel) {
             case 1:
                 $htmltidy->html =& $text;
-                $text           = &$htmltidy->cleanUp();
+                $text           =& $htmltidy->cleanUp();
                 break;
             case 2:
                 $text                        = preg_replace('/\<style[\w\W]*?\<\/style\>/i', '', $text);

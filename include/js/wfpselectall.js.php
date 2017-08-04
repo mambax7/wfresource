@@ -11,4 +11,4 @@
     return (button.value == 'Check All') ? 'Uncheck All' : 'Check All';
     }
     //-->
-</ script >;
+</ script>;

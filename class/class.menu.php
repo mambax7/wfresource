@@ -45,7 +45,7 @@ class wfp_MenuHandler
      */
     public function __construct()
     {
-        $this->_obj = &$GLOBALS['xoopsModule'];
+        $this->_obj =& $GLOBALS['xoopsModule'];
     }
 
     /**

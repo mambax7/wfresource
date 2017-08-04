@@ -246,7 +246,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             $obj->assignVars($myrow);
             if (!$id_as_key) {
                 if ($as_object) {
-                    $ret[] = &$obj;
+                    $ret[] =& $obj;
                 } else {
                     $row  = array();
                     $vars = $obj->getVars();
@@ -257,7 +257,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
                 }
             } else {
                 if ($as_object) {
-                    $ret[$myrow[$this->keyName]] = &$obj;
+                    $ret[$myrow[$this->keyName]] =& $obj;
                 } else {
                     $row  = array();
                     $vars = $obj->getVars();
@@ -484,7 +484,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
                     $set_clause .= ', ';
                 }
                 $set_clause .= is_numeric($key) ? ' ' . $key . ' = ' . $value : ' ' . $key . ' = ' . $this->db->quoteString($value);
-                $notfirst = true;
+                $notfirst   = true;
             }
         } else {
             $set_clause = is_numeric($fieldvalue) ? $fieldname . ' = ' . $fieldvalue : $fieldname . ' = ' . $this->db->quoteString($fieldvalue);
@@ -653,13 +653,13 @@ class wfp_ObjectHandler extends XoopsObjectHandler
 
         $op       = wfp_Request::doRequest($_REQUEST, 'op', 'default', 'textbox');
         $onchange = 'onchange=\'location="' . basename($_SERVER['SCRIPT_FILENAME']) . '?op=' . $op . '&amp;%s="+this.options[this.selectedIndex].value\'';
-        $ret .= '<form id="calender" method="post">';
-        $ret .= '<div id="wrapper" style="padding-bottom: 8px;">';
-        $ret .= '<div style="float: left;">' . $this->showHtmlCalendar(false, $nav['date']);
+        $ret      .= '<form id="calender" method="post">';
+        $ret      .= '<div id="wrapper" style="padding-bottom: 8px;">';
+        $ret      .= '<div style="float: left;">' . $this->showHtmlCalendar(false, $nav['date']);
         $ret      .= '<input type="text" name="search" id="search" size="20" maxlength="255" value="' . wfp_stripslashes($nav['search']) . '">&nbsp;';
-        $ret .= wfp_getSelection(wfp_ListAndOr(), $nav['andor'], 'andor', 1, 0, false, false, '', 0, false) . '&nbsp;';
+        $ret      .= wfp_getSelection(wfp_ListAndOr(), $nav['andor'], 'andor', 1, 0, false, false, '', 0, false) . '&nbsp;';
         $ret      .= '<input align="left" type="submit" class="formbutton" value="' . _AM_WFP_SEARCH . '" name="selsubmit"></div>';
-        $ret .= '<div style="float: right;">';
+        $ret      .= '<div style="float: right;">';
         if ($display) {
             $ret .= _AM_WFC_DISPLAYPUBLISHED . wfp_getSelection(wfp_ListPages(), $nav['active'], 'active', 1, 0, false, false, sprintf($onchange, 'active'), 0, false) . '&nbsp;';
         }
