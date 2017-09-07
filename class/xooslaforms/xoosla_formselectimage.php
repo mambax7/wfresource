@@ -13,12 +13,12 @@ xoops_load('XoopsFormSelect');
 class XoopsFormSelectImage extends XoopsFormSelect
 {
     public $_name;
-    public $_value = array();
+    public $_value = [];
     public $_id;
     public $_imgcat_id;
 
     public $_category = 'uploads';
-    public $_options  = array();
+    public $_options  = [];
     public $_multiple = false;
     public $_size     = 10;
 
@@ -211,7 +211,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
             $art_image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . DS . $this->getCategory());
         }
 
-        $image_array = array();
+        $image_array = [];
         if ($this->getValue()) {
             $image_array = explode('|', $this->getValue());
             $imageFile   = XOOPS_ROOT_PATH . '/' . $this->getCategory() . '/' . $this->getValue();
@@ -252,7 +252,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
         /**
          */
         $ret    .= " onchange='chooseImage(this, \"" . $this->_id . "\", \"" . XOOPS_URL . '/' . $this->getCategory() . "\", \"\")'>";
-        $result = array_merge(array('' => _AM_WFP_NOSELECTION), $art_image_array);
+        $result = array_merge(['' => _AM_WFP_NOSELECTION], $art_image_array);
         foreach ($result as $value => $name) {
             $imagewidth = $imageheight = 0;
             $image_name = explode('.', $name);

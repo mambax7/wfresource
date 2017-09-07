@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * wfp_Updater
@@ -24,9 +24,9 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 class wfp_Updater
 {
     public $_table;
-    public $_query  = array();
-    public $errors  = array();
-    public $success = array();
+    public $_query  = [];
+    public $errors  = [];
+    public $success = [];
 
     /**
      * wfp_Updater::__constructor()
@@ -127,7 +127,7 @@ class wfp_Updater
      */
     public function RenameTable($oldName, $newName)
     {
-        if (!in_array($oldName, array('wfschannel', 'wfslinktous', 'wfsrefer'))) {
+        if (!in_array($oldName, ['wfschannel', 'wfslinktous', 'wfsrefer'])) {
             return false;
         }
         if ($this->table_exists($newName)) {
@@ -167,7 +167,7 @@ class wfp_Updater
 
             return true;
         }
-        if (in_array($tablename, array('wfcrefers'))) {
+        if (in_array($tablename, ['wfcrefers'])) {
             $sql = 'CREATE TABLE ' . $this->db->prefix($tablename) . ' (';
             $sql .= "$data";
             $sql .= ') ENGINE=MyISAM ';

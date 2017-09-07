@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * wfp_Clean
@@ -63,8 +63,8 @@ class wfp_Clean
             if (preg_match("/^[\.]{1,2}$/", $file)) {
                 $obj->setVar('wfc_file', '');
             }
-            $paths = array($file, XOOPS_ROOT_PATH . '/' . $uploaddir . '/' . $file);
-            array_walk_recursive($paths, array('self', 'getContentsCallback'));
+            $paths = [$file, XOOPS_ROOT_PATH . '/' . $uploaddir . '/' . $file];
+            array_walk_recursive($paths, ['self', 'getContentsCallback']);
         }
 
         return $this->content;
@@ -85,12 +85,12 @@ class wfp_Clean
         /**
          * Do array walk to get path and contents
          */
-        $paths = array($file, XOOPS_ROOT_PATH . '/' . $uploaddir . '/' . $file);
-        array_walk_recursive($paths, array('self', 'getContentsCallback'));
+        $paths = [$file, XOOPS_ROOT_PATH . '/' . $uploaddir . '/' . $file];
+        array_walk_recursive($paths, ['self', 'getContentsCallback']);
         /**
          * Do array walk to get path and contents
          */
-        $matches = array();
+        $matches = [];
         preg_match('/<title>(.*)<\/title>/', $this->content, $matches);
         $content['content'] = $this->content;
         $content['title']   = isset($matches[1]) ? (string)$matches[1] : '';

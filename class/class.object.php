@@ -182,7 +182,7 @@ class wfp_Object extends XoopsObject
      */
     public function toArray()
     {
-        $ret  = array();
+        $ret  = [];
         $vars =& $this->getVars();
         foreach (array_keys($vars) as $i) {
             $ret[$i] = $this->getVar($i);

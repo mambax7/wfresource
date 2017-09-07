@@ -18,7 +18,7 @@
  * @author     Taiwen Jiang <phppp@users.sourceforge.net>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * Usage of XoopsFormCaptcha
@@ -47,7 +47,7 @@ class XoopsFormCaptcha extends XoopsFormElement
      * @param boolean $skipmember Skip CAPTCHA check for members
      * @param array   $configs
      */
-    public function __construct($caption = '', $name = 'xoopscaptcha', $skipmember = true, $configs = array())
+    public function __construct($caption = '', $name = 'xoopscaptcha', $skipmember = true, $configs = [])
     {
         parent::__construct();
         xoops_load('captcha');

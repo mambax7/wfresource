@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 $dirname = basename(dirname(__DIR__));
 
@@ -270,7 +270,7 @@ function wfp_show_buttons(
     $butt_align = 'right',
     $butt_id = 'button',
     $class_id = 'formbutton',
-    $button_array = array()
+    $button_array = []
 ) {
     if (!is_array($button_array)) {
         return false;
@@ -363,7 +363,7 @@ function wfp_getImage($value)
  * @param  mixed $extra
  * @return string
  */
-function wfp_getIcons($_icon_array = array(), $key, $value = null, $extra = null)
+function wfp_getIcons($_icon_array = [], $key, $value = null, $extra = null)
 {
     $ret = '';
     if ($value) {
@@ -395,7 +395,7 @@ function wfp_getIcons($_icon_array = array(), $key, $value = null, $extra = null
  * @return string
  */
 function wfp_getSelection(
-    $this_array = array(),
+    $this_array = [],
     $selected = 0,
     $value = '',
     $size = '',
@@ -604,7 +604,7 @@ if (!function_exists('print_r_html')) {
      */
     function print_r_html($value = '', $debug = false, $extra = false)
     {
-        echo '<div>' . str_replace(array("\n", ' '), array('<br>', '&nbsp;'), print_r($value, true)) . '</div>';
+        echo '<div>' . str_replace(["\n", ' '], ['<br>', '&nbsp;'], print_r($value, true)) . '</div>';
         if ($extra !== false) {
             foreach ($_SERVER as $k => $v) {
                 if ($k !== 'HTTP_REFERER') {
@@ -654,7 +654,7 @@ function wfp_file_exists($path, $file, $require = null)
  */
 function wfp_getFileListAsArray($dirname, $prefix = '')
 {
-    $filelist = array();
+    $filelist = [];
     if (substr($dirname, -1) === '/') {
         $dirname = substr($dirname, 0, -1);
     }
@@ -688,7 +688,7 @@ function wfp_doUpload($value = 'file', $handler, $prefix = null, $uploadfolder =
         $uploadfolder = XOOPS_ROOT_PATH . '/uploads';
     }
 
-    $array                 = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
+    $array                 = ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'];
     $ConfigUser['maxsize'] = 100000;
     $ConfigUser['width']   = 1000;
     $ConfigUser['height']  = 1000;
@@ -704,13 +704,13 @@ function wfp_doUpload($value = 'file', $handler, $prefix = null, $uploadfolder =
         if (!empty($FILE['name'])) {
             if ($uploader->fetchMedia($FILE)) {
                 if ($uploader->upload()) {
-                    $_REQUEST['media'][] = array(
+                    $_REQUEST['media'][] = [
                         $value      => $uploader->getSavedFileName(),
                         'mediaType' => $uploader->getMediaType(),
                         'mediaSize' => $uploader->getMediaSize(),
                         'mediaExt'  => $uploader->getMediaExt(),
                         'mediaName' => $uploader->mediaName
-                    );
+                    ];
 
                     return true;
                 }
@@ -795,7 +795,7 @@ function wfp_removeHeaders($buffer)
  */
 function wfp_ListArray()
 {
-    return array(
+    return [
         1   => '1',
         2   => '2',
         3   => '3',
@@ -806,7 +806,7 @@ function wfp_ListArray()
         50  => '50',
         100 => '100',
         0   => 'All'
-    );
+    ];
 }
 
 /**
@@ -815,7 +815,7 @@ function wfp_ListArray()
  */
 function wfp_displayArray()
 {
-    return array('2' => _XO_AD_SHOWALL_BOX, '1' => _XO_AD_SHOWVISIBLE_BOX, '0' => _XO_AD_SHOWHIDDEN_BOX);
+    return ['2' => _XO_AD_SHOWALL_BOX, '1' => _XO_AD_SHOWVISIBLE_BOX, '0' => _XO_AD_SHOWHIDDEN_BOX];
 }
 
 /**
@@ -824,13 +824,13 @@ function wfp_displayArray()
  */
 function wfp_ListPages()
 {
-    return array(
+    return [
         '0' => _AM_WFC_SELALL,
         '1' => _AM_WFC_SELPUBLISHED,
         '2' => _AM_WFC_SELUNPUBLISHED,
         '3' => _AM_WFC_SELEXPIRED,
         '4' => _AM_WFC_SELOFFLINE
-    );
+    ];
 }
 
 /**
@@ -839,7 +839,7 @@ function wfp_ListPages()
  */
 function wfp_ListAndOr()
 {
-    return array('AND' => _SR_ALL, 'OR' => _SR_ANY, 'exact' => _SR_EXACT);
+    return ['AND' => _SR_ALL, 'OR' => _SR_ANY, 'exact' => _SR_EXACT];
 }
 
 /**
@@ -849,13 +849,13 @@ function wfp_ListAndOr()
 function wfp_isEditorHTML()
 {
     if (isset($GLOBALS['xoopsModuleConfig']['use_wysiwyg'])
-        && in_array($GLOBALS['xoopsModuleConfig']['use_wysiwyg'], array(
+        && in_array($GLOBALS['xoopsModuleConfig']['use_wysiwyg'], [
             'tinymce',
             'ckeditor',
             'koivi',
             'inbetween',
             'spaw'
-        ))) {
+        ])) {
         return true;
     }
 
@@ -891,7 +891,7 @@ function wfp_tag_module_included()
  */
 function wfp_getModuleOption($option, $dirname = 'wfchannel')
 {
-    static $tbloptions = array();
+    static $tbloptions = [];
     if (is_array($tbloptions) && array_key_exists($option, $tbloptions)) {
         return $tbloptions[$option];
     }

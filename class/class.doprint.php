@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * wfp_Doprint
@@ -23,7 +23,7 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  */
 class wfp_Doprint
 {
-    public $options     = array();
+    public $options     = [];
     public $compression = false;
     public $font        = 'helvetica';
     public $fontsize    = '12';
@@ -41,7 +41,7 @@ class wfp_Doprint
      * @param  array $opt
      * @return bool
      */
-    public function setOptions($opt = array())
+    public function setOptions($opt = [])
     {
         if (!is_array($opt) || 0 === count($opt)) {
             return false;

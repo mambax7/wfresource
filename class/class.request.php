@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * wfp_Filter
@@ -169,7 +169,7 @@ class wfp_Request
      * @param  string          $module
      * @return bool|mixed|null
      */
-    public static function doRequest($method, $key, $default = null, $type = null, $options = array(), $module = '')
+    public static function doRequest($method, $key, $default = null, $type = null, $options = [], $module = '')
     {
         if (ctype_alpha($type)) {
             $filter = wfp_Filter::getFilter('Sanitize_' . ucfirst($type), $module);

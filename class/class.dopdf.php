@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * wfp_dopdf
@@ -23,7 +23,7 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  */
 class wfp_Dopdf
 {
-    public $options     = array();
+    public $options     = [];
     public $compression = false;
     public $font        = 'Helvetica.afm';
     public $cachekey    = null;
@@ -41,7 +41,7 @@ class wfp_Dopdf
      * @param  array $opt
      * @return bool
      */
-    public function setOptions($opt = array())
+    public function setOptions($opt = [])
     {
         if (!is_array($opt) || 0 === count($opt)) {
             return false;
@@ -250,7 +250,7 @@ class wfp_Dopdf
             $text                             = $htmltidy->cleanUp();
         }
 
-        $text = str_replace(array('<p>', '</p>'), "\n", $text);
+        $text = str_replace(['<p>', '</p>'], "\n", $text);
         $text = str_replace('<P>', "\n", $text);
         $text = str_replace('<br>', "\n", $text);
         $text = str_replace('<br>', "\n", $text);

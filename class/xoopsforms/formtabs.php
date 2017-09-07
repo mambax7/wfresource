@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 define('newLine', "\n");
 
@@ -37,7 +37,7 @@ class XoopsFormTab
     {
         $this->_useCookies = ($useCookies == 1) ? 1 : 0;
         if (isset($GLOBALS['xoTheme'])) {
-            $GLOBALS['xoTheme']->addStylesheet('/include/js/tabs/tabpane.css', array('id="luna-tab-style-sheet"'));
+            $GLOBALS['xoTheme']->addStylesheet('/include/js/tabs/tabpane.css', ['id="luna-tab-style-sheet"']);
             $GLOBALS['xoTheme']->addScript('/include/js/tabs/tabpane.js');
         } else {
             echo '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/modules/wfresource/include/js/tabs/tabpane.css">';

@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * See File: class/calendar/calendar.php | (c) dynarch.com 2004
@@ -32,8 +32,8 @@ class XoopsFormCalendar extends XoopsFormElement
     public $calendar_setup_file;
     public $calendar_theme_file;
     public $calendar_theme_url;
-    public $calendar_options          = array();
-    public $calendar_field_attributes = array();
+    public $calendar_options          = [];
+    public $calendar_field_attributes = [];
 
     /**
      * Constuctor
@@ -48,8 +48,8 @@ class XoopsFormCalendar extends XoopsFormElement
         $caption,
         $name,
         $initial_value = 0,
-        $calendar_options = array(),
-        $calendar_field_attributes = array()
+        $calendar_options = [],
+        $calendar_field_attributes = []
     ) {
         parent::__construct();
         $stripped = false;
@@ -133,7 +133,7 @@ class XoopsFormCalendar extends XoopsFormElement
      * @param  array $other_options
      * @return string
      */
-    public function _make_calendar($other_options = array())
+    public function _make_calendar($other_options = [])
     {
         $js_options = $this->_make_js_hash(array_merge($this->calendar_options, $other_options));
         $code       = ('<script type="text/javascript">Calendar.setup({' . $js_options . '});</script>');
@@ -152,14 +152,14 @@ class XoopsFormCalendar extends XoopsFormElement
         if ($id == 1) {
             $ret .= $this->load_head_files();
         }
-        $attrstr = $this->_make_html_attr(array_merge($this->calendar_field_attributes, array(
+        $attrstr = $this->_make_html_attr(array_merge($this->calendar_field_attributes, [
             'id'   => $this->_get_id($id),
             'type' => 'text',
             'name' => $this->getName()
-        )));
+        ]));
         $ret     .= '<input ' . $attrstr . '>';
         $ret     .= '<a href="#" id="' . $this->_trigger_id($id) . '">' . '&nbsp;<img src="' . XOOPS_URL . '/' . $this->calendar_lib_path . 'img.png" style="vertical-align: middle; border: 0px;" alt=""></a>';
-        $options = array('inputField' => $this->_get_id($id), 'button' => $this->_trigger_id($id));
+        $options = ['inputField' => $this->_get_id($id), 'button' => $this->_trigger_id($id)];
         $ret     .= $this->_make_calendar($options);
 
         return $ret;

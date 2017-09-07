@@ -73,7 +73,7 @@ class wfp_Permissions extends XoopsGroupPermForm
      * @param  array $arr
      * @return string|void
      */
-    public function render($arr = array())
+    public function render($arr = [])
     {
         $ret           = '';
         $perm_descript = null;
@@ -184,7 +184,7 @@ class wfp_Permissions extends XoopsGroupPermForm
         $gpermHandler = wfp_getHandler('groupperm');
         $groups       = $gpermHandler->getGroupIds($this->_perm_name, $item_id, $this->_mod_id);
         if (!count($groups) && $isNew === true) {
-            $groups = array(0 => 1, 1 => 2);
+            $groups = [0 => 1, 1 => 2];
         }
 
         return $groups;

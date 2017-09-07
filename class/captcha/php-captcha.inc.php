@@ -191,7 +191,7 @@ class PhpCaptcha
                 // split items on commas
                 $aCharSet = explode(',', $vCharSet);
                 // initialise array
-                $this->aCharSet = array();
+                $this->aCharSet = [];
                 // loop through items
                 foreach ($aCharSet as $sCurrentItem) {
                     // a range should have 3 characters, otherwise is normal character
@@ -260,7 +260,7 @@ class PhpCaptcha
     {
         // check for valid file type
         $this->sFileType = 'jpeg';
-        if (in_array($sFileType, array('gif', 'png', 'jpeg'))) {
+        if (in_array($sFileType, ['gif', 'png', 'jpeg'])) {
             $this->sFileType = $sFileType;
         }
     }
@@ -348,13 +348,13 @@ class PhpCaptcha
             // select random angle
             $iAngle = mt_rand(-30, 30);
             // get dimensions of character in selected font and text size
-            $aCharDetails = imageftbbox($iFontSize, $iAngle, $sCurrentFont, $this->sCode[$i], array());
+            $aCharDetails = imageftbbox($iFontSize, $iAngle, $sCurrentFont, $this->sCode[$i], []);
             // calculate character starting coordinates
             $iX          = $this->iSpacing / 4 + $i * $this->iSpacing;
             $iCharHeight = $aCharDetails[2] - $aCharDetails[5];
             $iY          = $this->iHeight / 2 + $iCharHeight / 4;
             // write text to image
-            imagefttext($this->oImage, $iFontSize, $iAngle, $iX, $iY, $iTextColour, $sCurrentFont, $this->sCode[$i], array());
+            imagefttext($this->oImage, $iFontSize, $iAngle, $iX, $iY, $iTextColour, $sCurrentFont, $this->sCode[$i], []);
 
             if ($this->bCharShadow) {
                 $iOffsetAngle = mt_rand(-30, 30);
@@ -362,7 +362,7 @@ class PhpCaptcha
                 $iRandOffsetX = mt_rand(-5, 5);
                 $iRandOffsetY = mt_rand(-5, 5);
 
-                imagefttext($this->oImage, $iFontSize, $iOffsetAngle, $iX + $iRandOffsetX, $iY + $iRandOffsetY, $iShadowColour, $sCurrentFont, $this->sCode[$i], array());
+                imagefttext($this->oImage, $iFontSize, $iOffsetAngle, $iX + $iRandOffsetX, $iY + $iRandOffsetY, $iShadowColour, $sCurrentFont, $this->sCode[$i], []);
             }
         }
     }
@@ -525,13 +525,13 @@ class AudioPhpCaptcha
             $sFormattedText .= $sText[$i];
         }
 
-        $aPhrases = array(
+        $aPhrases = [
             "The %1\$s characters are as follows: %2\$s",
             "%2\$s, are the %1\$s letters",
             "Here are the %1\$s characters: %2\$s",
             "%1\$s characters are: %2\$s",
             "%1\$s letters: %2\$s"
-        );
+        ];
 
         $iPhrase = array_rand($aPhrases);
 

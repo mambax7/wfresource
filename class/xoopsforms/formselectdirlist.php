@@ -56,7 +56,7 @@ class XoopsFormSelectDirList extends XoopsFormSelect
         $multiple = false,
         $dirname = null,
         $prefix = '',
-        $type = array()
+        $type = []
     ) {
         parent::__construct($caption, $name, $value, $size, $multiple);
         $filelist = $this->getFileListAsArray($dirname, $prefix, $type);
@@ -70,14 +70,14 @@ class XoopsFormSelectDirList extends XoopsFormSelect
      * @param  array  $type
      * @return array
      */
-    public function getFileListAsArray($dirname, $prefix = '', $type = array())
+    public function getFileListAsArray($dirname, $prefix = '', $type = [])
     {
         $string = '';
         foreach ($type as $types) {
             $string = "\.$types|";
         }
 
-        $filelist = array();
+        $filelist = [];
         if (false !== ($handle = opendir($dirname))) {
             while (false !== ($file = readdir($handle))) {
                 if (!preg_match("/^[\.]{1,2}$/", $file) && preg_match("/($string)$/i", $file)) {

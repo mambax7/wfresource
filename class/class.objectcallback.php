@@ -18,8 +18,8 @@ class wfp_Callback extends wfp_ObjectHandler
     public $_obj;
     public $_id;
     public $_notifyType;
-    public $value  = array();
-    public $groups = array();
+    public $value  = [];
+    public $groups = [];
 
     /**
      * wfp_Callback::wfp_Callback()
@@ -148,11 +148,11 @@ class wfp_Callback extends wfp_ObjectHandler
         $_function = ($this->getId() > 0) ? 'get' : 'create';
         if ($this->getId() > 0) {
             //            $_obj = &call_user_func(array(&$this->_callback, $_function), $this->getId());
-            $callArray = array(&$this->_callback, $_function);
+            $callArray = [&$this->_callback, $_function];
             $_obj      = call_user_func($callArray, $this->getId());
         } else {
             //            $_obj = &call_user_func(array(&$this->_callback, $_function));
-            $callArray = array(&$this->_callback, $_function);
+            $callArray = [&$this->_callback, $_function];
             $_obj      = call_user_func($callArray);
         }
         xoops_cp_header();
@@ -180,12 +180,12 @@ class wfp_Callback extends wfp_ObjectHandler
             }
         }
 
-        $_obj = call_user_func(array($this->_callback, ($this->getId() > 0) ? 'get' : 'create'), ($this->getId() > 0) ? $this->getId() : true);
+        $_obj = call_user_func([$this->_callback, ($this->getId() > 0) ? 'get' : 'create'], ($this->getId() > 0) ? $this->getId() : true);
         $_obj->setVars($this->value);
 
         if ($this->_callback->insert($_obj, false)) {
             $this->groups = (0 !== count($this->groups)
-                             && is_array($this->groups)) ? (array)$this->groups : array('0' => '1');
+                             && is_array($this->groups)) ? (array)$this->groups : ['0' => '1'];
             if (is_array($this->groups)) {
                 foreach ($this->groups as $groups) {
                     wfp_savePerms($this->_callback, $groups, $_obj->getVar($this->_callback->keyName));
@@ -222,12 +222,12 @@ class wfp_Callback extends wfp_ObjectHandler
                 default:
                     xoops_cp_header();
                     $GLOBALS['menuHandler']->render($this->_menuid);
-                    wfp_confirm(array(
+                    wfp_confirm([
                                     'op'                      => 'delete',
                                     $this->_callback->keyName => $this->_id,
                                     'ok'                      => 1,
                                     'url'                     => $this->url
-                                ), $this->url, sprintf(_AM_WFP_DYRWTDICONFIRM, $_obj->getVar($this->_callback->identifierName)));
+                                ], $this->url, sprintf(_AM_WFP_DYRWTDICONFIRM, $_obj->getVar($this->_callback->identifierName)));
 
                     return true;
                     break;
@@ -286,7 +286,7 @@ class wfp_Callback extends wfp_ObjectHandler
             redirect_header(xoops_getenv('PHP_SELF'), 1, _AM_WFP_DBERROR);
         }
 
-        $array_keys = array();
+        $array_keys = [];
         if (func_num_args() > 0) {
             $array_keys = &func_get_arg(0);
         }
@@ -299,7 +299,7 @@ class wfp_Callback extends wfp_ObjectHandler
                      * This is a check to prevent core or selected items from deletion
                      * for an example of how this is done look at the system block positions module
                      */
-                    $array_keys = (!is_array($array_keys)) ? array() : $array_keys;
+                    $array_keys = (!is_array($array_keys)) ? [] : $array_keys;
                     $do_delete  = true;
                     if (is_array($array_keys) && count($array_keys) > 0) {
                         foreach ($array_keys as $k => $v) {
@@ -333,7 +333,7 @@ class wfp_Callback extends wfp_ObjectHandler
             redirect_header(xoops_getenv('PHP_SELF'), 1, _AM_WFP_DBERROR);
         }
 
-        $array_keys = array();
+        $array_keys = [];
         if (func_num_args() > 0) {
             $array_keys = &func_get_arg(0);
         }

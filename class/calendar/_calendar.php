@@ -51,7 +51,7 @@ class DHTML_Calendar
         $this->calendar_theme_file = $theme . '.css';
         $this->calendar_lib_path   = preg_replace('/\/+$/', '/', $calendar_lib_path);
         $this->calendar_theme_url  = 'themes/' . $xoopsConfig['theme_set'] . '/css/';
-        $this->calendar_options    = array('ifFormat' => '%Y/%m/%d', 'daFormat' => '%Y/%m/%d');
+        $this->calendar_options    = ['ifFormat' => '%Y/%m/%d', 'daFormat' => '%Y/%m/%d'];
     }
 
     /**
@@ -102,7 +102,7 @@ class DHTML_Calendar
      * @param  array $other_options
      * @return string
      */
-    public function _make_calendar($other_options = array())
+    public function _make_calendar($other_options = [])
     {
         $js_options = $this->_make_js_hash(array_merge($this->calendar_options, $other_options));
         $code       = '<script type="text/javascript">Calendar.setup({' . $js_options . '});</script>';
@@ -118,13 +118,13 @@ class DHTML_Calendar
      * @param  mixed $show
      * @return string
      */
-    public function make_input_field($cal_options = array(), $field_attributes = array(), $show = true)
+    public function make_input_field($cal_options = [], $field_attributes = [], $show = true)
     {
         $id      = $this->_gen_id();
-        $attrstr = $this->_make_html_attr(array_merge($field_attributes, array('id' => $this->_field_id($id), 'type' => 'text')));
+        $attrstr = $this->_make_html_attr(array_merge($field_attributes, ['id' => $this->_field_id($id), 'type' => 'text']));
         $data    = '<input ' . $attrstr . '>';
         $data    .= '<a href="#" id="' . $this->_trigger_id($id) . '">' . '<img align="middle" alt="button" title="title" border="0" src="' . XOOPS_URL . '/' . $this->calendar_lib_path . 'img.png" alt=""></a>';
-        $options = array_merge($cal_options, array('inputField' => $this->_field_id($id), 'button' => $this->_trigger_id($id)));
+        $options = array_merge($cal_options, ['inputField' => $this->_field_id($id), 'button' => $this->_trigger_id($id)]);
         $data    .= $this->_make_calendar($options);
         if ($show) {
             echo $data;

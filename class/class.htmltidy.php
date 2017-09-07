@@ -37,7 +37,7 @@ class wfp_Htmltidy
     // don't forget to remove <body strip below
 
     public $attrib_blacklist = 'id|on[\w]+';
-    public $cleanUpTags      = array(
+    public $cleanUpTags      = [
         'a',
         'span',
         'b',
@@ -60,7 +60,7 @@ class wfp_Htmltidy
         'samp',
         'sub',
         'sup'
-    ); //array of inline tags that can be merged
+    ]; //array of inline tags that can be merged
     public $tidyConfig;
     public $encoding         = 'utf8';
     public $version          = '1.2';
@@ -70,7 +70,7 @@ class wfp_Htmltidy
      */
     public function __construct()
     {
-        $this->options = array(
+        $this->options = [
             'RemoveStyles'        => true,
             // removes style definitions like style and class
             'IsWord'              => true,
@@ -79,7 +79,7 @@ class wfp_Htmltidy
             // uses the tidy engine also to cleanup the source (reccomended)
             'TidyBefore'          => true,
             // apply Tidy first (not reccomended as tidy messes up sometimes legitimate spaces
-            'CleaningMethod'      => array(TAG_WHITELIST, ATTRIB_BLACKLIST),
+            'CleaningMethod'      => [TAG_WHITELIST, ATTRIB_BLACKLIST],
             // cleaning methods
             'OutputXHTML'         => true,
             // converts to XHTML by using TIDY.
@@ -90,10 +90,10 @@ class wfp_Htmltidy
             'Optimize'            => true,
             // Optimize code - merge tags
             'Compress'            => true
-        ); //trims all spaces (line breaks, tabs) between tags and between words.
+        ]; //trims all spaces (line breaks, tabs) between tags and between words.
 
         // Specify TIDY configuration
-        $this->tidyConfig = array(
+        $this->tidyConfig = [
             'indent'                      => true,
             // a bit slow
             'fix-bad-comments'            => false,
@@ -117,7 +117,7 @@ class wfp_Htmltidy
             //output unadorned & characters as &amp;.
             'show-body-only'              => true,
             'wrap'                        => 200
-        ); //Sets the number of characters allowed before a line is soft-wrapped
+        ]; //Sets the number of characters allowed before a line is soft-wrapped
     }
 
     /**

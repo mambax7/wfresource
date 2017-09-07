@@ -11,7 +11,7 @@
 // URL: http:www.Xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 wfp_getObjectHandler();
 
@@ -101,7 +101,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
      * @param  mixed $value
      * @return bool
      */
-    public function &getObj($nav = array(), $value = false)
+    public function &getObj($nav = [], $value = false)
     {
         $obj = false;
         if (func_num_args() == 2) {
@@ -143,7 +143,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
      */
     public function getaDate($exp_value = '', $exp_time = '', $useMonth = 0)
     {
-        $_date_arr = array();
+        $_date_arr = [];
         $_date     = $exp_value ?: time();
         $d         = date('j', $_date);
         $m         = date('m', $_date);
@@ -265,14 +265,14 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
         $calendar = new DHTML_Calendar(XOOPS_URL . '/modules/wfresource/class/calendar/', 'en', 'calendar-system', false);
         $calendar->load_files();
 
-        return $calendar->make_input_field(array(
+        return $calendar->make_input_field([
                                                'firstDay'   => 1,
                                                'showsTime'  => true,
                                                'showOthers' => true,
                                                'ifFormat'   => '%Y-%m-%d %I:%M',
                                                'timeFormat' => '12'
-                                           ), // field attributes go here
-                                           array('style' => '', 'name' => 'date1', 'value' => $value), $display);
+                                           ], // field attributes go here
+                                           ['style' => '', 'name' => 'date1', 'value' => $value], $display);
     }
 
     /**

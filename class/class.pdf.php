@@ -22,7 +22,7 @@ defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this fi
  */
 class wfp_dopdf
 {
-    public $options     = array();
+    public $options     = [];
     public $compression = false;
     public $font        = 'Helvetica.afm';
 

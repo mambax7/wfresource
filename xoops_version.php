@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 $moduleDirName = basename(__DIR__);
 $modversion['version']       = 1.07;
 $modversion['module_status'] = 'Final';
@@ -33,9 +33,9 @@ $modversion['templates'][1]['file']        = 'wfp_addto.tpl';
 $modversion['templates'][1]['description'] = 'Displays an AddTo bar';
 
 // ------------------- Help files ------------------- //
-$modversion['helpsection'] = array(
+$modversion['helpsection'] = [
     ['name' => _MI_WF_RESOURCE_OVERVIEW, 'link' => 'page=help'],
     ['name' => _MI_WF_RESOURCE_DISCLAIMER, 'link' => 'page=disclaimer'],
     ['name' => _MI_WF_RESOURCE_LICENSE, 'link' => 'page=license'],
     ['name' => _MI_WF_RESOURCE_SUPPORT, 'link' => 'page=support'],
-);
+];

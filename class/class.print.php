@@ -18,7 +18,7 @@ defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this fi
  */
 class wfp_doPrint
 {
-    public $options     = array();
+    public $options     = [];
     public $compression = false;
     public $font        = 'helvetica';
     public $fontsize    = '12';
@@ -28,7 +28,7 @@ class wfp_doPrint
      *
      * @param array $opt
      */
-    public function __construct($opt = array())
+    public function __construct($opt = [])
     {
         if (!is_array($opt) || 0 === count($opt)) {
             return false;

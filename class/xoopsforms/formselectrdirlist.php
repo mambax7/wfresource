@@ -66,8 +66,8 @@ class XoopsFormSelectRDirList extends XoopsFormSelect
      */
     public function getRecDirlistAsArray($dirname)
     {
-        static $filelist = array();
-        static $dirlist = array();
+        static $filelist = [];
+        static $dirlist = [];
 
         if (is_dir($dirname)) {
             $dh = opendir($dirname);

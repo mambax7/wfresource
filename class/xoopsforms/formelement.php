@@ -17,7 +17,7 @@
  * @author       XOOPS Development Team, Kazumi Ono (AKA onokazu)
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  *
@@ -49,7 +49,7 @@ class XoopsFormElement
      *
      * @var array ()
      */
-    public $customValidationCode = array();
+    public $customValidationCode = [];
 
     /**
      * *#@+
@@ -82,7 +82,7 @@ class XoopsFormElement
      *
      * @var array
      */
-    public $_class = array();
+    public $_class = [];
 
     /**
      * hidden?
@@ -96,7 +96,7 @@ class XoopsFormElement
      *
      * @var array
      */
-    public $_extra = array();
+    public $_extra = [];
 
     /**
      * required field?
@@ -227,7 +227,7 @@ class XoopsFormElement
         if (0 == count($this->_class)) {
             return '';
         }
-        $class = array();
+        $class = [];
         foreach ($this->_class as $class) {
             $class[] = htmlspecialchars($class, ENT_QUOTES);
         }
@@ -318,7 +318,7 @@ class XoopsFormElement
     public function setExtra($extra, $replace = false)
     {
         if ($replace) {
-            $this->_extra = array(trim($extra));
+            $this->_extra = [trim($extra)];
         } else {
             $this->_extra[] = trim($extra);
         }
@@ -337,7 +337,7 @@ class XoopsFormElement
         if (!$encode) {
             return implode(' ', $this->_extra);
         }
-        $value = array();
+        $value = [];
         foreach ($this->_extra as $val) {
             $value[] = str_replace('>', '&gt;', str_replace('<', '&lt;', $val));
         }

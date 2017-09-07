@@ -19,4 +19,4 @@ kept up to date for all the other WF-Project modules to work correctly.
 
 Please visit us on  [https://xoops.org](https://xoops.org)
 
-The upcoming "next generation" version of XOOPS CMS is being crafted on GitHub at: https://github.com/XOOPS
+Current and upcoming "next generation" versions of XOOPS CMS are being crafted on GitHub at: https://github.com/XOOPS

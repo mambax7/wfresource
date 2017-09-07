@@ -27,9 +27,9 @@ class wfp_MenuHandler
      *
      * @var string
      */
-    public $_menutop   = array();
-    public $_menutabs  = array();
-    public $_menuicons = array();
+    public $_menutop   = [];
+    public $_menutabs  = [];
+    public $_menuicons = [];
     public $_obj;
     public $_header;
     public $_subheader;
@@ -232,7 +232,7 @@ class wfp_MenuHandler
         /**
          * Menu Items
          */
-        $menuItems = array();
+        $menuItems = [];
         foreach ($this->_menutabs as $k => $menus) {
             $menuItems[] = $menus;
         }
@@ -248,14 +248,14 @@ class wfp_MenuHandler
 
         require_once XOOPS_ROOT_PATH . '/class/template.php';
         $tpl = new XoopsTpl();
-        $tpl->assign(array(
+        $tpl->assign([
                          'menu_links'     => $menuTopLinks,
                          'menu_tabs'      => $menuBottomTabs,
                          'menu_subheader' => $this->_subheader,
                          'menu_header'    => $this->_header,
                          'menu_icons'     => $this->getNavMenuIcons(),
                          'menu_module'    => $GLOBALS['xoopsModule']->getVar('name')
-                     ));
+                     ]);
 
         //mb        $tpl->display(XOOPS_ROOT_PATH . '/modules/wfresource/templates/wfp_adminmenu.tpl');
 

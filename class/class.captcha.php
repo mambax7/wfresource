@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require XOOPS_ROOT_PATH . '/modules/wfresource/class/captcha/php-captcha.inc.php';
 
@@ -34,7 +34,7 @@ class wfp_captcha extends PhpCaptcha
      */
     public function __construct()
     {
-        $this->_font = array(XOOPS_ROOT_PATH . '/modules/wfresource/class/media/VeraMoBd.ttf');
+        $this->_font = [XOOPS_ROOT_PATH . '/modules/wfresource/class/media/VeraMoBd.ttf'];
     }
 
     /**

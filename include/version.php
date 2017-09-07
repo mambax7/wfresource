@@ -1,3 +1,3 @@
 <?php
 
-$wf_resource = array('version' => '1.06');
+$wf_resource = ['version' => '1.06'];

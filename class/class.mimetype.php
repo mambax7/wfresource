@@ -187,8 +187,8 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
     public function &getMtypeArray($gperm_name = '', $modid = 1)
     {
         $ret        = $this->getList(null, '', null, false);
-        $this_array = array();
-        $new_array  = array();
+        $this_array = [];
+        $new_array  = [];
         foreach ($ret as $k => $v) {
             $new_array  = explode(' ', $v);
             $this_array = array_merge($this_array, $new_array);
@@ -205,7 +205,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
      */
     public function &ret_mime($filename)
     {
-        $ret    = array();
+        $ret    = [];
         $ext    = pathinfo($filename, PATHINFO_EXTENSION);
         $sql    = 'SELECT mime_name, mime_ext, mime_images, mime_category FROM ' . $this->db->prefix('wfp_mimetypes') . " WHERE mime_ext='" . strtolower($ext) . "' AND mime_display=1";
         $result = $this->db->query($sql);
@@ -223,17 +223,17 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
      */
     public function &mimetypeArray()
     {
-        $ret    = array();
+        $ret    = [];
         $sql    = 'SELECT mime_name, mime_ext, mime_images, mime_category FROM ' . $this->db->prefix('wfp_mimetypes');
         $result = $this->db->query($sql);
         while (false !== ($myrow = $this->db->fetchArray($result))) {
             $_image                  = (isset($myrow['mime_images'])
                                         && !empty($myrow['mime_images'])) ? $myrow['mime_images'] : 'default.png';
-            $ret[$myrow['mime_ext']] = array(
+            $ret[$myrow['mime_ext']] = [
                 'mime_name'     => $myrow['mime_name'],
                 'mime_images'   => $_image,
                 'mime_category' => $this->mimeCategory($myrow['mime_category'])
-            );
+            ];
         } // while
 
         return $ret;
@@ -245,7 +245,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
      */
     public function &mimeCategory($do_select = null)
     {
-        $ret = array(
+        $ret = [
             'all'      => _AM_MIME_ALLCAT,
             'unknown'  => _AM_MIME_CUNKNOWN,
             'archive'  => _AM_MIME_CARCHIVES,
@@ -259,7 +259,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
             'graphic'  => _AM_MIME_CGRAPHICS,
             'midi'     => _AM_MIME_CMIDI,
             'binary'   => _AM_MIME_CBINARY
-        );
+        ];
         if ($do_select) {
             return $ret[$do_select];
         }
@@ -274,7 +274,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
     public function mimetypeImage($image)
     {
         $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
-        $ret     = array();
+        $ret     = [];
         $ext     = pathinfo($image, PATHINFO_EXTENSION);
         $sql     = 'SELECT mime_images FROM ' . $xoopsDB->prefix('wfp_mimetypes') . " WHERE mime_ext LIKE '" . strtolower($ext) . "'";
         $result  = $xoopsDB->query($sql);
@@ -336,7 +336,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
          * bad bad bad!! Need to change this
          */
         global $list_array, $nav;
-        $safe_array = array('3' => _AM_SHOWSAFEALL_BOX, '0' => _AM_SHOWSAFENOT_BOX, '1' => _AM_SHOWSAFEIS_BOX);
+        $safe_array = ['3' => _AM_SHOWSAFEALL_BOX, '0' => _AM_SHOWSAFENOT_BOX, '1' => _AM_SHOWSAFEIS_BOX];
 
         $ret      = '<div style="padding-bottom: 8px;">';
         $ret      .= '<form><div style="text-align: left; margin-bottom: 12px;">

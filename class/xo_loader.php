@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 define('DS', DIRECTORY_SEPARATOR);
 define('XO_ROOT_PATH', dirname(dirname(dirname(__DIR__))));
@@ -26,13 +26,13 @@ define('XO_ROOT_PATH', dirname(dirname(dirname(__DIR__))));
  */
 class xo_Loader
 {
-    private static $instance  = array();
-    private static $config    = array();
-    private static $paths     = array();
-    private static $urls      = array();
-    protected static $handlers  = array();
-    protected static $languages = array();
-    protected static $services  = array();
+    private static $instance  = [];
+    private static $config    = [];
+    private static $paths     = [];
+    private static $urls      = [];
+    protected static $handlers  = [];
+    protected static $languages = [];
+    protected static $services  = [];
 
     /**
      * xo_Loader::__construct()
@@ -162,9 +162,9 @@ class xo_Loader
             }
             if (null !== $options) {
                 foreach ($options as $key => $val) {
-                    if (is_callable(array(&$instance, $method = 'set' . ucfirst($key)))) {
+                    if (is_callable([&$instance, $method = 'set' . ucfirst($key)])) {
                         $instance->$method($val);
-                    } elseif (is_callable(array(&$instance, $method = $key))) {
+                    } elseif (is_callable([&$instance, $method = $key])) {
                         $instance->$method($val);
                     } else {
                         $instance->$key = $val;

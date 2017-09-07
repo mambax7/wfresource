@@ -1,6 +1,6 @@
 <?php
 // $Id: xoopsformloader_org.php 8181 2011-11-07 01:14:53Z beckmi $
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 // require_once XOOPS_ROOT_PATH . "/class/xoopsform/formelement.php";
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/form.php';

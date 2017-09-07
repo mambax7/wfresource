@@ -152,7 +152,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
 
         $sql    = 'SELECT COUNT(*) ' . "\n WHERE vote_aid=" . $this->vote_aid . "\n AND ( vote_uid=" . $this->vote_uid . " OR ( vote_uid=0 AND vote_ipaddress='" . $this->vote_ipaddress . "')" . "\n AND vote_date >" . (int)$yesterday;
         $result = $_this->db->query($sql);
-        $ret    = array();
+        $ret    = [];
         if ($result) {
             $ret = $_this->db->fetchObject($result);
         }

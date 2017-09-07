@@ -54,13 +54,13 @@ class wfp_Uploader
     public $mediaTmpName;
     public $mediaError;
     public $uploadDir        = '';
-    public $allowedMimeTypes = array();
+    public $allowedMimeTypes = [];
     public $maxFileSize      = 0;
     public $maxWidth;
     public $maxHeight;
     public $targetFileName;
     public $prefix;
-    public $errors           = array();
+    public $errors           = [];
     public $savedDestination;
     public $savedFileName;
 
@@ -106,7 +106,7 @@ class wfp_Uploader
             $this->mediaTmpName = $media_name['tmp_name'];
             $this->mediaError   = !empty($media_name['error']) ? $media_name['error'] : 0;
         }
-        $this->errors = array();
+        $this->errors = [];
         if ((int)$this->mediaSize < 0) {
             $this->setErrors('Invalid File Size');
 
@@ -277,7 +277,7 @@ class wfp_Uploader
      */
     public function _copyFile($chmod)
     {
-        $matched = array();
+        $matched = [];
         if (!preg_match("/\.([a-zA-Z0-9]+)$/", $this->mediaName, $matched)) {
             return false;
         }

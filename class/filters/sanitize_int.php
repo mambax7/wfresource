@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * xo_Filters_Validate_Int
@@ -31,7 +31,7 @@ class xo_Filters_Sanitize_Int extends wfp_Request
      * @param  array      $options
      * @return bool|mixed
      */
-    public function doRender($method, $key, $options = array())
+    public function doRender($method, $key, $options = [])
     {
         $this->checkOption($options);
         if (!empty($method) && is_int($method)) {
@@ -55,7 +55,7 @@ class xo_Filters_Sanitize_Int extends wfp_Request
     public function checkOption($options)
     {
         if (is_array($options) && (count($options) === 2)) {
-            $options = array('options' => $options);
+            $options = ['options' => $options];
             if (!array_key_exists('min_range', $options) && !array_key_exists('max_range', $options)) {
                 // trigger_error( "Value must be 1 or below" );
             }

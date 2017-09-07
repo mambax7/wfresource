@@ -45,7 +45,7 @@ class XoopsFormSelectType extends XoopsFormSelect
      */
     public function __construct($caption, $name, $value = 'news', $size = 1)
     {
-        $_menus = array(
+        $_menus = [
             'news'    => 'News',
             'review'  => 'Review',
             'article' => 'Article',
@@ -55,7 +55,7 @@ class XoopsFormSelectType extends XoopsFormSelect
             'faq'     => 'FAQ',
             'link'    => 'Links',
             'other'   => 'Other'
-        );
+        ];
         // $_menus = array( 'news' => 'News', 'article' => 'Article', 'blog' => 'Blog', 'faq' => 'FAQ', 'other' => 'Other');
         $multiple = 0;
         parent::__construct($caption, $name, $value, $size, $multiple);

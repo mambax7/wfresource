@@ -72,10 +72,10 @@ $form->endTab();
  */
 $form->startTab('Publication', 'xo_category-Publication');
 
-$group_array = &call_user_func(array($categoryHandler, 'getRead_permissions'), $this, 'category_read');
+$group_array = &call_user_func([$categoryHandler, 'getRead_permissions'], $this, 'category_read');
 $form->addElement(new XoopsFormSelectGroup(_AM_ECATEGORY_RGRP, 'category_read', true, $group_array, 5, true), false);
 
-$group_array = &call_user_func(array($categoryHandler, 'getRead_permissions'), $this, 'category_write');
+$group_array = &call_user_func([$categoryHandler, 'getRead_permissions'], $this, 'category_write');
 $form->addElement(new XoopsFormSelectGroup(_AM_ECATEGORY_WGRP, 'category_write', true, $group_array, 5, true), false);
 
 /*Set display name*/

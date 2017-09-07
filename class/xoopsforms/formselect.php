@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 if (!class_exists('XoopsFormElement')) {
     require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formelement.php';
@@ -33,7 +33,7 @@ class XoopsFormSelect extends XoopsFormElement
      * @var array
      * @access private
      */
-    public $_options = array();
+    public $_options = [];
 
     /**
      * Allow multiple selections?
@@ -57,7 +57,7 @@ class XoopsFormSelect extends XoopsFormElement
      * @var array
      * @access private
      */
-    public $_value = array();
+    public $_value = [];
 
     /**
      * Constructor
@@ -110,7 +110,7 @@ class XoopsFormSelect extends XoopsFormElement
         if (!$encode) {
             return $this->_value;
         }
-        $value = array();
+        $value = [];
         foreach ($this->_value as $val) {
             $value[] = $val ? htmlspecialchars($val, ENT_QUOTES) : $val;
         }
@@ -176,7 +176,7 @@ class XoopsFormSelect extends XoopsFormElement
         if (!$encode) {
             return $this->_options;
         }
-        $value = array();
+        $value = [];
         foreach ($this->_options as $val => $name) {
             $value[$encode ? htmlspecialchars($val, ENT_QUOTES) : $val] = ($encode > 1) ? htmlspecialchars($name, ENT_QUOTES) : $name;
         }

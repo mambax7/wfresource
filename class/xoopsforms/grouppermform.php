@@ -17,7 +17,7 @@
  * @author       XOOPS Development Team, Kazumi Ono (AKA onokazu)
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formelement.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/formhidden.php';
@@ -129,7 +129,7 @@ class XoopsGroupPermForm extends XoopsForm
     {
         // load all child ids for javascript codes
         foreach (array_keys($this->_itemTree) as $item_id) {
-            $this->_itemTree[$item_id]['allchild'] = array();
+            $this->_itemTree[$item_id]['allchild'] = [];
             $this->_loadAllChildItemIds($item_id, $this->_itemTree[$item_id]['allchild']);
         }
         $gpermHandler  = xoops_getHandler('groupperm');
@@ -187,7 +187,7 @@ class XoopsGroupFormCheckBox extends XoopsFormElement
      *
      * @var array ;
      */
-    public $_value = array();
+    public $_value = [];
     /**
      * Group ID
      *

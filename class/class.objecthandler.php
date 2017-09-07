@@ -14,7 +14,7 @@
 
 use Xmf\Request;
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 wfp_loadLangauge('errors', 'wfresource');
 
@@ -44,7 +44,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     public $tableName;
     public $isAdmin;
     public $doPermissions;
-    public $_errors = array();
+    public $_errors = [];
 
     /**
      * @param            $db
@@ -75,7 +75,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         // **//
         $this->identifierName = ($identifier_name !== false) ? $identifier_name : '';
         $this->groupName      = ($group_name !== false) ? $group_name : '';
-        $this->user_groups    = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
+        $this->user_groups    = is_object($xoopsUser) ? $xoopsUser->getGroups() : [0 => XOOPS_GROUP_ANONYMOUS];
         $this->doPermissions  = ($this->groupName !== '' && !in_array(1, $this->user_groups)) ? 1 : 0;
         $this->ckeyName       = $this->doPermissions ? 'c.' . $key_name : $key_name;
         $this->keyName        = $key_name;
@@ -193,7 +193,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
      */
     public function getObjects($criteria = null, $id_as_key = false, $as_object = true, $return_error = false)
     {
-        $ret   = array();
+        $ret   = [];
         $limit = $start = 0;
         if ($this->doPermissions) {
             $sql = 'SELECT DISTINCT c.* FROM ' . $this->db_table . ' c  LEFT JOIN ' . $this->db->prefix('group_permission') . " l   ON l.gperm_itemid = $this->ckeyName WHERE ( l.gperm_name = '$this->groupName' AND l.gperm_groupid IN ( " . implode(',', $this->user_groups) . ' )   )';
@@ -235,7 +235,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
      */
     public function &convertResultSet($result, $id_as_key = false, $as_object = true)
     {
-        $ret = array();
+        $ret = [];
         while (false !== ($myrow = $this->db->fetchArray($result))) {
             $obj = $this->create(false);
             if (!$obj) {
@@ -248,7 +248,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
                 if ($as_object) {
                     $ret[] =& $obj;
                 } else {
-                    $row  = array();
+                    $row  = [];
                     $vars = $obj->getVars();
                     foreach (array_keys($vars) as $i) {
                         $row[$i] = $obj->getVar($i);
@@ -259,7 +259,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
                 if ($as_object) {
                     $ret[$myrow[$this->keyName]] =& $obj;
                 } else {
-                    $row  = array();
+                    $row  = [];
                     $vars = $obj->getVars();
                     foreach (array_keys($vars) as $i) {
                         $row[$i] = $obj->getVar($i);
@@ -284,7 +284,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
      */
     public function getList($criteria = null, $querie = '*', $show = null, $doCriteria = true)
     {
-        $ret   = array();
+        $ret   = [];
         $limit = $start = 0;
         if ($this->doPermissions) {
             if ($querie) {
@@ -523,7 +523,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             return false;
         }
         if (is_array($this->keyName)) {
-            $clause     = array();
+            $clause     = [];
             $arrayCount = count($this->keyName);
             for ($i = 0; $i < $arrayCount; ++$i) {
                 $clause[] = $this->keyName[$i] . ' = ' . $obj->getVar($this->keyName[$i]);
@@ -586,7 +586,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
      */
     public function getaDate($exp_value = '', $exp_time = '', $useMonth = 0)
     {
-        $_date_arr = array();
+        $_date_arr = [];
         $_date     = $exp_value ?: time();
         $d         = date('j', $_date);
         $m         = date('m', $_date);
@@ -628,14 +628,14 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         $calendar = new DHTML_Calendar(XOOPS_URL . '/modules/wfresource/class/calendar/', 'en', 'calendar-system', false);
         $calendar->load_files();
 
-        return $calendar->make_input_field(array(
+        return $calendar->make_input_field([
                                                'firstDay'   => 1,
                                                'showsTime'  => true,
                                                'showOthers' => true,
                                                'ifFormat'   => '%Y-%m-%d %I:%M',
                                                'timeFormat' => '12'
-                                           ), // field attributes go here
-                                           array('style' => '', 'name' => 'date', 'value' => $value), $display);
+                                           ], // field attributes go here
+                                           ['style' => '', 'name' => 'date', 'value' => $value], $display);
     }
 
     /**

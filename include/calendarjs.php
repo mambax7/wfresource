@@ -1,5 +1,5 @@
 <?php
-defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require_once XOOPS_ROOT_PATH . '/modules/wfresource/language/' . $GLOBALS['xoopsConfig']['language'] . '/calendar.php';
 

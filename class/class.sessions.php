@@ -21,7 +21,7 @@ defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this fi
 class wfp_Sessions
 {
     public $s_name;
-    public $s_vars = array();
+    public $s_vars = [];
 
     /**
      * wpf_Help::__construct()

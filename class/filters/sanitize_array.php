@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * xo_Filters_Validate_String
@@ -31,7 +31,7 @@ class xo_Filters_Sanitize_Array extends wfp_Request
      * @param  array  $options
      * @return string
      */
-    public function doRender($method, $key, $options = array())
+    public function doRender($method, $key, $options = [])
     {
         $ret = isset($method[$key]) ? $method[$key] : '';
         #       $options = $this->checkOption( $options );
@@ -56,8 +56,8 @@ class xo_Filters_Sanitize_Array extends wfp_Request
      * @param  mixed $options
      * @return array
      */
-    public function checkOption($options = array())
+    public function checkOption($options = [])
     {
-        return $options = array('options' => $options);
+        return $options = ['options' => $options];
     }
 }

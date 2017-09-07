@@ -10,7 +10,7 @@
  * @copyright Copyright (C) 2009 Xoosla. All rights reserved.
  * @license   GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 if (!defined('_NEWLINE')) {
     define('_NEWLINE', "\n");
@@ -27,7 +27,7 @@ if (!defined('_NEWLINE')) {
 class wfp_Tlist
 {
     public $_headers;
-    public $_data          = array();
+    public $_data          = [];
     public $_pre_fix       = '_AM_';
     public $_output        = false;
     public $_footer        = false;
@@ -43,7 +43,7 @@ class wfp_Tlist
      *
      * @param array $headers
      */
-    public function __construct($headers = array())
+    public function __construct($headers = [])
     {
         $this->_headers = $headers;
     }
@@ -58,12 +58,12 @@ class wfp_Tlist
      */
     public function AddHeader($name, $size = 0, $align = 'left', $islink = false)
     {
-        $this->_headers[]     = array(
+        $this->_headers[]     = [
             'name'   => (string)$name,
             'width'  => (string)$size,
             'align'  => (string)$align,
             'islink' => $islink
-        );
+        ];
         $this->_headers_count = count($this->_headers);
     }
 
@@ -121,7 +121,7 @@ class wfp_Tlist
                 $this->add($value, $class); //$this->_data[] = array( $value, $class );
             }
         } else {
-            $this->_data[] = array($data, $class);
+            $this->_data[] = [$data, $class];
         }
     }
 
@@ -264,14 +264,14 @@ class wfp_Tlist
      * @param  array $array
      * @return string
      */
-    public function setSubmit($array = array())
+    public function setSubmit($array = [])
     {
         if (empty($array)) {
-            $array = array(
+            $array = [
                 'updateall'    => _AM_WFC_UPDATESELECTED,
                 'deleteall'    => _AM_WFC_DELETESELECTED,
                 'duplicateall' => _AM_WFC_DUPLICATESELECTED
-            );
+            ];
         }
         $ret = '<select size="1" name="op" id="op">';
         if (!empty($array)) {

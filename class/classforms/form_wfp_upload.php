@@ -14,7 +14,7 @@
 
 use Xmf\Request;
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require_once _WFP_RESOURCE_PATH . '/class/xooslaforms/xoosla_formselectimage.php';
 
@@ -24,13 +24,13 @@ $downloads = ini_get('enable_dl') ? _AM_WFP_ON : _AM_WFP_OFF;
 $rootpath    = wfp_Request::doRequest($_REQUEST, 'rootpath', 1, 'int');
 $channelfile = wfp_Request::doRequest($_REQUEST, 'channelfile', '', 'textbox');
 
-$dirarray     = array(
+$dirarray     = [
     1 => $GLOBALS['xoopsModuleConfig']['uploaddir'],
     2 => $GLOBALS['xoopsModuleConfig']['linkimages'],
     3 => $GLOBALS['xoopsModuleConfig']['htmluploaddir']
-);
-$namearray    = array(1 => _AM_WFP_CHAN_UPLOADDIR, 2 => _AM_WFP_CHAN_LINKIMAGES, 3 => _AM_WFP_CHAN_HTMLUPLOADDIR);
-$listarray    = array(1 => _AM_WFP_UPLOADCHANLOGO, 2 => _AM_WFP_UPLOADLINKIMAGE, 3 => _AM_WFP_UPLOADCHANHTML);
+];
+$namearray    = [1 => _AM_WFP_CHAN_UPLOADDIR, 2 => _AM_WFP_CHAN_LINKIMAGES, 3 => _AM_WFP_CHAN_HTMLUPLOADDIR];
+$listarray    = [1 => _AM_WFP_UPLOADCHANLOGO, 2 => _AM_WFP_UPLOADLINKIMAGE, 3 => _AM_WFP_UPLOADCHANHTML];
 $displayimage = '';
 
 echo '<div>
