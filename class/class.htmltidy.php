@@ -167,7 +167,7 @@ class wfp_Htmltidy
 
     public function cleanUp($encoding = null)
     {
-        if (!empty($encoding)) {
+        if (null !== $encoding) {
             $this->encoding = $encoding;
         }
 
@@ -199,7 +199,7 @@ class wfp_Htmltidy
         $this->html = stripslashes($this->html);
 
         //++++
-        if ($this->options['CleaningMethod'][0] === TAG_WHITELIST) {
+        if (TAG_WHITELIST === $this->options['CleaningMethod'][0]) {
             // trim everything before the body tag right away, leaving possibility for body attributes
             if (preg_match('/<body/i', "$this->html")) {
                 $this->html = stristr($this->html, '<body');
@@ -222,7 +222,7 @@ class wfp_Htmltidy
         }
 
         //++++
-        if ($this->options['CleaningMethod'][1] === ATTRIB_BLACKLIST) {
+        if (ATTRIB_BLACKLIST === $this->options['CleaningMethod'][1]) {
             if (!empty($this->Attrib_blacklist)) {
                 $this->removeBlacklistedAttributes($this->Attrib_blacklist);
             }

@@ -56,7 +56,7 @@ class wfp_MenuHandler
      */
     public function addMenuTop($value, $name = '')
     {
-        if ($name !== '') {
+        if ('' !== $name) {
             $this->_menutop[$value] = $name;
         } else {
             $this->_menutop[$value] = $value;
@@ -72,7 +72,7 @@ class wfp_MenuHandler
     public function addMenuTopArray($options, $multi = true)
     {
         if (is_array($options)) {
-            if ($multi === true) {
+            if (true === $multi) {
                 foreach ($options as $k => $v) {
                     $this->addMenuTop($k, $v);
                 }
@@ -92,7 +92,7 @@ class wfp_MenuHandler
      */
     public function addMenuTabs($value, $name = '')
     {
-        if ($name !== '') {
+        if ('' !== $name) {
             $this->_menutabs[$value] = $name;
         } else {
             $this->_menutabs[$value] = $value;
@@ -108,7 +108,7 @@ class wfp_MenuHandler
     public function addMenuTabsArray($options, $multi = true)
     {
         if (is_array($options)) {
-            if ($multi === true) {
+            if (true === $multi) {
                 foreach ($options as $k => $v) {
                     $this->addMenuTabs($k, $v);
                 }
@@ -128,7 +128,7 @@ class wfp_MenuHandler
      */
     public function addMenuIcons($value, $name = '')
     {
-        if ($name !== '') {
+        if ('' !== $name) {
             $this->_menuicons[$value] = $name;
         } else {
             $this->_menuicons[$value] = $value;
@@ -144,7 +144,7 @@ class wfp_MenuHandler
     public function addMenuIconsArray($options, $multi = true)
     {
         if (is_array($options)) {
-            if ($multi === true) {
+            if (true === $multi) {
                 foreach ($options as $k => $v) {
                     $this->addMenuIcons($k, $v);
                 }

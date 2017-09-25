@@ -37,7 +37,7 @@ class xo_Filters_Validate_Url extends wfp_Request
             $flags = explode('|', $flags);
         }
         $valid_url = filter_var($url, FILTER_VALIDATE_IP, "{$flags}");
-        if ($valid_url !== false) {
+        if (false !== $valid_url) {
             return true;
         }
 

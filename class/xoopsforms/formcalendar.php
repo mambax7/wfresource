@@ -149,7 +149,7 @@ class XoopsFormCalendar extends XoopsFormElement
     {
         $id  = $this->_gen_id();
         $ret = '';
-        if ($id == 1) {
+        if (1 == $id) {
             $ret .= $this->load_head_files();
         }
         $attrstr = $this->_make_html_attr(array_merge($this->calendar_field_attributes, [

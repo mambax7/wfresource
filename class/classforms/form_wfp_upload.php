@@ -57,7 +57,7 @@ if ($rootpath > 0) {
         $channelfile = 'blank.png';
     }
     $graph_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $dirarray[$rootpath]);
-    if ($rootpath !== 3) {
+    if (3 !== $rootpath) {
         $smallimage_select = new XoopsFormSelectImage(_AM_WFP_VIEWIMAGE, 'channelfile', $channelfile, 'imagefile', 0, $size = 5);
         $smallimage_select->setCategory($dirarray[$rootpath]);
         $form->addElement($smallimage_select, false);

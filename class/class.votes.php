@@ -91,7 +91,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
     public function getObj()
     {
         $obj = false;
-        if (func_num_args() === 2) {
+        if (2 === func_num_args()) {
             $args     = func_get_args();
             $criteria = new CriteriaCompo();
             if ($GLOBALS['xoopsModule']->getVar('mid')) {
@@ -126,7 +126,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
             $this->vote_mid = $GLOBALS['xoopsModule']->getVar('mid');
         }
         $this->vote_aid = 0;
-        if (isset($_REQUEST['page_type']) && $_REQUEST['page_type'] === 'content') {
+        if (isset($_REQUEST['page_type']) && 'content' === $_REQUEST['page_type']) {
             $this->vote_aid = (int)$_REQUEST['id'];
         }
         $this->vote_ipaddress = getip();
@@ -150,7 +150,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
     {
         $yesterday = (time() - (86400 * $this->anonwaitdays));
 
-        $sql    = 'SELECT COUNT(*) ' . "\n WHERE vote_aid=" . $this->vote_aid . "\n AND ( vote_uid=" . $this->vote_uid . " OR ( vote_uid=0 AND vote_ipaddress='" . $this->vote_ipaddress . "')" . "\n AND vote_date >" . (int)$yesterday;
+        $sql    = 'SELECT COUNT(*) ' . "\n WHERE vote_aid=" . $this->vote_aid . "\n AND ( vote_uid=" . $this->vote_uid . " OR ( vote_uid=0 AND vote_ipaddress='" . $this->vote_ipaddress . "')" . "\n AND vote_date >" . $yesterday;
         $result = $_this->db->query($sql);
         $ret    = [];
         if ($result) {

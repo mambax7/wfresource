@@ -33,7 +33,7 @@ class XoopsThemeTabForm extends XooslaForm
      */
     public function insertBreak($extra = '', $class = '')
     {
-        $class = ($class !== '') ? " class='" . htmlspecialchars($class, ENT_QUOTES) . "'" : '';
+        $class = ('' !== $class) ? " class='" . htmlspecialchars($class, ENT_QUOTES) . "'" : '';
         // Fix for $extra tag not showing
         if ($extra) {
             $extra = "<tr><td colspan='2' $class>$extra</td></tr>";
@@ -83,16 +83,16 @@ class XoopsThemeTabForm extends XooslaForm
             } elseif (!$ele->isHidden()) {
                 if (!$ele->getNocolspan()) {
                     $ret .= "<tr valign='top' align='left'><td class='head' width='35%'>";
-                    if (($caption = $ele->getCaption()) !== '') {
+                    if ('' !== ($caption = $ele->getCaption())) {
                         $ret .= "<div class='xoops-form-element-caption" . ($ele->isRequired() ? '-required' : '') . "'>" . "<span class='caption-text'>{$caption}</span>" . "<span class='caption-marker'>*</span>" . '</div>';
                     }
-                    if (($desc = $ele->getDescription()) !== '') {
+                    if ('' !== ($desc = $ele->getDescription())) {
                         $ret .= "<div class='xoops-form-element-help'>{$desc}</div>";
                     }
                     $ret .= "</td><td class='$class'>" . $ele->render() . "</td></tr>\n";
                 } else {
                     $ret .= "<tr valign='top' align='left'><td class='head' colspan='2'>";
-                    if (($caption = $ele->getCaption()) !== '') {
+                    if ('' !== ($caption = $ele->getCaption())) {
                         $ret .= "<div class='xoops-form-element-caption" . ($ele->isRequired() ? '-required' : '') . "'>" . "<span class='caption-text'>{$caption}</span>" . "<span class='caption-marker'>*</span>" . '</div>';
                     }
                     $ret .= "</td></tr><tr valign='top' align='left'><td class='$class' colspan='2'>" . $ele->render() . '</td></tr>';

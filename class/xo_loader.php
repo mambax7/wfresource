@@ -26,10 +26,10 @@ define('XO_ROOT_PATH', dirname(dirname(dirname(__DIR__))));
  */
 class xo_Loader
 {
-    private static $instance  = [];
-    private static $config    = [];
-    private static $paths     = [];
-    private static $urls      = [];
+    private static   $instance  = [];
+    private static   $config    = [];
+    private static   $paths     = [];
+    private static   $urls      = [];
     protected static $handlers  = [];
     protected static $languages = [];
     protected static $services  = [];
@@ -61,7 +61,7 @@ class xo_Loader
      */
     public static function loadHandler($var, $module = 'system', $class = 'xoops_', $options = null, $args = null)
     {
-        $path     = ($module === 'system') ? 'kernel' : 'modules/' . $module . '/class';
+        $path     = ('system' === $module) ? 'kernel' : 'modules/' . $module . '/class';
         $filename = $class . $var . '.php';
         echo $path . DS . $filename;
 
@@ -151,8 +151,8 @@ class xo_Loader
 
     /**
      * Set several properties of an object
-     * @param      $instance
-     * @param null $options
+     * @param            $instance
+     * @param null|array $options
      */
     private static function _addOptions(&$instance, $options = null)
     {
@@ -219,7 +219,7 @@ class xo_Loader
         if (!empty($var)) {
             $language  = (null !== $language) ? $language : $GLOBALS['xoopsConfig']['language'];
             $buildPath = XOOPS_ROOT_PATH;
-            if ($module !== null) {
+            if (null !== $module) {
                 $buildPath = DS . 'modules' . DS . $module;
             }
             $buildPath = DS . 'language' . DS . $var . '.php';
@@ -242,7 +242,7 @@ class xo_Loader
     public static function loadInclude($var, $type = null)
     {
         $var = &self::path($var);
-        if ($var !== false) {
+        if (false !== $var) {
             switch ($type) {
                 case 'include':
                     include $var;
@@ -275,17 +275,17 @@ class xo_Loader
         /**
          * Return a physical path
          */
-        if ($isVirtual === false) {
+        if (false === $isVirtual) {
             if (isset(self::$paths[$md5Name])) {
                 return self::$paths[$md5Name];
             }
             $fileName = self::buildpath($var);
-            if ($fileName !== false) {
-                if (stristr($fileName, XOOPS_ROOT_PATH) === true) {
+            if (false !== $fileName) {
+                if (true === stristr($fileName, XOOPS_ROOT_PATH)) {
                     $filename = str_replace(XOOPS_ROOT_PATH, '', $filename);
                 }
                 self::$paths[$md5Name] = XO_ROOT_PATH . DS . $fileName;
-                if ($verbose === true) {
+                if (true === $verbose) {
                     echo self::$paths[$md5Name];
                 }
                 /**
@@ -300,7 +300,7 @@ class xo_Loader
                 return self::$urls[$md5Name];
             }
             $var                  = str_replace('\\', '/', $var);
-            self::$urls[$md5Name] = (stristr($var, XOOPS_URL) === false) ? XOOPS_URL . '/' . $var : $var;
+            self::$urls[$md5Name] = (false === stristr($var, XOOPS_URL)) ? XOOPS_URL . '/' . $var : $var;
 
             return self::$urls[$md5Name];
         }
@@ -315,17 +315,17 @@ class xo_Loader
      */
     private static function buildpath()
     {
-        if (func_num_args() === 1) {
+        if (1 === func_num_args()) {
             $var = func_get_arg(0);
             $ext = 'php';
-            if (stristr($var, XOOPS_ROOT_PATH . DS) === true) {
+            if (true === stristr($var, XOOPS_ROOT_PATH . DS)) {
                 $var = str_replace(XOOPS_ROOT_PATH . DS, '', $var);
             }
             $fileName = preg_replace('/[\/\\\]/U', '.', $var);
 
-            if (stristr($fileName, '.php') === true) {
+            if (true === stristr($fileName, '.php')) {
                 $fileName = str_replace('.php', '', $fileName);
-            } elseif (false !== ($pos = stristr($fileName, '.php') === true)) {
+            } elseif (false !== ($pos = true === stristr($fileName, '.php'))) {
                 $fileName = substr($fileName, $pos + 4);
             }
             $parts    = explode('.', $fileName);
@@ -351,9 +351,9 @@ class xo_Loader
      */
     public static function fileExists()
     {
-        if (func_num_args() === 1) {
+        if (1 === func_num_args()) {
             $var = func_get_arg(0);
-            if (stristr($var, XO_ROOT_PATH) === false) {
+            if (false === stristr($var, XO_ROOT_PATH)) {
                 $var = XO_ROOT_PATH . DS . $var;
             }
             if (file_exists($var) && !is_dir($var)) {
@@ -371,9 +371,9 @@ class xo_Loader
      */
     public function dirExists()
     {
-        if (func_num_args() === 1) {
+        if (1 === func_num_args()) {
             $var = func_get_arg(0);
-            if (stristr($var, XO_ROOT_PATH) === false) {
+            if (false === stristr($var, XO_ROOT_PATH)) {
                 $var = XO_ROOT_PATH . DS . $var;
             }
             if (file_exists($var) && is_dir($var)) {
@@ -391,7 +391,7 @@ class xo_Loader
      */
     public static function getConfig()
     {
-        if (func_num_args() === 1) {
+        if (1 === func_num_args()) {
             $var = func_get_arg(0);
             echo $var;
 
@@ -409,9 +409,9 @@ class xo_Loader
      */
     public static function loadConfig()
     {
-        if (func_num_args() === 1) {
+        if (1 === func_num_args()) {
             $var    = func_get_arg(0);
-            $config = &xo_Loader::loadHandler('config');
+            $config = self::loadHandler('config');
 
             return $config->getConfigsByCat($var);
         }
@@ -425,7 +425,7 @@ class xo_Loader
      */
     public static function setConfig()
     {
-        if (func_num_args() === 2) {
+        if (2 === func_num_args()) {
             $var      = func_get_arg(0);
             $newValue = func_get_arg(1);
             if (isset(self::$config[$var])) {

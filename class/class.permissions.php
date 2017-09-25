@@ -124,7 +124,7 @@ class wfp_Permissions extends XoopsGroupPermForm
     public function save(array $groups = null, $item_id = 0)
     {
         $item_id = (int)$item_id;
-        if (!is_array($groups) || !count($groups) || $item_id === 0) {
+        if (!is_array($groups) || !count($groups) || 0 === $item_id) {
             return false;
         }
 
@@ -183,7 +183,7 @@ class wfp_Permissions extends XoopsGroupPermForm
         $item_id      = (int)$item_id;
         $gpermHandler = wfp_getHandler('groupperm');
         $groups       = $gpermHandler->getGroupIds($this->_perm_name, $item_id, $this->_mod_id);
-        if (!count($groups) && $isNew === true) {
+        if (!count($groups) && true === $isNew) {
             $groups = [0 => 1, 1 => 2];
         }
 

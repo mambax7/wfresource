@@ -59,7 +59,7 @@ class wfp_Broken extends wfp_Object
     }
 
     /**
-     * @param  null $value
+     * @param  null|array $value
      * @return string
      */
     public function getFiles($value = null)
@@ -104,7 +104,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
     public function &getObj($nav = [], $value = false)
     {
         $obj = false;
-        if (func_num_args() == 2) {
+        if (2 == func_num_args()) {
             $args     = func_get_args();
             $criteria = new CriteriaCompo();
             if (!empty($args[0]['pulldate'])) {
@@ -253,14 +253,14 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
      */
     public function showHtmlCalendar()
     {
-        if (func_num_args() !== 2) {
+        if (2 !== func_num_args()) {
             return null;
         }
         $display = func_get_arg(0);
         $date    = func_get_arg(1);
 
         $jstime = formatTimestamp('F j Y, H:i:s', time());
-        $value  = ($date === '') ? '' : strftime('%Y-%m-%d %I:%M', $date);
+        $value  = ('' === $date) ? '' : strftime('%Y-%m-%d %I:%M', $date);
         require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/calendar/calendar.php';
         $calendar = new DHTML_Calendar(XOOPS_URL . '/modules/wfresource/class/calendar/', 'en', 'calendar-system', false);
         $calendar->load_files();

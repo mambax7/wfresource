@@ -137,12 +137,12 @@ class wfp_Updater
         }
         $sql    = 'RENAME TABLE ' . $this->db->prefix($oldName) . ' TO ' . $this->db->prefix($newName);
         $result = $this->db->queryF($sql);
-        if (!$result && ($this->db->errno() !== '1050')) {
+        if (!$result && ('1050' !== $this->db->errno())) {
             $this->setError($this->db->error() . ' ' . $this->db->errno() . ": Table $oldName could not be renamed");
 
             return false;
         } else {
-            if ($this->db->errno() !== '1050') {
+            if ('1050' !== $this->db->errno()) {
                 $this->setSuccess("Notice: Table $oldName renamed to $newName");
 
                 return true;
@@ -176,7 +176,7 @@ class wfp_Updater
             }
         }
         $result = $this->db->queryF($sql);
-        if (!$result && ($this->db->errno() !== '1050')) {
+        if (!$result && ('1050' !== $this->db->errno())) {
             $this->setError("Table $tablename could not be created<br /<br>" . $this->db->error() . ' ' . $this->db->errno());
 
             return false;
@@ -202,7 +202,7 @@ class wfp_Updater
             if (!empty($this->_query['sql'][$i])) {
                 $sql .= ' ' . $this->_query['sql'][$i] . ' ';
             }
-            if (!empty($this->_query['after'][$i]) && $this->_query['after'][$i] === 'FIRST') {
+            if (!empty($this->_query['after'][$i]) && 'FIRST' === $this->_query['after'][$i]) {
                 $sql .= ' FIRST ';
             } elseif (!empty($this->_query['after'][$i])) {
                 $sql .= ' AFTER ' . $this->_query['after'][$i] . ' ';
@@ -210,7 +210,7 @@ class wfp_Updater
             $sql    .= "\n\n";
             $result = $this->db->queryF($sql);
             if (!$result) {
-                $this->setError("Field <span style=\"color: red;\">" . $this->_query['fieldname'][$i] . '</span> could not be updated <br>Error: ' . $this->db->errno() . ' ' . $this->db->error());
+                $this->setError('Field <span style="color: red;">' . $this->_query['fieldname'][$i] . '</span> could not be updated <br>Error: ' . $this->db->errno() . ' ' . $this->db->error());
             } else {
                 $this->setSuccess('Field ' . $this->_query['fieldname'][$i] . ' updated ');
             }

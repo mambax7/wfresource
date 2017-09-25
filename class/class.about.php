@@ -101,7 +101,7 @@ class wpf_About
      * wpf_About::about_content()
      *
      * @param  string $heading
-     * @param  string $value
+     * @param  string|bool $value
      * @param  string $value2
      * @param  string $type
      * @param  mixed  $colspan
@@ -114,7 +114,7 @@ class wpf_About
         switch ($type) {
             case 'normal':
             default:
-                $value = empty($value) ? '' : ($value === 'changelog') ? $this->changelog() : $GLOBALS['xoopsModule']->getInfo($value);
+                $value = empty($value) ? '' : ('changelog' === $value) ? $this->changelog() : $GLOBALS['xoopsModule']->getInfo($value);
                 switch ($colspan) {
                     case 0:
                         return '<tr><td class="head">' . $heading . '</td><td class="even">' . $value . '</td></tr>';

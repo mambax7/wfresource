@@ -35,7 +35,7 @@ class XooslaFormTabs
      */
     public function __construct($useCookies = 0)
     {
-        $this->_useCookies = ($useCookies == 1) ? 1 : 0;
+        $this->_useCookies = (1 == $useCookies) ? 1 : 0;
         if (isset($GLOBALS['xoTheme'])) {
             $GLOBALS['xoTheme']->addStylesheet('/modules/wfresource/include/js/tabs/tabpane.css', ['id="luna-tab-style-sheet"']);
             $GLOBALS['xoTheme']->addScript('/modules/wfresource/include/js/tabs/tabpane.js');

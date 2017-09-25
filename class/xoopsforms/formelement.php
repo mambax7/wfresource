@@ -360,7 +360,7 @@ class XoopsFormElement
      * Get the element's nocolspan
      * Modified by Catzwolf
      *
-     * @return string
+     * @return bool
      */
     public function getNocolspan()
     {

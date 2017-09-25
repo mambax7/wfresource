@@ -48,6 +48,7 @@ class wfp_captcha extends PhpCaptcha
 
     /**
      * wfp_captcha::create()
+     * @param string $sFilename
      * @return bool|void
      */
     public function create($sFilename = '')
@@ -59,7 +60,8 @@ class wfp_captcha extends PhpCaptcha
     }
 
     /**
-     *
+     * @param      $sUserCode
+     * @param bool $bCaseInsensitive
      */
     public function validate($sUserCode, $bCaseInsensitive = true)
     {

@@ -48,7 +48,7 @@ class XoopsFormSelectRDirList extends XoopsFormSelect
     public function __construct($caption, $name, $value, $size = 1, $multiple = false, $is_cat = false)
     {
         parent::__construct($caption, $name, $value, $size, $multiple);
-        if ($is_cat === true) {
+        if (true === $is_cat) {
             $this->addOption('*2*', 'Use Section');
             $this->addOption('*#*', '---------------------');
         }
@@ -72,8 +72,8 @@ class XoopsFormSelectRDirList extends XoopsFormSelect
         if (is_dir($dirname)) {
             $dh = opendir($dirname);
             while (false !== ($dir = readdir($dh))) {
-                if ($dir !== '.' && $dir !== '..' && is_dir($dirname . '/' . $dir) && strtolower($dir) !== 'cvs'
-                    && strtolower($dir) !== '.svn') {
+                if ('.' !== $dir && '..' !== $dir && is_dir($dirname . '/' . $dir) && 'cvs' !== strtolower($dir)
+                    && '.svn' !== strtolower($dir)) {
                     $subdirname = $dirname . '/' . $dir;
                     $this->addOption($this->processDir($dirname) . '/' . $dir);
                     $subdirlist = $this->getRecDirlistAsArray($subdirname);

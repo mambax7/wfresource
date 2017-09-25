@@ -27,8 +27,8 @@ class xoops_Tabs
      */
     public function __construct($useCookies = true, $echo = false)
     {
-        $this->_useCookies = ((int)$useCookies) === 1 ? 1 : 0;
-        $this->_echo       = ((int)$echo === 1) ? true : false;
+        $this->_useCookies = 1 === ((int)$useCookies) ? 1 : 0;
+        $this->_echo       = (1 === (int)$echo) ? true : false;
         //$GLOBALS['xoTheme']->addStylesheet( '/include/js/tabs/tabpane.css', array( 'id="luna-tab-style-sheet"' ) );
         //$GLOBALS['xoTheme']->addScript( '/include/js/tabs/tabpane.js' );
         //$this->contents[] = "<script type=\"text/javascript\" src=\"" . XOOPS_URL . "/include/js/tabs/tabpane.js\"></script>";
@@ -49,9 +49,9 @@ class xoops_Tabs
      */
     public function startPane($id)
     {
-        $output           = "<div class=\"tab-pageouter\" id=\"" . $id . "\">
+        $output           = '<div class="tab-pageouter" id="' . $id . "\">
             <script type=\"text/javascript\">\n
-            var tabPane1 = new WebFXTabPane( document.getElementById( \"" . $id . "\" ), " . $this->_useCookies . " )\n
+            var tabPane1 = new WebFXTabPane( document.getElementById( \"" . $id . '" ), ' . $this->_useCookies . " )\n
         </script>\n";
         $this->contents[] = $output;
     }
@@ -73,11 +73,11 @@ class xoops_Tabs
      */
     public function startTab($tabText, $paneId)
     {
-        $output           = "<div class=\"tab-page\" id=\"" . $paneId . "\">
-            <h2 class=\"tab\">" . $tabText . "</h2>
+        $output           = '<div class="tab-page" id="' . $paneId . '">
+            <h2 class="tab">' . $tabText . "</h2>
             <script type=\"text/javascript\">\n
-            tabPane1.addTabPage( document.getElementById( \"" . $paneId . "\" ) );
-          </script>";
+            tabPane1.addTabPage( document.getElementById( \"" . $paneId . '" ) );
+          </script>';
         $this->contents[] = $output;
     }
 
@@ -107,7 +107,7 @@ class xoops_Tabs
         foreach ($this->contents as $contents) {
             $cont .= $contents;
         }
-        if ($this->_echo === false) {
+        if (false === $this->_echo) {
             return $cont;
         } else {
             echo $cont;

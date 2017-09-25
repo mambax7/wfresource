@@ -38,7 +38,7 @@ class xo_Filters_Sanitize_Textbox extends wfp_Request
             $method = (is_array($method) && isset($method[$key])) ? $method[$key] : $method;
             $ret    = filter_var($method, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_NO_ENCODE_QUOTES);
         }
-        if ($ret === false) {
+        if (false === $ret) {
             return false;
         }
 

@@ -139,7 +139,7 @@ class wfp_addto
         foreach ($this->bookMarkList() as $b_marks) {
             $ret .= '<a rel="nofollow" href="' . $this->getBookMarkUrl($b_marks['url']) . '" title="' . $this->getBookMarkName($b_marks['title']) . '" target="' . $this->getMethod() . '">';
             $ret .= $this->getBookMarkImage($b_marks['title']);
-            if ($this->addText === true) {
+            if (true === $this->addText) {
                 $ret .= '&nbsp;' . $this->getBookMarkName($b_marks['title']);
             }
             $ret .= '</a>';
@@ -238,6 +238,6 @@ class wfp_addto
      */
     public function getLayout()
     {
-        return ($this->layout === 0) ? '&nbsp;' : '</div><div>';
+        return (0 === $this->layout) ? '&nbsp;' : '</div><div>';
     }
 }

@@ -56,7 +56,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
     /**
      * Get the name
      *
-     * @return int
+     * @return string
      */
     public function getName()
     {
@@ -76,7 +76,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
     /**
      * Get an array of pre-selected values
      *
-     * @return array
+     * @return string
      */
     public function getCategory()
     {
@@ -118,7 +118,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
     /**
      * Get an array of pre-selected values
      *
-     * @return array
+     * @return bool
      */
     public function getImgcat_id()
     {
@@ -155,7 +155,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
      */
     public function addOption($value, $name = '')
     {
-        if ($name !== '') {
+        if ('' !== $name) {
             $this->_options[$value] = $name;
         } else {
             $this->_options[$value] = $value;
@@ -211,7 +211,7 @@ class XoopsFormSelectImage extends XoopsFormSelect
         $image_array = [];
         if ($this->getValue()) {
             $image_array = explode('|', $this->getValue());
-            if (count($image_array) === 1) {
+            if (1 === count($image_array)) {
                 $imageFile = XOOPS_ROOT_PATH . '/' . $this->getCategory() . '/' . $this->getValue();
                 if (false !== stream_resolve_include_path($imageFile) && is_file($imageFile)) {
                     $image_size = getimagesize($imageFile);
@@ -230,14 +230,14 @@ class XoopsFormSelectImage extends XoopsFormSelect
 
         $ret = "<table border='0' width='100%' cellspacing='0' cellpadding='0'>\n<tr>\n<td style=\"vertical-align: top;\">";
         $ret .= "<select size='" . $this->getSize() . "'" . $this->getExtra();
-        if ($this->isMultiple() !== false) {
+        if (false !== $this->isMultiple()) {
             $ret .= " name='" . $this->getName() . "[]' id='" . $this->getName() . "[]' multiple='multiple' ";
         } else {
             $ret .= " name='" . $this->getName() . "' id='" . $this->getName() . "' ";
         }
         /**
          */
-        $ret    .= " onchange='chooseImage(this, \"" . $this->_id . "\", \"" . XOOPS_URL . '/' . $this->getCategory() . "\", \"\")'>";
+        $ret    .= " onchange='chooseImage(this, \"" . $this->_id . '", "' . XOOPS_URL . '/' . $this->getCategory() . "\", \"\")'>";
         $result = array_merge(['' => 'No Selection'], $art_image_array);
         foreach ($result as $value => $name) {
             $image_name = explode('.', $name);

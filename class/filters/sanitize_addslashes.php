@@ -38,7 +38,7 @@ class xo_Filters_Sanitize_Addslashes extends wfp_Request
             $method = (is_array($method) && isset($method[$key])) ? $method[$key] : $method;
             $ret    = filter_var($method, FILTER_SANITIZE_MAGIC_QUOTES);
         }
-        if ($ret === false) {
+        if (false === $ret) {
             return false;
         }
 

@@ -164,7 +164,7 @@ function wfp_getClass($name, $dirname = 'wfresource', $c_prefix = 'wfp_', $optio
     static $_class;
 
     $name = strtolower(trim($name));
-    if ($dirname === 'core') {
+    if ('core' === $dirname) {
         $c_prefix = 'Xoops';
         $hnd_file = XOOPS_ROOT_PATH . '/class/' . $name . '.php';
     } else {
@@ -212,7 +212,7 @@ function wfp_ShowPagenav(
     $returns = false
 ) {
     $from_result = $start + 1;
-    if ($num_dis === 0) {
+    if (0 === $num_dis) {
         $num_dis = $tot_num;
     }
     $to_result = $tot_num;
@@ -250,7 +250,7 @@ function wfp_ShowPagenav(
     $ret .= '<div style="float: right;">' . $navigation . '</div>';
     $ret .= '</div>';
     $ret .= '<br clear="all">';
-    if ($returns === false) {
+    if (false === $returns) {
         echo $ret;
     } else {
         return $ret;
@@ -330,7 +330,7 @@ function wfp_showImage($name = '', $title = '', $align = 'middle', $ext = 'png',
  */
 function wfp_getConstants($_title, $prefix = '', $suffix = '')
 {
-    $prefix = ($prefix !== '' || $_title !== 'action') ? trim($prefix) : '';
+    $prefix = ('' !== $prefix || 'action' !== $_title) ? trim($prefix) : '';
     $suffix = trim($suffix);
 
     return constant(strtoupper("$prefix$_title$suffix"));
@@ -344,7 +344,7 @@ function wfp_getConstants($_title, $prefix = '', $suffix = '')
  */
 function wfp_getImage($value)
 {
-    if ($value !== 'blank.png' || $value !== 'blank.gif') {
+    if ('blank.png' !== $value || 'blank.gif' !== $value) {
         $image = explode('|', $value);
         $image = is_array($image) ? $image[0] : $value;
 
@@ -369,7 +369,7 @@ function wfp_getIcons($_icon_array = [], $key, $value = null, $extra = null)
     if ($value) {
         foreach ($_icon_array as $_op => $_icon) {
             $url = (!is_numeric($_op)) ? $_op . "?{$key}=" . $value : xoops_getenv('PHP_SELF') . "?op={$_icon}&amp;{$key}=" . $value;
-            if ($extra !== null) {
+            if (null !== $extra) {
                 $url .= $extra;
             }
             $ret .= "<a href='" . $url . " '>" . wfp_showImage("wfp_$_icon", wfp_getConstants('_wfp_' . $_icon, '_AM'), null, 'png') . '</a>';
@@ -406,7 +406,7 @@ function wfp_getSelection(
     $vvalue = 0,
     $echo = true
 ) {
-    if ($multipule === true) {
+    if (true === $multipule) {
         $ret = "<select size='" . $size . "' name='" . $value . "[]' id='" . $value . "[]' multiple='multiple' $extra>";
     } else {
         $ret = "<select size='" . $size . "' name='" . $value . "' id='" . $value . "' $extra>";
@@ -417,7 +417,7 @@ function wfp_getSelection(
     if (count($this_array)) {
         foreach ($this_array as $key => $content) {
             $opt_selected = '';
-            $newKey       = ((int)$vvalue === 1) ? $content : $key;
+            $newKey       = (1 === (int)$vvalue) ? $content : $key;
             if (is_array($selected) && in_array($newKey, $selected)) {
                 $opt_selected .= ' selected';
             } else {
@@ -430,7 +430,7 @@ function wfp_getSelection(
         }
     }
     $ret .= '</select>';
-    if ($echo === true) {
+    if (true === $echo) {
         echo '<div>' . $ret . '</div><br>';
     } else {
         return $ret;
@@ -511,13 +511,13 @@ function wfp_showAbout()
  */
 function wfp_confirm($hiddens, $op, $msg, $submit = '', $cancel = '', $noarray = false, $echo = true)
 {
-    $submit = ($submit !== '') ? trim($submit) : _SUBMIT;
-    $cancel = ($cancel !== '') ? "onclick=\"location='" . htmlspecialchars(trim($cancel), ENT_QUOTES) . "'\"" : "onClick=\"location.href='" . xoops_getenv('HTTP_REFERER') . "';\"";
+    $submit = ('' !== $submit) ? trim($submit) : _SUBMIT;
+    $cancel = ('' !== $cancel) ? "onclick=\"location='" . htmlspecialchars(trim($cancel), ENT_QUOTES) . "'\"" : "onClick=\"location.href='" . xoops_getenv('HTTP_REFERER') . "';\"";
     $ret    = '
     <form method="post" op="' . $op . '">
     <div class="confirmMsg">' . $msg . '';
     foreach ($hiddens as $name => $value) {
-        if (is_array($value) && $noarray === true) {
+        if (is_array($value) && true === $noarray) {
             foreach ($value as $caption => $newvalue) {
                 $ret .= '<input type="radio" name="' . $name . '" value="' . htmlspecialchars($newvalue) . '"> ' . $caption;
                 $ret .= '<br>';
@@ -605,9 +605,9 @@ if (!function_exists('print_r_html')) {
     function print_r_html($value = '', $debug = false, $extra = false)
     {
         echo '<div>' . str_replace(["\n", ' '], ['<br>', '&nbsp;'], print_r($value, true)) . '</div>';
-        if ($extra !== false) {
+        if (false !== $extra) {
             foreach ($_SERVER as $k => $v) {
-                if ($k !== 'HTTP_REFERER') {
+                if ('HTTP_REFERER' !== $k) {
                     echo "<div><b>Server:</b> $k value: $v</div>";
                 } else {
                     echo "<div><b>Server:</b> $k value: $v</div>";
@@ -655,7 +655,7 @@ function wfp_file_exists($path, $file, $require = null)
 function wfp_getFileListAsArray($dirname, $prefix = '')
 {
     $filelist = [];
-    if (substr($dirname, -1) === '/') {
+    if ('/' === substr($dirname, -1)) {
         $dirname = substr($dirname, 0, -1);
     }
     if (is_dir($dirname) && $handle = opendir($dirname)) {
@@ -875,7 +875,7 @@ function wfp_tag_module_included()
         if (!$tag_mod) {
             $tag_mod = false;
         } else {
-            $wfp_tag_module_included = $tag_mod->getVar('isactive') === 1;
+            $wfp_tag_module_included = 1 === $tag_mod->getVar('isactive');
         }
     }
 

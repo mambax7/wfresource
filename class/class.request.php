@@ -59,7 +59,7 @@ class wfp_Filter
             // if ($ret !== false) {
             $ret = self::getCore();
             // }
-            if ($ret !== true) {
+            if (true !== $ret) {
                 $className = 'xo_Filters_' . self::$name;
                 if (class_exists($className) && is_callable(__CLASS__, $className)) {
                     $handler = new $className(__CLASS__);
@@ -176,7 +176,7 @@ class wfp_Request
             if (!empty($filter) && is_object($filter)) {
                 $ret = $filter->doRender($method, $key, $options);
 
-                return ($ret === false) ? $default : $ret;
+                return (false === $ret) ? $default : $ret;
             }
         }
         unset($filter);
@@ -199,7 +199,7 @@ class wfp_Request
             $filter = wfp_Filter::getFilter('Validate_' . ucfirst($type), $module);
             if (!empty($filter) && is_object($filter)) {
                 if (false !== ($ret = $filter->doRender($value, $flags))) {
-                    return ($ret === false) ? $default : $ret;
+                    return (false === $ret) ? $default : $ret;
                 }
             }
         }

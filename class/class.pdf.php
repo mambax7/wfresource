@@ -159,7 +159,7 @@ class wfp_dopdf
      */
     public function setFont($value = '')
     {
-        $this->font = (string)trim($value);
+        $this->font = trim($value);
     }
 
     /**
@@ -167,6 +167,6 @@ class wfp_dopdf
      */
     public function useCompression($value = false)
     {
-        $this->compression = ($value === true);
+        $this->compression = (true === $value);
     }
 }

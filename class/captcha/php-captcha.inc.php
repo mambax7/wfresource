@@ -187,7 +187,7 @@ class PhpCaptcha
         if (is_array($vCharSet)) {
             $this->aCharSet = $vCharSet;
         } else {
-            if ($vCharSet !== '') {
+            if ('' !== $vCharSet) {
                 // split items on commas
                 $aCharSet = explode(',', $vCharSet);
                 // initialise array
@@ -195,11 +195,11 @@ class PhpCaptcha
                 // loop through items
                 foreach ($aCharSet as $sCurrentItem) {
                     // a range should have 3 characters, otherwise is normal character
-                    if (strlen($sCurrentItem) === 3) {
+                    if (3 === strlen($sCurrentItem)) {
                         // split on range character
                         $aRange = explode('-', $sCurrentItem);
                         // check for valid range
-                        if ($aRange[0] < $aRange[1] && count($aRange) === 2) {
+                        if ($aRange[0] < $aRange[1] && 2 === count($aRange)) {
                             // create array of characters from range
                             $aRange = range($aRange[0], $aRange[1]);
                             // add to charset array
@@ -372,20 +372,20 @@ class PhpCaptcha
      */
     public function writeFile($sFilename)
     {
-        if ($sFilename === '') {
+        if ('' === $sFilename) {
             // tell browser that data is jpeg
             header("Content-type: image/$this->sFileType");
         }
 
         switch ($this->sFileType) {
             case 'gif':
-                $sFilename !== '' ? imagegif($this->oImage, $sFilename) : imagegif($this->oImage);
+                '' !== $sFilename ? imagegif($this->oImage, $sFilename) : imagegif($this->oImage);
                 break;
             case 'png':
-                $sFilename !== '' ? imagepng($this->oImage, $sFilename) : imagepng($this->oImage);
+                '' !== $sFilename ? imagepng($this->oImage, $sFilename) : imagepng($this->oImage);
                 break;
             default:
-                $sFilename !== '' ? imagejpeg($this->oImage, $sFilename) : imagejpeg($this->oImage);
+                '' !== $sFilename ? imagejpeg($this->oImage, $sFilename) : imagejpeg($this->oImage);
         }
     }
 
@@ -397,11 +397,11 @@ class PhpCaptcha
     {
         // check for required gd functions
         if (!function_exists('imagecreate') || !function_exists("image$this->sFileType")
-            || ($this->vBackgroundImages !== '' && !function_exists('imagecreatetruecolor'))) {
+            || ('' !== $this->vBackgroundImages && !function_exists('imagecreatetruecolor'))) {
             return false;
         }
         // get background image if specified and copy to CAPTCHA
-        if (is_array($this->vBackgroundImages) || $this->vBackgroundImages !== '') {
+        if (is_array($this->vBackgroundImages) || '' !== $this->vBackgroundImages) {
             // create new image
             $this->oImage = imagecreatetruecolor($this->iWidth, $this->iHeight);
             // create background image
@@ -422,11 +422,11 @@ class PhpCaptcha
         // allocate white background colour
         imagecolorallocate($this->oImage, 255, 255, 255);
         // check for owner text
-        if ($this->sOwnerText !== '') {
+        if ('' !== $this->sOwnerText) {
             $this->drawOwnerText();
         }
         // check for background image before drawing lines
-        if (!is_array($this->vBackgroundImages) && $this->vBackgroundImages === '') {
+        if (!is_array($this->vBackgroundImages) && '' === $this->vBackgroundImages) {
             $this->drawLines();
         }
 
@@ -526,11 +526,11 @@ class AudioPhpCaptcha
         }
 
         $aPhrases = [
-            "The %1\$s characters are as follows: %2\$s",
-            "%2\$s, are the %1\$s letters",
-            "Here are the %1\$s characters: %2\$s",
-            "%1\$s characters are: %2\$s",
-            "%1\$s letters: %2\$s"
+            'The %1$s characters are as follows: %2$s',
+            '%2$s, are the %1$s letters',
+            'Here are the %1$s characters: %2$s',
+            '%1$s characters are: %2$s',
+            '%1$s letters: %2$s'
         ];
 
         $iPhrase = array_rand($aPhrases);

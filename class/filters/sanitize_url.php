@@ -38,7 +38,7 @@ class xo_Filters_Sanitize_Url extends wfp_Request
             $method = is_array($method) ? $method[$key] : $method;
             $ret    = filter_var($method, FILTER_SANITIZE_URL);
         }
-        if ($ret === false) {
+        if (false === $ret) {
             return false;
         }
 

@@ -308,7 +308,7 @@ class wfp_Callback extends wfp_ObjectHandler
                             }
                         }
                     }
-                    if ($do_delete === true) {
+                    if (true === $do_delete) {
                         if ($this->_callback->delete($_obj, false)) {
                             if (!empty($this->Handler->groupName)) {
                                 wfp_deletePerms($this->Handler, $_obj->getVar($this->Handler->keyName));
@@ -555,7 +555,7 @@ class wfp_Callback extends wfp_ObjectHandler
          * Do import
          */
         $ret = null;
-        if ($doimport === true && !empty($file)) {
+        if (true === $doimport && !empty($file)) {
             $clean = wfp_getClass('clean');
             $ret   = $clean->importHtml($file, wfp_getModuleOption('htmluploaddir'));
         }

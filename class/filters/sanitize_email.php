@@ -38,7 +38,7 @@ class xo_Filters_Sanitize_Email extends wfp_Request
             $method = (is_array($method) && isset($method[$key])) ? $method[$key] : $method;
             $ret    = filter_var($method, FILTER_SANITIZE_EMAIL);
         }
-        if ($ret === false) {
+        if (false === $ret) {
             return false;
         }
 

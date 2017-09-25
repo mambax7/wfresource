@@ -32,7 +32,7 @@ class xo_Filters_Validate_Int extends wfp_Request
     public function doRender($int = null)
     {
         $valid_int = filter_var($value, FILTER_VALIDATE_INT);
-        if ($valid_int !== false) {
+        if (false !== $valid_int) {
             return true;
         }
 

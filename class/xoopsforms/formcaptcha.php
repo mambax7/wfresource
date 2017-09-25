@@ -75,6 +75,9 @@ class XoopsFormCaptcha extends XoopsFormElement
         return $this->captchaHandler->setConfig($name, $val);
     }
 
+    /**
+     * @return mixed|string
+     */
     public function render()
     {
         // if (!$this->isHidden()) {

@@ -32,7 +32,7 @@ class xo_Filters_Validate_Regex extends wfp_Request
     public function doRender($reg = null)
     {
         $valid_reg = @filter_var($reg, FILTER_VALIDATE_REGEXP);
-        if ($valid_reg !== false) {
+        if (false !== $valid_reg) {
             return true;
         }
 

@@ -40,7 +40,7 @@ class wfp_Clean
     public function getContentsCallback($file)
     {
         static $content = null;
-        if ($content === null) {
+        if (null === $content) {
             if (file_exists($file) && is_readable($file)) {
                 $this->content = file_get_contents($file);
             }
@@ -57,7 +57,7 @@ class wfp_Clean
      */
     public function getHtml($file = '', $content = '', $uploaddir = '')
     {
-        if ($file === 'http://' || !$file) {
+        if ('http://' === $file || !$file) {
             $this->content = $content;
         } else {
             if (preg_match("/^[\.]{1,2}$/", $file)) {

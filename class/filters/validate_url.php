@@ -32,7 +32,7 @@ class xo_Filters_Validate_Url extends wfp_Request
     public function doRender($url = null)
     {
         $valid_url = filter_var($url, FILTER_VALIDATE_URL);
-        if ($valid_url !== false) {
+        if (false !== $valid_url) {
             return true;
         }
 

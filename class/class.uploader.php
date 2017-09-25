@@ -91,7 +91,7 @@ class wfp_Uploader
     /**
      * Fetch the uploaded file
      *
-     * @param  string $media_name Name of the file field
+     * @param  string|array $media_name Name of the file field
      * @param  int    $index      Index of the file (if more than one uploaded under that name)
      * @return bool
      */
@@ -112,7 +112,7 @@ class wfp_Uploader
 
             return false;
         }
-        if ($this->mediaName === '') {
+        if ('' === $this->mediaName) {
             $this->setErrors('Filename Is Empty');
 
             return false;
@@ -122,7 +122,7 @@ class wfp_Uploader
 
             return false;
         }
-        if ($this->mediaTmpName === 'none' || !is_uploaded_file($this->mediaTmpName)) {
+        if ('none' === $this->mediaTmpName || !is_uploaded_file($this->mediaTmpName)) {
             $this->setErrors('No file uploaded');
 
             return false;
@@ -143,7 +143,7 @@ class wfp_Uploader
      */
     public function setTargetFileName($value)
     {
-        $this->targetFileName = (string)trim($value);
+        $this->targetFileName = trim($value);
     }
 
     /**
@@ -153,7 +153,7 @@ class wfp_Uploader
      */
     public function setPrefix($value)
     {
-        $this->prefix = (string)trim($value);
+        $this->prefix = trim($value);
     }
 
     /**
@@ -234,7 +234,7 @@ class wfp_Uploader
      */
     public function upload($chmod = 0644)
     {
-        if ($this->uploadDir === '') {
+        if ('' === $this->uploadDir) {
             $this->setErrors('Upload directory not set');
 
             return false;

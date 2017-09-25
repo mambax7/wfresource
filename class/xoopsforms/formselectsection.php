@@ -59,7 +59,7 @@ class XoopsFormSelectSection extends XoopsFormSelect
         $sectionHandler = wfp_getHandler('section', 'wfsection', 'wfs_');
         $sections       = $sectionHandler->getList();
         parent::__construct($caption, $name, $value, $size, $multiple);
-        if ($static === true) {
+        if (true === $static) {
             $this->addOption(0, 'Static Content');
         }
         if ($sections) {

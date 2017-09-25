@@ -34,7 +34,7 @@ class wfp_Object extends XoopsObject
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
         $module_prefix = substr(get_class($this), 0, 4);
-        if ($module_prefix === 'wfp_') {
+        if ('wfp_' === $module_prefix) {
             $file = XOOPS_ROOT_PATH . '/modules/wfresource/class/classforms/form_' . strtolower($value) . '.php';
         } else {
             $file = XOOPS_ROOT_PATH . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/class/classforms/form_' . strtolower($value) . '.php';
@@ -156,7 +156,6 @@ class wfp_Object extends XoopsObject
 
     /**
      * Display a human readable date form
-     * parm: intval:    $time    - unix timestamp
      * @param  null   $_time
      * @param  string $format
      * @param  string $err
@@ -164,11 +163,11 @@ class wfp_Object extends XoopsObject
      */
     public function formatTimeStamp($_time = null, $format = 'D, M-d-Y', $err = '-------------')
     {
-        if (is_string($_time) && $_time !== 'today') {
+        if (is_string($_time) && 'today' !== $_time) {
             $_time = $this->getVar($_time, 'e');
         } elseif (is_numeric($_time)) {
             $_time = $_time;
-        } elseif ($_time === 'today') {
+        } elseif ('today' === $_time) {
             $_time = time();
         }
         $ret = $_time ? formatTimestamp($_time, $format) : $err;
@@ -223,7 +222,7 @@ class wfp_Object extends XoopsObject
 
             return false;
         }
-        if ($image['width'] === 0 || $image['height'] === 0) {
+        if (0 === $image['width'] || 0 === $image['height']) {
             $image_details   = getimagesize($imageFile);
             $image['width']  = $image_details[0];
             $image['height'] = $image_details[1];

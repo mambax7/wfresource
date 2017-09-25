@@ -115,7 +115,7 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
     public function getObj()
     {
         $obj = false;
-        if (func_num_args() === 2) {
+        if (2 === func_num_args()) {
             $args     = func_get_args();
             $criteria = new CriteriaCompo();
             if ($GLOBALS['xoopsModule']->getVar('mid')) {
@@ -166,7 +166,7 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
         }
         $ret = '';
         while (false !== ($myrow = $this->db->fetchArray($result))) {
-            if ($myrow['category_image'] !== '||') {
+            if ('||' !== $myrow['category_image']) {
                 $ret[$myrow['category_id']] = htmlspecialchars($myrow['category_image'], ENT_QUOTES);
             }
         }

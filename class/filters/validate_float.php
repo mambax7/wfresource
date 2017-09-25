@@ -32,7 +32,7 @@ class xo_Filters_Validate_Float extends wfp_Request
     public function doRender($float = null)
     {
         $valid_float = filter_var($float, FILTER_VALIDATE_FLOAT);
-        if ($valid_float !== false) {
+        if (false !== $valid_float) {
             return true;
         }
 

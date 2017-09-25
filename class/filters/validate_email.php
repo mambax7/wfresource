@@ -32,7 +32,7 @@ class xo_Filters_Validate_Email extends wfp_Request
     public function doRender($email = null)
     {
         $valid_email = filter_var($email, FILTER_VALIDATE_EMAIL);
-        if ($valid_email === false) {
+        if (false === $valid_email) {
             return false;
         }
 

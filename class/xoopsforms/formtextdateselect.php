@@ -43,8 +43,8 @@ class XoopsFormTextDateSelect extends XoopsFormCalendar
     {
         $calendar_options['showsTime'] = $showtime;
         $field_attributes['size']      = $size;
-        $value                         = ($value == 0) ? (($showtime === true) ? time() : '') : $value;
-        if ($value !== '' || $value > 0) {
+        $value                         = (0 == $value) ? ((true === $showtime) ? time() : '') : $value;
+        if ('' !== $value || $value > 0) {
             $field_attributes['value'] = is_numeric($value) ? strftime('%m/%d/%Y %H:%M', $value) : $value;
         } else {
             $field_attributes['value'] = '';

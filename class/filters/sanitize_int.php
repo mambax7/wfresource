@@ -40,7 +40,7 @@ class xo_Filters_Sanitize_Int extends wfp_Request
             $method = (is_array($method) && isset($method[$key])) ? $method[$key] : $method;
             $ret    = filter_var($method, FILTER_SANITIZE_NUMBER_INT, $options);
         }
-        if ($ret === false) {
+        if (false === $ret) {
             return false;
         }
 
@@ -54,7 +54,7 @@ class xo_Filters_Sanitize_Int extends wfp_Request
      */
     public function checkOption($options)
     {
-        if (is_array($options) && (count($options) === 2)) {
+        if (is_array($options) && (2 === count($options))) {
             $options = ['options' => $options];
             if (!array_key_exists('min_range', $options) && !array_key_exists('max_range', $options)) {
                 // trigger_error( "Value must be 1 or below" );

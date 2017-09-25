@@ -115,7 +115,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
     public function getObj()
     {
         $obj = false;
-        if (func_num_args() == 2) {
+        if (2 == func_num_args()) {
             $args     = func_get_args();
             $criteria = new CriteriaCompo();
             // if ($args[0]['search_text'] != '') {
@@ -148,16 +148,16 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
     public function &getMimeType(array $nav = null, $value = false)
     {
         $obj = false;
-        if (func_num_args() == 2) {
+        if (2 == func_num_args()) {
             $args     = func_get_args();
             $criteria = new CriteriaCompo();
-            if ($args[0]['search_text'] !== '') {
+            if ('' !== $args[0]['search_text']) {
                 $criteria->add(new Criteria($args[0]['search_by'], '%' . $args[0]['search_text'] . '%', 'LIKE'));
             }
-            if ($args[0]['mime_safe'] == 0 || $args[0]['mime_safe'] == 1) {
+            if (0 == $args[0]['mime_safe'] || 1 == $args[0]['mime_safe']) {
                 $criteria->add(new Criteria('mime_safe', (int)$args[0]['mime_safe']));
             }
-            if (isset($args[0]['mime_category']) && $args[0]['mime_category'] !== 'all') {
+            if (isset($args[0]['mime_category']) && 'all' !== $args[0]['mime_category']) {
                 $criteria->add(new Criteria('mime_category', $args[0]['mime_category']), 'LIKE');
             }
             if (isset($args[0]['alphabet']) && !empty($args[0]['alphabet'])) {
@@ -209,7 +209,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
         $ext    = pathinfo($filename, PATHINFO_EXTENSION);
         $sql    = 'SELECT mime_name, mime_ext, mime_images, mime_category FROM ' . $this->db->prefix('wfp_mimetypes') . " WHERE mime_ext='" . strtolower($ext) . "' AND mime_display=1";
         $result = $this->db->query($sql);
-        list($mime_types, $mime_ext, $mime_image) = $this->db->fetchrow($result);
+        list($mime_types, $mime_ext, $mime_image) = $this->db->fetchRow($result);
         $mimetypes       = explode(' ', trim($mime_types));
         $ret['mimetype'] = $mimetypes[0];
         $ret['ext']      = $mime_ext;

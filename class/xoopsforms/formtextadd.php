@@ -143,7 +143,7 @@ class XoopsFormTextAdd extends XoopsFormElement
     /**
      * Prepare HTML for output
      *
-     * @return string HTML
+     * @return void HTML
      */
     public function render()
     {

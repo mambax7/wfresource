@@ -519,7 +519,7 @@ Calendar.cellClick = function (el) {
                 date.setDate(max);
             }
             date.setMonth(m);
-        };
+        }
         switch (el.navtype) {
             case -2:
                 if (year > cal.minYear) {

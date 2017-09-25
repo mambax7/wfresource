@@ -32,7 +32,7 @@ class xo_Filters_Validate_Bool extends wfp_Request
     public function doRender($bool = null)
     {
         $valid_bool = filter_var($bool, FILTER_VALIDATE_BOOLEAN);
-        if ($valid_bool !== false) {
+        if (false !== $valid_bool) {
             return true;
         }
 
