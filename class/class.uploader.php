@@ -1,5 +1,5 @@
 <?php
-// $Id: class.uploader.php 8181 2011-11-07 01:14:53Z beckmi $
+
 // ------------------------------------------------------------------------ //
 // Xoops - PHP Content Management System                                //
 // Copyright (c) 2007 Xoops                                         //

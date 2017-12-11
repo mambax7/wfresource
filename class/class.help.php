@@ -41,7 +41,7 @@ class wpf_Help
      */
     public function display()
     {
-        $ts = MyTextSanitizer::getInstance();
+        $ts = \MyTextSanitizer::getInstance();
 
         $contents        = '';
         $this->_path     = XOOPS_ROOT_PATH . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/docs/';

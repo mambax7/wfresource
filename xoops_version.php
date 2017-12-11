@@ -13,6 +13,7 @@
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 $moduleDirName = basename(__DIR__);
+
 $modversion['version']       = 1.07;
 $modversion['module_status'] = 'Final';
 $modversion['release_date']  = '2016/11/26';

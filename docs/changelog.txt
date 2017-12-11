@@ -77,7 +77,7 @@
 <hr>
     - Removed: Removed obsolete Changelog. Was showing WF-Channel rather than WF-Resource
     - Removed: Removed psd image in images folder
-    - Added: Added calender from Xoops v2.18. This should allow better compatability with Xoops 2.18 and Xoops 2.25 now.
+    - Added: Added calendar from Xoops v2.18. This should allow better compatibility with Xoops 2.18 and Xoops 2.25 now.
 
 <h5>1.00</h5>
 <hr>

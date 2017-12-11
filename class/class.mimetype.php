@@ -1,5 +1,5 @@
 <?php
-// $Id: class.mimetype.php 8181 2011-11-07 01:14:53Z beckmi $
+
 // ------------------------------------------------------------------------ //
 // wfp_ - PHP Content Management System                                 //
 // Copyright (c) 2007 Xoops                                         //

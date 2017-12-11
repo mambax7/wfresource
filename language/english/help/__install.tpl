@@ -31,11 +31,11 @@
             <br></i></p>
     </li>
     <li><span style="text-decoration: underline;"><b>Install the module</b></span>
-        <p>Login as administrator and enter Xoops Administration page. Select <i>System --&gt; modules</i> and install wf-sections<br>
+        <p>Login as administrator and enter Xoops Administration page. Select <i>System --> modules</i> and install wf-sections<br>
         </p>
     </li><br>
     <li><span style="text-decoration: underline;"><b>Set module permissions</b></span>
-        <p>Most important step now will be to setup the group permissions for the module via <i>Xoops: System --&gt; groups</i><br>
+        <p>Most important step now will be to setup the group permissions for the module via <i>Xoops: System --> groups</i><br>
             .</p>
     </li>
 </ol>

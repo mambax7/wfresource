@@ -26,10 +26,10 @@ define('XO_ROOT_PATH', dirname(dirname(dirname(__DIR__))));
  */
 class xo_Loader
 {
-    private static   $instance  = [];
-    private static   $config    = [];
-    private static   $paths     = [];
-    private static   $urls      = [];
+    private static $instance  = [];
+    private static $config    = [];
+    private static $paths     = [];
+    private static $urls      = [];
     protected static $handlers  = [];
     protected static $languages = [];
     protected static $services  = [];

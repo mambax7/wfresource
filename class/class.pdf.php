@@ -1,5 +1,5 @@
 <?php
-// $Id: class.pdf.php 8181 2011-11-07 01:14:53Z beckmi $
+
 // ------------------------------------------------------------------------ //
 // WF-Channel - WF-Projects                                                 //
 // Copyright (c) 2007 WF-Channel                                            //

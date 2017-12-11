@@ -109,7 +109,7 @@ class wpf_About
      */
     public function about_content($heading = '', $value = '', $value2 = '', $type = 'normal', $colspan = null)
     {
-        $myts    = MyTextSanitizer::getInstance();
+        $myts    = \MyTextSanitizer::getInstance();
         $heading = $heading ?: '';
         switch ($type) {
             case 'normal':
@@ -155,7 +155,7 @@ class wpf_About
     {
         $file_name = XOOPS_ROOT_PATH . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/docs/changelog.txt';
         if (file_exists($file_name) && !is_dir($file_name)) {
-            // $myts = MyTextSanitizer::getInstance();
+            // $myts = \MyTextSanitizer::getInstance();
             $file_text = file_get_contents($file_name);
             // $changelog = $myts->displayTarea( $file_text, $html = 1, $smiley = 0, $xcode = 0, $image = 0, $br = 1 );
             unset($myts);

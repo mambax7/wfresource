@@ -108,7 +108,7 @@
             page"); to main.php
         </li>
         <li>Change in xoops_version.php variable $modversion['dirname'] not used now
-            ( $xoopsModule = &amp;$modhandler-&gt;getByDirname($modversion['dirname']); )
+            ( $xoopsModule = &amp;$modhandler->getByDirname($modversion['dirname']); )
         </li>
         <li>Now 100% ML hack ( marcan ) compatible, so it is <strong>recommanded</strong>
             not to use the index.php for wfchannel from the ML package

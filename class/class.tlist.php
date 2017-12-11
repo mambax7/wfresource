@@ -41,11 +41,15 @@ class wfp_Tlist
     /**
      * wfp_Tlist::__construct()
      *
-     * @param array $headers
+     * @param array|string $headers
      */
     public function __construct($headers)
     {
-        $this->_headers[] = $headers;
+        if(is_array($headers)) {
+            $this->_headers[] = $headers;
+//        } else {
+
+        }
     }
 
     /**
@@ -56,7 +60,7 @@ class wfp_Tlist
      * @param string  $align
      * @param mixed   $islink
      */
-    public function AddHeader($name, $size = 0, $align = 'left', $islink = false)
+    public function addHeader($name, $size = 0, $align = 'left', $islink = false)
     {
         $temp                 = [
             'name'   => (string)$name,
@@ -117,7 +121,7 @@ class wfp_Tlist
      */
     public function add($data, $class = null, $isarray = false)
     {
-        if (false !== $isarray) {
+        if (is_array($data) && false !== $isarray) {
             foreach ($data as $value) {
                 $this->add($value, $class); //$this->_data[] = array( $value, $class );
             }
@@ -350,7 +354,7 @@ class wfp_Tlist
         }
         $ret .= $this->footer_listing('right');
         $ret .= '</table>' . _NEWLINE;
-        if (count($this->_hidden)) {
+        if (is_array($this->_hidden) && count($this->_hidden)>0) {
             foreach ($this->_hidden as $k => $v) {
                 $ret .= '<input type="hidden" name="' . $k . '" id="' . $v . $k . '" value="' . htmlspecialchars($v) . '">';
             }

@@ -200,7 +200,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         } else {
             $sql = 'SELECT * FROM ' . $this->db_table;
         }
-        if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'CriteriaElement')) {
             if ($this->doPermissions) {
                 $sql .= ' AND ' . $criteria->render();
             } else {
@@ -314,7 +314,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
             if ('' === $criteria->getSort()) {
                 $criteria->setSort($this->identifierName);
             }
-            if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
+            if (null !== $criteria && is_subclass_of($criteria, 'CriteriaElement')) {
                 if ($this->doPermissions) {
                     $sql .= ' AND ' . $criteria->render();
                 } else {
@@ -358,7 +358,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         } else {
             $sql = "SELECT ${querie} FROM " . $this->db_table;
         }
-        if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'CriteriaElement')) {
             if ($this->doPermissions) {
                 $sql .= ' AND ' . $criteria->render();
             } else {
@@ -491,7 +491,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         }
         $sql = 'UPDATE ' . $this->db_table . ' SET ' . $set_clause;
 
-        if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'CriteriaElement')) {
             $sql .= ' ' . $criteria->renderWhere();
         }
         if (false !== $force) {
@@ -559,7 +559,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     {
         $set_clause = $fieldname . '=' . $fieldname . '+1';
         $sql        = 'UPDATE ' . $this->db_table . ' SET ' . $set_clause;
-        if (null !== $criteria && is_subclass_of($criteria, 'criteriaelement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'CriteriaElement')) {
             $sql .= ' ' . $criteria->renderWhere();
         }
         if (false !== $force) {
@@ -653,7 +653,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
 
         $op       = wfp_Request::doRequest($_REQUEST, 'op', 'default', 'textbox');
         $onchange = 'onchange=\'location="' . basename($_SERVER['SCRIPT_FILENAME']) . '?op=' . $op . '&amp;%s="+this.options[this.selectedIndex].value\'';
-        $ret      .= '<form id="calender" method="post">';
+        $ret      .= '<form id="calendar" method="post">';
         $ret      .= '<div id="wrapper" style="padding-bottom: 8px;">';
         $ret      .= '<div style="float: left;">' . $this->showHtmlCalendar(false, $nav['date']);
         $ret      .= '<input type="text" name="search" id="search" size="20" maxlength="255" value="' . wfp_stripslashes($nav['search']) . '">&nbsp;';

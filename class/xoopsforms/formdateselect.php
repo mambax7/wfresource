@@ -1,5 +1,5 @@
 <?php
-// $Id: formdateselect.php 8181 2011-11-07 01:14:53Z beckmi $
+
 defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
 
 /**
