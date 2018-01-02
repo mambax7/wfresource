@@ -202,7 +202,7 @@ class Cpdf
 
         // also initialize the font families that are known about already
         $this->setFontFamily('init');
-        //  $this->fileIdentifier = md5('xxxxxxxx'.time());
+        //  $this->fileIdentifier = md5('wfresourcexxx'.time());
     }
 
     /**
