@@ -1,8 +1,8 @@
-<?php namespace Xoopsmodules\wfresource;
+<?php namespace XoopsModules\Wfresource;
 
 use Xmf\Request;
-use Xoopsmodules\wfresource;
-use Xoopsmodules\wfresource\common;
+use XoopsModules\Wfresource;
+use XoopsModules\Wfresource\Common;
 
 /**
  * Class Utility
