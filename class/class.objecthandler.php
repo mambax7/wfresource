@@ -14,7 +14,7 @@
 
 use Xmf\Request;
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 wfp_loadLangauge('errors', 'wfresource');
 
@@ -66,7 +66,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
 
         static $db;
         if (null === $db) {
-            $db = XoopsDatabaseFactory::getDatabaseConnection();
+            $db = \XoopsDatabaseFactory::getDatabaseConnection();
         }
 
         parent::__construct($db);
@@ -128,7 +128,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
 
     /**
      * @param  bool|true $isNew
-     * @return bool|XoopsObject
+     * @return bool|\XoopsObject
      */
     public function create($isNew = true)
     {
@@ -158,21 +158,21 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     {
         $id       = (int)$id;
         $ret      = false;
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         if (is_array($this->keyName)) {
             $arrayCount = count($this->keyName);
             for ($i = 0; $i < $arrayCount; ++$i) {
-                $criteria->add(new Criteria($this->keyName[$i], $id[$i]));
+                $criteria->add(new \Criteria($this->keyName[$i], $id[$i]));
             }
         } else {
             if ($id > 0) {
-                $criteria = new Criteria($this->ckeyName, $id);
+                $criteria = new \Criteria($this->ckeyName, $id);
             } else {
-                $criteria = new Criteria("$keyName", 1);
+                $criteria = new \Criteria((string)$keyName, 1);
             }
         }
         $criteria->setLimit(1);
-        $obj_array = $this->getObjects($criteria, false, $as_object);
+        $obj_array =& $this->getObjects($criteria, false, $as_object);
         if (!is_array($obj_array) || 1 !== count($obj_array)) {
             $this->setErrors(_MD_WFP_ERROR_GET_ITEM);
 
@@ -309,7 +309,7 @@ class wfp_ObjectHandler extends XoopsObjectHandler
         }
         if (false !== $doCriteria) {
             if (null === $criteria) {
-                $criteria = new CriteriaCompo();
+                $criteria = new \CriteriaCompo();
             }
             if ('' === $criteria->getSort()) {
                 $criteria->setSort($this->identifierName);
@@ -511,11 +511,11 @@ class wfp_ObjectHandler extends XoopsObjectHandler
     /**
      * wfp_ObjectHandler::delete()
      *
-     * @param  int|XoopsObject $obj
+     * @param  int|\XoopsObject $obj
      * @param  mixed       $force
      * @return bool|void
      */
-    public function delete(XoopsObject $obj, $force = false)
+    public function delete(\XoopsObject $obj, $force = false)
     {
         if (!is_object($obj) || !is_a($obj, $this->obj_class)) {
             $this->setErrors(sprintf(_MD_WFP_ERROR_DELETE, basename(__FILE__), __LINE__));

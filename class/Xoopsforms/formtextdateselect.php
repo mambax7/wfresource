@@ -11,7 +11,7 @@
 // URL: http:www.xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
 /**
  *
  * @package    kernel

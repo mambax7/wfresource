@@ -17,7 +17,7 @@
  * @author       XOOPS Development Team, Kazumi Ono (AKA onokazu)
  */
 
-defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
 
 /**
  * XOOPS group permission handler class.
@@ -35,11 +35,11 @@ class wfp_GroupPermHandler extends XoopsGroupPermHandler
     /**
      * Store a {@link XoopsGroupPerm}
      *
-     * @param XoopsObject|XoopsGroupPerm $perm a XoopsGroupPerm object
+     * @param XoopsObject|\XoopsGroupPerm $perm a XoopsGroupPerm object
      *
      * @return bool true on success, otherwise false
      */
-    public function insert(XoopsObject $perm)
+    public function insert(\XoopsObject $perm)
     {
         if ('xoopsgroupperm' !== strtolower(get_class($perm))) {
             return false;
@@ -73,11 +73,11 @@ class wfp_GroupPermHandler extends XoopsGroupPermHandler
     /**
      * Delete a {@link XoopsGroupPerm}
      *
-     * @param XoopsObject|XoopsGroupPerm $perm a XoopsGroupPerm object
+     * @param XoopsObject|\XoopsGroupPerm $perm a XoopsGroupPerm object
      *
      * @return bool true on success, otherwise false
      */
-    public function delete(XoopsObject $perm)
+    public function delete(\XoopsObject $perm)
     {
         if ('xoopsgroupperm' !== strtolower(get_class($perm))) {
             return false;

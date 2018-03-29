@@ -201,7 +201,7 @@ class wfp_Htmltidy
         //++++
         if (TAG_WHITELIST === $this->options['CleaningMethod'][0]) {
             // trim everything before the body tag right away, leaving possibility for body attributes
-            if (preg_match('/<body/i', "$this->html")) {
+            if (preg_match('/<body/i', (string)$this->html)) {
                 $this->html = stristr($this->html, '<body');
             }
 

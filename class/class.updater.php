@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * wfp_Updater
@@ -33,7 +33,7 @@ class wfp_Updater
      */
     public function __construct()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
     }
 
     /**
@@ -169,7 +169,7 @@ class wfp_Updater
         }
         if (in_array($tablename, ['wfcrefers'])) {
             $sql = 'CREATE TABLE ' . $this->db->prefix($tablename) . ' (';
-            $sql .= "$data";
+            $sql .= (string)$data;
             $sql .= ') ENGINE=MyISAM ';
             if ($addAuto) {
                 $sql .= 'AUTO_INCREMENT=0';

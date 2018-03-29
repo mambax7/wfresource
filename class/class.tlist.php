@@ -10,7 +10,7 @@
  * @copyright Copyright (C) 2009 Xoosla. All rights reserved.
  * @license   GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 if (!defined('_NEWLINE')) {
     define('_NEWLINE', "\n");
@@ -45,10 +45,9 @@ class wfp_Tlist
      */
     public function __construct($headers)
     {
-        if(is_array($headers)) {
+        if (is_array($headers)) {
             $this->_headers[] = $headers;
 //        } else {
-
         }
     }
 
@@ -158,7 +157,7 @@ class wfp_Tlist
         if (!empty($key)) {
             $this->_hidden[$key] = $value;
         } else {
-            $this->_hidden[htmlspecialchars($value)] = $value;
+            $this->_hidden[htmlspecialchars($value, ENT_QUOTES | ENT_HTML5)] = $value;
         }
     }
 
@@ -244,7 +243,7 @@ class wfp_Tlist
                 $action = $action;
             } elseif (!empty($_SERVER['QUERY_STRING'])) {
                 //                $action = 'index.php' . htmlspecialchars($_SERVER['QUERY_STRING']);
-                $action = 'main.php' . htmlspecialchars($_SERVER['QUERY_STRING']);
+                $action = 'main.php' . htmlspecialchars($_SERVER['QUERY_STRING'], ENT_QUOTES | ENT_HTML5);
             } elseif (isset($_SERVER['SCRIPT_FILENAME'])) {
                 $action = basename($_SERVER['SCRIPT_FILENAME']);
             } else {
@@ -356,7 +355,7 @@ class wfp_Tlist
         $ret .= '</table>' . _NEWLINE;
         if (is_array($this->_hidden) && count($this->_hidden)>0) {
             foreach ($this->_hidden as $k => $v) {
-                $ret .= '<input type="hidden" name="' . $k . '" id="' . $v . $k . '" value="' . htmlspecialchars($v) . '">';
+                $ret .= '<input type="hidden" name="' . $k . '" id="' . $v . $k . '" value="' . htmlspecialchars($v, ENT_QUOTES | ENT_HTML5) . '">';
             }
         }
         $ret .= $GLOBALS['xoopsSecurity']->getTokenHTML();

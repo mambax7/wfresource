@@ -11,7 +11,7 @@
 // URL: http:www.xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
 
 wfp_getObjectHandler();
 
@@ -117,12 +117,12 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
         $obj = false;
         if (2 === func_num_args()) {
             $args     = func_get_args();
-            $criteria = new CriteriaCompo();
+            $criteria = new \CriteriaCompo();
             if ($GLOBALS['xoopsModule']->getVar('mid')) {
-                $criteria->add(new Criteria('category_mid', $GLOBALS['xoopsModule']->getVar('mid')));
+                $criteria->add(new \Criteria('category_mid', $GLOBALS['xoopsModule']->getVar('mid')));
             }
             // if ($args[0]['category_display'] == 0 OR $args[0]['category_display'] == 1) {
-            // $criteria->add ( new Criteria( 'category_display', $args[0]['category_display'] ) );
+            // $criteria->add ( new \Criteria( 'category_display', $args[0]['category_display'] ) );
             // }
             $obj['count'] = $this->getCount($criteria);
             if (!empty($args[0])) {
@@ -131,7 +131,7 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
                 $criteria->setStart($args[0]['start']);
                 $criteria->setLimit($args[0]['limit']);
             }
-            $obj['list'] = $this->getObjects($criteria, $args[1]);
+            $obj['list'] =& $this->getObjects($criteria, $args[1]);
         }
 
         return $obj;
@@ -143,11 +143,11 @@ class wfp_CategoryHandler extends wfp_ObjectHandler
      */
     public function getMenuObj()
     {
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         if ($GLOBALS['xoopsModule']->getVar('mid')) {
-            $criteria->add(new Criteria('category_mid', $GLOBALS['xoopsModule']->getVar('mid')));
+            $criteria->add(new \Criteria('category_mid', $GLOBALS['xoopsModule']->getVar('mid')));
         }
-        $obj = $this->getObjects($criteria, false);
+        $obj =& $this->getObjects($criteria, false);
 
         return $obj;
     }

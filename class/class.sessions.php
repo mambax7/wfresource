@@ -13,7 +13,7 @@
 // -------------------------------------------------------------------------//
 use Xmf\Request;
 
-defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
 
 /**
  * Class wfp_Sessions
@@ -48,7 +48,7 @@ class wfp_Sessions
      */
     public function setSessionName($value = 'wfs_default')
     {
-        $this->s_name = htmlspecialchars($value);
+        $this->s_name = htmlspecialchars($value, ENT_QUOTES | ENT_HTML5);
     }
 
     /**

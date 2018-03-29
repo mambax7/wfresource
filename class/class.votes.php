@@ -11,7 +11,7 @@
 // URL: http:www.xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
 wfp_getObjectHandler();
 
 /**
@@ -93,9 +93,9 @@ class wfp_VotesHandler extends wfp_ObjectHandler
         $obj = false;
         if (2 === func_num_args()) {
             $args     = func_get_args();
-            $criteria = new CriteriaCompo();
+            $criteria = new \CriteriaCompo();
             if ($GLOBALS['xoopsModule']->getVar('mid')) {
-                $criteria->add(new Criteria('vote_mid', $GLOBALS['xoopsModule']->getVar('mid')));
+                $criteria->add(new \Criteria('vote_mid', $GLOBALS['xoopsModule']->getVar('mid')));
             }
             $obj['count'] = $this->getCount($criteria);
             if (!empty($args[0])) {
@@ -104,7 +104,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
                 $criteria->setStart($args[0]['start']);
                 $criteria->setLimit($args[0]['limit']);
             }
-            $obj['list'] = $this->getObjects($criteria, $args[1]);
+            $obj['list'] =& $this->getObjects($criteria, $args[1]);
         }
 
         return $obj;
@@ -173,7 +173,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
 
             return $_module;
         } else {
-            $module_list        =& $moduleHandler->getList();
+            $module_list        = $moduleHandler->getList();
             $_cachedModule_list =& $module_list;
 
             return $module_list;

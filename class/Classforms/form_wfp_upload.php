@@ -14,7 +14,7 @@
 
 use Xmf\Request;
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 require_once _WFP_RESOURCE_PATH . '/class/xooslaforms/xoosla_formselectimage.php';
 
@@ -46,9 +46,9 @@ echo '<div style="padding: 0 0 12px 0;"><span style="font-weight: bold;">' . _AM
 // if ($rootpath) {
 // echo '<b>' . _AM_WFP_ANDTHEMAX . '</b> ' . ini_get( 'upload_max_filesize' ) . '<br>';
 // }
-$form = new XoopsThemeForm(_AM_WFP_UPLOADIMAGE . $listarray[$rootpath], 'op', 'upload.php');
+$form = new \XoopsThemeForm(_AM_WFP_UPLOADIMAGE . $listarray[$rootpath], 'op', 'upload.php');
 $form->setExtra('enctype="multipart/form-data"');
-$upload_select = new XoopsFormSelect(_AM_WFP_DIRSELECT, 'rootpath', $rootpath);
+$upload_select = new \XoopsFormSelect(_AM_WFP_DIRSELECT, 'rootpath', $rootpath);
 $upload_select->addOptionArray($namearray);
 $upload_select->setExtra("onchange='location.href=\"upload.php?rootpath=\"+this.options[this.selectedIndex].value'");
 $form->addElement($upload_select);
@@ -58,25 +58,25 @@ if ($rootpath > 0) {
     }
     $graph_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $dirarray[$rootpath]);
     if (3 !== $rootpath) {
-        $smallimage_select = new XoopsFormSelectImage(_AM_WFP_VIEWIMAGE, 'channelfile', $channelfile, 'imagefile', 0, $size = 5);
+        $smallimage_select = new \XoopsFormSelectImage(_AM_WFP_VIEWIMAGE, 'channelfile', $channelfile, 'imagefile', 0, $size = 5);
         $smallimage_select->setCategory($dirarray[$rootpath]);
         $form->addElement($smallimage_select, false);
     } else {
         $html_array      = XoopsLists::getHtmlListAsArray(XOOPS_ROOT_PATH . '/' . $dirarray[$rootpath]);
-        $htmlfile_select = new XoopsFormSelect(_AM_WFP_CHANHTML, 'channelfile', '');
+        $htmlfile_select = new \XoopsFormSelect(_AM_WFP_CHANHTML, 'channelfile', '');
         $htmlfile_select->setDescription(_AM_WFP_FILE_DSC);
         $htmlfile_select->addOption('', '------------------------');
         $htmlfile_select->addOptionArray($html_array);
         $form->addElement($htmlfile_select);
     }
-    $form->addElement(new XoopsFormFile(_AM_WFP_UPLOADLINKIMAGE, 'uploadfile', $GLOBALS['xoopsModuleConfig']['maxfilesize']));
+    $form->addElement(new \XoopsFormFile(_AM_WFP_UPLOADLINKIMAGE, 'uploadfile', $GLOBALS['xoopsModuleConfig']['maxfilesize']));
     /**
      * Buttons
      */
-    $form->addElement(new XoopsFormHiddenToken());
+    $form->addElement(new \XoopsFormHiddenToken());
     $form->addElement(new xoopsFormHidden('op', 'upload'));
     $form->addElement(new xoopsFormHidden('uploadpath', $dirarray[$rootpath]));
     $form->addElement(new xoopsFormHidden('rootnumber', $rootpath));
-    $form->addElement(new XoopsFormButtontray('submit', _SUBMIT, '', '', true));
+    $form->addElement(new \XoopsFormButtontray('submit', _SUBMIT, '', '', true));
 }
 $form->display();

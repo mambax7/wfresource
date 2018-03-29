@@ -11,7 +11,7 @@
 // URL: http:www.Xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
 
 /**
  * wfp_MenuHandler
@@ -227,7 +227,7 @@ class wfp_MenuHandler
          */
         $menuTopLinks = "<a class='nobutton' href='" . XOOPS_URL . '/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' . $GLOBALS['xoopsModule']->getVar('mid') . "'>" . _AM_WFP_ADMINPREFS . '</a>';
         foreach ($this->_menutop as $k => $v) {
-            $menuTopLinks .= ' | <a href="' . htmlentities($k) . '"><span>' . $v . '</span></a>';
+            $menuTopLinks .= ' | <a href="' . htmlentities($k, ENT_QUOTES | ENT_HTML5) . '"><span>' . $v . '</span></a>';
         }
         /**
          * Menu Items
@@ -242,12 +242,12 @@ class wfp_MenuHandler
         $i              = 0;
         $menuBottomTabs = '';
         foreach ($this->_menutabs as $k => $v) {
-            $menuBottomTabs .= '<li id="' . strtolower(str_replace(' ', '_', $menuItems[$i])) . '"><a href="' . htmlentities($k) . '"><span>' . $v . '</span></a></li>';
+            $menuBottomTabs .= '<li id="' . strtolower(str_replace(' ', '_', $menuItems[$i])) . '"><a href="' . htmlentities($k, ENT_QUOTES | ENT_HTML5) . '"><span>' . $v . '</span></a></li>';
             ++$i;
         }
 
         require_once XOOPS_ROOT_PATH . '/class/template.php';
-        $tpl = new XoopsTpl();
+        $tpl = new \XoopsTpl();
         $tpl->assign([
                          'menu_links'     => $menuTopLinks,
                          'menu_tabs'      => $menuBottomTabs,

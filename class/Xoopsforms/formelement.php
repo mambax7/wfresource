@@ -17,7 +17,7 @@
  * @author       XOOPS Development Team, Kazumi Ono (AKA onokazu)
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  *
@@ -377,7 +377,7 @@ class XoopsFormElement
         // render custom validation code if any
         if (0 !== count($this->customValidationCode)) {
             return implode("\n", $this->customValidationCode);
-            // generate validation code if required
+        // generate validation code if required
         } elseif ($this->isRequired()) {
             $eltname    = $this->getName();
             $eltcaption = $this->getCaption();

@@ -17,7 +17,7 @@
  * @author       XOOPS Development Team, Kazumi Ono (AKA onokazu)
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formelement.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/formhidden.php';
@@ -74,9 +74,9 @@ class XoopsGroupPermForm extends XoopsForm
         $this->_modid    = (int)$modid;
         $this->_permName = $permname;
         $this->_permDesc = $permdesc;
-        $this->addElement(new XoopsFormHidden('modid', $this->_modid));
+        $this->addElement(new \XoopsFormHidden('modid', $this->_modid));
         if ('' !== $url) {
-            $this->addElement(new XoopsFormHidden('redirect_url', $url));
+            $this->addElement(new \XoopsFormHidden('redirect_url', $url));
         }
     }
 
@@ -138,14 +138,14 @@ class XoopsGroupPermForm extends XoopsForm
         foreach (array_keys($glist) as $i) {
             // get selected item id(s) for each group
             $selected = $gpermHandler->getItemIds($this->_permName, $i, $this->_modid);
-            $ele      = new XoopsGroupFormCheckBox($glist[$i], 'perms[' . $this->_permName . ']', $i, $selected);
+            $ele      = new \XoopsGroupFormCheckBox($glist[$i], 'perms[' . $this->_permName . ']', $i, $selected);
             $ele->setOptionTree($this->_itemTree);
             $this->addElement($ele);
             unset($ele);
         }
-        $tray = new XoopsFormElementTray('');
-        $tray->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
-        $tray->addElement(new XoopsFormButton('', 'reset', _CANCEL, 'reset'));
+        $tray = new \XoopsFormElementTray('');
+        $tray->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+        $tray->addElement(new \XoopsFormButton('', 'reset', _CANCEL, 'reset'));
         $this->addElement($tray);
 
         $ret      = '<h4>' . $this->getTitle() . '</h4>' . $this->_permDesc . '<br>';
@@ -327,7 +327,7 @@ class XoopsGroupFormCheckBox extends XoopsFormElement
                  . '[itemname]['
                  . $option['id']
                  . ']" value="'
-                 . htmlspecialchars($option['name'])
+                 . htmlspecialchars($option['name'], ENT_QUOTES | ENT_HTML5)
                  . "\"><br>\n";
         if (isset($option['children'])) {
             foreach ($option['children'] as $child) {

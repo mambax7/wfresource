@@ -11,7 +11,12 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+
+use XoopsModules\Wfresource;
+/** @var Wfresource\Helper $helper */
+$helper = Wfresource\Helper::getInstance();
+
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 $dirname = basename(dirname(__DIR__));
 
@@ -229,7 +234,7 @@ function wfp_ShowPagenav(
     $page       = ($tot_num > $num_dis) ? _AM_WFP_PAGE : '';
     if ((int)$tot_num > (int)$num_dis) {
         require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-        $pagenav  = new XoopsPageNav((int)$tot_num, (int)$num_dis, (int)$start, $from, $nav_path);
+        $pagenav  = new \XoopsPageNav((int)$tot_num, (int)$num_dis, (int)$start, $from, $nav_path);
         $nav_type = 1;
         switch ((int)$nav_type) {
             case 1:
@@ -519,7 +524,7 @@ function wfp_confirm($hiddens, $op, $msg, $submit = '', $cancel = '', $noarray =
     foreach ($hiddens as $name => $value) {
         if (is_array($value) && true === $noarray) {
             foreach ($value as $caption => $newvalue) {
-                $ret .= '<input type="radio" name="' . $name . '" value="' . htmlspecialchars($newvalue) . '"> ' . $caption;
+                $ret .= '<input type="radio" name="' . $name . '" value="' . htmlspecialchars($newvalue, ENT_QUOTES | ENT_HTML5) . '"> ' . $caption;
                 $ret .= '<br>';
             }
         } else {
@@ -746,11 +751,12 @@ function wfp_uploader(
     $uploaddir = 'uploads',
     $redirect = 0
 ) {
-    global $xoopsModuleConfig;
-    /**
-     */
+
+    /** @var Wfresource\Helper $helper */
+    $helper = Wfresource\Helper::getInstance();
+
     require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-    $uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH . "/${uploaddir}", $allowed_mimetypes, $xoopsModuleConfig['maxfilesize'], $xoopsModuleConfig['maximgwidth'], $xoopsModuleConfig['maximgheight']);
+    $uploader = new \XoopsMediaUploader(XOOPS_ROOT_PATH . "/${uploaddir}", $allowed_mimetypes, $helper->getConfig('maxfilesize'), $helper->getConfig('maximgwidth'), $helper->getConfig('maximgheight'));
     /**
      */
     if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {

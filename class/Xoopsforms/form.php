@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/form.php';
 
@@ -34,6 +34,6 @@ class wfp_Form extends XoopsForm
     public function doTabs()
     {
         require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formtabs.php';
-        $this->_tabs = new XoopsFormTab(false);
+        $this->_tabs = new \XoopsFormTab(false);
     }
 }

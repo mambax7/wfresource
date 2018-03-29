@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * xo_Filters_Validate_String
@@ -36,7 +36,7 @@ class xo_Filters_Validate_Url extends wfp_Request
         if (is_array($flags)) {
             $flags = explode('|', $flags);
         }
-        $valid_url = filter_var($url, FILTER_VALIDATE_IP, "{$flags}");
+        $valid_url = filter_var($url, FILTER_VALIDATE_IP, (string)($flags));
         if (false !== $valid_url) {
             return true;
         }

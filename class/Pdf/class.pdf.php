@@ -1664,7 +1664,7 @@ class Cpdf
                                 }
                             }
                             $widths[] = $d['WX'];
-                            if ($firstChar === -1) {
+                            if (-1 === $firstChar) {
                                 $firstChar = $num;
                             }
                             $lastChar = $num;
@@ -2645,7 +2645,7 @@ class Cpdf
         }
 
         // converts a number or a float to a string so it can get the width
-        $text = "$text";
+        $text = (string)$text;
 
         // hmm, this is where it all starts to get tricky - use the font information to
         // calculate the width of each character, add them up and convert to user units
@@ -2864,7 +2864,7 @@ class Cpdf
             $this->setColor($opt['col']['r'], $opt['col']['g'], $opt['col']['b'], 1);
             $this->setStrokeColor($opt['str']['r'], $opt['str']['g'], $opt['str']['b'], 1);
             $this->objects[$this->currentContents]['c'] .= "\n" . $opt['lin'];
-            //    $this->currentLineStyle = $opt['lin'];
+        //    $this->currentLineStyle = $opt['lin'];
         } else {
             $this->nStateStack++;
             $this->stateStack[$this->nStateStack] = [
@@ -3461,7 +3461,7 @@ class Cpdf
         $this->oDestination($this->numObj, 'new', ['page' => $this->currentPage, 'type' => $style, 'p1' => $a, 'p2' => $b, 'p3' => $c]);
         $id = $this->numObj;
         // store the label->idf relationship, note that this means that labels can be used only once
-        $this->destinations["$label"] = $id;
+        $this->destinations[(string)$label] = $id;
     }
 
     /**

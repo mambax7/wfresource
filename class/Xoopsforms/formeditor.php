@@ -53,7 +53,7 @@ class XoopsFormEditor extends XoopsFormTextArea
     {
         require_once XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php';
         parent::__construct($caption, $editor_configs['name']);
-        $editorHandler = new XoopsEditorHandler();
+        $editorHandler = new \XoopsEditorHandler();
         $this->editor  =& $editorHandler->get($name, $editor_configs, $noHtml, $OnFailure);
     }
 

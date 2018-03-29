@@ -18,13 +18,13 @@
  * @author     Taiwen Jiang <phppp@users.sourceforge.net>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Usage of XoopsFormCaptcha
  *
  * For form creation:
- * Add form element where proper: <code>$xoopsform->addElement(new XoopsFormCaptcha($caption, $name, $skipmember, $configs));</code>
+ * Add form element where proper: <code>$xoopsform->addElement(new \XoopsFormCaptcha($caption, $name, $skipmember, $configs));</code>
  *
  * For verification:
  * <code>

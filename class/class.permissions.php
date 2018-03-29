@@ -14,7 +14,7 @@
 /**
  * This class is copyright Xoops.com and must remain so.
  */
-defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
 
 /**
  * wfp_PermissionsHandler
@@ -59,7 +59,7 @@ class wfp_Permissions extends XoopsGroupPermForm
     public function setPermissions($table = '', $perm_name = '', $perm_descript = '', $mod_id)
     {
         if (!empty($table)) {
-            $this->db       = XoopsDatabaseFactory::getDatabaseConnection();
+            $this->db       = \XoopsDatabaseFactory::getDatabaseConnection();
             $this->db_table = $this->db->prefix($table);
         }
         $this->_mod_id        = (int)$mod_id;
@@ -99,7 +99,7 @@ class wfp_Permissions extends XoopsGroupPermForm
             trigger_error($error);
         }
 
-        $form_info = new XoopsGroupPermForm('', $this->_mod_id, $this->_perm_name, $this->_perm_descript);
+        $form_info = new \XoopsGroupPermForm('', $this->_mod_id, $this->_perm_name, $this->_perm_descript);
         if ($this->db->getRowsNum($result)) {
             while (false !== ($row_arr = $this->db->fetcharray($result))) {
                 if (!empty($arr['pid'])) {

@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class wfp_addto
@@ -40,7 +40,7 @@ class wfp_addto
      */
     public function render($title = '')
     {
-        $this->itemTitle = htmlspecialchars($title);
+        $this->itemTitle = htmlspecialchars($title, ENT_QUOTES | ENT_HTML5);
         $this->addText   = (int)$GLOBALS['xoopsModuleConfig']['bookmarktextadd'];
         $this->layout    = (int)$GLOBALS['xoopsModuleConfig']['bookmarklayout'];
         $this->method    = 0;

@@ -11,7 +11,7 @@
 // URL: http://catzwolf.x10hosting.com/                                     //
 // Project: WF-Projects                                                     //
 // -------------------------------------------------------------------------//
-defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
 
 /**
  * Class wfp_doPrint

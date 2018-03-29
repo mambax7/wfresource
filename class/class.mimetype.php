@@ -11,7 +11,7 @@
 // URL: http:www.xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
 wfp_getObjectHandler();
 
 /**
@@ -44,7 +44,7 @@ class wfp_Mimetype extends wfp_Object
      */
     public function notLoaded()
     {
-        return ($this->getVar('mime_id') === -1);
+        return (-1 === $this->getVar('mime_id'));
     }
 
     /**
@@ -117,15 +117,15 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
         $obj = false;
         if (2 == func_num_args()) {
             $args     = func_get_args();
-            $criteria = new CriteriaCompo();
+            $criteria = new \CriteriaCompo();
             // if ($args[0]['search_text'] != '') {
-            // $criteria->add( new Criteria( $args[0]['search_by'], '%' . $args[0]['search_text'] . '%', 'LIKE' ) );
+            // $criteria->add( new \Criteria( $args[0]['search_by'], '%' . $args[0]['search_text'] . '%', 'LIKE' ) );
             // }
             // if ($args[0]['mime_safe'] == 0 || $args[0]['mime_safe'] == 1) {
-            // $criteria->add ( new Criteria( 'mime_safe', $args[0]['mime_safe'] ) );
+            // $criteria->add ( new \Criteria( 'mime_safe', $args[0]['mime_safe'] ) );
             // }
             // if ($args[0]['mime_display'] == 0 || $args[0]['mime_display'] == 1) {
-            // $criteria->add ( new Criteria( 'mime_display', $args[0]['mime_display'] ) );
+            // $criteria->add ( new \Criteria( 'mime_display', $args[0]['mime_display'] ) );
             // }
             $obj['count'] = $this->getCount($criteria);
             if (!empty($args[0])) {
@@ -134,7 +134,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
                 $criteria->setStart($args[0]['start']);
                 $criteria->setLimit($args[0]['limit']);
             }
-            $obj['list'] = $this->getObjects($criteria, $args[1]);
+            $obj['list'] =& $this->getObjects($criteria, $args[1]);
         }
 
         return $obj;
@@ -150,18 +150,18 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
         $obj = false;
         if (2 == func_num_args()) {
             $args     = func_get_args();
-            $criteria = new CriteriaCompo();
+            $criteria = new \CriteriaCompo();
             if ('' !== $args[0]['search_text']) {
-                $criteria->add(new Criteria($args[0]['search_by'], '%' . $args[0]['search_text'] . '%', 'LIKE'));
+                $criteria->add(new \Criteria($args[0]['search_by'], '%' . $args[0]['search_text'] . '%', 'LIKE'));
             }
             if (0 == $args[0]['mime_safe'] || 1 == $args[0]['mime_safe']) {
-                $criteria->add(new Criteria('mime_safe', (int)$args[0]['mime_safe']));
+                $criteria->add(new \Criteria('mime_safe', (int)$args[0]['mime_safe']));
             }
             if (isset($args[0]['mime_category']) && 'all' !== $args[0]['mime_category']) {
-                $criteria->add(new Criteria('mime_category', $args[0]['mime_category']), 'LIKE');
+                $criteria->add(new \Criteria('mime_category', $args[0]['mime_category']), 'LIKE');
             }
             if (isset($args[0]['alphabet']) && !empty($args[0]['alphabet'])) {
-                $criteria->add(new Criteria('mime_name', $args[0]['alphabet'] . '%', 'LIKE'));
+                $criteria->add(new \Criteria('mime_name', $args[0]['alphabet'] . '%', 'LIKE'));
             }
             $obj['count'] = $this->getCount($criteria);
             if (!empty($args[0])) {
@@ -173,7 +173,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
                 $criteria->setStart($args[0]['start']);
                 $criteria->setLimit($args[0]['limit']);
             }
-            $obj['list'] = $this->getObjects($criteria, $args[1]);
+            $obj['list'] =& $this->getObjects($criteria, $args[1]);
         }
 
         return $obj;
@@ -273,7 +273,7 @@ class wfp_MimetypeHandler extends wfp_ObjectHandler
      */
     public function mimetypeImage($image)
     {
-        $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
+        $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
         $ret     = [];
         $ext     = pathinfo($image, PATHINFO_EXTENSION);
         $sql     = 'SELECT mime_images FROM ' . $xoopsDB->prefix('wfp_mimetypes') . " WHERE mime_ext LIKE '" . strtolower($ext) . "'";

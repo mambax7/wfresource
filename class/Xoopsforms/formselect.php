@@ -11,7 +11,7 @@
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 if (!class_exists('XoopsFormElement')) {
     require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formelement.php';
@@ -222,7 +222,7 @@ class XoopsFormSelect extends XoopsFormElement
         // render custom validation code if any
         if (0 !== count($this->customValidationCode)) {
             return implode("\n", $this->customValidationCode);
-            // generate validation code if required
+        // generate validation code if required
         } elseif ($this->isRequired()) {
             $eltname    = $this->getName();
             $eltcaption = $this->getCaption();

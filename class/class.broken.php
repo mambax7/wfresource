@@ -11,7 +11,7 @@
 // URL: http:www.Xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 wfp_getObjectHandler();
 
@@ -106,19 +106,19 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
         $obj = false;
         if (2 == func_num_args()) {
             $args     = func_get_args();
-            $criteria = new CriteriaCompo();
+            $criteria = new \CriteriaCompo();
             if (!empty($args[0]['pulldate'])) {
                 $addon_date = $this->getaDate($args[0]['broken_date']);
                 if ($addon_date['begin'] && $addon_date['end']) {
-                    $criteria->add(new Criteria('broken_date', $addon_date['begin'], '>='));
-                    $criteria->add(new Criteria('broken_date', $addon_date['end'], '<='));
+                    $criteria->add(new \Criteria('broken_date', $addon_date['begin'], '>='));
+                    $criteria->add(new \Criteria('broken_date', $addon_date['end'], '<='));
                 }
             }
             if (isset($args[0]['broken_uid']) and $args[0]['broken_uid'] > 0) {
-                $criteria->add(new Criteria('broken_uid', $args[0]['broken_uid'], '='));
+                $criteria->add(new \Criteria('broken_uid', $args[0]['broken_uid'], '='));
             }
             if ($GLOBALS['xoopsModule']->getVar('mid')) {
-                $criteria->add(new Criteria('broken_mid', $GLOBALS['xoopsModule']->getVar('mid')));
+                $criteria->add(new \Criteria('broken_mid', $GLOBALS['xoopsModule']->getVar('mid')));
             }
             $obj['count'] = $this->getCount($criteria);
             if (!empty($args[0])) {
@@ -127,7 +127,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
                 $criteria->setStart($args[0]['start']);
                 $criteria->setLimit($args[0]['limit']);
             }
-            $obj['list'] = $this->getObjects($criteria, $args[1]);
+            $obj['list'] =& $this->getObjects($criteria, $args[1]);
         }
 
         return $obj;

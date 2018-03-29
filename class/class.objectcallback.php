@@ -2,7 +2,7 @@
 
 use Xmf\Request;
 
-defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
 
 /**
  * wfp_Callback
@@ -211,7 +211,7 @@ class wfp_Callback extends wfp_ObjectHandler
      * @param  bool        $force
      * @return bool|void
      */
-    public function deleteByID(XoopsObject $obj, $force = false)
+    public function deleteByID(\XoopsObject $obj, $force = false)
     {
         $wfc_cid = wfp_Request::doRequest($_REQUEST, $this->_callback->keyName, 0, 'int');
         $_obj    = $this->_callback->get($this->_id);

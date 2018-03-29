@@ -35,7 +35,7 @@ trait ServerStats
         //        $query = $GLOBALS['xoopsDB']->query($sql);
         //        list($meta) = $GLOBALS['xoopsDB']->fetchRow($query);
         $html .= '<fieldset>';
-        $html .= "<legend style='font-weight: bold; color: #900;'>" . constant('CO_' . $moduleDirNameUpper . '_IMAGEINFO') . "</legend>";        
+        $html .= "<legend style='font-weight: bold; color: #900;'>" . constant('CO_' . $moduleDirNameUpper . '_IMAGEINFO') . "</legend>";
         $html .= "<div style='padding: 8px;'>";
         //        $html .= '<div>' . constant('CO_' . $moduleDirNameUpper . '_METAVERSION') . $meta . "</div>";
         //        $html .= "<br>";
@@ -46,7 +46,7 @@ trait ServerStats
         $gdlib = function_exists('gd_info') ? '<span style="color: green;">' . constant('CO_' . $moduleDirNameUpper . '_GDON') . '</span>' : '<span style="color: red;">' . constant('CO_' . $moduleDirNameUpper . '_GDOFF') . '</span>';
         $html  .= '<li>' . constant('CO_' . $moduleDirNameUpper . '_GDLIBSTATUS') . $gdlib;
         if (function_exists('gd_info')) {
-            if ($gdlib = true === gd_info()) {
+            if (true === ($gdlib = gd_info())) {
                 $html .= '<li>' . constant('CO_' . $moduleDirNameUpper . '_GDLIBVERSION') . '<b>' . $gdlib['GD Version'] . '</b>';
             }
         }
