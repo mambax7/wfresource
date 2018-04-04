@@ -67,7 +67,7 @@ class xo_Loader
 
         $result = self::loadInclude($path . DS . $filename);
         if ($result) {
-            if (!stristr(strtolower($var), $class)) {
+            if (false === stripos(strtolower($var), $class)) {
                 $var = $class . ucfirst($var) . 'Handler';
             }
             $md5var = md5($var . $options);
@@ -300,7 +300,7 @@ class xo_Loader
                 return self::$urls[$md5Name];
             }
             $var                  = str_replace('\\', '/', $var);
-            self::$urls[$md5Name] = (false === stristr($var, XOOPS_URL)) ? XOOPS_URL . '/' . $var : $var;
+            self::$urls[$md5Name] = (false === stripos($var, XOOPS_URL)) ? XOOPS_URL . '/' . $var : $var;
 
             return self::$urls[$md5Name];
         }
@@ -353,7 +353,7 @@ class xo_Loader
     {
         if (1 === func_num_args()) {
             $var = func_get_arg(0);
-            if (false === stristr($var, XO_ROOT_PATH)) {
+            if (false === stripos($var, XO_ROOT_PATH)) {
                 $var = XO_ROOT_PATH . DS . $var;
             }
             if (file_exists($var) && !is_dir($var)) {
@@ -373,7 +373,7 @@ class xo_Loader
     {
         if (1 === func_num_args()) {
             $var = func_get_arg(0);
-            if (false === stristr($var, XO_ROOT_PATH)) {
+            if (false === stripos($var, XO_ROOT_PATH)) {
                 $var = XO_ROOT_PATH . DS . $var;
             }
             if (file_exists($var) && is_dir($var)) {

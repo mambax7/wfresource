@@ -1713,12 +1713,12 @@ class Cpdf
                     // determine flags (more than a little flakey, hopefully will not matter much)
                     $flags = 0;
                     if (0 !== $this->fonts[$fontName]['ItalicAngle']) {
-                        $flags += pow(2, 6);
+                        $flags += 2 ** 6;
                     }
                     if ('true' === $this->fonts[$fontName]['IsFixedPitch']) {
                         ++$flags;
                     }
-                    $flags += pow(2, 5); // assume non-sybolic
+                    $flags += 2 ** 5; // assume non-sybolic
 
                     $list  = [
                         'Ascent'      => 'Ascender',

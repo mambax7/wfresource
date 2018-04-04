@@ -1601,7 +1601,7 @@ class Cezpdf extends Cpdf
     public function ezImage($image, $pad = 5, $width = 0, $resize = 'full', $just = 'center', $border = '')
     {
         // beta ezimage function
-        if (stristr($image, '://')) { // copy to temp file
+        if (false !== stripos($image, '://')) { // copy to temp file
             if (false !== ($fp = fopen($image, 'rb'))) {
                 while (!feof($fp)) {
                     $cont .= fread($fp, 1024);
@@ -1725,7 +1725,7 @@ class Cezpdf extends Cpdf
             return -1;
         }
 
-        $code = implode('', file($templateFile));
+        $code = file_get_contents($templateFile);
         if (!strlen($code)) {
             return;
         }

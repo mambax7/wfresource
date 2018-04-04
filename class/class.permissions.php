@@ -131,14 +131,14 @@ class wfp_Permissions extends XoopsGroupPermForm
         /**
          * Save the new permissions
          */
-        $gpermHandler = wfp_getHandler('groupperm');
-        if (is_object($gpermHandler) && !empty($gpermHandler)) {
+        $grouppermHandler = wfp_getHandler('groupperm');
+        if (is_object($grouppermHandler) && !empty($grouppermHandler)) {
             /**
              * First, if the permissions are already there, delete them
              */
-            $gpermHandler->deleteByModule($this->_mod_id, $this->_perm_name, $item_id);
+            $grouppermHandler->deleteByModule($this->_mod_id, $this->_perm_name, $item_id);
             foreach ($groups as $group_id) {
-                if (!$gpermHandler->addRight($this->_perm_name, $item_id, $group_id, $this->_mod_id)) {
+                if (!$grouppermHandler->addRight($this->_perm_name, $item_id, $group_id, $this->_mod_id)) {
                     return false;
                 }
             }
@@ -161,9 +161,9 @@ class wfp_Permissions extends XoopsGroupPermForm
 
         $item_id      = (string)((int)$item_id);
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $gpermHandler = wfp_getHandler('groupperm');
-        if ($groups && is_object($gpermHandler)) {
-            $ret = $gpermHandler->checkRight($this->_perm_name, $item_id, $_groups, $this->_mod_id);
+        $grouppermHandler = wfp_getHandler('groupperm');
+        if ($groups && is_object($grouppermHandler)) {
+            $ret = $grouppermHandler->checkRight($this->_perm_name, $item_id, $_groups, $this->_mod_id);
 
             return $ret;
         }
@@ -181,8 +181,8 @@ class wfp_Permissions extends XoopsGroupPermForm
     public function getAdmin($item_id, $isNew = null)
     {
         $item_id      = (int)$item_id;
-        $gpermHandler = wfp_getHandler('groupperm');
-        $groups       = $gpermHandler->getGroupIds($this->_perm_name, $item_id, $this->_mod_id);
+        $grouppermHandler = wfp_getHandler('groupperm');
+        $groups       = $grouppermHandler->getGroupIds($this->_perm_name, $item_id, $this->_mod_id);
         if (!count($groups) && true === $isNew) {
             $groups = [0 => 1, 1 => 2];
         }
@@ -202,9 +202,9 @@ class wfp_Permissions extends XoopsGroupPermForm
 
         $item_id      = (int)$item_id;
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $gpermHandler = wfp_getHandler('groupperm');
-        if ($groups && is_object($gpermHandler)) {
-            $gpermHandler->deleteByModule($this->_mod_id, $this->_perm_name, $item_id);
+        $grouppermHandler = wfp_getHandler('groupperm');
+        if ($groups && is_object($grouppermHandler)) {
+            $grouppermHandler->deleteByModule($this->_mod_id, $this->_perm_name, $item_id);
         }
 
         return false;
