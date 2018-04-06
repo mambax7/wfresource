@@ -104,7 +104,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
                 $criteria->setStart($args[0]['start']);
                 $criteria->setLimit($args[0]['limit']);
             }
-            $obj['list'] =& $this->getObjects($criteria, $args[1]);
+            $obj['list'] = $this->getObjects($criteria, $args[1]);
         }
 
         return $obj;
@@ -127,7 +127,7 @@ class wfp_VotesHandler extends wfp_ObjectHandler
         }
         $this->vote_aid = 0;
         if (isset($_REQUEST['page_type']) && 'content' === $_REQUEST['page_type']) {
-            $this->vote_aid = (int)$_REQUEST['id'];
+            $this->vote_aid = \Xmf\Request::getInt('id', 0, 'REQUEST');
         }
         $this->vote_ipaddress = getip();
         $this->vote_aid       = $ratinguser = is_object($xoopsUser) ? $xoopsUser->getVar('uid') : 0;

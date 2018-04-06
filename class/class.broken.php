@@ -127,7 +127,7 @@ class wfp_BrokenHandler extends wfp_ObjectHandler
                 $criteria->setStart($args[0]['start']);
                 $criteria->setLimit($args[0]['limit']);
             }
-            $obj['list'] =& $this->getObjects($criteria, $args[1]);
+            $obj['list'] = $this->getObjects($criteria, $args[1]);
         }
 
         return $obj;
