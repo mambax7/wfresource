@@ -925,8 +925,10 @@ class Cezpdf extends Cpdf
         if (!is_array($cols)) {
             // take the columns from the first row of the data set
             reset($data);
-            list($k, $v) = each($data);
-            if (!is_array($v)) {
+//            list($k, $v) = each($data);
+            $k = array_keys($data)[0];
+            $v = array_values($data)[0];
+                if (!is_array($v)) {
                 return;
             }
             $cols = [];
