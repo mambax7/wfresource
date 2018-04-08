@@ -51,7 +51,7 @@ class wfp_Callback extends wfp_ObjectHandler
     {
         $this->_callback = func_get_arg(0);
         $this->_id       = wfp_Request::doRequest($_REQUEST, $this->_callback->keyName, 0, 'int');
-        $this->url       = isset($_SERVER['HTTP_REFERER']) ? urldecode($_SERVER['HTTP_REFERER']) : xoops_getenv('PHP_SELF');
+        $this->url       = isset(Request::getString('HTTP_REFERER', '', 'SERVER')) ? urldecode(Request::getString('HTTP_REFERER', '', 'SERVER')) : xoops_getenv('PHP_SELF');
     }
 
     /**
