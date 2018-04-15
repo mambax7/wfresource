@@ -9,7 +9,7 @@
  * @author     Kazumi Ono
  * @copyright  copyright (c) 2007 Xoops Project - http.www.Xoops.com
  */
-class XoopsFormSelectImage extends XoopsFormSelect
+class XoopsFormSelectImage extends \XoopsFormSelect
 {
     public $_name;
     public $_value = [];
@@ -202,10 +202,10 @@ class XoopsFormSelectImage extends XoopsFormSelect
                 $art_image_array = $imageHandler->getList($this->_imgcat_id, null, 'image');
                 $this->setCategory($image_cat_obj->getVar('imgcat_dirname'));
             } else {
-                $art_image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $this->getCategory());
+                $art_image_array = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $this->getCategory());
             }
         } else {
-            $art_image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $this->getCategory());
+            $art_image_array = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $this->getCategory());
         }
 
         $image_array = [];

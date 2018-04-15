@@ -10,7 +10,7 @@ defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this fil
  * @copyright Copyright (c) 2007
  * @access    public
  **/
-class XoopsFormDateSelect extends XoopsFormText
+class XoopsFormDateSelect extends \XoopsFormText
 {
     /**
      * XoopsFormDateSelect::XoopsFormDateSelect()

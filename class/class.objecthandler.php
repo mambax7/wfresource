@@ -26,7 +26,7 @@ wfp_loadLangauge('errors', 'wfresource');
  * @copyright Copyright (c) 2009
  * @access    public
  */
-class wfp_ObjectHandler extends XoopsObjectHandler
+class wfp_ObjectHandler extends \XoopsObjectHandler
 {
     /**
      * *#@+

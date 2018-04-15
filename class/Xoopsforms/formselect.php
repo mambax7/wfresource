@@ -25,7 +25,7 @@ if (!class_exists('XoopsFormElement')) {
  * @author     Kazumi Ono <onokazu@xoops.org>
  * @copyright  copyright (c) 2000-2003 XOOPS.org
  */
-class XoopsFormSelect extends XoopsFormElement
+class XoopsFormSelect extends \XoopsFormElement
 {
     /**
      * Options

@@ -18,7 +18,7 @@ xoops_load('xoopsformelement');
 /**
  * Class XoopsFormCheckBox
  */
-class XoopsFormCheckBox extends XoopsFormElement
+class XoopsFormCheckBox extends \XoopsFormElement
 {
     /**
      * Availlable options

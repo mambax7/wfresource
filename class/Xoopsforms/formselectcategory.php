@@ -23,7 +23,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
  * @author     Kazumi Ono
  * @copyright  copyright (c) 2007 Xoops Project - http.www.xoops.com
  */
-class XoopsFormSelectCategory extends XoopsFormSelect
+class XoopsFormSelectCategory extends \XoopsFormSelect
 {
     /**
      * Constructor

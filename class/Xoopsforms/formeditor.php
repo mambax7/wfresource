@@ -36,7 +36,7 @@
  * @package      kernel
  * @subpackage   form
  */
-class XoopsFormEditor extends XoopsFormTextArea
+class XoopsFormEditor extends \XoopsFormTextArea
 {
     public $editor;
 

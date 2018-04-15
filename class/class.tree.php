@@ -30,7 +30,7 @@ require_once XOOPS_ROOT_PATH . '/class/tree.php';
 /**
  * Class wfpObjectTree
  */
-class wfpObjectTree extends XoopsObjectTree
+class wfpObjectTree extends \XoopsObjectTree
 {
     /**
      * Make a select box with options from the tree

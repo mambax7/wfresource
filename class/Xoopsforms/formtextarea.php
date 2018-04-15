@@ -29,7 +29,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  * @package    kernel
  * @subpackage form
  */
-class XoopsFormTextArea extends XoopsFormElement
+class XoopsFormTextArea extends \XoopsFormElement
 {
     /**
      * number of columns

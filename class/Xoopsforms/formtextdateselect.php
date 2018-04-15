@@ -28,7 +28,7 @@ defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this fil
  * @author     Kazumi Ono
  * @copyright  copyright (c) 2007 Xoops Project - http.www.xoops.com
  */
-class XoopsFormTextDateSelect extends XoopsFormCalendar
+class XoopsFormTextDateSelect extends \XoopsFormCalendar
 {
     /**
      * XoopsFormTextDateSelect::XoopsFormTextDateSelect()

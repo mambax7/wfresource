@@ -56,13 +56,13 @@ if ($rootpath > 0) {
     if (null === $channelfile) {
         $channelfile = 'blank.png';
     }
-    $graph_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $dirarray[$rootpath]);
+    $graph_array = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $dirarray[$rootpath]);
     if (3 !== $rootpath) {
         $smallimage_select = new \XoopsFormSelectImage(_AM_WFP_VIEWIMAGE, 'channelfile', $channelfile, 'imagefile', 0, $size = 5);
         $smallimage_select->setCategory($dirarray[$rootpath]);
         $form->addElement($smallimage_select, false);
     } else {
-        $html_array      = XoopsLists::getHtmlListAsArray(XOOPS_ROOT_PATH . '/' . $dirarray[$rootpath]);
+        $html_array      = \XoopsLists::getHtmlListAsArray(XOOPS_ROOT_PATH . '/' . $dirarray[$rootpath]);
         $htmlfile_select = new \XoopsFormSelect(_AM_WFP_CHANHTML, 'channelfile', '');
         $htmlfile_select->setDescription(_AM_WFP_FILE_DSC);
         $htmlfile_select->addOption('', '------------------------');

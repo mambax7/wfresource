@@ -13,7 +13,7 @@ define('XOBJ_DTYPE_BOOL', 12);
 /**
  * Class wfp_Object
  */
-class wfp_Object extends XoopsObject
+class wfp_Object extends \XoopsObject
 {
     /**
      * wfp_Object::wfp_Object()
@@ -77,7 +77,7 @@ class wfp_Object extends XoopsObject
     {
         XoopsLoad::load('xoopsuserutility');
 
-        return XoopsUserUtility::getUnameFromId($this->getVar($value), $usereal, $linked);
+        return \XoopsUserUtility::getUnameFromId($this->getVar($value), $usereal, $linked);
     }
 
     /**

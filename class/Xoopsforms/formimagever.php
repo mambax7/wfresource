@@ -5,7 +5,7 @@ defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this fil
  *
  * @copyright 2006
  */
-class XoopsFormImagever extends XoopsFormElement
+class XoopsFormImagever extends \XoopsFormElement
 {
     /**
      * initial background image

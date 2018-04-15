@@ -32,7 +32,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php';
  * @author        phppp (D.J.)
  * @copyright     copyright (c) 2000-2003 XOOPS.org
  */
-class XoopsFormSelectEditor extends XoopsFormElementTray
+class XoopsFormSelectEditor extends \XoopsFormElementTray
 {
     /**
      * Constructor

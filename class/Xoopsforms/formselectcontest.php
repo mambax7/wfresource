@@ -7,7 +7,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 /**
  * Class XoopsFormSelectContest
  */
-class XoopsFormSelectContest extends XoopsFormSelect
+class XoopsFormSelectContest extends \XoopsFormSelect
 {
     /**
      * @param      $caption

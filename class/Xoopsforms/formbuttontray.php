@@ -11,7 +11,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsform/formbutton.php';
  * @copyright Copyright (c) 2007
  * @access    public
  */
-class XoopsFormButtonTray extends XoopsFormElement
+class XoopsFormButtonTray extends \XoopsFormElement
 {
     /**
      * Value

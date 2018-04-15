@@ -31,7 +31,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 /**
  * Class wfp_Permissions
  */
-class wfp_Permissions extends XoopsGroupPermForm
+class wfp_Permissions extends \XoopsGroupPermForm
 {
     public $db;
     public $db_table;

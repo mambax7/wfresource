@@ -24,7 +24,7 @@ define('NEWLINE', "\n");
 /**
  * Class XoopsFormCalendar
  */
-class XoopsFormCalendar extends XoopsFormElement
+class XoopsFormCalendar extends \XoopsFormElement
 {
     public $calendar_lib_path;
     public $calendar_file;

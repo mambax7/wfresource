@@ -23,7 +23,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsform/form.php';
  * @copyright Copyright (c) 2009
  * @access    public
  */
-class wfp_Form extends XoopsForm
+class wfp_Form extends \XoopsForm
 {
     public $_tabs;
 

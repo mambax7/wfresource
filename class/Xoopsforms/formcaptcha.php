@@ -36,7 +36,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  *       }
  * </code>
  */
-class XoopsFormCaptcha extends XoopsFormElement
+class XoopsFormCaptcha extends \XoopsFormElement
 {
     public $captchaHandler;
 

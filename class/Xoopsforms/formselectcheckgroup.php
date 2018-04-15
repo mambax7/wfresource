@@ -25,7 +25,7 @@ if (!class_exists('XoopsFormCheckBox')) {
  * @author     Kazumi Ono
  * @copyright  copyright (c) 2007 Xoops Project - http.www.xoops.com
  */
-class XoopsFormSelectCheckGroup extends XoopsFormCheckBox
+class XoopsFormSelectCheckGroup extends \XoopsFormCheckBox
 {
     /**
      * Constructor

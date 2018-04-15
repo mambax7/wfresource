@@ -30,7 +30,7 @@ defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this fil
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000-2003 XOOPS.org
  */
-class wfp_GroupPermHandler extends XoopsGroupPermHandler
+class wfp_GroupPermHandler extends \XoopsGroupPermHandler
 {
     /**
      * Store a {@link XoopsGroupPerm}

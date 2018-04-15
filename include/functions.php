@@ -13,8 +13,6 @@
  */
 
 use XoopsModules\Wfresource;
-/** @var Wfresource\Helper $helper */
-$helper = Wfresource\Helper::getInstance();
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 

@@ -33,7 +33,7 @@ require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/form.php';
  * @package    kernel
  * @subpackage form
  */
-class XoopsGroupPermForm extends XoopsForm
+class XoopsGroupPermForm extends \XoopsForm
 {
     /**
      * Module ID
@@ -180,7 +180,7 @@ class XoopsGroupPermForm extends XoopsForm
  * @package    kernel
  * @subpackage form
  */
-class XoopsGroupFormCheckBox extends XoopsFormElement
+class XoopsGroupFormCheckBox extends \XoopsFormElement
 {
     /**
      * Pre-selected value(s)
