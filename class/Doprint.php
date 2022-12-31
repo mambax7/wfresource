@@ -52,7 +52,7 @@ class Doprint
      */
     public function doRender(): void
     {
-        \Utility::loadLanguage('print', 'wfresource');
+        Utility::loadLanguage('print', 'wfresource');
 
         $ret = '<!DOCTYPE html>';
         $ret .= "\n";

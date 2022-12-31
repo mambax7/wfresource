@@ -12,7 +12,7 @@ namespace XoopsModules\Wfresource;
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-\Utility::loadLanguage('errors', 'wfresource');
+Utility::loadLanguage('errors', 'wfresource');
 
 /**
  * ObjectMagicHandler

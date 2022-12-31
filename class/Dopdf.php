@@ -56,7 +56,7 @@ class Dopdf
      */
     public function doRender(): void
     {
-        \Utility::loadLanguage('print', 'wfresource');
+        Utility::loadLanguage('print', 'wfresource');
         \error_reporting(0);
         $this->stdoutput = $this->getCache($this->options['id'], $this->options['title']);
         if (!$this->stdoutput) {

@@ -49,7 +49,6 @@ class WfpCallback extends WfpObjectHandler
     public function setCallback(...$args): void
     {
         $this->_callback = \func_get_arg(0);
-//        $this->_id       = wfcRequest::doRequest($_REQUEST, $this->_callback->keyName, 0, 'int');
         $this->_id       = \Xmf\Request::getInt($this->_callback->keyName, 0);
         $this->url       = \Xmf\Request::hasVar('HTTP_REFERER', 'SERVER') ? \urldecode(\Xmf\Request::getString('HTTP_REFERER', '', 'SERVER')) : \xoops_getenv('SCRIPT_NAME');
     }
@@ -113,8 +112,9 @@ class WfpCallback extends WfpObjectHandler
     public function help()
     {
         \xoops_cp_header();
-        $GLOBALS['menuHandler']->render($this->_menuid);
-        \Utility::showHelp();
+        $menuHandler = new MenuHandler();
+        $menuHandler->render($this->_menuid);
+        Utility::showHelp();
 
         return true;
     }
@@ -126,7 +126,8 @@ class WfpCallback extends WfpObjectHandler
     public function about()
     {
         \xoops_cp_header();
-        $GLOBALS['menuHandler']->render($this->_menuid);
+        $menuHandler = new MenuHandler();
+        $menuHandler->render($this->_menuid);
         Utility::showAbout();
 
         return true;
@@ -150,12 +151,13 @@ class WfpCallback extends WfpObjectHandler
             $callArray = [&$this->_callback, $_function];
             $_obj      = \call_user_func($callArray);
         }
-//mb        \xoops_cp_header();
+        //mb        \xoops_cp_header();
+        $menuHandler = new MenuHandler();
 
-        if (null === $GLOBALS['menuHandler']->_obj) {
-            $GLOBALS['menuHandler']->_obj = $this->_obj;
+        if (null === $menuHandler->_obj) {
+            $menuHandler->_obj = $this->_obj;
         }
-        $GLOBALS['menuHandler']->render($this->_menuid);
+        $menuHandler->render($this->_menuid);
 
         if (\is_object($_obj)) {
             $_obj->formEdit($this->_callback->obj_class);
@@ -204,24 +206,22 @@ class WfpCallback extends WfpObjectHandler
     }
 
     /**
-     * WfpCallback::deleteByID()
+     * WfpCallback::deleteById()
      * delete an object from the database by id.
-     * @param \XoopsObject $obj id of the object to delete
-     * @param bool        $force
+     * @param int  $id id of the object to delete
+     * @param bool $force
      * @return bool|void
      */
-    public function deleteByID(\XoopsObject $obj, $force = false)
+    public function deleteById($id, $force = false)
     {
-        $wfc_cid = wfcRequest::doRequest($_REQUEST, $this->_callback->keyName, 0, 'int');
+        $wfc_cid = \Xmf\Request::getInt($this->_callback->keyName, 0);
         $_obj    = $this->_callback->get($this->_id);
         if (\is_object($_obj)) {
-            $ok = wfcRequest::doRequest($_REQUEST, 'ok', 0, 'int');
+            $ok = \Xmf\Request::getInt('ok', 0, 'REQUEST');
             switch ($ok) {
                 case 0:
                 default:
-                    \xoops_cp_header();
-                    $GLOBALS['menuHandler']->render($this->_menuid);
-                    Utility::clonePerms(
+                    xoops_confirm(
                         [
                             'op'                      => 'delete',
                             $this->_callback->keyName => $this->_id,
@@ -239,7 +239,7 @@ class WfpCallback extends WfpObjectHandler
                         \redirect_header($this->url, 1, \_AM_WFP_DBERROR);
                     }
                     if ($this->_callback->delete($_obj)) {
-                        $url = wfcRequest::doRequest($_REQUEST, 'url', '', 'textbox');
+                        $url = \Xmf\Request::getUrl('url', '');
                         Utility::deletePerms($this->_callback, $_obj->getVar($this->_callback->keyName));
                         \xoops_comment_delete($GLOBALS['xoopsModule']->getVar('mid'), $_obj->getVar($this->_callback->keyName));
                         \redirect_header($url, 1, \_AM_WFP_DBUPDATEDDELETED);
@@ -271,7 +271,7 @@ class WfpCallback extends WfpObjectHandler
         $_obj->setNew();
         $oldID = $_obj->getVar($this->_callback->keyName);
         if ($this->_callback->insert($_obj, true, null, true)) {
-            Wfresource\Utility::clonePerms($this->_callback, $oldID, $_obj->getVar($this->_callback->keyName));
+            Utility::clonePerms($this->_callback, $oldID, $_obj->getVar($this->_callback->keyName));
             \redirect_header($this->url, 1, \_AM_WFP_DBITEMDUPLICATED);
         } else {
             return false;
@@ -291,8 +291,8 @@ class WfpCallback extends WfpObjectHandler
         if (\func_num_args() > 0) {
             $array_keys = \func_get_arg(0);
         }
-        $checkbox = wfcRequest::doRequest($_REQUEST, 'checkbox', false, 'array');
-        if ($checkbox && \is_array($checkbox)) {
+        $checkbox = \Xmf\Request::getArray('checkbox', []);
+        if ((is_countable($checkbox) ? \count($checkbox) : 0) > 0) {
             foreach (\array_keys($checkbox) as $id) {
                 $_obj = $this->_callback->get($id);
                 if ($_obj) {
@@ -338,8 +338,8 @@ class WfpCallback extends WfpObjectHandler
         if (\func_num_args() > 0) {
             $array_keys = \func_get_arg(0);
         }
-        $checkbox = wfcRequest::doRequest($_REQUEST, 'checkbox', false, 'array');
-        if ($checkbox && \is_array($checkbox)) {
+        $checkbox = \Xmf\Request::getArray('checkbox', []);
+        if ((is_countable($checkbox) ? \count($checkbox) : 0) > 0) {
             foreach (\array_keys($checkbox) as $id) {
                 $_obj = $this->_callback->get($id);
                 if ($_obj) {
@@ -352,7 +352,7 @@ class WfpCallback extends WfpObjectHandler
                     $oldID = $_obj->getVar($this->_callback->keyName);
                     if ($this->_callback->insert($_obj, false)) {
                         if (!empty($this->Handler->groupName)) {
-                            Wfresource\Utility::clonePerms($this->Handler, $oldID, $_obj->getVar($this->Handler->keyName));
+                            Utility::clonePerms($this->Handler, $oldID, $_obj->getVar($this->Handler->keyName));
                         }
                     }
                 }
@@ -376,10 +376,8 @@ class WfpCallback extends WfpObjectHandler
         }
 
         $array_keys = $fieldname;
-        $checkbox   = wfcRequest::doRequest($_REQUEST, 'checkbox', false, 'array');
-        // $checkbox = ( isset( $_REQUEST['checkbox'] ) ) ? $_REQUEST['checkbox']: '';
-        // $checkbox = &wfp_cleanRequestVars( $_REQUEST, 'checkbox', null, XOBJ_DTYPE_OTHER );
-        if ($checkbox && \is_array($checkbox)) {
+        $checkbox   = \Xmf\Request::getArray('checkbox', []);
+        if ((is_countable($checkbox) ? \count($checkbox) : 0) > 0) {
             foreach (\array_keys((array)$checkbox) as $id) {
                 $_obj       = $this->_callback->get($id);
                 $arrayCount = \count($array_keys);
@@ -392,7 +390,7 @@ class WfpCallback extends WfpObjectHandler
                 if ($this->_callback->insert($_obj, false)) {
                     if (isset($_REQUEST[$this->_callback->groupName][$_obj->getVar($this->_callback->keyName)])) {
                         $groups = $_REQUEST[$this->_callback->groupName][$_obj->getVar($this->_callback->keyName)];
-                        \Utility::savePerms($this->_callback, $groups, $_obj->getVar($this->_callback->keyName));
+                        Utility::savePerms($this->_callback, $groups, $_obj->getVar($this->_callback->keyName));
                     }
                 }
             }
@@ -400,8 +398,7 @@ class WfpCallback extends WfpObjectHandler
         \redirect_header(
             $this->url,
             1,
-            (\is_array($checkbox)
-             && \count($checkbox) > 0) ? \_AM_WFP_DBSELECTEDITEMSUPTATED : \_AM_WFP_DBNOTUPDATED
+            ((is_countable($checkbox) ? \count($checkbox) : 0) > 0) ? \_AM_WFP_DBSELECTEDITEMSUPTATED : \_AM_WFP_DBNOTUPDATED
         );
     }
 
@@ -441,11 +438,11 @@ class WfpCallback extends WfpObjectHandler
      */
     public function setBasics(): void
     {
-        $_REQUEST['dohtml']   = wfcRequest::doRequest($_REQUEST, 'dohtml', 0, 'int');
-        $_REQUEST['dobr']     = wfcRequest::doRequest($_REQUEST, 'dobr', 0, 'int');
-        $_REQUEST['doxcode']  = wfcRequest::doRequest($_REQUEST, 'doxcode', 0, 'int');
-        $_REQUEST['dosmiley'] = wfcRequest::doRequest($_REQUEST, 'dosmiley', 0, 'int');
-        $_REQUEST['doimage']  = wfcRequest::doRequest($_REQUEST, 'doimage', 0, 'int');
+        $_REQUEST['dohtml']   = \Xmf\Request::getInt('dohtml', 0);
+        $_REQUEST['dobr']     = \Xmf\Request::getInt('dobr', 0);
+        $_REQUEST['doxcode']  = \Xmf\Request::getInt('doxcode', 0);
+        $_REQUEST['dosmiley'] = \Xmf\Request::getInt('dosmiley', 0);
+        $_REQUEST['doimage']  = \Xmf\Request::getInt('doimage', 0);
     }
 
     /**

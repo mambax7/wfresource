@@ -14,7 +14,7 @@ use MyTextSanitizer;
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-\Utility::loadLanguage('about', 'wfresource');
+Utility::loadLanguage('about', 'wfresource');
 
 /**
  * About
