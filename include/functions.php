@@ -749,7 +749,7 @@ function wfp_uploader(
     $helper = Wfresource\Helper::getInstance();
 
     require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-    $uploader = new \XoopsMediaUploader(XOOPS_ROOT_PATH . "/${uploaddir}", $allowed_mimetypes, $helper->getConfig('maxfilesize'), $helper->getConfig('maximgwidth'), $helper->getConfig('maximgheight'));
+    $uploader = new \XoopsMediaUploader(XOOPS_ROOT_PATH . "/{$uploaddir}", $allowed_mimetypes, $helper->getConfig('maxfilesize'), $helper->getConfig('maximgwidth'), $helper->getConfig('maximgheight'));
 
     if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
         if (!$uploader->upload()) {
