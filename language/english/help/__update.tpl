@@ -3,7 +3,7 @@
         <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/<{$smarty.const._MI_WFC_DIRNAME}>/admin/index.php"
            title="Back to the administration of <{$smarty.const._MI_WFC_NAME}>"> <{$smarty.const._MI_WFC_NAME}>
             <img src="<{xoAdminIcons home.png}>"
-                 alt="Back to the Administration of <{$smarty.const._MI_WFC_NAME}>"/>
+                 alt="Back to the Administration of <{$smarty.const._MI_WFC_NAME}>">
         </a></h1>
 
     <h4 class="odd">Update</h4>
@@ -40,14 +40,14 @@
 
         <p>CHMOD the following folders to 777: </p>
 
-        <p><i>wfchannel/cache<br>wfchannel/images<br>wfchannel/images/linkimages<br>wfchannel/html<br>wfchannel/html/images<br>
+        <p><i>wfchannel/cache<br>wfchannel/assets/images<br>wfchannel/assets/images/linkimages<br>wfchannel/html<br>wfchannel/html/images<br>
         </i></p>
 
         <p>&nbsp;</p>
     </li>
     <li><span style="text-decoration: underline;"><b>Depending on your current wf-channel version:</b></span><br>- if you are running 1.06: just skip to the next
         step<br>- if you are running 1.05 or lower: run the upgrade script under: &nbsp;&nbsp;&nbsp;
-        <a href="http://www.yoursite.tld/modules/wfchannel/upgrade.php">www.yoursite.tld/modules/wfchannel/upgrade.php</a>
+        <a href="https://www.yoursite.tld/modules/wfchannel/upgrade.php">www.yoursite.tld/modules/wfchannel/upgrade.php</a>
         <br><br>
         <br></li>
     <li><span style="text-decoration: underline;"><b>Update the module</b></span>

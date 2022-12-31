@@ -9,7 +9,7 @@
  * This script is developed by Dynarch.com.  Visit us at www.dynarch.com.
  *
  * This script is distributed under the GNU Lesser General Public License.
- * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
+ * Read the entire license text here: https://www.gnu.org/licenses/lgpl.html
  */
 
 // $Id: calendar.js,v 1.1 2007/03/16 02:40:45 catzwolf Exp $

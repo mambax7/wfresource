@@ -1,24 +1,22 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * Name: about.php
  * Description:
  *
- * @package    : Xoosla Modules
  * @Module     :
- * @subpackage :
  * @since      : v1.0.0
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * Xoosla Language
  *
- * @copyright Xoosla http://sourceforge.net/projects/xoosla/
- * @license   http://www.fsf.org/licensing/licenses/lgpl.html GNU Lesser General Public License
- * @package   Language
+ * @copyright Xoosla https://sourceforge.net/projects/xoosla/
+ * @license   https://www.fsf.org/licensing/licenses/lgpl.html GNU Lesser General Public License
  * @since     v1.0.0
  * @author    John Neill <catzwolf@users.sourceforge.net>
  */

@@ -3,7 +3,7 @@
         <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/<{$smarty.const._MI_WFC_DIRNAME}>/admin/index.php"
            title="Back to the administration of <{$smarty.const._MI_WFC_NAME}>"> <{$smarty.const._MI_WFC_NAME}>
             <img src="<{xoAdminIcons home.png}>"
-                 alt="Back to the Administration of <{$smarty.const._MI_WFC_NAME}>"/>
+                 alt="Back to the Administration of <{$smarty.const._MI_WFC_NAME}>">
         </a></h1>
 
     <h4 class="odd">Installation</h4>
@@ -27,7 +27,7 @@
     </li>
     <br><li><span style="text-decoration: underline;"><b>Change and verify folder permissions</b></span>
         <p>CHMOD the following folders to 777: </p>
-        <p><i>wfchannel/cache<br>wfchannel/images<br>wfchannel/images/linkimages<br>wfchannel/html<br>wfchannel/html/images<br>
+        <p><i>wfchannel/cache<br>wfchannel/assets/images<br>wfchannel/assets/images/linkimages<br>wfchannel/html<br>wfchannel/html/images<br>
             <br></i></p>
     </li>
     <li><span style="text-decoration: underline;"><b>Install the module</b></span>

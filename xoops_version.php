@@ -1,23 +1,22 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * Name: xoops_version.php
  * Description:
  *
- * @package    : Xoosla Modules
  * @Module     :
- * @subpackage :
  * @since      : v1.0.0
  * @author     John Neill <catzwolf@xoosla.com>
  * @copyright  : Copyright (C) 2009 Xoosla. All rights reserved.
  * @license    : GNU/LGPL, see docs/license.php
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 require_once __DIR__ . '/preloads/autoloader.php';
 
 $moduleDirName = basename(__DIR__);
 
-$modversion['version']       = 1.07;
+$modversion['version']       = '1.7.0';
 $modversion['module_status'] = 'Final';
 $modversion['release_date']  = '2016/11/26';
 $modversion['name']          = _MD_WF_RESOURCE;
@@ -32,9 +31,11 @@ $modversion['official']      = 0;
 $modversion['dirname']       = $moduleDirName;
 $modversion['image']         = 'images/logoModule.png';
 // Admin things
-$modversion['hasAdmin']                    = 0;
-$modversion['templates'][1]['file']        = 'wfp_addto.tpl';
-$modversion['templates'][1]['description'] = 'Displays an AddTo bar';
+$modversion['hasAdmin'] = 0;
+
+$modversion['templates'] = [
+    ['file' => 'wfp_addto.tpl', 'description' => 'Displays an AddTo bar'],
+];
 
 // ------------------- Help files ------------------- //
 $modversion['helpsection'] = [

@@ -27,7 +27,7 @@
     width: 74px !important;
     height: 18px !important;
     background-image: url("tab.active.png") !important;
-    background-repaet: no-repeat;
+    background-repeat: no-repeat;
 
     border-bottom-width: 0;
     z-index: 3;

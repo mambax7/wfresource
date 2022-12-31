@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 // ------------------------------------------------------------------------ //
 // Xoops - PHP Content Management System                                //
 // Copyright (c) 2007 Xoops                                         //
@@ -10,7 +10,7 @@
 // URL: http:www.Xoops.com                                              //
 // Project: Xoops Project                                               //
 // -------------------------------------------------------------------------//
-defined('XOOPS_ROOT_PATH') || die('You do not have permission to access this file!');
+defined('XOOPS_ROOT_PATH') || exit('You do not have permission to access this file!');
 
 /**
  * blogs
@@ -37,3 +37,10 @@ define('_MD_WFP_COMMENTCOUNT', 'Comments');
 define('_MD_WFP_RELATEDLINKS', 'Related Links');
 define('_MD_WFP_COUNTER', 'Read %u times');
 define('_MD_WFP_COMMENTCOUNTS', 'Comment Count');
+
+
+define('_MD_WFP_NEXTITEM', 'Next');
+define('_MD_WFP_PREVIOUSITEM', 'Previous');
+
+
+

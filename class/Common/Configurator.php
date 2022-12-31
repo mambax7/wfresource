@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Wfresource\Common;
+<?php declare(strict_types=1);
+
+namespace XoopsModules\Wfresource\Common;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -9,18 +11,14 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Configurator Class
  *
  * @copyright   XOOPS Project (https://xoops.org)
- * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license     GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author      XOOPS Development Team
- * @package     Publisher
- * @since       1.05
- *
  */
-
-require_once  dirname(dirname(__DIR__)) . '/include/common.php';
 
 /**
  * Class Configurator
@@ -35,18 +33,18 @@ class Configurator
     public $templateFolders = [];
     public $oldFiles        = [];
     public $oldFolders      = [];
+    public $renameTables    = [];
+    public $renameColumns   = [];
+    public $moduleStats     = [];
     public $modCopyright;
+    public $icons;
 
     /**
      * Configurator constructor.
      */
     public function __construct()
     {
-        $moduleDirName = basename(dirname(__DIR__));
-        $capsDirName   = strtoupper($moduleDirName);
-
-        include_once  dirname(dirname(__DIR__)) . '/include/config.php';
-        $config = getConfig();
+        $config = require \dirname(__DIR__, 2) . '/config/config.php';
 
         $this->name            = $config->name;
         $this->paths           = $config->paths;
@@ -56,6 +54,12 @@ class Configurator
         $this->templateFolders = $config->templateFolders;
         $this->oldFiles        = $config->oldFiles;
         $this->oldFolders      = $config->oldFolders;
+        $this->renameTables    = $config->renameTables;
+        $this->renameColumns   = $config->renameColumns;
+        $this->moduleStats     = $config->moduleStats;
         $this->modCopyright    = $config->modCopyright;
+
+        $this->icons = require \dirname(__DIR__, 2) . '/config/icons.php';
+        $this->paths = require \dirname(__DIR__, 2) . '/config/paths.php';
     }
 }

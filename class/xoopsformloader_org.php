@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 // require_once XOOPS_ROOT_PATH . "/class/xoopsform/formelement.php";
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/form.php';

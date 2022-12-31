@@ -1,11 +1,12 @@
-<?php
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+<?php declare(strict_types=1);
 
-require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
-if (!class_exists('XoopsFormButtonTray')) {
-    require XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formbuttontray.php';
-    require XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formselectcontest.php';
-}
-require XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formselectimage.php';
-require XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formdateselect.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+
+//if (!class_exists('XoopsFormButtonTray')) {
+//    require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formbuttontray.php';
+//    require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formselectcontest.php';
+//}
+//require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formselectimage.php';
+//require_once XOOPS_ROOT_PATH . '/modules/wfresource/class/xoopsforms/formdateselect.php';
