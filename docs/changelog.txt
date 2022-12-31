@@ -1,7 +1,7 @@
-<h5>1.07 Beta 1  [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.3
+<h5>2.0.0 Alpha 1  [2022-12-31]</h5>  Dev: Xoops 2.5.11, PHP 7.4 PHP 8.2
 <hr>
-- XOOPS 2.5.9, PHP 7 (mamba)
-- Converted to XOOPS 2.5.8 Admin GUI (mamba)
+- XOOPS 2.5.11, PHP 8.2 (mamba)
+- Converted to XOOPS 2.5.11 Admin GUI (mamba)
 - removed @version (mamba)
 - PSR-2 code cosmetics (mamba)
 - addNavigation(basename(__FILE__))  (mamba)
@@ -25,6 +25,9 @@
     &nbsp;&nbsp;- updated addInfoBoxLine entries (mamba)
     &nbsp;&nbsp;- displayNavigation(basename(__FILE__))  (mamba)
     &nbsp;&nbsp;- changed to ->displayButton('left') (mamba)
+- PHP 8.2 adjustments (mamba)
+- refactoring to Namespaces (mamba)
+
 
 <h5>1.06 [NOT RELEASED] </h5>
 <hr>

@@ -16,9 +16,9 @@ require_once __DIR__ . '/preloads/autoloader.php';
 
 $moduleDirName = basename(__DIR__);
 
-$modversion['version']       = '1.7.0';
-$modversion['module_status'] = 'Final';
-$modversion['release_date']  = '2016/11/26';
+$modversion['version']       = '2.0.0';
+$modversion['module_status'] = 'Alpha 1';
+$modversion['release_date']  = '2022/12/31';
 $modversion['name']          = _MD_WF_RESOURCE;
 $modversion['description']   = _MD_WF_RESOURCE_DSC;
 $modversion['author']        = 'Catzwolf';
