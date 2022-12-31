@@ -25,6 +25,8 @@ namespace XoopsModules\Wfresource\Xoopsforms;
  */
 class XoopsFormSelectCheckGroup extends XoopsFormCheckBox
 {
+private array $userGroups;
+
     /**
      * Constructor
      *

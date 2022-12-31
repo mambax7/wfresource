@@ -46,6 +46,7 @@ class XoopsFormCheckBox extends XoopsFormElement
      * @var int
      */
     public $columns;
+    private bool $_showbutton;
 
     /**
      * Constructor
